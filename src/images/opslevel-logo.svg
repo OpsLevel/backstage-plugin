@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="35px" viewBox="0 0 34 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>OpsLevel Logo in Blue</title>
+    <desc>Created with love by Team OpsLevel</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="OpsLevelLogo" transform="translate(1.000000, 1.000000)" stroke="#1890FF" stroke-width="1.5">
+            <polygon id="Combined-Shape" points="10 6.46153846 10 10.5 15.9988101 14 21.9976202 10.5 21.9976202 6.46016552 29 10.5 29 17.7510414 25.9988101 16 20 19.5 20 26.5 23.6128994 28.6079427 16 33 8.38590405 28.6072523 11.9976202 26.5 11.9976202 19.5 5.99881011 16 3 17.7496529 3 10.5"></polygon>
+            <g id="Mini-cube-Copy-5" transform="translate(10.000000, 0.000000)">
+                <polygon id="Polygon-Copy" points="5.99881011 0 11.9976202 3.5 11.9976202 10.5 5.99881011 14 4.3298698e-15 10.5 5.55111512e-16 3.5"></polygon>
+                <path d="M6.00285925,6.95070423 L6.00285925,13.9507042" id="Line-2" stroke-linecap="round"></path>
+                <path d="M0.0487804878,3.5 L6,6.95070423" id="Line" stroke-linecap="round"></path>
+                <path d="M11.9512195,3.5 L6,6.95070423" id="Line-Copy" stroke-linecap="round"></path>
+            </g>
+            <g id="Mini-cube-Copy-4" transform="translate(0.000000, 16.000000)">
+                <polygon id="Polygon-Copy" points="5.99881011 0 11.9976202 3.5 11.9976202 10.5 5.99881011 14 4.3298698e-15 10.5 5.55111512e-16 3.5"></polygon>
+                <path d="M6.00285925,6.95070423 L6.00285925,13.9507042" id="Line-2" stroke-linecap="round"></path>
+                <path d="M0.0487804878,3.5 L6,6.95070423" id="Line" stroke-linecap="round"></path>
+                <path d="M11.9512195,3.5 L6,6.95070423" id="Line-Copy" stroke-linecap="round"></path>
+            </g>
+            <g id="Mini-cube-Copy-3" transform="translate(20.000000, 16.000000)">
+                <polygon id="Polygon-Copy" points="5.99881011 0 11.9976202 3.5 11.9976202 10.5 5.99881011 14 4.3298698e-15 10.5 5.55111512e-16 3.5"></polygon>
+                <path d="M6.00285925,6.95070423 L6.00285925,13.9507042" id="Line-2" stroke-linecap="round"></path>
+                <path d="M0.0487804878,3.5 L6,6.95070423" id="Line" stroke-linecap="round"></path>
+                <path d="M11.9512195,3.5 L6,6.95070423" id="Line-Copy" stroke-linecap="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>
