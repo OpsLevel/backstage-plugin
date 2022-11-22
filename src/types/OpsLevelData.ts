@@ -1,3 +1,5 @@
+import { Entity } from '@backstage/catalog-model';
+
 export interface OpsLevelData {
   account: {
     rubric: {
@@ -13,3 +15,10 @@ export interface OpsLevelData {
     }
   }
 }
+
+export type OpsLevelApi = {
+  url: string;
+  getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
+  exportEntity: (entity: Entity) => Promise<any>;
+}
+

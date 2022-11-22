@@ -2,16 +2,11 @@ import { Config } from '@backstage/config';
 import { createApiRef } from '@backstage/core-plugin-api';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { GraphQLClient, gql } from 'graphql-request';
+import { OpsLevelApi } from './types/OpsLevelData';
 
 export const opslevelApiRef = createApiRef<OpsLevelApi>({
   id: 'plugin.opslevel.service',
 });
-
-export type OpsLevelApi = {
-  url: string;
-  getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
-  exportEntity: (entity: Entity) => Promise<any>;
-};
 
 export class OpsLevelGraphqlAPI implements OpsLevelApi {
   static fromConfig(config: Config) {
