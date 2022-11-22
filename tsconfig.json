@@ -34,14 +34,12 @@
     "stripInternal": true,
     "target": "ES2019",
     "types": ["node", "jest", "webpack-env"],
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "outDir": "dist-types",
+    "rootDir": "."
   },
   "include": [
     "src"
   ],
   "exclude": ["node_modules"],
-  "compilerOptions": {
-    "outDir": "dist-types",
-    "rootDir": "."
-  }
 }
