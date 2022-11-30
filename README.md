@@ -2,8 +2,8 @@
 
 This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.
 
-![OpsLevel Rubric and Maturity Report](docs/rubric.png)
-![Maturity Report in Backstage](docs/maturity.jpg)
+![](docs/rubric.png)
+![](docs/maturity.jpg)
 
 ## Install Plugin
 
