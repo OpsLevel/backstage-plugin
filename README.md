@@ -2,8 +2,13 @@
 
 This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.
 
+![OpsLevel Rubric and Maturity Report](docs/rubric.png)
+
 ## Install Plugin
 
+```bash
+yarn add backstage-plugin-opslevel-maturity
+```
 
 Update `app-config.yaml` to add a proxy for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
 
@@ -16,13 +21,45 @@ proxy:
       Authorization: Bearer <your_OpsLevel_API_token>
 ```
 
+If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 
 
-## Self-hosted OpsLevel
+## Add Route & Global nav
 
-If you're using a self-hosted OpsLevel instance, replace proxy `target` with your own domain.
+Update `packages/app/src/App.tsx`
+
+```jsx
+import { OpslevelMaturityPage } from 'backstage-plugin-opslevel-maturity';
+```
+```jsx
+    <Route path="/opslevel-maturity" element={<OpslevelMaturityPage />}/>
+```
 
 
-## Adding Plugin Components
+Update `packages/app/src/components/Root/Root.tsx`
 
-TODO - add routes, custom components etc.
+```tsx
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+
+```
+```tsx
+        <SidebarItem
+          icon={CheckCircleOutlineIcon}
+          to="opslevel-maturity"
+          text="Maturity"
+        />
+```
+
+
+## Add Entity tab for Maturity
+
+Update `packages/app/src/components/catalog/EntityPage.tsx`
+
+```tsx
+import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturity';
+```
+```tsx
+    <EntityLayout.Route path="/maturity" title="Service Maturity">
+      <EntityOpsLevelMaturityContent />
+    </EntityLayout.Route>
+```
