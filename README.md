@@ -3,6 +3,7 @@
 This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.
 
 ![OpsLevel Rubric and Maturity Report](docs/rubric.png)
+![Maturity Report in Backstage](docs/maturity.jpg)
 
 ## Install Plugin
 
@@ -53,7 +54,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 ## Add Entity tab for Maturity
 
-Update `packages/app/src/components/catalog/EntityPage.tsx`
+Add to the `serviceEntityPage` in `packages/app/src/components/catalog/EntityPage.tsx`
 
 ```tsx
 import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturity';
@@ -63,3 +64,7 @@ import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturit
       <EntityOpsLevelMaturityContent />
     </EntityLayout.Route>
 ```
+
+## Next Steps
+
+Visit the Maturity tab in Backstage to get started.
