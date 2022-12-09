@@ -12,6 +12,7 @@ With OpsLevel Checks, you can verify that services:
 * Are using a particular version of a library or framework
 * Have migrated to a new third-party tool (e.g., all services use Splunk)
 * Meet certain operational requirements (e.g., all Tier-1 services have an on-call schedule)
+
 And a whole lot more.
 
 Paired with our [Rubric](https://www.opslevel.com/docs/getting-started-with-rubrics), Checks allow you to get a holistic view of the health of your software ecosystem. This allows you to not just catalog and create new services but also take action to prevent outages and vulnerabilities.
