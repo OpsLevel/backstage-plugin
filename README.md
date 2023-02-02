@@ -23,7 +23,7 @@ With the plugin, you can view maturity progress in context with the rest of your
 ## Install Plugin
 
 ```bash
-yarn add --cwd packages/app backstage-plugin-opslevel-maturity
+yarn add --cwd packages/app @loadsmart/backstage-plugin-opslevel-maturity
 ```
 
 Update `app-config.yaml` to add a proxy for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
@@ -44,7 +44,7 @@ If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 Update `packages/app/src/App.tsx`
 
 ```jsx
-import { OpslevelMaturityPage } from 'backstage-plugin-opslevel-maturity';
+import { OpslevelMaturityPage } from '@loadsmart/backstage-plugin-opslevel-maturity';
 ```
 
 ```jsx
@@ -70,7 +70,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 In `packages/app/src/components/catalog/EntityPage.tsx` import the plugin and add it to `serviceEntityPage`. Optionally, you can also add it to `defaultEntityPage` and `websiteEntityPage`
 
 ```tsx
-import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturity';
+import { EntityOpsLevelMaturityContent } from '@loadsmart/backstage-plugin-opslevel-maturity';
 ```
 
 ```tsx
