@@ -87,6 +87,9 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       entity.spec.type = "service";
     }
 
+    const entityRef = stringifyEntityRef(entity);
+    const result = this.client.request(importEntity, { entityRef, entity })
+
     if (entity && entity.metadata && entity.metadata.annotations) {
       const sourceLocation = entity.metadata.annotations['backstage.io/source-location'];
       if (sourceLocation) {
@@ -96,9 +99,6 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
         this.client.request(serviceRepository, { entityAlias, repositoryAlias });
       }
     }
-
-    const entityRef = stringifyEntityRef(entity);
-    const result = this.client.request(importEntity, { entityRef, entity })
 
     return result
   }
