@@ -4,7 +4,13 @@ executors:
   node:
     working_directory: ~/project
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:lts
+
+lint: &lint
+  name: lint
+  command: |
+    yarn tsc
+    yarn lint
 
 jobs:
   setup:
@@ -31,7 +37,7 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
-          command: yarn lint
+          <<: *lint
 
   publish:
     executor: node
@@ -40,27 +46,26 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
+          <<: *lint
+      - run:
           command: yarn build
       - run:
           command: NPM_TOKEN=$NPMJS_TOKEN yarn release
 
 workflows:
   version: 2
-  ci:
+
+  main:
     jobs:
-      - setup
+      - setup:
+          context: org-global
 
       - lint:
           requires:
             - setup
-
-  release:
-    jobs:
-      - setup:
-          context: org-global
           filters:
             branches:
-              only: main
+              ignore: main
 
       - publish:
           context: org-global
