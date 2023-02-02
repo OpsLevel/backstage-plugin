@@ -63,8 +63,8 @@ export const EntityOpsLevelMaturityContent = () => {
   const levels = opsLevelData.account?.rubric?.levels?.nodes;
 
   if (!maturityReport) {
-    return <ServiceMaturityError error={"We don't have any maturity details for this service yet,"
-      + " please check back in a few minutes."}/>
+    return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
+      + " please check back in a few minutes."}/>)
   }
 
   async function exportEntity(event: React.MouseEvent) {
