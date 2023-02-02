@@ -58,7 +58,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
   }
 
   exportEntity(entity: Entity) {
-    const query = gql`
+    const importEntity = gql`
       mutation importEntityFromBackstage($entityRef: String!, $entity: JSON!) {
         importEntityFromBackstage(entityRef: $entityRef, entity: $entity) {
           errors {
@@ -70,7 +70,28 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       }
     `;
 
+    const serviceRepository = gql`
+      mutation serviceRepositoryCreate($entityAlias: String!, $repositoryAlias: String!) {
+        serviceRepositoryCreate(input: {
+          service: {alias:$entityAlias},
+          repository: {alias:$repositoryAlias},
+        }) {
+          errors {
+            message
+          }
+        }
+      }
+    `;
+
+    entity.spec.type = "service";
     const entityRef = stringifyEntityRef(entity);
-    return this.client.request(query, { entityRef, entity });
+    const entityAlias = entity.metadata.name;
+    const result = this.client.request(importEntity, { entityRef, entity })
+
+    const sourceLocation = entity.metadata.annotations['backstage.io/source-location'].split("/");
+    const repositoryAlias = `${sourceLocation[2]}:${sourceLocation[3]}/${sourceLocation[4]}`;
+    this.client.request(serviceRepository, { entityAlias, repositoryAlias });
+
+    return result
   }
 }
