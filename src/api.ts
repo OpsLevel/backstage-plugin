@@ -58,48 +58,96 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
   }
 
   exportEntity(entity: Entity) {
-    const importEntity = gql`
-      mutation importEntityFromBackstage($entityRef: String!, $entity: JSON!) {
-        importEntityFromBackstage(entityRef: $entityRef, entity: $entity) {
-          errors {
-            message
-          }
-          actionMessage
-          htmlUrl
-        }
-      }
-    `;
 
-    const serviceRepository = gql`
-      mutation serviceRepositoryCreate($entityAlias: String!, $repositoryAlias: String!) {
-        serviceRepositoryCreate(input: {
-          service: {alias:$entityAlias},
-          repository: {alias:$repositoryAlias},
-        }) {
-          errors {
-            message
-          }
+    const importEntityFromBackstage = `
+    mutation importAndCreate($entityRef: String!, $entity: JSON!, $entityAlias: String!, $repositoryAlias: String!) {
+      import: importEntityFromBackstage(entityRef: $entityRef, entity: $entity) {
+        errors {
+          message
+        }
+        actionMessage
+        htmlUrl
+      }
+      create: serviceRepositoryCreate(input: {service: {alias: $entityAlias}, repository: {alias: $repositoryAlias}}) {
+        serviceRepository {
+          id
+        }
+        errors {
+          message
         }
       }
+    }
     `;
 
     if (entity && entity.spec) {
+      if (entity.metadata && entity.metadata.tags) {
+        entity.metadata.tags.push(`type:${entity.spec.type}`);
+      }
       entity.spec.type = "service";
     }
-
-    const entityRef = stringifyEntityRef(entity);
-    const result = this.client.request(importEntity, { entityRef, entity })
 
     if (entity && entity.metadata && entity.metadata.annotations) {
       const sourceLocation = entity.metadata.annotations['backstage.io/source-location'];
       if (sourceLocation) {
         const sourceLocationParts = sourceLocation.split("/");
-        const repositoryAlias = `${sourceLocationParts[2]}:${sourceLocationParts[3]}/${sourceLocationParts[4]}`;
-        const entityAlias = entity.metadata.name;
-        this.client.request(serviceRepository, { entityAlias, repositoryAlias });
+        const input = {
+          entityRef: stringifyEntityRef(entity),
+          entity: entity,
+          entityAlias: entity.metadata.name,
+          repositoryAlias: `${sourceLocationParts[2]}:${sourceLocationParts[3]}/${sourceLocationParts[4]}`,
+        };
+        return this.client.request(importEntityFromBackstage, input);
       }
     }
 
-    return result
+    return Promise.resolve(null)
   }
+
+  updateServiceLanguage(entity: Entity) {
+    const getServiceLanguage = `
+      query getServiceLanguage($alias: String!) {
+        account {
+          service(alias: $alias) {
+            name
+            repos {
+              edges {
+                node {
+                  languages {
+                    name
+                    usage
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const serviceUpdate = `
+      mutation serviceUpdate($alias: String!, $language: String!) {
+        serviceUpdate(input: {alias: $alias, language: $language}) {
+          errors {
+            message
+          }
+        }
+      }
+    `;
+
+    const entityAlias = entity.metadata.name
+
+    this.client.request(getServiceLanguage, { alias: entityAlias }).then((result) => {
+      let serviceLanguage = result.account.service.repos.edges[0].node.languages[0];
+      for (let i = 1; i < result.account.service.repos.edges[0].node.languages.length; i++) {
+        if (result.account.service.repos.edges[0].node.languages[i].usage > serviceLanguage.usage) {
+          serviceLanguage = result.account.service.repos.edges[0].node.languages[i];
+        }
+      }
+      return this.client.request(serviceUpdate, { alias: entityAlias, language: serviceLanguage.name })
+    });
+
+    return Promise.resolve(null)
+
+  }
+
 }

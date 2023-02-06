@@ -27,9 +27,9 @@ function startExportMessage(entity: Entity) {
 }
 
 function finishExportMessage(result: any) {
-  let message = result.importEntityFromBackstage.actionMessage;
-  if (result.importEntityFromBackstage.errors.length) {
-    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
+  let message = result.importEntityFromBackstage.import.actionMessage;
+  if (result.importEntityFromBackstage.import.errors.length) {
+    message += ` (error: ${result.importEntityFromBackstage.import.errors[0].message})`;
   }
   return message;
 }
@@ -55,6 +55,8 @@ export function ExportEntitiesForm() {
       setOutput(localOutput);
 
       const result = await opslevelApi.exportEntity(entity);
+
+      await opslevelApi.updateServiceLanguage(entity)
 
       localOutput += `${finishExportMessage(result)}\n`;
       setOutput(localOutput);
