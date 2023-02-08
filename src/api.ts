@@ -8,6 +8,8 @@ export const opslevelApiRef = createApiRef<OpsLevelApi>({
   id: 'plugin.opslevel.service',
 });
 
+const frameworkList = ["django"];
+
 export class OpsLevelGraphqlAPI implements OpsLevelApi {
   static fromConfig(config: Config) {
     return new OpsLevelGraphqlAPI(config.getString('backend.baseUrl'));
@@ -127,7 +129,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     `;
 
     const serviceUpdate = `
-      mutation serviceUpdate($alias: String!, $language: String!, $tierAlias: String!, $framework: String!) {
+      mutation serviceUpdate($alias: String!, $language: String!, $tierAlias: String, $framework: String) {
         serviceUpdate(input: {alias: $alias, language: $language, tierAlias: $tierAlias, framework: $framework}) {
           errors {
             message
@@ -137,11 +139,10 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     `;
 
     const entityAlias = entity.metadata.name
-    const frameworkList = ["django"];
 
     let response = Promise.resolve(null)
-    let tierAlias: string | undefined = "None";
-    let framework: string | undefined = "None";
+    let tierAlias: string | undefined;
+    let framework: string | undefined;
 
     this.client.request(getServiceLanguage, { alias: entityAlias }).then((result) => {
 
@@ -156,6 +157,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       }
 
       const tags = entity.metadata?.tags;
+
       if (tags) {
         framework = tags.find(tag => frameworkList.includes(tag));
       }
