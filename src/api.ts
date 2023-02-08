@@ -79,14 +79,16 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     }
     `;
 
-    if (entity && entity.spec) {
+    let response = Promise.resolve(null)
+
+    if (entity.spec) {
       if (entity.metadata && entity.metadata.tags) {
         entity.metadata.tags.push(`type:${entity.spec.type}`);
       }
       entity.spec.type = "service";
     }
 
-    if (entity && entity.metadata && entity.metadata.annotations) {
+    if (entity.metadata && entity.metadata.annotations) {
       const sourceLocation = entity.metadata.annotations['backstage.io/source-location'];
       if (sourceLocation) {
         const sourceLocationParts = sourceLocation.split("/");
@@ -96,14 +98,14 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
           entityAlias: entity.metadata.name,
           repositoryAlias: `${sourceLocationParts[2]}:${sourceLocationParts[3]}/${sourceLocationParts[4]}`,
         };
-        return this.client.request(importEntityFromBackstage, input);
+        response =  this.client.request(importEntityFromBackstage, input);
       }
     }
 
-    return Promise.resolve(null)
+    return response
   }
 
-  updateServiceLanguage(entity: Entity) {
+  updateService(entity: Entity) {
     const getServiceLanguage = `
       query getServiceLanguage($alias: String!) {
         account {
@@ -125,8 +127,8 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     `;
 
     const serviceUpdate = `
-      mutation serviceUpdate($alias: String!, $language: String!) {
-        serviceUpdate(input: {alias: $alias, language: $language}) {
+      mutation serviceUpdate($alias: String!, $language: String!, $tierAlias: String!, $framework: String!) {
+        serviceUpdate(input: {alias: $alias, language: $language, tierAlias: $tierAlias, framework: $framework}) {
           errors {
             message
           }
@@ -135,18 +137,45 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     `;
 
     const entityAlias = entity.metadata.name
+    const frameworkList = ["django"];
+
+    let response = Promise.resolve(null)
+    let tierAlias: string | undefined = "None";
+    let framework: string | undefined = "None";
 
     this.client.request(getServiceLanguage, { alias: entityAlias }).then((result) => {
-      let serviceLanguage = result.account.service.repos.edges[0].node.languages[0];
-      for (let i = 1; i < result.account.service.repos.edges[0].node.languages.length; i++) {
-        if (result.account.service.repos.edges[0].node.languages[i].usage > serviceLanguage.usage) {
-          serviceLanguage = result.account.service.repos.edges[0].node.languages[i];
+
+      const repos = result.account.service.repos.edges[0].node;
+      let serviceLanguage = repos.languages[0];
+
+      for (let i = 1; i < repos.languages.length; i++) {
+        const currentLanguage = repos.languages[i];
+        if (currentLanguage.usage > serviceLanguage.usage) {
+          serviceLanguage = currentLanguage;
         }
       }
-      return this.client.request(serviceUpdate, { alias: entityAlias, language: serviceLanguage.name })
+
+      const tags = entity.metadata?.tags;
+      if (tags) {
+        framework = tags.find(tag => frameworkList.includes(tag));
+      }
+
+      if (entity.metadata.annotations) {
+        if (entity.metadata.annotations["opslevel.com/tier"]) {
+          tierAlias = entity.metadata.annotations["opslevel.com/tier"]
+        }
+        if (entity.metadata.annotations["opslevel.com/framework"]) {
+          framework = entity.metadata.annotations["opslevel.com/framework"]
+        }
+      }
+      response = this.client.request(serviceUpdate, { alias: entityAlias,
+                                                      language: serviceLanguage.name,
+                                                      tierAlias: tierAlias,
+                                                      framework: framework,
+                                                      })
     });
 
-    return Promise.resolve(null)
+    return response
 
   }
 

@@ -20,6 +20,6 @@ export type OpsLevelApi = {
   url: string;
   getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
   exportEntity: (entity: Entity) => Promise<any>;
-  updateServiceLanguage: (entity: Entity) => Promise<any>;
+  updateService: (entity: Entity) => Promise<any>;
 }
 

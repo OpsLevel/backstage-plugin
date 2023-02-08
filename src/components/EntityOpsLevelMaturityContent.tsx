@@ -77,7 +77,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
     showSnackbar({ message: exportEntityResult?.import.actionMessage, severity: "success", duration: 5000 });
 
-    await opslevelApi.updateServiceLanguage(entity)
+    await opslevelApi.updateService(entity)
 
     setExporting(false);
 
