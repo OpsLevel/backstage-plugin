@@ -1,6 +1,6 @@
 {
   "name": "@loadsmart/backstage-plugin-opslevel-maturity",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "main": "src/index.ts",
   "types": "src/index.ts",
   "license": "Apache-2.0",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/loadsmart/backstage-plugin.git"
+    "url": "git+https://github.com/loadsmart/opslevel-backstage-plugin.git"
   },
   "backstage": {
     "role": "frontend-plugin"
@@ -96,9 +96,9 @@
   ],
   "description": "This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.",
   "bugs": {
-    "url": "https://github.com/loadsmart/backstage-plugin/issues"
+    "url": "https://github.com/loadsmart/opslevel-backstage-plugin/issues"
   },
-  "homepage": "https://github.com/loadsmart/backstage-plugin#readme",
+  "homepage": "https://github.com/loadsmart/opslevel-backstage-plugin#readme",
   "directories": {
     "doc": "docs"
   },

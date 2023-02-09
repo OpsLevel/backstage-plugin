@@ -1,10 +1,10 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: backstage-plugin
+  name: opslevel-backstage-plugin
   description: OpsLevel's Service Maturity plugin for Backstage
   annotations:
-    github.com/project-slug: loadsmart/backstage-plugin
+    github.com/project-slug: loadsmart/opslevel-backstage-plugin
   tags:
     - typescript
 spec:
