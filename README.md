@@ -30,8 +30,8 @@ Update `app-config.yaml` to add a proxy for OpsLevel. Replace `<your_OpsLevel_AP
 
 ```yaml
 proxy:
-  '/opslevel':
-    target: 'https://app.opslevel.com'
+  "/opslevel":
+    target: "https://app.opslevel.com"
     headers:
       X-Custom-Source: backstage
       Authorization: Bearer <your_OpsLevel_API_token>
@@ -39,12 +39,23 @@ proxy:
 
 If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 
+## Configuration
+
+Update `app-config.yaml` to add a framework list and extend the export functionality.
+
+```yaml
+opslevel:
+  frameworks: ["django", "fastapi", "spring"]
+```
+
+Backstage components that contain any tag value listed on `opslevel.frameworks` are exported to the framework field into Opslevel.
+
 ## Add Route & Global nav
 
 Update `packages/app/src/App.tsx`
 
 ```jsx
-import { OpslevelMaturityPage } from '@loadsmart/backstage-plugin-opslevel-maturity';
+import { OpslevelMaturityPage } from "@loadsmart/backstage-plugin-opslevel-maturity";
 ```
 
 ```jsx
@@ -54,7 +65,7 @@ import { OpslevelMaturityPage } from '@loadsmart/backstage-plugin-opslevel-matur
 Update `packages/app/src/components/Root/Root.tsx`
 
 ```tsx
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 ```
 
 ```tsx
@@ -70,7 +81,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 In `packages/app/src/components/catalog/EntityPage.tsx` import the plugin and add it to `serviceEntityPage`. Optionally, you can also add it to `defaultEntityPage` and `websiteEntityPage`
 
 ```tsx
-import { EntityOpsLevelMaturityContent } from '@loadsmart/backstage-plugin-opslevel-maturity';
+import { EntityOpsLevelMaturityContent } from "@loadsmart/backstage-plugin-opslevel-maturity";
 ```
 
 ```tsx
