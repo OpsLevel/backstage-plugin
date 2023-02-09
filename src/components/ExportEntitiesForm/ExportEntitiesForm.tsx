@@ -27,9 +27,9 @@ function startExportMessage(entity: Entity) {
 }
 
 function finishExportMessage(result: any) {
-  let message = result.importEntityFromBackstage.actionMessage;
-  if (result.importEntityFromBackstage.errors.length) {
-    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
+  let message = result.import.actionMessage;
+  if (result.import.errors.length) {
+    message += ` (error: ${result.import.errors[0].message})`;
   }
   return message;
 }
@@ -55,6 +55,8 @@ export function ExportEntitiesForm() {
       setOutput(localOutput);
 
       const result = await opslevelApi.exportEntity(entity);
+
+      await opslevelApi.updateService(entity)
 
       localOutput += `${finishExportMessage(result)}\n`;
       setOutput(localOutput);
@@ -97,7 +99,7 @@ export function ExportEntitiesForm() {
           variant="contained"
           color="primary"
           target="_blank"
-          href={"https://app.opslevel.com/reports/rubric"}
+          href="https://app.opslevel.com/reports/rubric"
         >
           View Full Maturity Report in OpsLevel
         </Button>

@@ -1,0 +1,76 @@
+version: 2.1
+
+executors:
+  node:
+    working_directory: ~/project
+    docker:
+      - image: cimg/node:18.13.0
+
+lint: &lint
+  name: lint
+  command: |
+    yarn tsc
+    yarn lint
+
+jobs:
+  setup:
+    executor: node
+    steps:
+      - checkout
+      - restore_cache:
+          key: lock-{{ checksum "yarn.lock" }}
+      - run:
+          command: yarn
+      - save_cache:
+          key: lock-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
+
+  lint:
+    executor: node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          <<: *lint
+
+  publish:
+    executor: node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          <<: *lint
+      - run:
+          command: yarn build
+      - run:
+          command: NPM_TOKEN=$NPMJS_TOKEN yarn release
+
+workflows:
+  version: 2
+
+  main:
+    jobs:
+      - setup:
+          context: org-global
+
+      - lint:
+          requires:
+            - setup
+          filters:
+            branches:
+              ignore: main
+
+      - publish:
+          context: org-global
+          requires:
+            - setup
+          filters:
+            branches:
+              only: main

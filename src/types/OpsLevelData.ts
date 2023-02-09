@@ -18,7 +18,9 @@ export interface OpsLevelData {
 
 export type OpsLevelApi = {
   url: string;
+  frameworks: string[];
   getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
   exportEntity: (entity: Entity) => Promise<any>;
+  updateService: (entity: Entity) => Promise<any>;
 }
 
