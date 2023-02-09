@@ -8,16 +8,15 @@ export const opslevelApiRef = createApiRef<OpsLevelApi>({
   id: 'plugin.opslevel.service',
 });
 
-const frameworkList = ["django"];
-
 export class OpsLevelGraphqlAPI implements OpsLevelApi {
   static fromConfig(config: Config) {
-    return new OpsLevelGraphqlAPI(config.getString('backend.baseUrl'));
+    return new OpsLevelGraphqlAPI(config.getString('backend.baseUrl'),
+                                 config.getOptionalStringArray('opslevel.frameworks') ?? ['']);
   }
 
   private client;
 
-  constructor(public url: string) {
+  constructor(public url: string, public frameworks: string[]) {
     this.client = new GraphQLClient(`${this.url}/api/proxy/opslevel/graphql`);
   }
 
@@ -159,7 +158,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       const tags = entity.metadata?.tags;
 
       if (tags) {
-        framework = tags.find(tag => frameworkList.includes(tag));
+        framework = tags.find(tag => this.frameworks.includes(tag));
       }
 
       if (entity.metadata.annotations) {
