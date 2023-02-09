@@ -82,10 +82,8 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
 
     let response = Promise.resolve(null)
 
+    entity.metadata.tags?.push(`type:${entity.spec?.type}`);
     if (entity.spec) {
-      if (entity.metadata && entity.metadata.tags) {
-        entity.metadata.tags.push(`type:${entity.spec.type}`);
-      }
       entity.spec.type = "service";
     }
 
@@ -146,31 +144,20 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     this.client.request(getServiceLanguage, { alias: entityAlias }).then((result) => {
 
       const repos = result.account.service.repos.edges[0].node;
-      let serviceLanguage = repos.languages[0];
+      const languages: {name: string, usage: number}[] = repos.languages;
 
-      for (let i = 1; i < repos.languages.length; i++) {
-        const currentLanguage = repos.languages[i];
-        if (currentLanguage.usage > serviceLanguage.usage) {
-          serviceLanguage = currentLanguage;
-        }
+      const primaryLanguage = languages.reduce((prev, curr) =>
+                                               curr.usage > prev.usage ? curr : prev, languages[0]);
+
+      framework = entity.metadata.annotations?.["opslevel.com/framework"]
+      if (framework === undefined) {
+        framework = entity.metadata.tags?.find(tag => this.frameworks.includes(tag));
       }
 
-      const tags = entity.metadata?.tags;
+      tierAlias = entity.metadata.annotations?.["opslevel.com/tier"]
 
-      if (tags) {
-        framework = tags.find(tag => this.frameworks.includes(tag));
-      }
-
-      if (entity.metadata.annotations) {
-        if (entity.metadata.annotations["opslevel.com/tier"]) {
-          tierAlias = entity.metadata.annotations["opslevel.com/tier"]
-        }
-        if (entity.metadata.annotations["opslevel.com/framework"]) {
-          framework = entity.metadata.annotations["opslevel.com/framework"]
-        }
-      }
       response = this.client.request(serviceUpdate, { alias: entityAlias,
-                                                      language: serviceLanguage.name,
+                                                      language: primaryLanguage.name,
                                                       tierAlias: tierAlias,
                                                       framework: framework,
                                                       })
