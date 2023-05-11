@@ -34,11 +34,10 @@ export class Scorecard extends React.Component<Props, State> {
         },
         fieldCell: {
             textAlign: "center",
-            width: "18.75%"
         },
         field: {
             display: "inline-block",
-            width: "100%",
+            width: "calc(100% - 10px)",
             height: "20px",
             marginLeft: "5px",
             marginRight: "5px",
@@ -91,7 +90,7 @@ export class Scorecard extends React.Component<Props, State> {
                             <tr key={`cat_${lc.category.name}`}>
                                 <td style={!!lc.level ? this.styles.categoryHeader : this.styles.inactiveCategoryHeader}>{lc.category.name}</td>
                                 {this.state.sortedLevels.map(level => (
-                                    <td key={`cat_${lc.category.name}_lvl_${level.name}`} style={this.styles.fieldCell}><div style={this.getFieldStyle(lc.level, level)}/></td>
+                                    <td key={`cat_${lc.category.name}_lvl_${level.name}`} style={{width: `${75.0/this.state.sortedLevels.length}%`, ...this.styles.fieldCell}}><div style={this.getFieldStyle(lc.level, level)}/></td>
                                 ))}
                             </tr>
                         ))}
