@@ -14,8 +14,6 @@ import { OpsLevelData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 
 export const EntityOpsLevelMaturityContent = () => {
-
-
   const { entity } = useEntity();
   const opslevelApi = useApi(opslevelApiRef);
   const serviceAlias = stringifyEntityRef(entity);
@@ -25,11 +23,11 @@ export const EntityOpsLevelMaturityContent = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbar, setSnackbar] = useState<SnackbarProps>({ message: "", severity: "info" });
   const [fetchState, doFetch] = useAsyncFn(async () => {
-      const result = await opslevelApi.getServiceMaturityByAlias(serviceAlias)
+    const result = await opslevelApi.getServiceMaturityByAlias(serviceAlias)
 
-      if (result) {
-        setOpsLevelData(result);
-      }
+    if (result) {
+      setOpsLevelData(result);
+    }
   });
   useAsync(doFetch, [serviceAlias])
 

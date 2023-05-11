@@ -49,12 +49,33 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                 }
               }
             }
+            serviceStats {
+              rubric {
+                checkResults {
+                  byLevel {
+                    nodes {
+                      level {
+                        name
+                      }
+                      items {
+                        nodes {
+                          check {
+                            name
+                          }
+                          status
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     `;
 
-    return this.client.request(query, { alias: serviceAlias });
+    return this.client.request(query, { alias: serviceAlias }, {"graphql-visibility": "internal"});
   }
 
   exportEntity(entity: Entity) {

@@ -42,7 +42,7 @@
     "@types/enzyme": "^3.10.13",
     "enzyme": "^3.11.0",
     "graphql": "^16.6.0",
-    "graphql-request": "^5.0.0",
+    "graphql-request": "^6.0.0",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0",
     "react-router": "6.0.0-beta.0 || ^6.3.0",
