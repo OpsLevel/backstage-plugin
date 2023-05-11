@@ -65,7 +65,7 @@ export class Scorecard extends React.Component<Props, State> {
         if(activeLevel === null) return {...this.styles.field, ...this.styles.disabledField};
         if(activeLevel.name !== currentLevel.name)
             return {...this.styles.field, ...this.styles.inactiveField};
-        const color = levelColor(this.state.sortedLevels.length, currentLevel.index);
+        const color = levelColor(this.state.sortedLevels.length, this.state.sortedLevels.indexOf(currentLevel));
         return {
             ...this.styles.field,
             backgroundColor: color.secondary,
