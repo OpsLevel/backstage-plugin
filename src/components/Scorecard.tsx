@@ -57,7 +57,7 @@ export class Scorecard extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            sortedLevels: props.levels.sort((a: Level, b: Level) => (a.index - b.index))
+            sortedLevels: [...props.levels].sort((a: Level, b: Level) => (a.index - b.index))
         }
     }
 
