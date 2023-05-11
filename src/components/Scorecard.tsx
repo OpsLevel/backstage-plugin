@@ -77,7 +77,7 @@ export class Scorecard extends React.Component<Props, State> {
     render() {
         return (
             <InfoCard title="Scorecard">
-                <table style={{ width:"100%" }}>
+                <table style={{ width:"100%", backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "5px" }}>
                     <thead>
                         <tr style={this.styles.levelHeader}>
                             <td>&nbsp;</td>
