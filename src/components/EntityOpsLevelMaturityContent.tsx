@@ -5,6 +5,7 @@ import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { OverallLevel } from './OverallLevel';
 import { EntityOpsLevelMaturityProgress } from './EntityOpsLevelMaturityProgress';
+import { Scorecard } from './Scorecard';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
@@ -61,10 +62,11 @@ export const EntityOpsLevelMaturityContent = () => {
 
   const { maturityReport } = service;
   const levels = opsLevelData.account?.rubric?.levels?.nodes;
+  const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
 
   if (!maturityReport) {
-    return <ServiceMaturityError error={"We don't have any maturity details for this service yet,"
-      + " please check back in a few minutes."}/>
+    return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
+      + " please check back in a few minutes."}/>)
   }
 
   async function exportEntity(event: React.MouseEvent) {
@@ -140,11 +142,14 @@ export const EntityOpsLevelMaturityContent = () => {
         </Grid>
       </Grid>
       <Grid container item spacing={2}>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <OverallLevel maturityReport={maturityReport} />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={8}>
           <EntityOpsLevelMaturityProgress levels={levels} serviceLevel={maturityReport?.overallLevel}/>
+        </Grid>
+        <Grid item xs={4}>
+          <Scorecard levels={levels} levelCategories={levelCategories}/>
         </Grid>
       </Grid>
     </>);

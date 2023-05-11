@@ -97,7 +97,7 @@ export function ExportEntitiesForm() {
           variant="contained"
           color="primary"
           target="_blank"
-          href={"https://app.opslevel.com/reports/rubric"}
+          href="https://app.opslevel.com/reports/rubric"
         >
           View Full Maturity Report in OpsLevel
         </Button>
