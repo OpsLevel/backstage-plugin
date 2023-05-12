@@ -4,15 +4,20 @@ export interface OpsLevelData {
   account: {
     rubric: {
       levels: {
-        nodes: Array<Object>
+        nodes: Array<{index: number, name: string}>
       }
     },
     service: {
       htmlUrl: string,
       maturityReport?: {
-        overallLevel: Object
+        overallLevel: Object,
+        categoryBreakdown: Array<{
+          level: { name: string },
+          category: { name: string }
+        }>,
       }
-    }
+    },
+
   }
 }
 

@@ -1,10 +1,12 @@
 {
   "extends": "@backstage/cli/config/tsconfig.json",
   "compilerOptions": {
+    "jsx": "react",
     "outDir": "dist-types",
-    "rootDir": "."
+    "rootDir": ".",
+    "checkJs": true,
   },
   "include": [
     "src"
-  ]
+  ],
 }
