@@ -1,5 +1,5 @@
 import React from 'react';
-import { InfoCard, OverflowTooltip} from '@backstage/core-components';
+import { InfoCard, OverflowTooltip } from '@backstage/core-components';
 import { levelColor } from '../helpers/level_color_helper';
 import CSS from 'csstype';
 
