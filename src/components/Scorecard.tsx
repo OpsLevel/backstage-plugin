@@ -1,8 +1,8 @@
 import React from 'react';
-import { InfoCard, OverflowTooltip } from '@backstage/core-components';
+import { InfoCard } from '@backstage/core-components';
 import { levelColor } from '../helpers/level_color_helper';
 import CSS from 'csstype';
-
+import { Tooltip } from '@mui/material';
 
 type Level = {
     index: number,
@@ -20,21 +20,30 @@ type State = {
 
 export class Scorecard extends React.Component<Props, State> {
     styles: Record<string, CSS.Properties> = {
-        levelHeader: {
+        levelHeaderRow: {
             textAlign: "center",
             color: "rgba(0, 0, 0, 0.65)",
         },
-        categoryHeaderCell: {
+        levelHeaderCell: {
             padding: "5px",
             paddingBottom: "10px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
         },
-        categoryHeader: {
+        categoryHeaderCell: {
             textAlign: "right",
             color: "rgba(0, 0, 0, 0.65)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
         },
-        inactiveCategoryHeader: {
+        inactiveCategoryHeaderCell: {
             textAlign: "right",
             color: "rgb(204, 204, 204)",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
         },
         fieldCell: {
             textAlign: "center",
@@ -82,11 +91,11 @@ export class Scorecard extends React.Component<Props, State> {
             <InfoCard title="Scorecard">
                 <table style={{ width:"100%", backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "5px", tableLayout: "fixed" }}>
                     <thead>
-                        <tr style={this.styles.levelHeader}>
+                        <tr style={this.styles.levelHeaderRow}>
                             <td style={{width: "25%"}}>&nbsp;</td>
                             {this.state.sortedLevels.map(level => (
-                                <td key={`lvl_${level.name}`} style={this.styles.categoryHeaderCell}>
-                                    <OverflowTooltip title={level.name} text={level.name} placement="top"/>
+                                <td key={`lvl_${level.name}`} style={this.styles.levelHeaderCell}>
+                                    <Tooltip title={level.name} placement="top"><span>{level.name}</span></Tooltip>
                                 </td>
                             ))}
                         </tr>
@@ -94,8 +103,8 @@ export class Scorecard extends React.Component<Props, State> {
                     <tbody>
                         {!!this.props.levelCategories && this.props.levelCategories.map(lc => (
                             <tr key={`cat_${lc.category.name}`}>
-                                <td style={!!lc.level ? this.styles.categoryHeader : this.styles.inactiveCategoryHeader}>
-                                    <OverflowTooltip title={lc.category.name} text={lc.category.name} placement="top"/>
+                                <td style={!!lc.level ? this.styles.categoryHeaderCell : this.styles.inactiveCategoryHeaderCell}>
+                                    <Tooltip title={lc.category.name} placement="top"><span>{lc.category.name}</span></Tooltip>
                                 </td>
                                 {this.state.sortedLevels.map(level => (
                                     <td key={`cat_${lc.category.name}_lvl_${level.name}`} style={{width: `${75.0/this.state.sortedLevels.length}%`, ...this.styles.fieldCell}}><div style={this.getFieldStyle(lc.level, level)}/></td>

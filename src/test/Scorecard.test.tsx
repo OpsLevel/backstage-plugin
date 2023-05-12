@@ -25,7 +25,7 @@ describe('Scorecard', () => {
 
     it('test', () => {
         const headerCells = wrapper.find("td");
-        expect(headerCells.at(0).html()).toEqual("<td>&nbsp;</td>");
+        expect(headerCells.at(0).html()).toEqual("<td style=\"width: 25%;\">&nbsp;</td>");
         expect(headerCells.at(1).text()).toEqual("Not so great");
         expect(headerCells.at(2).text()).toEqual("Slightly better");
         expect(headerCells.at(3).text()).toEqual("Meh");
