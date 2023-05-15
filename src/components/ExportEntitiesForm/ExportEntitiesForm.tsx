@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Box, Button, Divider, Link, Typography } from '@material-ui/core';
+import { Button, Divider, Link, Typography } from '@material-ui/core';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core-components';
@@ -75,15 +75,15 @@ export function ExportEntitiesForm() {
     <InfoCard title={header}>
       <Typography paragraph>
         The <Link href="https://www.opslevel.com" target="_blank">OpsLevel</Link> Backstage plugin allows you to utilize OpsLevel’s powerful Service Maturity model within your
-        Backstage Instance. After clicking <Box sx={{ fontWeight: "bold" }} display="inline">export</Box> your
+        Backstage Instance. After clicking <b>export</b> your
         Backstage Services will be populated into your OpsLevel account as Services. From there, you can
         apply <Link href="https://www.opslevel.com/docs/checks-and-filters" target="_blank">Checks</Link> to your
         Services and begin to build your <Link href="https://www.opslevel.com/docs/getting-started-with-rubrics" target="_blank">Maturity Rubric</Link>.
       </Typography>
       <Typography paragraph>
         Your <Link href="https://www.opslevel.com/docs/categories-and-levels#levels" target="_blank">Service Levels</Link> will
-        be reflected back into your Backstage Instance via a new <Box sx={{ fontWeight: "bold" }} display="inline">Maturity</Box> tab.
-        This tab will provide you with a full <Link href="https://www.opslevel.com/docs/maturity-report" target="_blank">Maturity Report</Link> for
+        be reflected back into your Backstage Instance via a new <b>Maturity</b> tab when viewing a Component.
+        This tab provides a full <Link href="https://www.opslevel.com/docs/maturity-report" target="_blank">Maturity Report</Link> for
         your Backstage Services.
       </Typography>
       <Typography paragraph>

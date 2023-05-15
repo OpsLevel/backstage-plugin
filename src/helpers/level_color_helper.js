@@ -59,7 +59,7 @@ const beginner = {
     diamond,
   };
   
-  const availableColors = (totalLevels: number) => {
+  const availableColors = (totalLevels) => {
     const levelColors = {
       beginner: true,
       bronze: totalLevels > 3,
@@ -76,7 +76,11 @@ const beginner = {
   // `levelPosition` refers to the level's position relative the other levels in the account. This is not always the
   //    level's index since it's possible for gaps in level indexes to exist. e.g. for an account
   //    with levels with indexes 0,1,2,4,5, the corresponding levelPositions would be 0,1,2,3,4
-  export const levelColor = (totalLevels: number, levelPosition: number) => {
+  export const levelColor = (totalLevels, levelPosition) => {
     const filteredColors = availableColors(totalLevels);
     return ColorMap[filteredColors[levelPosition]];
+  };
+
+  export const levelColorPalette = (totalLevels) => {
+    return availableColors(totalLevels).map((color) => ColorMap[color]);
   };

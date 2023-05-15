@@ -10,7 +10,7 @@ import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
-import { OpsLevelData } from '../types/OpsLevelData';
+import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 
 export const EntityOpsLevelMaturityContent = () => {
@@ -20,16 +20,16 @@ export const EntityOpsLevelMaturityContent = () => {
   const opslevelApi = useApi(opslevelApiRef);
   const serviceAlias = stringifyEntityRef(entity);
 
-  const [opsLevelData, setOpsLevelData] = useState<OpsLevelData>();
+  const [opsLevelData, setOpsLevelData] = useState<OpsLevelServiceData>();
   const [exporting, setExporting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbar, setSnackbar] = useState<SnackbarProps>({ message: "", severity: "info" });
   const [fetchState, doFetch] = useAsyncFn(async () => {
-      const result = await opslevelApi.getServiceMaturityByAlias(serviceAlias)
+    const result = await opslevelApi.getServiceMaturityByAlias(serviceAlias)
 
-      if (result) {
-        setOpsLevelData(result);
-      }
+    if (result) {
+      setOpsLevelData(result);
+    }
   });
   useAsync(doFetch, [serviceAlias])
 
