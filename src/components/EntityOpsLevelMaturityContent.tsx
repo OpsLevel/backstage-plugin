@@ -12,6 +12,7 @@ import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { OpsLevelData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
+import { CheckResultsByLevel } from './CheckResultsByLevel';
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -61,6 +62,7 @@ export const EntityOpsLevelMaturityContent = () => {
   const { maturityReport } = service;
   const levels = opsLevelData.account?.rubric?.levels?.nodes;
   const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
+  const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes
 
   if (!maturityReport) {
     return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
@@ -144,10 +146,16 @@ export const EntityOpsLevelMaturityContent = () => {
           <OverallLevel maturityReport={maturityReport} />
         </Grid>
         <Grid item xs={8}>
-          <EntityOpsLevelMaturityProgress levels={levels} serviceLevel={maturityReport?.overallLevel}/>
+          <EntityOpsLevelMaturityProgress
+            levels={levels}
+            serviceLevel={maturityReport?.overallLevel}
+            />
         </Grid>
         <Grid item xs={4}>
           <Scorecard levels={levels} levelCategories={levelCategories}/>
+        </Grid>
+        <Grid item xs={8}>
+          <CheckResultsByLevel checkResultsByLevel={checkResultsByLevel} />
         </Grid>
       </Grid>
     </>);
