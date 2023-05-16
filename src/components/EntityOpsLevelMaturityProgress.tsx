@@ -68,18 +68,23 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
         >
           <div>
             {levelIcon}
-            <span
+            <div
               style={{
-                textAlign: 'center',
-                position: 'absolute',
-                marginTop: '30px',
-                width: '120px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
+                width: "0px",
+                height: "0px",
+                display: "block",
+                position: "relative",
+                transform: "translate(-60px)"
               }}
             >
-              {level.name}
-            </span>
+              <div style={{
+                width: "120px",
+                textAlign: "center",
+                overflow: "hidden",
+              }}>
+                {level.name}
+              </div>
+            </div>
           </div>
         </Tooltip>
         {last ? null : progressComponent}
@@ -96,6 +101,8 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
           justifyContent: 'space-between',
           width: '100%',
           minHeight: '90px',
+          paddingLeft: '25px',
+          paddingRight: '25px'
         }}
       >
         {levelComponents}
