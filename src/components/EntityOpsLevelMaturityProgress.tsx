@@ -81,8 +81,6 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
                 width: "120px",
                 textAlign: "center",
                 overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap"
               }}>
                 {level.name}
               </div>
