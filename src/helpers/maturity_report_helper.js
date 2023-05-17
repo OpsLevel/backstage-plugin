@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { escape } from "lodash";
 
 export const mountInitialLevelArray = (levels) => {

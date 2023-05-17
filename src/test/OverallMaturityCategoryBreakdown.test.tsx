@@ -19,9 +19,12 @@ describe('OverallMaturityCategoryBreakdown', () => {
     {category: {name: "Reliability"}, level: {name: "Not so great"}, serviceCount: 4},
   ]
 
-  class ResizeObserver {
-    observe() {}
-    unobserve() {}
+  function bandaidsForApexCharts() {
+    // See issue - https://github.com/ZeeCoder/use-resize-observer/issues/40
+    global.ResizeObserver = require('resize-observer-polyfill');
+    // Fixes an ugly warning in Apexcharts
+    // @ts-ignore
+    global.SVGElement.prototype.getBBox = () => ({x: 0, y: 0 });
   }
 
   it('renders a progress bar in loading mode', () => {
@@ -43,14 +46,7 @@ describe('OverallMaturityCategoryBreakdown', () => {
   });
 
   it('renders a bar chart when there is data', () => {
-    // @ts-ignore
-    window.ResizeObserver = ResizeObserver;
-    // @ts-ignore
-    window.SVGElement.prototype.getBBox = () => ({
-      x: 0,
-      y: 0
-    });
-
+    bandaidsForApexCharts()
     const wrapper = mount(<OverallMaturityCategoryBreakdown loading={false} levels={levels} categoryLevelCounts={categoryLevelCounts}/>);
 
     // It renders the card's title

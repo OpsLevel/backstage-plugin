@@ -116,6 +116,7 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
     const series: Array<{ name: String; data: Array<any> }> = [];
 
     for (const categoryName in servicesByCategory) {
+      if (!Object.prototype.hasOwnProperty.call(servicesByCategory, categoryName)) continue;
       servicesByCategory[categoryName].forEach(
         (serviceLevel: { [key: string]: number }) => {
           const level = Object.keys(serviceLevel)[0];

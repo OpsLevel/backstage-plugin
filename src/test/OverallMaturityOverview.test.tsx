@@ -18,11 +18,6 @@ describe('OverallMaturityOverview', () => {
     {level: {name: "Not so great"}, serviceCount: 2},
   ]
 
-  class ResizeObserver {
-    observe() {}
-    unobserve() {}
-  }
-
   it('renders a progress bar in loading mode', () => {
     const wrapper = mount(<OverallMaturityOverview loading levels={[]} levelCounts={[]}/>);
 
@@ -42,8 +37,8 @@ describe('OverallMaturityOverview', () => {
   });
 
   it('renders a donut chart when there is data', () => {
-    // @ts-ignore
-    window.ResizeObserver = ResizeObserver;
+    // See issue - https://github.com/ZeeCoder/use-resize-observer/issues/40
+    global.ResizeObserver = require('resize-observer-polyfill');
 
     const wrapper = mount(<OverallMaturityOverview loading={false} levels={levels} levelCounts={levelCounts}/>);
 
