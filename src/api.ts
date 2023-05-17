@@ -140,7 +140,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       }    
     `;
 
-    return this.client.request(query, null, { "GraphQL-Visibility": "internal" });
+    return this.client.request(query, { }, { "GraphQL-Visibility": "internal" });
   }
 
   exportEntity(entity: Entity) {
