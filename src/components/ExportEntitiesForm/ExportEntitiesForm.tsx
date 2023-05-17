@@ -7,20 +7,53 @@ import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core-components';
 import { opslevelApiRef } from '../../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { OpsLevelApi } from '../../types/OpsLevelData';
 import { useAsync } from 'react-use';
 import opslevelLogo from '../../images/opslevel-logo.svg';
 
-function useListEntities() {
+function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);
   return useAsync(async () => {
     return catalogApi.getEntities({
       filter: {
-        // TODO: We should export users first, teams, components last
-        //       so associations are made immediately.
-        kind: ['component', 'user', 'group'],
+        kind,
       },
     });
   });
+}
+
+function useListComponents() {
+  return useListEntities('component');
+}
+
+function useListUsers() {
+  return useListEntities('user');
+}
+
+function useListGroups() {
+  return useListEntities('group');
+}
+
+async function exportEntity(entity: Entity, opslevelApi: OpsLevelApi, appendOutput: Function) {
+  appendOutput(startExportMessage(entity));
+  const result = await opslevelApi.exportEntity(entity);
+  appendOutput(`${finishExportMessage(result)}\n`);
+}
+
+async function performExport(
+  components: Array<Entity>, users: Array<Entity>, groups: Array<Entity>, opslevelApi: OpsLevelApi, appendOutput: Function
+) {
+  for (const entity of users) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }
+
+  for (const entity of groups) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }
+
+  for (const entity of components) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }
 }
 
 function startExportMessage(entity: Entity) {
@@ -39,30 +72,34 @@ function finishExportMessage(result: any) {
 export function ExportEntitiesForm() {
   const opslevelApi = useApi(opslevelApiRef);
 
-  const { value: entitesResponseBody, loading: loadingEntities, error } = useListEntities();
-  const entities = entitesResponseBody?.items || [];
-  const entityCount = entities.length;
+  const { value: componentsResponseBody, loading: componentsLoading, error: componentsError } = useListComponents();
+  const components = componentsResponseBody?.items || [];
 
-  const [loading, setLoading] = useState(false);
+  const { value: usersResponseBody, loading: usersLoading, error: usersError } = useListUsers();
+  const users = usersResponseBody?.items || [];
+
+  const { value: groupsResponseBody, loading: groupsLoading, error: groupsError } = useListGroups();
+  const groups = groupsResponseBody?.items || [];
+
+  const loading = componentsLoading || usersLoading || groupsLoading;
+  const error = componentsError || usersError || groupsError;
+  const entityCount = components.length + users.length + groups.length;
+
+  const [exporting, setExporting] = useState(false);
   const [output, setOutput] = useState("");
+  let localOutput = output;
+
+  function appendOutput(message: string) {
+    localOutput += message;
+    setOutput(localOutput);
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoading(true);
 
-    let localOutput = `${output}`;
-
-    for (const entity of entities) {
-      localOutput += startExportMessage(entity);
-      setOutput(localOutput);
-
-      const result = await opslevelApi.exportEntity(entity);
-
-      localOutput += `${finishExportMessage(result)}\n`;
-      setOutput(localOutput);
-    }
-
-    setLoading(false);
+    setExporting(true);
+    await performExport(components, users, groups, opslevelApi, appendOutput)
+    setExporting(false);
   }
 
   if (error) return <Alert severity="error">{error.message}</Alert>;
@@ -103,8 +140,8 @@ export function ExportEntitiesForm() {
         >
           View Full Maturity Report in OpsLevel
         </Button>
-        <Button variant="contained" color="primary" type="submit" disabled={loading}>
-          {loading || loadingEntities ? (<CircularProgress />) : null}
+        <Button variant="contained" color="primary" type="submit" disabled={exporting}>
+          {exporting || loading ? (<CircularProgress />) : null}
           Export {entityCount} Entities to OpsLevel
         </Button>
       </form>
