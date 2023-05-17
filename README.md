@@ -34,9 +34,9 @@ proxy:
   '/opslevel':
     target: 'https://app.opslevel.com'
     headers:
-      Authorization: Bearer <your_OpsLevel_API_token>
       X-Custom-Source: backstage
-      graphql-visibility: internal
+      Authorization: Bearer <your_OpsLevel_API_token>
+    allowedHeaders: ['GraphQL-Visibility']
 ```
 
 If you're running Self-Hosted OpsLevel, replace `target` with your URL.

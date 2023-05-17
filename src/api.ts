@@ -55,12 +55,28 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                   byLevel {
                     nodes {
                       level {
+                        index
                         name
                       }
                       items {
                         nodes {
+                          message
+                          createdAt
                           check {
+                            id
+                            enableOn
                             name
+                            category {
+                              name
+                            }
+                            owner {
+                              ... on Team {
+                                name
+                              }
+                              ... on User {
+                                name
+                              }
+                            }
                           }
                           status
                         }
@@ -70,12 +86,16 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                 }
               }
             }
+            checkStats {
+              totalChecks
+              totalPassingChecks
+            }
           }
         }
       }
     `;
 
-    return this.client.request(query, { alias: serviceAlias }, {"graphql-visibility": "internal"});
+    return this.client.request(query, { alias: serviceAlias }, { "GraphQL-Visibility": "internal" });
   }
 
   exportEntity(entity: Entity) {

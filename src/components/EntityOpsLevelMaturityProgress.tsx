@@ -4,7 +4,6 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import { BackstageTheme } from '@backstage/theme';
 import { Box, LinearProgress, Tooltip, makeStyles } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
-// import { CheckResultsByLevel } from './CheckResultsByLevel';
 
 const useStyles = makeStyles((theme: BackstageTheme) => ({
   progressBar: {
@@ -24,7 +23,7 @@ function determineProgress(level: any, serviceLevelIndex: number) {
   return 0;
 }
 
-export function EntityOpsLevelMaturityProgress({ levels, serviceLevel, checkResultsByLevel }: { levels: any, serviceLevel: any, checkResultsByLevel: any }) {
+export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { levels: any, serviceLevel: any }) {
   const classes = useStyles();
 
   const levelComponents = levels.map((level: any, index: number) => {

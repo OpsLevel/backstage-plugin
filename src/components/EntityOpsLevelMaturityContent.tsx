@@ -62,7 +62,8 @@ export const EntityOpsLevelMaturityContent = () => {
   const { maturityReport } = service;
   const levels = opsLevelData.account?.rubric?.levels?.nodes;
   const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
-  const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes
+  const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
+  const checkStats = opsLevelData.account?.service?.checkStats;
 
   if (!maturityReport) {
     return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
@@ -119,7 +120,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   function ServiceMaturityReport () {
     return (<>
-      <Grid container item justifyContent="flex-end" spacing={2}>
+      <Grid container item xs={12} justifyContent="flex-end">
         <Grid item>
           <Button
             variant="contained"
@@ -141,21 +142,29 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item spacing={2}>
-        <Grid item xs={4}>
-          <OverallLevel maturityReport={maturityReport} />
+      <Grid container item>
+        <Grid container item xs={4} direction="column">
+          <Grid item>
+            <OverallLevel maturityReport={maturityReport} />
+          </Grid>
+          <Grid item>
+            <Scorecard levels={levels} levelCategories={levelCategories}/>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <EntityOpsLevelMaturityProgress
-            levels={levels}
-            serviceLevel={maturityReport?.overallLevel}
+        <Grid container item xs={8} direction="column">
+          <Grid item>
+            <EntityOpsLevelMaturityProgress
+              levels={levels}
+              serviceLevel={maturityReport?.overallLevel}
             />
-        </Grid>
-        <Grid item xs={4}>
-          <Scorecard levels={levels} levelCategories={levelCategories}/>
-        </Grid>
-        <Grid item xs={8}>
-          <CheckResultsByLevel checkResultsByLevel={checkResultsByLevel} />
+          </Grid>
+          <Grid item>
+            <CheckResultsByLevel
+              checkResultsByLevel={checkResultsByLevel}
+              totalChecks={checkStats.totalChecks}
+              totalPassingChecks={checkStats.totalPassingChecks}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>);
