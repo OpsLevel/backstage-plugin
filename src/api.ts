@@ -98,6 +98,51 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     return this.client.request(query, { alias: serviceAlias }, { "GraphQL-Visibility": "internal" });
   }
 
+  getServicesReport() {
+    const query = gql`
+      query servicesReport {
+        account {
+          rubric {
+            levels {
+              totalCount
+              nodes {
+                index
+                name
+                alias
+              }
+            }
+            categories {
+              nodes {
+                id
+                name
+              }
+            }
+          }
+          servicesReport {
+            levelCounts {
+              level {
+                name
+              }
+              serviceCount
+            }
+            categoryLevelCounts {
+              category {
+                name
+              }
+              level {
+                name
+                index
+              }
+              serviceCount
+            }
+          }
+        }
+      }    
+    `;
+
+    return this.client.request(query, null, { "GraphQL-Visibility": "internal" });
+  }
+
   exportEntity(entity: Entity) {
     const query = gql`
       mutation importEntityFromBackstage($entityRef: String!, $entity: JSON!) {
