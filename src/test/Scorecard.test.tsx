@@ -23,7 +23,7 @@ describe('Scorecard', () => {
 
     const wrapper = mount(<Scorecard levels={levels} levelCategories={levelCategories}/>);
 
-    it('test', () => {
+    it('ensures the scorecard is rendered appropriately', () => {
         const headerCells = wrapper.find("td");
         expect(headerCells.at(0).html()).toEqual("<td style=\"width: 25%;\">&nbsp;</td>");
         expect(headerCells.at(1).text()).toEqual("Not so great");
