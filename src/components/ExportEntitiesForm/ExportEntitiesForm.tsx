@@ -15,7 +15,9 @@ function useListEntities() {
   return useAsync(async () => {
     return catalogApi.getEntities({
       filter: {
-        kind: 'component',
+        // TODO: We should export users first, teams, components last
+        //       so associations are made immediately.
+        kind: ['component', 'user', 'group'],
       },
     });
   });
