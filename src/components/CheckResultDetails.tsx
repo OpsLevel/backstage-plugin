@@ -92,19 +92,19 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
       </AccordionSummary>
 
       <AccordionDetails className={styles.coloredText} style={{marginTop: "-20px"}}>
-        <p hidden={!combinedStatus.startsWith("upcoming_")}>
+        <p className="p-will-be-enabled" hidden={!combinedStatus.startsWith("upcoming_")}>
           This check will be enabled on {moment.utc(checkResult.check.enableOn).format("MMMM Do YYYY, HH:mm:ss")} (UTC)
-          <span hidden={combinedStatus !== "upcoming_failed"}>, but it is currently failing.</span>
-          <span hidden={combinedStatus !== "upcoming_pending"}>, but it has not been evaluated yet.</span>
-          <span hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
+          <span className="span-is-failing" hidden={combinedStatus !== "upcoming_failed"}>, but it is currently failing.</span>
+          <span className="span-not-evaluated" hidden={combinedStatus !== "upcoming_pending"}>, but it has not been evaluated yet.</span>
+          <span className="span-is-passing" hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
         </p>
 
-        <p id="content">
+        <p className="p-check-message" id="content">
           <b hidden={checkResult.status !== "failed"}>Error: </b>
           {checkResult.message} 
         </p>
 
-        <p className={styles.coloredSubtext} id="trailer" hidden={!(checkResult.createdAt && checkResult.status !== "pending")} style={{fontSize: "smaller"}}>
+        <p className={`${styles.coloredSubtext} p-last-updated`} id="trailer" hidden={!(checkResult.createdAt && checkResult.status !== "pending")} style={{fontSize: "smaller"}}>
           <b>Last updated:</b> { `${moment.utc(checkResult.createdAt).format("MMMM Do YYYY, HH:mm:ss")} (UTC)` }
         </p>
       </AccordionDetails>

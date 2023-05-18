@@ -52,7 +52,7 @@ export type CheckResult = {
     name: string,
     category: {
       name: string
-    },
+    } | null,
   },
   status: string
 }
