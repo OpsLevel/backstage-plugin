@@ -74,7 +74,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
   );
 
   return (
-    <Accordion style={{...resultColorMap[combinedStatus], color: "inherit"}}>
+    <Accordion id={`accordion-check-${checkResult.check.id}`} style={{...resultColorMap[combinedStatus], color: "inherit"}}>
       <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
         style={{

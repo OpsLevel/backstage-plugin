@@ -40,7 +40,6 @@ export type LevelCheckResult = {
   },
   items: {
     nodes: Array<CheckResult>,
-    status: "passed" | "failed" | "pending"
   }
 }
 
@@ -56,7 +55,7 @@ export type CheckResult = {
     },
     owner: {
       name: string
-    }
+    } | null
   },
   status: string
 }
