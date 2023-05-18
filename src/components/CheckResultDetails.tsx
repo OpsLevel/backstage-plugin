@@ -99,7 +99,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
           <span className="span-is-passing" hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
         </p>
 
-        <p className="p-check-message" id="content">
+        <p className="p-check-message">
           <b hidden={checkResult.status !== "failed"}>Error: </b>
           {checkResult.message} 
         </p>
