@@ -49,12 +49,45 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                 }
               }
             }
+            serviceStats {
+              rubric {
+                checkResults {
+                  byLevel {
+                    nodes {
+                      level {
+                        index
+                        name
+                      }
+                      items {
+                        nodes {
+                          message
+                          createdAt
+                          check {
+                            id
+                            enableOn
+                            name
+                            category {
+                              name
+                            }
+                          }
+                          status
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            checkStats {
+              totalChecks
+              totalPassingChecks
+            }
           }
         }
       }
     `;
 
-    return this.client.request(query, { alias: serviceAlias });
+    return this.client.request(query, { alias: serviceAlias }, { "GraphQL-Visibility": "internal" });
   }
 
   getServicesReport() {
@@ -99,7 +132,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       }    
     `;
 
-    return this.client.request(query, null, { "GraphQL-Visibility": "internal" });
+    return this.client.request(query, { }, { "GraphQL-Visibility": "internal" });
   }
 
   exportEntity(entity: Entity) {

@@ -15,10 +15,46 @@ export interface OpsLevelServiceData {
           level: { name: string },
           category: { name: string }
         }>,
+      },
+      serviceStats: {
+        rubric: {
+          checkResults: {
+            byLevel: {
+              nodes: Array<LevelCheckResults>
+            }
+          }
+        }
+      },
+      checkStats: {
+        totalChecks: number,
+        totalPassingChecks: number
       }
-    },
-
+    }
   }
+}
+
+export type LevelCheckResults = {
+  level: {
+    index: number,
+    name: string
+  },
+  items: {
+    nodes: Array<CheckResult>,
+  }
+}
+
+export type CheckResult = {
+  message: string,
+  createdAt: string,
+  check: {
+    id: string,
+    enableOn: string | null,
+    name: string,
+    category: {
+      name: string
+    } | null,
+  },
+  status: string
 }
 
 export interface OpsLevelOverallData {
@@ -45,4 +81,3 @@ export type OpsLevelApi = {
   exportEntity: (entity: Entity) => Promise<any>;
   getServicesReport: () => Promise<any>;
 }
-
