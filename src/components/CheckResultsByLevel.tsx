@@ -8,13 +8,13 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ErrorIcon from '@material-ui/icons/Error';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useState, useRef, SyntheticEvent } from 'react';
-import { CheckResult, LevelCheckResult } from '../types/OpsLevelData';
+import { CheckResult, LevelCheckResults } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 
 
 type Props = {
-  checkResultsByLevel: Array<LevelCheckResult>,
+  checkResultsByLevel: Array<LevelCheckResults>,
   totalChecks: number,
   totalPassingChecks: number
 }
@@ -42,14 +42,14 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
 });
 
 export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
-  const [checkResults, setCheckResults] = useState<Array<LevelCheckResult>>([]);
+  const [checkResults, setCheckResults] = useState<Array<LevelCheckResults>>([]);
   const [levelCounts, setLevelCounts] = useState<{ [index: number]: Array<number> }>({});
   const [expandedLevels, setExpandedLevels] = useState<{ [index: number]: boolean }>({});
   const prevCheckResults = usePrevious(checkResults);
   const styles = useStyles();
 
-  function usePrevious(value: Array<LevelCheckResult>) {
-    const ref = useRef<Array<LevelCheckResult>>();
+  function usePrevious(value: Array<LevelCheckResults>) {
+    const ref = useRef<Array<LevelCheckResults>>();
     React.useEffect(() => {
       ref.current = value;
     });

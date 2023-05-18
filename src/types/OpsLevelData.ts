@@ -20,7 +20,7 @@ export interface OpsLevelServiceData {
         rubric: {
           checkResults: {
             byLevel: {
-              nodes: Array<LevelCheckResult>
+              nodes: Array<LevelCheckResults>
             }
           }
         }
@@ -33,7 +33,7 @@ export interface OpsLevelServiceData {
   }
 }
 
-export type LevelCheckResult = {
+export type LevelCheckResults = {
   level: {
     index: number,
     name: string
