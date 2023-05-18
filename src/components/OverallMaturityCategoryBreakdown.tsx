@@ -5,19 +5,21 @@ import Chart from "react-apexcharts";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import { levelsByCategory, fontFamily } from "../helpers/maturity_report_helper";
 import cloneDeep from 'lodash/cloneDeep';
+import { withTheme } from "@material-ui/core/styles";
 
 type Props = {
-  loading: Boolean;
-  levels: Array<any>;
-  categoryLevelCounts: Array<any>;
+  loading: Boolean,
+  levels: Array<any>,
+  categoryLevelCounts: Array<any>,
+  theme: any,
 };
 
 type State = {
-  data: Array<any>;
-  options: any;
+  data: Array<any>,
+  options: any,
 };
 
-export class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
+class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let data: { [key: string]: Array<{ string: number }> } | {};
@@ -51,7 +53,7 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
               fontFamily,
               fontWeight: undefined,
               cssClass: undefined,
-              colors: "gray",
+              colors: this.props.theme.palette.text.primary,
             },
           },
         },
@@ -71,6 +73,9 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
         },
         legend: {
           show: true,
+          labels: {
+            colors: [this.props.theme.palette.text.primary],
+          }
         },
         colors: levelColorPalette(props.levels.length).map(
           (color) => color.secondary
@@ -83,7 +88,7 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
               fontFamily,
               fontWeight: undefined,
               cssClass: undefined,
-              colors: ["gray"],
+              colors: [this.props.theme.palette.text.primary],
             },
           },
         },
@@ -165,7 +170,7 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
   render() {
     return (
       <InfoCard title="Category Breakdown">
-        <div style={{ height: "400px", backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "5px", }}>
+        <div style={{ height: "400px" }}>
           {this.props.loading && <Progress />}
           {!this.props.loading && (
             <Chart
@@ -181,3 +186,5 @@ export class OverallMaturityCategoryBreakdown extends React.Component<Props, Sta
     );
   }
 }
+
+export default withTheme(OverallMaturityCategoryBreakdown);

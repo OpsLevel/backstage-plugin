@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { OverallMaturityCategoryBreakdown } from '../components/OverallMaturityCategoryBreakdown';
-
+import OverallMaturityCategoryBreakdown from '../components/OverallMaturityCategoryBreakdown';
 
 describe('OverallMaturityCategoryBreakdown', () => {
   const levels = [

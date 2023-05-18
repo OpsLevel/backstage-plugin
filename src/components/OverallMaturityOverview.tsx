@@ -5,19 +5,21 @@ import Chart from "react-apexcharts";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import { servicesByLevel, fontFamily } from "../helpers/maturity_report_helper";
 import cloneDeep from 'lodash/cloneDeep';
+import { withTheme } from "@material-ui/core/styles";
 
 type Props = {
-  loading: Boolean;
-  levels: Array<any>;
-  levelCounts: Array<any>;
+  loading: Boolean,
+  levels: Array<any>,
+  levelCounts: Array<any>,
+  theme: any,
 };
 
 type State = {
-  data: Array<any>;
-  options: any;
+  data: Array<any>,
+  options: any,
 };
 
-export class OverallMaturityOverview extends React.Component<Props, State> {
+class OverallMaturityOverview extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let data: { String: Number }[];
@@ -29,6 +31,9 @@ export class OverallMaturityOverview extends React.Component<Props, State> {
     this.state = {
       data: data.length > 0 ? data.flatMap((obj) => Object.values(obj)) : [],
       options: {
+        chart: {
+          foreColor: this.props.theme.palette.text.primary,
+        },
         plotOptions: {
           pie: {
             expandOnClick: false,
@@ -142,7 +147,7 @@ export class OverallMaturityOverview extends React.Component<Props, State> {
   render() {
     return (
       <InfoCard title="Overview">
-        <div style={{ height: "400px", backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "5px", }}>
+        <div style={{ height: "400px" }}>
           {this.props.loading && <Progress />}
           {!this.props.loading && (
             <Chart
@@ -158,3 +163,5 @@ export class OverallMaturityOverview extends React.Component<Props, State> {
     );
   }
 }
+
+export default withTheme(OverallMaturityOverview);
