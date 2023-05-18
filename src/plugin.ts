@@ -42,7 +42,3 @@ export const EntityOpsLevelMaturityContent = opslevelMaturityPlugin.provide(
     mountPoint: rootRouteRef,
   }),
 );
-
-// export const EntityOpsLevelMaturityContent = () => {
-//   return "ehhhh";
-// }
