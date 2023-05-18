@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
 
 export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
   const [checkResults, setCheckResults] = useState<Array<LevelCheckResults>>([]);
-  const [levelCounts, setLevelCounts] = useState<{ [index: number]: Array<number> }>({});
+  const [levelCounts, setLevelCounts] = useState<{ [index: number]: { [level: string]: number } }>({});
   const [expandedLevels, setExpandedLevels] = useState<{ [index: number]: boolean }>({});
   const prevCheckResults = usePrevious(checkResults);
   const styles = useStyles();
@@ -58,34 +58,25 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
 
   React.useEffect(() => {
     function getLevelCounts(itemCheckResults: Array<CheckResult>) {
-      let passCount = 0;
-      let failCount = 0;
-      let upcomingPassedCount = 0;
-      let pendingCount = 0;
-      let upcomingFailedCount = 0;
-      let upcomingPendingCount = 0;
-      for(const i in itemCheckResults) {
-        if ({}.hasOwnProperty.call(itemCheckResults, i)) {
-          const combinedStatus = getCombinedStatus(itemCheckResults[i]);
-          if(combinedStatus === "passed") passCount++;
-          else if(combinedStatus === "failed") failCount++;
-          else if(combinedStatus === "pending") pendingCount++;
-          else if(combinedStatus === "upcoming_failed") upcomingFailedCount++;
-          else if(combinedStatus === "upcoming_pending") upcomingPendingCount++;
-          else if(combinedStatus === "upcoming_passed") upcomingPassedCount++;
-        }
+      const ret: { [key: string]: number } = {
+        passed: 0,
+        failed: 0,
+        pending: 0,
+        upcoming_passed: 0,
+        upcoming_failed: 0,
+        upcoming_pending: 0,
+        upcoming: 0
       }
-      return [
-        passCount,
-        failCount,
-        upcomingPassedCount + upcomingFailedCount + upcomingPendingCount,
-        pendingCount,
-        upcomingFailedCount,
-        upcomingPendingCount
-      ];
+      for(const i in itemCheckResults) {
+        if (!{}.hasOwnProperty.call(itemCheckResults, i)) continue;
+        const combinedStatus = getCombinedStatus(itemCheckResults[i]);
+        if(combinedStatus in ret) ret[combinedStatus]++;
+      }
+      ret.upcoming = ret.upcoming_passed + ret.upcoming_failed + ret.upcoming_pending;
+      return ret;
     }
 
-    function getInitialExpandedLevelIndex(newLevelCounts: { [index: number]: Array<number> }) {
+    function getInitialExpandedLevelIndex(newLevelCounts: { [index: number]: { [level: string]: number } }) {
       for(const index in newLevelCounts) {
         if(newLevelCounts[index][1] > 0 || newLevelCounts[index][4] > 0 || newLevelCounts[index][5] > 0) return index;
       }
@@ -94,7 +85,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
     
     if(checkResultsByLevel !== prevCheckResults) {
       setCheckResults(checkResultsByLevel);
-      const newLevelCounts: { [index: number]: Array<number> } = {};
+      const newLevelCounts: { [index: number]: { [level: string]: number } } = {};
       const newExpandedLevels: { [index: number]: boolean } = {};
       checkResultsByLevel.forEach(({items, level}) => {
         newLevelCounts[level.index] = getLevelCounts(items.nodes);
@@ -111,14 +102,9 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
   }, [checkResultsByLevel, prevCheckResults]);
 
   function getCombinedStatus(checkResult: CheckResult) {
-    if (checkResult.status === "failed" && checkResult.check.enableOn !== null) {
-      return "upcoming_failed";
-    } else if (checkResult.status === "pending" && checkResult.check.enableOn !== null) {
-      return "upcoming_pending";
-    } else if (checkResult.status === "passed" && checkResult.check.enableOn !== null) {
-      return "upcoming_passed";
-    }
-    return checkResult.status;
+    let status = checkResult.status;
+    if (checkResult.check.enableOn !== null) status = `upcoming_${status}`;
+    return status;
   }
 
   function getPassingPercentage() {
@@ -139,21 +125,21 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
             { level.name } ({ items.nodes.length })
           </Typography>
 
-          { levelCounts[level.index][2] !== 0 && [
+          { levelCounts[level.index].upcoming !== 0 && [
               <WatchLaterIcon key={`${level.name}-pending-icon`} style={{ color: "gray" }} />,
-              <p key={`${level.name}-pending-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][2]}</p>
+              <p key={`${level.name}-pending-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].upcoming}</p>
           ] }
 
-          { levelCounts[level.index][3] !== 0 && [
+          { levelCounts[level.index].pending !== 0 && [
               <ErrorIcon key={`${level.name}-warning-icon`} style={{ color: "rgb(250, 204, 20)" }} />,
-              <p key={`${level.name}-warning-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][3]}</p>
+              <p key={`${level.name}-warning-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].pending}</p>
           ] }
           
           <CancelIcon style={{ color: "red" }} />
-          <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][1]}</p>
+          <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].failed}</p>
           
           <CheckCircleIcon style={{ color: "#00ff00" }} />
-          <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][0]}</p>
+          <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].passed}</p>
         </AccordionSummary>
         <AccordionDetails className={styles.accordionDetails}>
           {items.nodes.map((checkResult, index) => {
