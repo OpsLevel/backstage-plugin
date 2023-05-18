@@ -53,9 +53,6 @@ export type CheckResult = {
     category: {
       name: string
     },
-    owner: {
-      name: string
-    } | null
   },
   status: string
 }

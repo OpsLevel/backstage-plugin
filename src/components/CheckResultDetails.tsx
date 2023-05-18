@@ -87,7 +87,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
         <Typography style={{marginLeft: '10px'}} className={styles.coloredText}>
           {checkResult.check.name}
           
-          <span style={{fontSize: "smaller"}} className={styles.coloredSubtext}> &bull; <b>{checkResult.check.category.name}</b> check</span>
+          <span style={{fontSize: "smaller"}} className={styles.coloredSubtext}> &bull; <b>{checkResult.check.category?.name || "Uncategorized"}</b> check</span>
         </Typography>
       </AccordionSummary>
 

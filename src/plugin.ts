@@ -38,7 +38,6 @@ export const EntityOpsLevelMaturityContent = opslevelMaturityPlugin.provide(
       import('./components/EntityOpsLevelMaturityContent').then(
         m => m.EntityOpsLevelMaturityContent,
       ),
-    // component: () => {return "inside component"},
     mountPoint: rootRouteRef,
   }),
 );
