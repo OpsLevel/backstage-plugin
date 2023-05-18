@@ -43,27 +43,27 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
   const resultColorMap: { [key: string]: {[key: string]: string} } = {
     "failed": {
       color: "red",
-      backgroundColor: "#ff000055",
+      backgroundColor: "#ff000033",
     },
     "pending": {
       color: "rgb(250, 204, 20)",
-      backgroundColor: "#ffff0055",
+      backgroundColor: "#ffff0033",
     },
     "passed": {
-      color: "green",
-      backgroundColor: "#00ff0055",
+      color: "#00ff00",
+      backgroundColor: "#00ff0033",
     },
     "upcoming_failed": {
       color: "red",
-      backgroundColor: "#00000055",
+      backgroundColor: "#00000033",
     },
     "upcoming_pending": {
       color: "rgb(250, 204, 20)",
-      backgroundColor: "#00000055",
+      backgroundColor: "#00000033",
     },
     "upcoming_passed": {
-      color: "green",
-      backgroundColor: "#00000055",
+      color: "#00ff00",
+      backgroundColor: "#00000033",
     }
   }
 
@@ -74,7 +74,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
   );
 
   return (
-    <Accordion id={`accordion-check-${checkResult.check.id}`} style={{...resultColorMap[combinedStatus], color: "inherit"}}>
+    <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
       <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
         style={{

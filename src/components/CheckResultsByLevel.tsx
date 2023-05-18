@@ -152,7 +152,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
           <CancelIcon style={{ color: "red" }} />
           <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][1]}</p>
           
-          <CheckCircleIcon style={{ color: "green" }} />
+          <CheckCircleIcon style={{ color: "#00ff00" }} />
           <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index][0]}</p>
         </AccordionSummary>
         <AccordionDetails className={styles.accordionDetails}>
