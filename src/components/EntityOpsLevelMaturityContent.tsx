@@ -5,13 +5,13 @@ import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
 import { OverallLevel } from './OverallLevel';
 import { EntityOpsLevelMaturityProgress } from './EntityOpsLevelMaturityProgress';
-import { Scorecard } from './Scorecard';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
+import Scorecard from './Scorecard';
 
 export const EntityOpsLevelMaturityContent = () => {
 

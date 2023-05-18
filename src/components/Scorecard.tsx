@@ -1,8 +1,8 @@
 import React from "react";
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
-import CSS from "csstype";
 import { Tooltip } from "@mui/material";
+import { StyleRules, withStyles } from '@material-ui/core/styles';
 
 type Level = {
   index: number;
@@ -13,18 +13,18 @@ type Props = {
   levels: Array<Level>;
   levelCategories:
     | Array<{ level: { name: string }; category: { name: string } }>
-    | undefined;
+    | undefined,
+  classes: { [prop: string]: string }
 };
 
 type State = {
   sortedLevels: Array<Level>;
 };
 
-export class Scorecard extends React.Component<Props, State> {
-  styles: Record<string, CSS.Properties> = {
+const styles = (theme: any): StyleRules<any, any> => {
+  return {
     levelHeaderRow: {
       textAlign: "center",
-      color: "rgba(0, 0, 0, 0.65)",
     },
     levelHeaderCell: {
       padding: "5px",
@@ -32,17 +32,18 @@ export class Scorecard extends React.Component<Props, State> {
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
+      color: theme.palette.text.primary,
     },
     categoryHeaderCell: {
       textAlign: "right",
-      color: "rgba(0, 0, 0, 0.65)",
+      color: theme.palette.text.primary,
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
     },
     inactiveCategoryHeaderCell: {
       textAlign: "right",
-      color: "rgb(204, 204, 204)",
+      color: theme.palette.text.disabled,
       overflow: "hidden",
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
@@ -60,15 +61,17 @@ export class Scorecard extends React.Component<Props, State> {
       maxWidth: "70px",
     },
     inactiveField: {
-      border: "1px solid #f5f5f5",
-      backgroundColor: "#ffffff",
+      border: `1px solid ${theme.palette.border}`,
+      backgroundColor: theme.palette.background.default,
     },
     disabledField: {
-      border: "1px solid #f5f5f5",
-      backgroundColor: "#f5f5f5",
+      border: `1px solid ${theme.palette.border}`,
+      backgroundColor: theme.palette.background.paper,
     },
   };
+};
 
+class Scorecard extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -78,40 +81,38 @@ export class Scorecard extends React.Component<Props, State> {
     };
   }
 
-  getFieldStyle(activeLevel: { name: string }, currentLevel: Level) {
+  getFieldStyle(classes: { [prop: string]: string }, activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] {
     if (activeLevel === null)
-      return { ...this.styles.field, ...this.styles.disabledField };
+      return [`${classes.field} ${classes.disabledField}`, {}];
     if (activeLevel.name !== currentLevel.name)
-      return { ...this.styles.field, ...this.styles.inactiveField };
+      return [`${classes.field} ${classes.inactiveField}`, {}];
     const color = levelColor(
       this.state.sortedLevels.length,
       this.state.sortedLevels.indexOf(currentLevel)
     );
-    return {
-      ...this.styles.field,
+    return [classes.field, {
       backgroundColor: color.secondary,
       border: `solid 1px ${color.secondary}`,
-    };
+    }];
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <InfoCard title="Scorecard">
         <table
           style={{
             width: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.85)",
-            borderRadius: "5px",
             tableLayout: "fixed",
           }}
         >
           <thead>
-            <tr style={this.styles.levelHeaderRow}>
+            <tr className={classes.levelHeaderRow}>
               <td style={{ width: "25%" }}>&nbsp;</td>
               {this.state.sortedLevels.map((level) => (
                 <td
                   key={`lvl_${level.name}`}
-                  style={this.styles.levelHeaderCell}
+                  className={classes.levelHeaderCell}
                 >
                   <Tooltip title={level.name} placement="top">
                     <span>{level.name}</span>
@@ -125,10 +126,10 @@ export class Scorecard extends React.Component<Props, State> {
               this.props.levelCategories.map((lc) => (
                 <tr key={`cat_${lc.category.name}`}>
                   <td
-                    style={
+                    className={
                       !!lc.level
-                        ? this.styles.categoryHeaderCell
-                        : this.styles.inactiveCategoryHeaderCell
+                        ? classes.categoryHeaderCell
+                        : classes.inactiveCategoryHeaderCell
                     }
                   >
                     <Tooltip title={lc.category.name} placement="top">
@@ -138,12 +139,15 @@ export class Scorecard extends React.Component<Props, State> {
                   {this.state.sortedLevels.map((level) => (
                     <td
                       key={`cat_${lc.category.name}_lvl_${level.name}`}
+                      className={classes.fieldCell}
                       style={{
-                        width: `${75.0 / this.state.sortedLevels.length}%`,
-                        ...this.styles.fieldCell,
+                        width: `${75.0 / this.state.sortedLevels.length}%`
                       }}
                     >
-                      <div style={this.getFieldStyle(lc.level, level)} />
+                      <div
+                        className={this.getFieldStyle(classes, lc.level, level)[0]}
+                        style={this.getFieldStyle(classes, lc.level, level)[1]}
+                      />
                     </td>
                   ))}
                 </tr>
@@ -154,3 +158,5 @@ export class Scorecard extends React.Component<Props, State> {
     );
   }
 }
+
+export default withStyles(styles)(Scorecard);
