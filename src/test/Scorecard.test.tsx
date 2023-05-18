@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-conditional-expect */
 
 import React from 'react';
-import { Scorecard } from "../components/Scorecard";
 import { mount } from 'enzyme';
+import Scorecard from '../components/Scorecard';
 
 
 describe('Scorecard', () => {
@@ -47,7 +47,7 @@ describe('Scorecard', () => {
                 else if(row === 2 && col === 3) expect(cell.html()).toContain("background-color: rgb(64, 169, 255)");
                 else if(row === 3 && col === 4) expect(cell.html()).toContain("background-color: rgb(255, 197, 61)");
                 else if(row === 4 && col === 5) expect(cell.html()).toContain("background-color: rgb(19, 194, 194)");
-                else expect(cell.html()).toContain("background-color: rgb(255, 255, 255)");
+                else expect(cell.html()).toContain("inactiveField");
             }
         }
     });
