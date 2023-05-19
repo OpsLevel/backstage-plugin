@@ -10,7 +10,8 @@ import React, { ReactElement } from 'react';
 import { CheckResult } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
-
+import marked from "marked";
+import DOMPurify from "dompurify";
 
 type Props = {
   checkResult: CheckResult,
@@ -73,6 +74,12 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     </div>
   );
 
+  const getMessageHtml = (checkResult) => {
+    return DOMPurify.sanitize(marked(checkResult.message), {
+      ADD_ATTR: ["target"],
+    });
+  }
+
   return (
     <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
       <AccordionSummary
@@ -101,7 +108,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
 
         <p className="p-check-message">
           {checkResult.status === "failed" ? (<b>Error: </b>) : null}
-          {checkResult.message} 
+          <span dangerouslySetInnerHTML={{ __html: getMessageHtml(checkResult) }}/>
         </p>
 
         <p className={`${styles.coloredSubtext} p-last-updated`} id="trailer" hidden={!(checkResult.createdAt && checkResult.status !== "pending")} style={{fontSize: "smaller"}}>
