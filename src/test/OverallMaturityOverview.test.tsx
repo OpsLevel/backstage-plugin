@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { OverallMaturityOverview } from '../components/OverallMaturityOverview';
+import OverallMaturityOverview from '../components/OverallMaturityOverview';
 
 
 describe('OverallMaturityOverview', () => {

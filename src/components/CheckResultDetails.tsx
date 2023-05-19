@@ -100,7 +100,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
         </p>
 
         <p className="p-check-message">
-          <b hidden={checkResult.status !== "failed"}>Error: </b>
+          {checkResult.status === "failed" ? (<b>Error: </b>) : null}
           {checkResult.message} 
         </p>
 
