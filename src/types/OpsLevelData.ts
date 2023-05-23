@@ -45,11 +45,13 @@ export type LevelCheckResults = {
 
 export type CheckResult = {
   message: string,
+  warnMessage: string | null,
   createdAt: string,
   check: {
     id: string,
     enableOn: string | null,
     name: string,
+    type: string,
     category: {
       name: string
     } | null,

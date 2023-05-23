@@ -10,8 +10,7 @@ import React, { ReactElement } from 'react';
 import { CheckResult } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
-import marked from "marked";
-import DOMPurify from "dompurify";
+import MarkdownViewer from './MarkdownViewer';
 
 type Props = {
   checkResult: CheckResult,
@@ -28,6 +27,21 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     },
   };
 });
+
+const getShowWarnMessage = (checkResult: CheckResult) => {
+  return ["payload", "generic"].includes(checkResult.check.type) && checkResult.warnMessage;
+}
+
+const getResultMessage = (checkResult: CheckResult) => {
+  if (checkResult.check.type === "custom" && checkResult.status === "pending") {
+    return "This is a Custom Check that has not been evaluated yet.  It requires an API request to be sent to our Custom Check API.";
+  } else if (checkResult.status === "failed") {
+    if (checkResult.check.type === "payload" || checkResult.check.type === "generic")
+      return `**Error**:\n${checkResult.message}`;
+    return `<b>Error</b>: ${checkResult.message}`;
+  }
+  return checkResult.message;
+}
 
 export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
   const styles = useStyles();
@@ -74,12 +88,6 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     </div>
   );
 
-  const getMessageHtml = (checkResult) => {
-    return DOMPurify.sanitize(marked(checkResult.message), {
-      ADD_ATTR: ["target"],
-    });
-  }
-
   return (
     <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
       <AccordionSummary
@@ -106,10 +114,21 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
           <span className="span-is-passing" hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
         </p>
 
-        <p className="p-check-message">
-          {checkResult.status === "failed" ? (<b>Error: </b>) : null}
-          <span dangerouslySetInnerHTML={{ __html: getMessageHtml(checkResult) }}/>
-        </p>
+        { getShowWarnMessage(checkResult) && (<span className="span-warn-message">
+          <p className="p-unable-parse">We were unable to fully parse the result message due to the following Liquid errors:</p>
+          <MarkdownViewer value={ `<code>${checkResult.warnMessage}</code>` } truncate/>
+          <p className="p-unable-parse-following">We were able to parse the following from the message:</p>
+        </span>) }
+
+        
+        <div style={ getShowWarnMessage(checkResult) ? { padding: "24px", backgroundColor: "rgba(0, 0, 0, 0.1)" } : {} }>
+          <p className="p-check-message">
+            <MarkdownViewer value={ getResultMessage(checkResult) } truncate={ false } />
+          </p>
+        </div>
+        
+
+        { getShowWarnMessage(checkResult) && (<p>Please fix and resend a payload to see an updated check result message.</p>)}
 
         <p className={`${styles.coloredSubtext} p-last-updated`} id="trailer" hidden={!(checkResult.createdAt && checkResult.status !== "pending")} style={{fontSize: "smaller"}}>
           <b>Last updated:</b> { `${moment.utc(checkResult.createdAt).format("MMMM Do YYYY, HH:mm:ss")} (UTC)` }

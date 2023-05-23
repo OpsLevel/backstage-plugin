@@ -61,11 +61,13 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                       items {
                         nodes {
                           message
+                          warnMessage
                           createdAt
                           check {
                             id
                             enableOn
                             name
+                            type
                             category {
                               name
                             }
