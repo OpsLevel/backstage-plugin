@@ -5,11 +5,12 @@ import { Button, Divider, Link, Typography } from '@material-ui/core';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core-components';
-import { opslevelApiRef } from '../../api';
+import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
-import { OpsLevelApi } from '../../types/OpsLevelData';
+import { OpsLevelApi } from '../types/OpsLevelData';
 import { useAsync } from 'react-use';
-import opslevelLogo from '../../images/opslevel-logo.svg';
+import opslevelLogo from '../images/opslevel-logo.svg';
+import { withTheme } from "@material-ui/core/styles";
 
 function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);
@@ -69,7 +70,8 @@ function finishExportMessage(result: any) {
   return message;
 }
 
-export function ExportEntitiesForm() {
+
+function ExportEntitiesForm({theme}) {
   const opslevelApi = useApi(opslevelApiRef);
 
   const { value: componentsResponseBody, loading: componentsLoading, error: componentsError } = useListComponents();
@@ -110,6 +112,21 @@ export function ExportEntitiesForm() {
     </div>
   );
 
+  const outputComponentStyle = {
+    backgroundColor: theme.palette.background.default,
+    border: "1px solid black",
+    marginTop: "1em",
+    padding: "0.5em 0.8em",
+    whiteSpace: "pre-line",
+  };
+  const outputComponent = (
+    output.length ? (
+      <Typography variant="body1" style={outputComponentStyle}>
+        {output}
+      </Typography>
+    ) : null
+  )
+
   return (
     <InfoCard title={header}>
       <Typography paragraph>
@@ -145,9 +162,9 @@ export function ExportEntitiesForm() {
           Export {entityCount} Entities to OpsLevel
         </Button>
       </form>
-      <Typography variant="body1" style={{backgroundColor: "#242424", whiteSpace: "pre-line"}}>
-        {output}
-      </Typography>
+      {outputComponent}
     </InfoCard>
   );
 };
+
+export default withTheme(ExportEntitiesForm);
