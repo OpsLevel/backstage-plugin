@@ -96,7 +96,7 @@ class Scorecard extends React.Component<Props, State> {
     }];
   }
 
-  getFieldCell(classes, categoryLevel, renderingLevel) {
+  getFieldCell(classes: { [prop: string]: string }, categoryLevel: { name: string }, renderingLevel: Level) {
     return (
       <div
         className={this.getFieldStyle(classes, categoryLevel, renderingLevel)[0]}
@@ -105,19 +105,18 @@ class Scorecard extends React.Component<Props, State> {
     );
   }
 
-  getWrappedFieldCell(classes, levelCategory, renderingLevel) {
-    if(levelCategory.level == null || levelCategory.level.name !== renderingLevel.name) {
+  getWrappedFieldCell(classes: { [prop: string]: string }, levelCategory: { level: { name: string }; category: { name: string } }, renderingLevel: Level) {
+    if(levelCategory.level === null || levelCategory.level.name !== renderingLevel.name) {
       return this.getFieldCell(classes, levelCategory.level, renderingLevel);
-    } else {
-      return (
-        <Tooltip
-          key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
-          title={levelCategory.level.name} placement="top"
-        >
-          { this.getFieldCell(classes, levelCategory.level, renderingLevel) }
-        </Tooltip>
-      );
     }
+    return (
+      <Tooltip
+        key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
+        title={levelCategory.level.name} placement="top"
+      >
+        { this.getFieldCell(classes, levelCategory.level, renderingLevel) }
+      </Tooltip>
+    );
   }
 
   render() {
