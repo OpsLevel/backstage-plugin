@@ -1,4 +1,4 @@
-name: Lint/Test/Typecheck
+name: Lint/Typecheck/Test
 run-name: ${{ github.actor }} is running the CI pipeline
 on: [push]
 jobs:
