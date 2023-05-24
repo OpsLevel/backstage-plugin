@@ -12,8 +12,7 @@ jobs:
           submodules: 'true'
       - name: Install dependencies
         run: yarn install
-      - name: Linter
+      - name: Run linter
         run: yarn lint
-      - name: Type check
-        uses: yarn tsc
-        
+      - name: Run type checker
+        run: yarn tsc
