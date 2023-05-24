@@ -95,6 +95,8 @@ export default function ExportEntityForm() {
   const [output, setOutput] = useState("");
   let localOutput = output;
 
+  const { outputComponentStyle } = useStyles();
+
   function appendOutput(message: string) {
     localOutput += message;
     setOutput(localOutput);
@@ -115,8 +117,6 @@ export default function ExportEntityForm() {
       Export Services to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
     </div>
   );
-
-  const { outputComponentStyle } = useStyles();
 
   const outputComponent = (
     output.length ? (
