@@ -10,8 +10,9 @@ import { useApi } from '@backstage/core-plugin-api';
 import { OpsLevelApi } from '../types/OpsLevelData';
 import { useAsync } from 'react-use';
 import opslevelLogo from '../images/opslevel-logo.svg';
-import { withTheme } from "@material-ui/core/styles";
 import { BackstageTheme } from '@backstage/theme';
+import { makeStyles } from '@material-ui/core';
+
 
 function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);
@@ -67,8 +68,19 @@ function finishExportMessage(result: any) {
   return message;
 }
 
+const useStyles = makeStyles((theme: BackstageTheme) => {
+  return {
+    outputComponentStyle: {
+      backgroundColor: theme.palette.background.default,
+      border: "1px solid black",
+      marginTop: "1em",
+      padding: "0.5em 0.8em",
+      whiteSpace: "pre-line",
+    }
+  }
+});
 
-function ExportEntitiesForm({theme}: {theme: BackstageTheme}) {
+export default function() {
   const opslevelApi = useApi(opslevelApiRef);
   
   const entityStates = useListAllEntities();
@@ -104,16 +116,11 @@ function ExportEntitiesForm({theme}: {theme: BackstageTheme}) {
     </div>
   );
 
-  const outputComponentStyle = {
-    backgroundColor: theme.palette.background.default,
-    border: "1px solid black",
-    marginTop: "1em",
-    padding: "0.5em 0.8em",
-    whiteSpace: "pre-line",
-  };
+  const { outputComponentStyle } = useStyles();
+
   const outputComponent = (
     output.length ? (
-      <Typography variant="body1" style={outputComponentStyle}>
+      <Typography variant="body1" className={outputComponentStyle}>
         {output}
       </Typography>
     ) : null
@@ -158,5 +165,3 @@ function ExportEntitiesForm({theme}: {theme: BackstageTheme}) {
     </InfoCard>
   );
 };
-
-export default withTheme(ExportEntitiesForm);
