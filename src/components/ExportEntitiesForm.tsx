@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   }
 });
 
-export default function() {
+export default function ExportEntityForm() {
   const opslevelApi = useApi(opslevelApiRef);
   
   const entityStates = useListAllEntities();
