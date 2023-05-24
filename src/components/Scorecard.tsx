@@ -96,6 +96,30 @@ class Scorecard extends React.Component<Props, State> {
     }];
   }
 
+  getFieldCell(classes, categoryLevel, renderingLevel) {
+    return (
+      <div
+        className={this.getFieldStyle(classes, categoryLevel, renderingLevel)[0]}
+        style={this.getFieldStyle(classes, categoryLevel, renderingLevel)[1]}
+      />
+    );
+  }
+
+  getWrappedFieldCell(classes, levelCategory, renderingLevel) {
+    if(levelCategory.level == null || levelCategory.level.name !== renderingLevel.name) {
+      return this.getFieldCell(classes, levelCategory.level, renderingLevel);
+    } else {
+      return (
+        <Tooltip
+          key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
+          title={levelCategory.level.name} placement="top"
+        >
+          { this.getFieldCell(classes, levelCategory.level, renderingLevel) }
+        </Tooltip>
+      );
+    }
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -106,21 +130,6 @@ class Scorecard extends React.Component<Props, State> {
             tableLayout: "fixed",
           }}
         >
-          <thead>
-            <tr className={classes.levelHeaderRow}>
-              <td style={{ width: "25%" }}>&nbsp;</td>
-              {this.state.sortedLevels.map((level) => (
-                <td
-                  key={`lvl_${level.name}`}
-                  className={classes.levelHeaderCell}
-                >
-                  <Tooltip title={level.name} placement="top">
-                    <span>{level.name}</span>
-                  </Tooltip>
-                </td>
-              ))}
-            </tr>
-          </thead>
           <tbody>
             {!!this.props.levelCategories &&
               this.props.levelCategories.map((lc) => (
@@ -144,10 +153,7 @@ class Scorecard extends React.Component<Props, State> {
                         width: `${75.0 / this.state.sortedLevels.length}%`
                       }}
                     >
-                      <div
-                        className={this.getFieldStyle(classes, lc.level, level)[0]}
-                        style={this.getFieldStyle(classes, lc.level, level)[1]}
-                      />
+                      { this.getWrappedFieldCell(classes, lc, level) }
                     </td>
                   ))}
                 </tr>
