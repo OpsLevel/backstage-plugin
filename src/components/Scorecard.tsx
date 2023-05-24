@@ -2,6 +2,7 @@ import React from "react";
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { StyleRules, withStyles } from '@material-ui/core/styles';
 
 type Level = {
@@ -144,10 +145,10 @@ class Scorecard extends React.Component<Props, State> {
                         width: `${75.0 / this.state.sortedLevels.length}%`
                       }}
                     >
-                      {/* <div
+                      <div
                         className={this.getFieldStyle(classes, lc.level, level)[0]}
                         style={this.getFieldStyle(classes, lc.level, level)[1]}
-                      /> */}
+                      />
                     </td>
                   ))}
                 </tr>
