@@ -1,8 +1,8 @@
-name: Backstage-CI-Pipeline
+name: Lint/Test/Typecheck
 run-name: ${{ github.actor }} is running the CI pipeline
 on: [push]
 jobs:
-  Lint/Test/Typecheck:
+  Backstage-CI-Pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -10,10 +10,10 @@ jobs:
         with:
           fetch-depth: 0
           submodules: 'true'
-      - name: Use Node.js 16.18.0
+      - name: Use Node.js 16
         uses: actions/setup-node@v3
         with:
-          node-version: 16.18.0
+          node-version: 16
       - name: Install dependencies
         run: yarn install
       - name: Run linter
