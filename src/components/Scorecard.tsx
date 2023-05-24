@@ -106,15 +106,16 @@ class Scorecard extends React.Component<Props, State> {
   }
 
   getWrappedFieldCell(classes: { [prop: string]: string }, levelCategory: { level: { name: string }; category: { name: string } }, renderingLevel: Level) {
+    const content = this.getFieldCell(classes, levelCategory.level, renderingLevel);
     if(levelCategory.level === null || levelCategory.level.name !== renderingLevel.name) {
-      return this.getFieldCell(classes, levelCategory.level, renderingLevel);
+      return content;
     }
     return (
       <Tooltip
         key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
         title={levelCategory.level.name} placement="top"
       >
-        { this.getFieldCell(classes, levelCategory.level, renderingLevel) }
+        { content }
       </Tooltip>
     );
   }
