@@ -40,11 +40,11 @@ async function exportEntity(entity: Entity, opslevelApi: OpsLevelApi, appendOutp
 async function performExport(
   components: Array<Entity>, users: Array<Entity>, groups: Array<Entity>, opslevelApi: OpsLevelApi, appendOutput: Function
 ) {
-  for (const entity of users) {
+  for (const entity of groups) {
     await exportEntity(entity, opslevelApi, appendOutput);
   }
-
-  for (const entity of groups) {
+  
+  for (const entity of users) {
     await exportEntity(entity, opslevelApi, appendOutput);
   }
 
