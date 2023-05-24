@@ -1,0 +1,24 @@
+name: Lint/Typecheck/Test
+run-name: ${{ github.actor }} is running the CI pipeline
+on: [push]
+jobs:
+  Backstage-CI-Pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          submodules: 'true'
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install
+      - name: Run linter
+        run: yarn lint
+      - name: Run type checker
+        run: yarn tsc
+      - name: Run tests
+        run: yarn test
