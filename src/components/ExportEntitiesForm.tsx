@@ -23,16 +23,12 @@ function useListEntities(kind: string) {
   });
 }
 
-function useListComponents() {
-  return useListEntities('component');
-}
-
-function useListUsers() {
-  return useListEntities('user');
-}
-
-function useListGroups() {
-  return useListEntities('group');
+function useListAllEntities() {
+  return {
+    components: useListEntities('component'),
+    users: useListEntities('user'),
+    groups: useListEntities('group')
+  }
 }
 
 async function exportEntity(entity: Entity, opslevelApi: OpsLevelApi, appendOutput: Function) {
@@ -73,18 +69,13 @@ function finishExportMessage(result: any) {
 
 function ExportEntitiesForm({theme}) {
   const opslevelApi = useApi(opslevelApiRef);
-
-  const { value: componentsResponseBody, loading: componentsLoading, error: componentsError } = useListComponents();
-  const components = componentsResponseBody?.items || [];
-
-  const { value: usersResponseBody, loading: usersLoading, error: usersError } = useListUsers();
-  const users = usersResponseBody?.items || [];
-
-  const { value: groupsResponseBody, loading: groupsLoading, error: groupsError } = useListGroups();
-  const groups = groupsResponseBody?.items || [];
-
-  const loading = componentsLoading || usersLoading || groupsLoading;
-  const error = componentsError || usersError || groupsError;
+  
+  const entityStates = useListAllEntities();
+  const error = entityStates.components.error || entityStates.users.error || entityStates.groups.error;
+  const loading = entityStates.components.loading || entityStates.users.loading || entityStates.groups.loading;
+  const components = entityStates.components.value?.items || [];
+  const users = entityStates.users.value?.items || [];
+  const groups = entityStates.groups.value?.items || [];
   const entityCount = components.length + users.length + groups.length;
 
   const [exporting, setExporting] = useState(false);
