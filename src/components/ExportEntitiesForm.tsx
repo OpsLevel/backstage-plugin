@@ -11,6 +11,7 @@ import { OpsLevelApi } from '../types/OpsLevelData';
 import { useAsync } from 'react-use';
 import opslevelLogo from '../images/opslevel-logo.svg';
 import { withTheme } from "@material-ui/core/styles";
+import { BackstageTheme } from '@backstage/theme';
 
 function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);
@@ -67,7 +68,7 @@ function finishExportMessage(result: any) {
 }
 
 
-function ExportEntitiesForm({theme}) {
+function ExportEntitiesForm({theme}: {theme: BackstageTheme}) {
   const opslevelApi = useApi(opslevelApiRef);
   
   const entityStates = useListAllEntities();
