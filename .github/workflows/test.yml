@@ -5,12 +5,15 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           submodules: 'true'
       - name: Install dependencies
         run: yarn install
-      - name: tsc
-        uses: icrawl/action-tsc@v1
+      - name: Linter
+        run: yarn lint
+      - name: Type check
+        uses: yarn tsc
+        
