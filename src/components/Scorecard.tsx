@@ -2,7 +2,6 @@ import React from "react";
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
-import { Tooltip } from "@mui/material";
 import { StyleRules, withStyles } from '@material-ui/core/styles';
 
 type Level = {
@@ -82,7 +81,7 @@ class Scorecard extends React.Component<Props, State> {
     };
   }
 
-  getFieldStyle(classes: { [prop: string]: string }, activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] {
+  getFieldStyle(classes: { [prop: string]: number }, activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] {
     if (activeLevel === null)
       return [`${classes.field} ${classes.disabledField}`, {}];
     if (activeLevel.name !== currentLevel.name)
