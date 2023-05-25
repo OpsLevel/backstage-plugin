@@ -7,122 +7,122 @@ import { LevelCheckResults } from '../types/OpsLevelData';
 describe('OverallMaturityOverview', () => {
   const checkResultsByLevelData = [
     {
-       "level":{
-          "index":1,
-          "name":"Bronze"
-       },
-       "items":{
-          "nodes":[
-             {
-                "message":"This check has status failed.",
-                "warnMessage":"Something went wrong",
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"1",
-                   "type":"generic",
-                   "enableOn":null,
-                   "name":"Status: failed",
-                   "category":{
-                      "name":"Service Ownership"
-                   },
-                },
-                "status":"failed"
-             }
-          ]
-       }
+      "level":{
+        "index":1,
+        "name":"Bronze"
+      },
+      "items":{
+        "nodes":[
+          {
+            "message":"This check has status failed.",
+            "warnMessage":"Something went wrong",
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"1",
+              "type":"generic",
+              "enableOn":null,
+              "name":"Status: failed",
+              "category":{
+                "name":"Service Ownership"
+              },
+            },
+            "status":"failed"
+          }
+        ]
+      }
     },
     {
-       "level":{
-          "index":3,
-          "name":"Gold"
-       },
-       "items":{
-          "nodes":[
-             {
-                "message":"This check has status pending.",
-                "warnMessage":null,
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"2",
-                   "type":"custom",
-                   "enableOn":null,
-                   "name":"Status: pending",
-                   "category":{
-                      "name":"Service Ownership"
-                   },
-                },
-                "status":"pending"
-             },
-             {
-                "message":"This check has status passed.",
-                "warnMessage":null,
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"3",
-                   "type":"manual",
-                   "enableOn":null,
-                   "name":"Status: passed",
-                   "category": null,
-                },
-                "status":"passed"
-             }
-          ]
-       }
+      "level":{
+        "index":3,
+        "name":"Gold"
+      },
+      "items":{
+        "nodes":[
+          {
+            "message":"This check has status pending.",
+            "warnMessage":null,
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"2",
+              "type":"custom",
+              "enableOn":null,
+              "name":"Status: pending",
+              "category":{
+                "name":"Service Ownership"
+              },
+            },
+            "status":"pending"
+          },
+          {
+            "message":"This check has status passed.",
+            "warnMessage":null,
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"3",
+              "type":"manual",
+              "enableOn":null,
+              "name":"Status: passed",
+              "category": null,
+            },
+            "status":"passed"
+          }
+        ]
+      }
     },
     {
-       "level":{
-          "index":4,
-          "name":"very long level name"
-       },
-       "items":{
-          "nodes":[
-             {
-                "message":"This check has status upcoming_failed.",
-                "warnMessage":null,
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"4",
-                   "type":"generic",
-                   "enableOn":"2023-05-11T20:47:53.869313Z",
-                   "name":"Status: upcoming_failed",
-                   "category":{
-                      "name":"Service Ownership"
-                   },
-                },
-                "status":"failed"
-             },
-             {
-                "message":"This check has status upcoming_pending.",
-                "warnMessage":null,
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"5",
-                   "type":"manual",
-                   "enableOn":"2023-05-11T20:47:53.869313Z",
-                   "name":"Status: upcoming_pending",
-                   "category":{
-                      "name":"Service Ownership"
-                   },
-                },
-                "status":"pending"
-             },
-             {
-                "message":"This check has status upcoming_passed.",
-                "warnMessage":null,
-                "createdAt":"2023-05-11T20:47:53.869313Z",
-                "check":{
-                   "id":"6",
-                   "type":"manual",
-                   "enableOn":"2023-05-11T20:47:53.869313Z",
-                   "name":"Status: upcoming_passed",
-                   "category":{
-                      "name":"Service Ownership"
-                   },
-                },
-                "status":"passed"
-             }
-          ]
-       }
+      "level":{
+        "index":4,
+        "name":"very long level name"
+      },
+      "items":{
+        "nodes":[
+          {
+            "message":"This check has status upcoming_failed.",
+            "warnMessage":null,
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"4",
+              "type":"generic",
+              "enableOn":"2023-05-11T20:47:53.869313Z",
+              "name":"Status: upcoming_failed",
+              "category":{
+                "name":"Service Ownership"
+              },
+            },
+            "status":"failed"
+          },
+          {
+            "message":"This check has status upcoming_pending.",
+            "warnMessage":null,
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"5",
+              "type":"manual",
+              "enableOn":"2023-05-11T20:47:53.869313Z",
+              "name":"Status: upcoming_pending",
+              "category":{
+                "name":"Service Ownership"
+              },
+            },
+            "status":"pending"
+          },
+          {
+            "message":"This check has status upcoming_passed.",
+            "warnMessage":null,
+            "createdAt":"2023-05-11T20:47:53.869313Z",
+            "check":{
+              "id":"6",
+              "type":"manual",
+              "enableOn":"2023-05-11T20:47:53.869313Z",
+              "name":"Status: upcoming_passed",
+              "category":{
+                "name":"Service Ownership"
+              },
+            },
+            "status":"passed"
+          }
+        ]
+      }
     },
     {
       "level":{
@@ -316,64 +316,64 @@ describe('OverallMaturityOverview', () => {
 
   it('renders an upcoming_pending check appropriately', () => {  
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-   const checkCandidates = wrapper.find("div#accordion-check-5");
-   expect(checkCandidates.length).toEqual(1);
-   const check = checkCandidates.at(0);
-   expect(check.props().style?.backgroundColor).toEqual("#00000033");
-   const checkHeader = check.find("p.MuiTypography-root");
-   expect(checkHeader.length).toEqual(1);
-   expect(checkHeader.at(0).text()).toEqual("Status: upcoming_pending • Service Ownership check");
-   expect(checkHeader.at(0).props().className).toContain("coloredText");
-   const checkSubheader = checkHeader.find("span");
-   expect(checkSubheader.length).toEqual(1);
-   expect(checkSubheader.at(0).text()).toEqual(" • Service Ownership check");
-   expect(checkSubheader.at(0).props().className).toContain("coloredSubtext");
-   const checkContents = check.find("div.MuiAccordionDetails-root");
-   expect(checkContents.length).toEqual(1);
-   const willBeEnabledP = checkContents.at(0).find(".p-will-be-enabled");
-   expect(willBeEnabledP.props().hidden).toBe(false);
-   expect(willBeEnabledP.childAt(0).text()).toEqual("This check will be enabled on ");
-   expect(willBeEnabledP.childAt(1).text()).toEqual("May 11th 2023, 20:47:53");
-   expect(willBeEnabledP.childAt(2).text()).toEqual(" (UTC)");
-   expect(willBeEnabledP.find(".span-is-failing").props().hidden).toBe(true);
-   expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(false);
-   expect(willBeEnabledP.find(".span-not-evaluated").text()).toEqual(", but it has not been evaluated yet.");
-   expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(true);
-   expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_pending.");
-   expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
-   expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
-   expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(true);
- });
+    const checkCandidates = wrapper.find("div#accordion-check-5");
+    expect(checkCandidates.length).toEqual(1);
+    const check = checkCandidates.at(0);
+    expect(check.props().style?.backgroundColor).toEqual("#00000033");
+    const checkHeader = check.find("p.MuiTypography-root");
+    expect(checkHeader.length).toEqual(1);
+    expect(checkHeader.at(0).text()).toEqual("Status: upcoming_pending • Service Ownership check");
+    expect(checkHeader.at(0).props().className).toContain("coloredText");
+    const checkSubheader = checkHeader.find("span");
+    expect(checkSubheader.length).toEqual(1);
+    expect(checkSubheader.at(0).text()).toEqual(" • Service Ownership check");
+    expect(checkSubheader.at(0).props().className).toContain("coloredSubtext");
+    const checkContents = check.find("div.MuiAccordionDetails-root");
+    expect(checkContents.length).toEqual(1);
+    const willBeEnabledP = checkContents.at(0).find(".p-will-be-enabled");
+    expect(willBeEnabledP.props().hidden).toBe(false);
+    expect(willBeEnabledP.childAt(0).text()).toEqual("This check will be enabled on ");
+    expect(willBeEnabledP.childAt(1).text()).toEqual("May 11th 2023, 20:47:53");
+    expect(willBeEnabledP.childAt(2).text()).toEqual(" (UTC)");
+    expect(willBeEnabledP.find(".span-is-failing").props().hidden).toBe(true);
+    expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(false);
+    expect(willBeEnabledP.find(".span-not-evaluated").text()).toEqual(", but it has not been evaluated yet.");
+    expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(true);
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_pending.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
+    expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(true);
+  });
 
   it('renders an upcoming_passed check appropriately', () => {  
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-   const checkCandidates = wrapper.find("div#accordion-check-6");
-   expect(checkCandidates.length).toEqual(1);
-   const check = checkCandidates.at(0);
-   expect(check.props().style?.backgroundColor).toEqual("#00000033");
-   const checkHeader = check.find("p.MuiTypography-root");
-   expect(checkHeader.length).toEqual(1);
-   expect(checkHeader.at(0).text()).toEqual("Status: upcoming_passed • Service Ownership check");
-   expect(checkHeader.at(0).props().className).toContain("coloredText");
-   const checkSubheader = checkHeader.find("span");
-   expect(checkSubheader.length).toEqual(1);
-   expect(checkSubheader.at(0).text()).toEqual(" • Service Ownership check");
-   expect(checkSubheader.at(0).props().className).toContain("coloredSubtext");
-   const checkContents = check.find("div.MuiAccordionDetails-root");
-   expect(checkContents.length).toEqual(1);
-   const willBeEnabledP = checkContents.at(0).find(".p-will-be-enabled");
-   expect(willBeEnabledP.props().hidden).toBe(false);
-   expect(willBeEnabledP.childAt(0).text()).toEqual("This check will be enabled on ");
-   expect(willBeEnabledP.childAt(1).text()).toEqual("May 11th 2023, 20:47:53");
-   expect(willBeEnabledP.childAt(2).text()).toEqual(" (UTC)");
-   expect(willBeEnabledP.find(".span-is-failing").props().hidden).toBe(true);
-   expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(true);
-   expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(false);
-   expect(willBeEnabledP.find(".span-is-passing").text()).toEqual(", but it is currently passing.");
-   expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_passed.");
-   expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
-   expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
-   expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
-   expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
- });
+    const checkCandidates = wrapper.find("div#accordion-check-6");
+    expect(checkCandidates.length).toEqual(1);
+    const check = checkCandidates.at(0);
+    expect(check.props().style?.backgroundColor).toEqual("#00000033");
+    const checkHeader = check.find("p.MuiTypography-root");
+    expect(checkHeader.length).toEqual(1);
+    expect(checkHeader.at(0).text()).toEqual("Status: upcoming_passed • Service Ownership check");
+    expect(checkHeader.at(0).props().className).toContain("coloredText");
+    const checkSubheader = checkHeader.find("span");
+    expect(checkSubheader.length).toEqual(1);
+    expect(checkSubheader.at(0).text()).toEqual(" • Service Ownership check");
+    expect(checkSubheader.at(0).props().className).toContain("coloredSubtext");
+    const checkContents = check.find("div.MuiAccordionDetails-root");
+    expect(checkContents.length).toEqual(1);
+    const willBeEnabledP = checkContents.at(0).find(".p-will-be-enabled");
+    expect(willBeEnabledP.props().hidden).toBe(false);
+    expect(willBeEnabledP.childAt(0).text()).toEqual("This check will be enabled on ");
+    expect(willBeEnabledP.childAt(1).text()).toEqual("May 11th 2023, 20:47:53");
+    expect(willBeEnabledP.childAt(2).text()).toEqual(" (UTC)");
+    expect(willBeEnabledP.find(".span-is-failing").props().hidden).toBe(true);
+    expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(true);
+    expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(false);
+    expect(willBeEnabledP.find(".span-is-passing").text()).toEqual(", but it is currently passing.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_passed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
+    expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
+    expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
+  });
 });
