@@ -5,7 +5,7 @@ import {
   Page,
   Content,
 } from '@backstage/core-components';
-import { ExportEntitiesForm } from './ExportEntitiesForm';
+import ExportEntitiesForm from './ExportEntitiesForm';
 import { useAsync, useAsyncFn } from 'react-use';
 import { useApi } from '@backstage/core-plugin-api';
 import { opslevelApiRef } from '../api';

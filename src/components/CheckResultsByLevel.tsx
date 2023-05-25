@@ -126,13 +126,13 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
           </Typography>
 
           { levelCounts[level.index].upcoming !== 0 && [
-              <WatchLaterIcon key={`${level.name}-pending-icon`} style={{ color: "gray" }} />,
-              <p key={`${level.name}-pending-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].upcoming}</p>
+            <WatchLaterIcon key={`${level.name}-pending-icon`} style={{ color: "gray" }} />,
+            <p key={`${level.name}-pending-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].upcoming}</p>
           ] }
 
           { levelCounts[level.index].pending !== 0 && [
-              <ErrorIcon key={`${level.name}-warning-icon`} style={{ color: "rgb(250, 204, 20)" }} />,
-              <p key={`${level.name}-warning-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].pending}</p>
+            <ErrorIcon key={`${level.name}-warning-icon`} style={{ color: "rgb(250, 204, 20)" }} />,
+            <p key={`${level.name}-warning-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].pending}</p>
           ] }
           
           <CancelIcon style={{ color: "red" }} />
