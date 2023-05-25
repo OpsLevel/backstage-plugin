@@ -125,15 +125,15 @@ describe('OverallMaturityOverview', () => {
        }
     },
     {
-       "level":{
-          "index":5,
-          "name":"and another one"
-       },
-       "items":{
-          "nodes":[
+      "level":{
+        "index":5,
+        "name":"and another one"
+      },
+      "items":{
+        "nodes":[
              
-          ]
-       }
+        ]
+      }
     }
   ];
 
@@ -315,8 +315,7 @@ describe('OverallMaturityOverview', () => {
   });
 
   it('renders an upcoming_pending check appropriately', () => {  
-   const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-
+    const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
    const checkCandidates = wrapper.find("div#accordion-check-5");
    expect(checkCandidates.length).toEqual(1);
    const check = checkCandidates.at(0);
@@ -346,9 +345,8 @@ describe('OverallMaturityOverview', () => {
    expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(true);
  });
 
- it('renders an upcoming_passed check appropriately', () => {  
-   const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-
+  it('renders an upcoming_passed check appropriately', () => {  
+    const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
    const checkCandidates = wrapper.find("div#accordion-check-6");
    expect(checkCandidates.length).toEqual(1);
    const check = checkCandidates.at(0);

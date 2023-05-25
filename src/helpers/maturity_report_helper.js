@@ -18,7 +18,7 @@ export const updateCategoryAggregateWithLevelCounter = (
     if (level === currentKey) {
       return { [currentKey]: serviceCounter };
     } 
-      return obj;
+    return obj;
   });
 };
 

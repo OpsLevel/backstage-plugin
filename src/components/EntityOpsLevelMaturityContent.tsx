@@ -96,22 +96,22 @@ export const EntityOpsLevelMaturityContent = () => {
       <Grid item>{error}</Grid>
       <Grid item>
         { showExport ?
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={exportEntity}
-          disabled={exporting}
-        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={exportEntity}
+            disabled={exporting}
+          >
           Export Entity to OpsLevel
-        </Button> :
-        <Button
-          variant="contained"
-          color="primary"
-          target="_blank"
-          href={`${service?.htmlUrl}/maturity-report`}
-        >
+          </Button> :
+          <Button
+            variant="contained"
+            color="primary"
+            target="_blank"
+            href={`${service?.htmlUrl}/maturity-report`}
+          >
           View Maturity in OpsLevel
-        </Button>
+          </Button>
         }
       </Grid>
     </Grid>

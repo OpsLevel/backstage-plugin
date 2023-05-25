@@ -5,20 +5,54 @@ import { Button, Divider, Link, Typography } from '@material-ui/core';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
 import { InfoCard } from '@backstage/core-components';
-import { opslevelApiRef } from '../../api';
+import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
+import { OpsLevelApi } from '../types/OpsLevelData';
 import { useAsync } from 'react-use';
-import opslevelLogo from '../../images/opslevel-logo.svg';
+import opslevelLogo from '../images/opslevel-logo.svg';
+import { BackstageTheme } from '@backstage/theme';
+import { makeStyles } from '@material-ui/core';
 
-function useListEntities() {
+
+function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);
   return useAsync(async () => {
     return catalogApi.getEntities({
       filter: {
-        kind: 'component',
+        kind,
       },
     });
   });
+}
+
+function useListAllEntities() {
+  return {
+    components: useListEntities('component'),
+    users: useListEntities('user'),
+    groups: useListEntities('group')
+  }
+}
+
+async function exportEntity(entity: Entity, opslevelApi: OpsLevelApi, appendOutput: Function) {
+  appendOutput(startExportMessage(entity));
+  const result = await opslevelApi.exportEntity(entity);
+  appendOutput(`${finishExportMessage(result)}\n`);
+}
+
+async function performExport(
+  components: Array<Entity>, users: Array<Entity>, groups: Array<Entity>, opslevelApi: OpsLevelApi, appendOutput: Function
+) {
+  for (const entity of users) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }
+
+  for (const entity of groups) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }  
+  
+  for (const entity of components) {
+    await exportEntity(entity, opslevelApi, appendOutput);
+  }
 }
 
 function startExportMessage(entity: Entity) {
@@ -34,33 +68,46 @@ function finishExportMessage(result: any) {
   return message;
 }
 
-export function ExportEntitiesForm() {
+const useStyles = makeStyles((theme: BackstageTheme) => {
+  return {
+    outputComponentStyle: {
+      backgroundColor: theme.palette.background.default,
+      border: "1px solid black",
+      marginTop: "1em",
+      padding: "0.5em 0.8em",
+      whiteSpace: "pre-line",
+    }
+  }
+});
+
+export default function ExportEntityForm() {
   const opslevelApi = useApi(opslevelApiRef);
+  
+  const entityStates = useListAllEntities();
+  const error = entityStates.components.error || entityStates.users.error || entityStates.groups.error;
+  const loading = entityStates.components.loading || entityStates.users.loading || entityStates.groups.loading;
+  const components = entityStates.components.value?.items || [];
+  const users = entityStates.users.value?.items || [];
+  const groups = entityStates.groups.value?.items || [];
+  const entityCount = components.length + users.length + groups.length;
 
-  const { value: entitesResponseBody, loading: loadingEntities, error } = useListEntities();
-  const entities = entitesResponseBody?.items || [];
-  const entityCount = entities.length;
-
-  const [loading, setLoading] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [output, setOutput] = useState("");
+  let localOutput = output;
+
+  const { outputComponentStyle } = useStyles();
+
+  function appendOutput(message: string) {
+    localOutput += message;
+    setOutput(localOutput);
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoading(true);
 
-    let localOutput = `${output}`;
-
-    for (const entity of entities) {
-      localOutput += startExportMessage(entity);
-      setOutput(localOutput);
-
-      const result = await opslevelApi.exportEntity(entity);
-
-      localOutput += `${finishExportMessage(result)}\n`;
-      setOutput(localOutput);
-    }
-
-    setLoading(false);
+    setExporting(true);
+    await performExport(components, users, groups, opslevelApi, appendOutput)
+    setExporting(false);
   }
 
   if (error) return <Alert severity="error">{error.message}</Alert>;
@@ -70,6 +117,14 @@ export function ExportEntitiesForm() {
       Export Services to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
     </div>
   );
+
+  const outputComponent = (
+    output.length ? (
+      <Typography variant="body1" className={outputComponentStyle}>
+        {output}
+      </Typography>
+    ) : null
+  )
 
   return (
     <InfoCard title={header}>
@@ -101,14 +156,12 @@ export function ExportEntitiesForm() {
         >
           View Full Maturity Report in OpsLevel
         </Button>
-        <Button variant="contained" color="primary" type="submit" disabled={loading}>
-          {loading || loadingEntities ? (<CircularProgress />) : null}
+        <Button variant="contained" color="primary" type="submit" disabled={exporting}>
+          {exporting || loading ? (<CircularProgress />) : null}
           Export {entityCount} Entities to OpsLevel
         </Button>
       </form>
-      <Typography variant="body1" style={{backgroundColor: "#242424", whiteSpace: "pre-line"}}>
-        {output}
-      </Typography>
+      {outputComponent}
     </InfoCard>
   );
 };
