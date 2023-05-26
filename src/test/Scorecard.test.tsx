@@ -24,14 +24,6 @@ describe('Scorecard', () => {
   const wrapper = mount(<Scorecard levels={levels} levelCategories={levelCategories}/>);
 
   it('ensures the scorecard is rendered appropriately', () => {
-    const headerCells = wrapper.find("td");
-    expect(headerCells.at(0).html()).toEqual("<td style=\"width: 25%;\">&nbsp;</td>");
-    expect(headerCells.at(1).text()).toEqual("Not so great");
-    expect(headerCells.at(2).text()).toEqual("Slightly better");
-    expect(headerCells.at(3).text()).toEqual("Meh");
-    expect(headerCells.at(4).text()).toEqual("Great");
-    expect(headerCells.at(5).text()).toEqual("Amazing");
-        
     const bodyCells = wrapper.find("tbody tr td");
     expect(bodyCells.at(0 * 6).text()).toEqual("Ownership");
     expect(bodyCells.at(1 * 6).text()).toEqual("Reliability");
@@ -42,12 +34,30 @@ describe('Scorecard', () => {
     for(let col = 1; col <= 5; col++) {
       for(let row = 0; row <= 4; row++) {
         const cell = bodyCells.at(row * 6 + col);
-        if(row === 0 && col === 1) expect(cell.html()).toContain("background-color: rgb(191, 191, 191)");
-        else if(row === 1 && col === 2) expect(cell.html()).toContain("background-color: rgb(250, 84, 28)");
-        else if(row === 2 && col === 3) expect(cell.html()).toContain("background-color: rgb(64, 169, 255)");
-        else if(row === 3 && col === 4) expect(cell.html()).toContain("background-color: rgb(255, 197, 61)");
-        else if(row === 4 && col === 5) expect(cell.html()).toContain("background-color: rgb(19, 194, 194)");
-        else expect(cell.html()).toContain("inactiveField");
+        if(row === 0 && col === 1) {
+          expect(cell.html()).toContain("background-color: rgb(191, 191, 191)");
+          expect(cell.find("div").prop("aria-label")).toEqual("Not so great");
+        }
+        else if(row === 1 && col === 2) {
+          expect(cell.html()).toContain("background-color: rgb(250, 84, 28)");
+          expect(cell.find("div").prop("aria-label")).toEqual("Slightly better");
+        }
+        else if(row === 2 && col === 3) {
+          expect(cell.html()).toContain("background-color: rgb(64, 169, 255)");
+          expect(cell.find("div").prop("aria-label")).toEqual("Meh");
+        }
+        else if(row === 3 && col === 4) {
+          expect(cell.html()).toContain("background-color: rgb(255, 197, 61)");
+          expect(cell.find("div").prop("aria-label")).toEqual("Great");
+        } 
+        else if(row === 4 && col === 5) {
+          expect(cell.html()).toContain("background-color: rgb(19, 194, 194)");
+          expect(cell.find("div").prop("aria-label")).toEqual("Amazing");
+        }
+        else {
+          expect(cell.html()).toContain("inactiveField");
+          expect(cell.find("div").prop("aria-label")).toBeUndefined();
+        }
       }
     }
   });
