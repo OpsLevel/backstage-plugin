@@ -113,7 +113,8 @@ class Scorecard extends React.Component<Props, State> {
     return (
       <Tooltip
         key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
-        title={<p style={{ fontSize: "14px", padding: "0", margin: "0" }}>{levelCategory.level.name}</p>}
+        title={<span style={{ fontSize: "14px", padding: "0", margin: "0" }}>{levelCategory.level.name}</span>}
+        aria-label={ levelCategory.level.name }
         placement="top"
       >
         { content }
