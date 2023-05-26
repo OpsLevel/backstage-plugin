@@ -15,9 +15,11 @@ describe('OverallMaturityOverview', () => {
         "nodes":[
           {
             "message":"This check has status failed.",
+            "warnMessage":"Something went wrong",
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"1",
+              "type":"generic",
               "enableOn":null,
               "name":"Status: failed",
               "category":{
@@ -38,9 +40,11 @@ describe('OverallMaturityOverview', () => {
         "nodes":[
           {
             "message":"This check has status pending.",
+            "warnMessage":null,
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"2",
+              "type":"custom",
               "enableOn":null,
               "name":"Status: pending",
               "category":{
@@ -51,9 +55,11 @@ describe('OverallMaturityOverview', () => {
           },
           {
             "message":"This check has status passed.",
+            "warnMessage":null,
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"3",
+              "type":"manual",
               "enableOn":null,
               "name":"Status: passed",
               "category": null,
@@ -72,9 +78,11 @@ describe('OverallMaturityOverview', () => {
         "nodes":[
           {
             "message":"This check has status upcoming_failed.",
+            "warnMessage":null,
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"4",
+              "type":"generic",
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_failed",
               "category":{
@@ -85,9 +93,11 @@ describe('OverallMaturityOverview', () => {
           },
           {
             "message":"This check has status upcoming_pending.",
+            "warnMessage":null,
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"5",
+              "type":"manual",
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_pending",
               "category":{
@@ -98,9 +108,11 @@ describe('OverallMaturityOverview', () => {
           },
           {
             "message":"This check has status upcoming_passed.",
+            "warnMessage":null,
             "createdAt":"2023-05-11T20:47:53.869313Z",
             "check":{
               "id":"6",
+              "type":"manual",
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_passed",
               "category":{
@@ -210,7 +222,13 @@ describe('OverallMaturityOverview', () => {
     const checkContents = check.find("div.MuiAccordionDetails-root");
     expect(checkContents.length).toEqual(1);
     expect(checkContents.at(0).find(".p-will-be-enabled").props().hidden).toBe(true);
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("Error: This check has status failed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("**Error**:\nThis check has status failed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(1);
+    expect(checkContents.at(0).find(".span-warn-message .p-unable-parse").text()).toEqual("We were unable to fully parse the result message due to the following Liquid errors:");
+    expect(checkContents.at(0).find(".span-warn-message MarkdownViewer").props().value).toEqual("<code>Something went wrong</code>");
+    expect(checkContents.at(0).find(".span-warn-message MarkdownViewer").prop<boolean>("truncate")).toBe(true);
+    expect(checkContents.at(0).find(".span-warn-message .p-unable-parse-following").text()).toEqual("We were able to parse the following from the message:");
     expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
   });
 
@@ -232,7 +250,9 @@ describe('OverallMaturityOverview', () => {
     const checkContents = check.find("div.MuiAccordionDetails-root");
     expect(checkContents.length).toEqual(1);
     expect(checkContents.at(0).find(".p-will-be-enabled").props().hidden).toBe(true);
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("This check has status pending.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This is a Custom Check that has not been evaluated yet.  It requires an API request to be sent to our Custom Check API.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(true);
   });
 
@@ -254,7 +274,9 @@ describe('OverallMaturityOverview', () => {
     const checkContents = check.find("div.MuiAccordionDetails-root");
     expect(checkContents.length).toEqual(1);
     expect(checkContents.at(0).find(".p-will-be-enabled").props().hidden).toBe(true);
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("This check has status passed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status passed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
     expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
   });
@@ -285,14 +307,15 @@ describe('OverallMaturityOverview', () => {
     expect(willBeEnabledP.find(".span-is-failing").text()).toEqual(", but it is currently failing.");
     expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(true);
     expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(true);
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("Error: This check has status upcoming_failed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("**Error**:\nThis check has status upcoming_failed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
     expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
   });
 
   it('renders an upcoming_pending check appropriately', () => {  
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-
     const checkCandidates = wrapper.find("div#accordion-check-5");
     expect(checkCandidates.length).toEqual(1);
     const check = checkCandidates.at(0);
@@ -316,13 +339,14 @@ describe('OverallMaturityOverview', () => {
     expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(false);
     expect(willBeEnabledP.find(".span-not-evaluated").text()).toEqual(", but it has not been evaluated yet.");
     expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(true);
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("This check has status upcoming_pending.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_pending.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(true);
   });
 
   it('renders an upcoming_passed check appropriately', () => {  
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
-
     const checkCandidates = wrapper.find("div#accordion-check-6");
     expect(checkCandidates.length).toEqual(1);
     const check = checkCandidates.at(0);
@@ -346,7 +370,9 @@ describe('OverallMaturityOverview', () => {
     expect(willBeEnabledP.find(".span-not-evaluated").props().hidden).toBe(true);
     expect(willBeEnabledP.find(".span-is-passing").props().hidden).toBe(false);
     expect(willBeEnabledP.find(".span-is-passing").text()).toEqual(", but it is currently passing.");
-    expect(checkContents.at(0).find(".p-check-message").text()).toEqual("This check has status upcoming_passed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").props().value).toEqual("This check has status upcoming_passed.");
+    expect(checkContents.at(0).find(".p-check-message MarkdownViewer").prop<boolean>("truncate")).toBe(false);
+    expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
     expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
   });
