@@ -57,27 +57,27 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
 
   const resultColorMap: { [key: string]: {[key: string]: string} } = {
     "failed": {
-      color: "red",
+      color: "#CF1322",
       backgroundColor: "#ff000033",
     },
     "pending": {
-      color: "rgb(250, 204, 20)",
+      color: "#FFC53D",
       backgroundColor: "#ffff0033",
     },
     "passed": {
-      color: "#00ff00",
+      color: "#52C41A",
       backgroundColor: "#00ff0033",
     },
     "upcoming_failed": {
-      color: "red",
+      color: "#CF1322",
       backgroundColor: "#00000033",
     },
     "upcoming_pending": {
-      color: "rgb(250, 204, 20)",
+      color: "#FFC53D",
       backgroundColor: "#00000033",
     },
     "upcoming_passed": {
-      color: "#00ff00",
+      color: "#52C41A",
       backgroundColor: "#00000033",
     }
   }
