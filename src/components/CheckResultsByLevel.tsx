@@ -126,19 +126,19 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
           </Typography>
 
           { levelCounts[level.index].upcoming !== 0 && [
-            <WatchLaterIcon key={`${level.name}-pending-icon`} style={{ color: "gray" }} />,
+            <WatchLaterIcon key={`${level.name}-pending-icon`} style={{ color: "#8C8C8C" }} />,
             <p key={`${level.name}-pending-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].upcoming}</p>
           ] }
 
           { levelCounts[level.index].pending !== 0 && [
-            <ErrorIcon key={`${level.name}-warning-icon`} style={{ color: "rgb(250, 204, 20)" }} />,
+            <ErrorIcon key={`${level.name}-warning-icon`} style={{ color: "#FFC53D" }} />,
             <p key={`${level.name}-warning-p`} style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].pending}</p>
           ] }
           
-          <CancelIcon style={{ color: "red" }} />
+          <CancelIcon style={{ color: "#CF1322" }} />
           <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].failed}</p>
           
-          <CheckCircleIcon style={{ color: "#00ff00" }} />
+          <CheckCircleIcon style={{ color: "#52C41A" }} />
           <p style={{lineHeight: "24px", margin: "0px 15px 0px 5px"}}>{levelCounts[level.index].passed}</p>
         </AccordionSummary>
         <AccordionDetails className={styles.accordionDetails}>
