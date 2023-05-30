@@ -83,3 +83,25 @@ export type OpsLevelApi = {
   exportEntity: (entity: Entity) => Promise<any>;
   getServicesReport: () => Promise<any>;
 }
+
+export type AutoSyncConfiguration = {
+  auto_sync_enabled: boolean;
+  auto_sync_schedule: string;
+}
+
+export type AutoSyncExecution = {
+  id: number;
+  trigger: string;
+  state: string;
+  started_at: string;
+  completed_at: string | null;
+  output: string;
+}
+
+export type OpsLevelBackendApi = {
+  url: string;
+  isPluginAvailable: () => Promise<boolean>;
+  getAutoSyncConfiguration: () => Promise<AutoSyncConfiguration | null>;
+  setAutoSyncConfiguration: (configuration: AutoSyncConfiguration) => Promise<boolean>;
+  getAutoSyncExecution: (index: number) => Promise<{ total_count: number, rows: Array<AutoSyncExecution> }>;
+}

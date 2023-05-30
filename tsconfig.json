@@ -5,6 +5,7 @@
     "outDir": "dist-types",
     "rootDir": ".",
     "checkJs": true,
+    "skipLibCheck": true,
   },
   "include": [
     "src"
