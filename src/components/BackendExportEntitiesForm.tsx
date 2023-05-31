@@ -15,6 +15,8 @@ import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 import { AutoSyncConfiguration, AutoSyncExecution } from "../types/OpsLevelData";
 import React from "react";
+import moment from 'moment';
+
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
   return {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     configCell: {
       padding: "10px",
       backgroundColor: theme.palette.background.default,
-      minWidth: "200px",
+      minWidth: "280px",
     },
     configHeaderCell: {
       padding: "10px",
@@ -122,10 +124,10 @@ export default function BackendExportEntitiesForm() {
       .then((ret) => {
         const contentChanged = ret.rows.length > 0 && ret.rows[0].output !== currentRunRef?.current?.output;
         setCurrentRun(ret.rows.length > 0 ? ret.rows[0] : null);
-        setRunCount(ret.total_count);
+        setRunCount(parseInt(ret.total_count, 10));
         setCurrentRunIndex(index);
         if (contentChanged) {
-          outputRef.current?.scroll({ top: outputRef.current.scrollHeight, behavior: 'smooth' });
+          outputRef.current?.scroll?.({ top: outputRef.current.scrollHeight, behavior: 'smooth' });
         }
       });
   };
@@ -183,6 +185,7 @@ export default function BackendExportEntitiesForm() {
                 control={
                   <Switch
                     color="primary"
+                    data-testid="autosync-toggle"
                     checked={ configuration.auto_sync_enabled }
                     onChange={ (event) => { setEnabled(event.target.checked); } }
                     disabled={ configurationSaving }
@@ -191,7 +194,7 @@ export default function BackendExportEntitiesForm() {
                 label={<span className={classes.enableLabel}>Enable</span>}
                 labelPlacement="start"
               />
-              <div className={classes.cronContainer}>
+              <div className={classes.cronContainer} data-testid="autosync-cron">
                 <Cron
                   value={configuration.auto_sync_schedule}
                   setValue={ (val: string) => { setSchedule(val); } }
@@ -213,42 +216,42 @@ export default function BackendExportEntitiesForm() {
           { configurationSaving && <Progress className={classes.progress}/> }
         </AccordionDetails>
       </Accordion>
-      { (runCount || 1) > 0 && [
-        <div className={classes.executionNavHeader}>
-          { currentRunIndex > 0 && <Link href="#" onClick={prev} className={classes.paginationLink}>&lt;&lt;&lt;</Link> }
-          { currentRunIndex <= 0 && <span>&lt;&lt;&lt;</span>}
+      { (runCount === null || runCount > 0) && [
+        <div className={classes.executionNavHeader} key="nav-header" data-testid="execution-header">
+          { currentRunIndex > 0 && <Link data-testid="execution-header-prev" href="#" onClick={prev} className={classes.paginationLink}>&lt;&lt;&lt;</Link> }
+          { currentRunIndex <= 0 && <span data-testid="execution-header-prev">&lt;&lt;&lt;</span>}
           &nbsp;
           <div className={classes.executionNavHeaderText}>Showing execution {currentRunIndex + 1} of {runCount}</div>
           &nbsp;
-          { currentRunIndex < (runCount || 0) - 1 && <Link href="#" onClick={next} className={classes.paginationLink}>&gt;&gt;&gt;</Link> }
-          { currentRunIndex >= (runCount || 0) - 1 && <span className={classes.paginationLink}>&gt;&gt;&gt;</span>}
+          { currentRunIndex < (runCount || 0) - 1 && <Link data-testid="execution-header-next" href="#" onClick={next} className={classes.paginationLink}>&gt;&gt;&gt;</Link> }
+          { currentRunIndex >= (runCount || 0) - 1 && <span data-testid="execution-header-next" className={classes.paginationLink}>&gt;&gt;&gt;</span>}
         </div>,
-        <table>
+        <table key="info-table">
           <tbody>
             <tr>
               <td className={classes.configHeaderCell}>State</td>
-              <td className={classes.configCell}>{!!currentRun && (currentRun.state.charAt(0).toUpperCase() + currentRun.state.slice(1))}</td>
+              <td data-testid="run-state" className={classes.configCell}>{!!currentRun && (currentRun.state.charAt(0).toUpperCase() + currentRun.state.slice(1))}</td>
               <td className={classes.paddingCell}/>
               <td className={classes.configHeaderCell}>Trigger</td>
-              <td className={classes.configCell}>{!!currentRun && (currentRun.trigger.charAt(0).toUpperCase() + currentRun.trigger.slice(1))}</td>
+              <td data-testid="run-trigger" className={classes.configCell}>{!!currentRun && (currentRun.trigger.charAt(0).toUpperCase() + currentRun.trigger.slice(1))}</td>
             </tr>
             <tr>
               <td className={classes.configHeaderCell}>Started at</td>
-              <td className={classes.configCell}>{!!currentRun && currentRun.started_at}</td>
+              <td data-testid="run-started-at" className={classes.configCell}>{!!currentRun ? `${moment.utc(currentRun.started_at).format("MMMM Do YYYY, HH:mm:ss")} (UTC)` : ""}</td>
               <td className={classes.paddingCell}/>
               <td className={classes.configHeaderCell}>Completed at</td>
-              <td className={classes.configCell}>{!!currentRun && currentRun.completed_at}</td>
+              <td data-testid="run-completed-at" className={classes.configCell}>{!!currentRun?.completed_at ? `${moment.utc(currentRun.completed_at).format("MMMM Do YYYY, HH:mm:ss")} (UTC)` : ""}</td>
             </tr>
           </tbody>
         </table>,
-        <Typography variant="body1" className={classes.outputComponentStyle} ref={outputRef}>
-          {!!currentRun && currentRun.output}
+        <Typography variant="body1" className={classes.outputComponentStyle} ref={outputRef} key="text-output">
+          {!!currentRun && <span data-testid="text-output">{currentRun.output}</span>}
         </Typography>,
-        <div style={{ height: "4px" }}>
+        <div style={{ height: "4px" }} key="progress">
           { !currentRun && <Progress /> }
         </div>
       ] }
-      { (runCount || -1) === 0 && <Typography style={{ marginTop: "15px" }}>It looks like no export has run yet. Please come back later.</Typography>}
+      { (runCount !== null && runCount === 0) && <Typography data-testid="no-run-msg" style={{ marginTop: "15px" }}>It looks like no export has run yet. Please come back later.</Typography>}
     </span>
   );
 };
