@@ -122,7 +122,7 @@ export default function ExportEntityForm() {
     <span>
       <Typography paragraph>
         <b style={{color: "orange"}}>New:</b> Check out our <Link href="https://github.com/OpsLevel/backstage-plugin-backend" target="_blank">backend plugin</Link>, which
-        allows you to automatically schedule this export at a cadence of your choice when installed!
+        enables automatic syncing!
       </Typography>
       <Typography paragraph>
         The <Link href="https://www.opslevel.com" target="_blank">OpsLevel</Link> Backstage plugin allows you to utilize OpsLevel’s powerful Service Maturity model within your
