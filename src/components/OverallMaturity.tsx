@@ -35,7 +35,7 @@ export const OverallMaturity = () => {
   useEffect(() => { opslevelPluginApi.isPluginAvailable().then((res) => setBackendPluginPresent(res)) }, [])
   
   const header = (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "-18px"}}>
       Export Entities to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
     </div>
   );
@@ -60,7 +60,7 @@ export const OverallMaturity = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <InfoCard title={<div style={{marginBottom: "-18px"}}>{header}</div>}>
+            <InfoCard title={header}>
               {backendPluginPresent === null && (
                 <Progress />
               )}

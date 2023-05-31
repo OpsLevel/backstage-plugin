@@ -124,7 +124,7 @@ export default function BackendExportEntitiesForm() {
       .then((ret) => {
         const contentChanged = ret.rows.length > 0 && ret.rows[0].output !== currentRunRef?.current?.output;
         setCurrentRun(ret.rows.length > 0 ? ret.rows[0] : null);
-        setRunCount(parseInt(ret.total_count, 10));
+        setRunCount(ret.total_count);
         setCurrentRunIndex(index);
         if (contentChanged) {
           outputRef.current?.scroll?.({ top: outputRef.current.scrollHeight, behavior: 'smooth' });

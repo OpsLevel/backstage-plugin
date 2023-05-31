@@ -103,5 +103,5 @@ export type OpsLevelBackendApi = {
   isPluginAvailable: () => Promise<boolean>;
   getAutoSyncConfiguration: () => Promise<AutoSyncConfiguration | null>;
   setAutoSyncConfiguration: (configuration: AutoSyncConfiguration) => Promise<boolean>;
-  getAutoSyncExecution: (index: number) => Promise<{ total_count: string, rows: Array<AutoSyncExecution> }>;
+  getAutoSyncExecution: (index: number) => Promise<{ total_count: number, rows: Array<AutoSyncExecution> }>;
 }

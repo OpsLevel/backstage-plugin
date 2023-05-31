@@ -5,7 +5,7 @@ import { AutoSyncExecution } from '../types/OpsLevelData';
 
 const CONFIG_ENABLED_EVERY_MINUTE = {
   auto_sync_enabled: true,
-  auto_sync_schedule: "* * * *",
+  auto_sync_schedule: "* * * * *",
 };
 
 const EXECUTION_ROW = {
@@ -18,7 +18,7 @@ const EXECUTION_ROW = {
 };
 
 const EXECUTION_RESPONSE = {
-  total_count: "10",
+  total_count: 10,
   rows: [EXECUTION_ROW]
 }
 
@@ -35,7 +35,7 @@ jest.mock('@material-ui/core/styles', () => ({
   makeStyles: () => { return () => { return {accordion: 'a' } } },
 }));
 
-const renderComponent = async (config = CONFIG_ENABLED_EVERY_MINUTE, runs: { total_count: string, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
+const renderComponent = async (config = CONFIG_ENABLED_EVERY_MINUTE, runs: { total_count: number, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
   apiMock.getAutoSyncConfiguration.mockReturnValue(Promise.resolve(config));
   apiMock.getAutoSyncExecution.mockReturnValue(Promise.resolve(runs));
   render(<BackendExportEntitiesForm />);
@@ -48,7 +48,7 @@ describe('BackendExportEntitiesForm', () => {
 
     expect(screen.getByTestId("autosync-toggle")).toHaveClass("Mui-checked");
     // ugly but it confirms it's received the data; we're not testing that component
-    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("Everydayat every hour: every minuteClear");
+    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("EveryminuteClear");
   });
 
   it('displays the configuration if auto sync is off and set to every 5 minutes', async () => {
@@ -68,7 +68,7 @@ describe('BackendExportEntitiesForm', () => {
   });
 
   it('displays the execution header as expected if it is the last execution', async () => {
-    await renderComponent(undefined, { total_count: "1", rows: [EXECUTION_ROW] });
+    await renderComponent(undefined, { total_count: 1, rows: [EXECUTION_ROW] });
 
     expect(screen.getByTestId("execution-header")).toHaveTextContent("<<< Showing execution 1 of 1 >>>");
     expect(screen.getByTestId("execution-header-prev")).not.toHaveClass('MuiLink-root');
@@ -76,9 +76,9 @@ describe('BackendExportEntitiesForm', () => {
   });
 
   it('displays a message if there are no executions', async () => {
-    await renderComponent(undefined, { total_count: "0", rows: [] });
+    await renderComponent(undefined, { total_count: 0, rows: [] });
 
-    expect(screen.getByTestId("no-run-msg")).toHaveTextContent("It looks like no export has run yet. Please come back later.");
+    expect(screen.getByTestId("no-run-msg")).toHaveTextContent("Export has never run. Please ensure export is enabled in the configuration above.");
   });
 
   it('does not display the no runs message if there are executions', async () => {
@@ -98,7 +98,7 @@ describe('BackendExportEntitiesForm', () => {
 
   it('displays the right header fields, alternate version with blank fields', async () => {
     await renderComponent(undefined, {
-      total_count: "10",
+      total_count: 10,
       rows: [{
         id: 36,
         trigger: "scheduled",
