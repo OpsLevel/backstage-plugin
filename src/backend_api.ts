@@ -16,14 +16,11 @@ export class OpsLevelPluginAPI implements OpsLevelBackendApi {
   }
 
   public async isPluginAvailable() {
-    return await fetch(`${this.url}/ping`)
-      .then((response) => response.json())
-      .then((data) => {
-        return data.status === "OpsLevel Backend Plugin is present";
-      })
-      .catch(() => {
-        return false;
-      });
+    try {
+      const response = await fetch(`${this.url}/ping`);
+      return response.json().status === "OpsLevel Backend Plugin is present";
+    } catch {
+      return false;
   }
 
   public async getAutoSyncConfiguration() {
