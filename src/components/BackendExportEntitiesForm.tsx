@@ -251,7 +251,7 @@ export default function BackendExportEntitiesForm() {
           { !currentRun && <Progress /> }
         </div>
       ] }
-      { (runCount !== null && runCount === 0) && <Typography data-testid="no-run-msg" style={{ marginTop: "15px" }}>It looks like no export has run yet. Please come back later.</Typography>}
+      { (runCount !== null && runCount === 0) && <Typography data-testid="no-run-msg" style={{ margin: "15px" }}>Export has never run. Please ensure export is enabled in the configuration above.</Typography>}
     </span>
   );
 };
