@@ -4,12 +4,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Button, Divider, Link, Typography } from '@material-ui/core';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
-import { InfoCard } from '@backstage/core-components';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { OpsLevelApi } from '../types/OpsLevelData';
 import { useAsync } from 'react-use';
-import opslevelLogo from '../images/opslevel-logo.svg';
 import { BackstageTheme } from '@backstage/theme';
 import { makeStyles } from '@material-ui/core';
 
@@ -112,12 +110,6 @@ export default function ExportEntityForm() {
 
   if (error) return <Alert severity="error">{error.message}</Alert>;
 
-  const header = (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-      Export Services to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
-    </div>
-  );
-
   const outputComponent = (
     output.length ? (
       <Typography variant="body1" className={outputComponentStyle}>
@@ -127,7 +119,11 @@ export default function ExportEntityForm() {
   )
 
   return (
-    <InfoCard title={header}>
+    <span>
+      <Typography paragraph>
+        <b style={{color: "orange"}}>New:</b> Check out our <Link href="https://github.com/OpsLevel/backstage-plugin-backend" target="_blank">backend plugin</Link>, which
+        enables automatic syncing!
+      </Typography>
       <Typography paragraph>
         The <Link href="https://www.opslevel.com" target="_blank">OpsLevel</Link> Backstage plugin allows you to utilize OpsLevel’s powerful Service Maturity model within your
         Backstage Instance. After clicking <b>export</b> your
@@ -162,6 +158,6 @@ export default function ExportEntityForm() {
         </Button>
       </form>
       {outputComponent}
-    </InfoCard>
+    </span>
   );
 };

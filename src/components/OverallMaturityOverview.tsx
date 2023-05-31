@@ -146,7 +146,7 @@ class OverallMaturityOverview extends React.Component<Props, State> {
 
   render() {
     return (
-      <InfoCard title="Overview">
+      <InfoCard title={<div style={{marginBottom: "-18px"}}>Overview</div>}>
         <div style={{ height: "400px" }}>
           {this.props.loading && <Progress />}
           {!this.props.loading && (

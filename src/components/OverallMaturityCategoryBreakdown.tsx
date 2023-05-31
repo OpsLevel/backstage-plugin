@@ -169,7 +169,7 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
 
   render() {
     return (
-      <InfoCard title="Category Breakdown">
+      <InfoCard title={<div style={{marginBottom: "-18px"}}>Category Breakdown</div>}>
         <div style={{ height: "400px" }}>
           {this.props.loading && <Progress />}
           {!this.props.loading && (
