@@ -35,7 +35,7 @@ export const OverallMaturity = () => {
   useEffect(() => { opslevelPluginApi.isPluginAvailable().then((res) => setBackendPluginPresent(res)) }, [])
   
   const header = (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "-18px"}}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between" }}>
       Export Entities to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
     </div>
   );
