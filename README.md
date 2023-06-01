@@ -3,7 +3,10 @@
 This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.
 
 ![](docs/rubric.png)
-![](docs/maturity.jpg)
+
+![](docs/maturity-on-service.png)
+
+![](docs/maturity-report.png)
 
 [OpsLevel](https://www.opslevel.com/) gives platform engineers and DevOps leaders the tools to drive service maturity for their teams. We understand that maturity features alongside your software catalog are critical to a culture of service ownership. Which is why we’ve made our maturity features available to Backstage users within their existing service catalog.
 
