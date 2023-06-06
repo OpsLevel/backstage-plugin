@@ -106,9 +106,10 @@ export default function BackendExportEntitiesForm() {
   useEffect(() => { currentRunRef.current = currentRun }, [currentRun]);
 
   const setSchedule = (schedule: string) => {
+    const newSchedule = schedule.startsWith("* ") ? schedule.replace("* ", "0 ") : schedule;
     if(configuration === null) return;
-    if(schedule !== configuration.auto_sync_schedule) {
-      setConfiguration({ auto_sync_enabled: configuration.auto_sync_enabled, auto_sync_schedule: schedule });
+    if(newSchedule !== configuration.auto_sync_schedule) {
+      setConfiguration({ auto_sync_enabled: configuration.auto_sync_enabled, auto_sync_schedule: newSchedule });
       setDirty(true);
     }
   };
@@ -187,7 +188,7 @@ export default function BackendExportEntitiesForm() {
                     color="primary"
                     data-testid="autosync-toggle"
                     checked={ configuration.auto_sync_enabled }
-                    onChange={ (event) => { setEnabled(event.target.checked); } }
+                    onChange={ (event) => setEnabled(event.target.checked) }
                     disabled={ configurationSaving }
                   />
                 }
@@ -199,6 +200,9 @@ export default function BackendExportEntitiesForm() {
                   value={configuration.auto_sync_schedule}
                   setValue={ (val: string) => { setSchedule(val); } }
                   disabled={configurationSaving}
+                  defaultPeriod="day"
+                  allowedDropdowns={['period', 'months', 'month-days', 'week-days', 'hours']}
+                  allowedPeriods={['year', 'month', 'week', 'day']}
                 />
               </div>
               <Button

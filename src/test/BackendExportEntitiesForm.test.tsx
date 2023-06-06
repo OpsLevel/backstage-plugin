@@ -5,7 +5,7 @@ import { AutoSyncExecution } from '../types/OpsLevelData';
 
 const CONFIG_ENABLED_EVERY_MINUTE = {
   auto_sync_enabled: true,
-  auto_sync_schedule: "* * * * *",
+  auto_sync_schedule: "0 * * * *",
 };
 
 const EXECUTION_ROW = {
@@ -43,19 +43,19 @@ const renderComponent = async (config = CONFIG_ENABLED_EVERY_MINUTE, runs: { tot
 };
 
 describe('BackendExportEntitiesForm', () => {
-  it('displays the configuration if auto sync is on at every minute', async () => {
+  it('displays the configuration if auto sync is on at every hour', async () => {
     await renderComponent();
 
     expect(screen.getByTestId("autosync-toggle")).toHaveClass("Mui-checked");
     // ugly but it confirms it's received the data; we're not testing that component
-    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("EveryminuteClear");
+    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("EveryhourClear");
   });
 
   it('displays the configuration if auto sync is off and set to every 5 minutes', async () => {
-    await renderComponent({ auto_sync_enabled: false, auto_sync_schedule: "*/5 * * * *" });
+    await renderComponent({ auto_sync_enabled: false, auto_sync_schedule: "0 5 * * *" });
 
     expect(screen.getByTestId("autosync-toggle")).not.toHaveClass("Mui-checked");
-    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("Everyhouratevery 5 minute(s)Clear");
+    expect(screen.getByTestId("autosync-cron")).toHaveTextContent("Everydayat5 Clear");
   });
 
   it('displays the execution header as expected if it is the first execution', async () => {
