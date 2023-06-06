@@ -3,7 +3,7 @@ import BackendExportEntitiesForm from '../components/BackendExportEntitiesForm';
 import { waitFor, screen, render} from '@testing-library/react'
 import { AutoSyncExecution } from '../types/OpsLevelData';
 
-const CONFIG_ENABLED_EVERY_MINUTE = {
+const CONFIG_ENABLED_EVERY_HOUR = {
   auto_sync_enabled: true,
   auto_sync_schedule: "0 * * * *",
 };
@@ -35,7 +35,7 @@ jest.mock('@material-ui/core/styles', () => ({
   makeStyles: () => { return () => { return {accordion: 'a' } } },
 }));
 
-const renderComponent = async (config = CONFIG_ENABLED_EVERY_MINUTE, runs: { total_count: number, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
+const renderComponent = async (config = CONFIG_ENABLED_EVERY_HOUR, runs: { total_count: number, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
   apiMock.getAutoSyncConfiguration.mockReturnValue(Promise.resolve(config));
   apiMock.getAutoSyncExecution.mockReturnValue(Promise.resolve(runs));
   render(<BackendExportEntitiesForm />);
@@ -51,7 +51,7 @@ describe('BackendExportEntitiesForm', () => {
     expect(screen.getByTestId("autosync-cron")).toHaveTextContent("EveryhourClear");
   });
 
-  it('displays the configuration if auto sync is off and set to every 5 minutes', async () => {
+  it('displays the configuration if auto sync is off and set to every day at 5', async () => {
     await renderComponent({ auto_sync_enabled: false, auto_sync_schedule: "0 5 * * *" });
 
     expect(screen.getByTestId("autosync-toggle")).not.toHaveClass("Mui-checked");
