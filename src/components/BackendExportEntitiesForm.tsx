@@ -202,7 +202,7 @@ export default function BackendExportEntitiesForm() {
                   disabled={configurationSaving}
                   defaultPeriod="day"
                   allowedDropdowns={['period', 'months', 'month-days', 'week-days', 'hours']}
-                  allowedPeriods={['year', 'month', 'week', 'day']}
+                  allowedPeriods={['year', 'month', 'week', 'day', 'hour']}
                 />
               </div>
               <Button
