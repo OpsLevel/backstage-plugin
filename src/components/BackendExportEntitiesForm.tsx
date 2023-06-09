@@ -180,7 +180,7 @@ export default function BackendExportEntitiesForm() {
   const classes = useStyles();
   
   return (
-    <span data-testid="top-span">
+    <span>
       <Accordion className={classes.accordion} expanded={configExpanded} onChange={(_, isExpanded) => setConfigExpanded(isExpanded)}>
         <AccordionSummary expandIcon={<ExpandMoreIcon className={classes.expandIcon}/>}>
           <Typography><b>Configuration{dirty && " - unsaved changes"}</b></Typography>
