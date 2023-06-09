@@ -117,7 +117,7 @@ export default function BackendExportEntitiesForm() {
   const sanitizeSchedule = (schedule: string) => {
     if(schedule.startsWith("0 ")) return schedule;
 
-    return "0 " + schedule.substring(schedule.indexOf(" ") + 1);
+    return `0 ${schedule.substring(schedule.indexOf(" ") + 1)}`;
   }
 
   const setEnabled = (enabled: boolean) => {
