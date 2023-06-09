@@ -1,5 +1,5 @@
 import React from 'react';
-import BackendExportEntitiesForm, { sanitizeSchedule } from '../components/BackendExportEntitiesForm';
+import BackendExportEntitiesForm from '../components/BackendExportEntitiesForm';
 import { waitFor, screen, render} from '@testing-library/react'
 import { AutoSyncExecution } from '../types/OpsLevelData';
 
@@ -38,9 +38,8 @@ jest.mock('@material-ui/core/styles', () => ({
 const renderComponent = async (config = CONFIG_ENABLED_EVERY_HOUR, runs: { total_count: number, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
   apiMock.getAutoSyncConfiguration.mockReturnValue(Promise.resolve(config));
   apiMock.getAutoSyncExecution.mockReturnValue(Promise.resolve(runs));
-  const ret = render(<BackendExportEntitiesForm />);
+  render(<BackendExportEntitiesForm />);
   await waitFor(() => expect(screen.getByTestId(runs.rows.length === 0 ? "no-run-msg" : "text-output")).toBeInTheDocument());
-  return ret;
 };
 
 describe('BackendExportEntitiesForm', () => {
