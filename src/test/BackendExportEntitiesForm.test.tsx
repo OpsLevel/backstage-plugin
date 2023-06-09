@@ -1,5 +1,5 @@
 import React from 'react';
-import BackendExportEntitiesForm from '../components/BackendExportEntitiesForm';
+import BackendExportEntitiesForm, { sanitizeSchedule } from '../components/BackendExportEntitiesForm';
 import { waitFor, screen, render} from '@testing-library/react'
 import { AutoSyncExecution } from '../types/OpsLevelData';
 
@@ -38,8 +38,9 @@ jest.mock('@material-ui/core/styles', () => ({
 const renderComponent = async (config = CONFIG_ENABLED_EVERY_HOUR, runs: { total_count: number, rows: Array<AutoSyncExecution> } = EXECUTION_RESPONSE) => {
   apiMock.getAutoSyncConfiguration.mockReturnValue(Promise.resolve(config));
   apiMock.getAutoSyncExecution.mockReturnValue(Promise.resolve(runs));
-  render(<BackendExportEntitiesForm />);
+  const ret = render(<BackendExportEntitiesForm />);
   await waitFor(() => expect(screen.getByTestId(runs.rows.length === 0 ? "no-run-msg" : "text-output")).toBeInTheDocument());
+  return ret;
 };
 
 describe('BackendExportEntitiesForm', () => {
@@ -119,5 +120,12 @@ describe('BackendExportEntitiesForm', () => {
     await renderComponent();
 
     expect(screen.getByTestId("text-output")).toHaveTextContent("very important");
+  });
+
+  it('fixes invalid cron schedules', async () => {
+    expect(sanitizeSchedule("*/2 0 0 0 0")).toEqual("0 0 0 0 0");
+    expect(sanitizeSchedule("* 5 5 5 5")).toEqual("0 5 5 5 5");
+    expect(sanitizeSchedule("3-4,6 1 2 3 4")).toEqual("0 1 2 3 4");
+    expect(sanitizeSchedule("* * * * *")).toEqual("0 * * * *");
   });
 });

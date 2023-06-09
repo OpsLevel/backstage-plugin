@@ -89,6 +89,13 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   };
 });
 
+export const sanitizeSchedule = (schedule: string) => {
+  if(schedule.startsWith("0 ")) return schedule;
+
+  // force minute to 0. Export should run at most every hour.
+  return `0 ${schedule.substring(schedule.indexOf(" ") + 1)}`;
+}
+
 export default function BackendExportEntitiesForm() {
   const opslevelPluginApi = useApi(opslevelPluginApiRef);
   const [configuration, setConfiguration] = useState<AutoSyncConfiguration | null>(null);
@@ -104,12 +111,6 @@ export default function BackendExportEntitiesForm() {
   useEffect(() => { currentIndexRef.current = currentRunIndex }, [currentRunIndex]);
   const currentRunRef = useRef<AutoSyncExecution | null>();
   useEffect(() => { currentRunRef.current = currentRun }, [currentRun]);
-
-  const sanitizeSchedule = (schedule: string) => {
-    if(schedule.startsWith("0 ")) return schedule;
-
-    return `0 ${schedule.substring(schedule.indexOf(" ") + 1)}`;
-  }
 
   const setSchedule = (schedule: string) => {
     const newSchedule = sanitizeSchedule(schedule);
@@ -179,7 +180,7 @@ export default function BackendExportEntitiesForm() {
   const classes = useStyles();
   
   return (
-    <span>
+    <span data-testid="top-span">
       <Accordion className={classes.accordion} expanded={configExpanded} onChange={(_, isExpanded) => setConfigExpanded(isExpanded)}>
         <AccordionSummary expandIcon={<ExpandMoreIcon className={classes.expandIcon}/>}>
           <Typography><b>Configuration{dirty && " - unsaved changes"}</b></Typography>
