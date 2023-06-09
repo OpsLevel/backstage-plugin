@@ -1,5 +1,5 @@
 import React from 'react';
-import BackendExportEntitiesForm from '../components/BackendExportEntitiesForm';
+import BackendExportEntitiesForm, { sanitizeSchedule } from '../components/BackendExportEntitiesForm';
 import { waitFor, screen, render} from '@testing-library/react'
 import { AutoSyncExecution } from '../types/OpsLevelData';
 
@@ -119,5 +119,13 @@ describe('BackendExportEntitiesForm', () => {
     await renderComponent();
 
     expect(screen.getByTestId("text-output")).toHaveTextContent("very important");
+  });
+
+  it('fixes invalid cron schedules', async () => {
+    expect(sanitizeSchedule("*/2 0 0 0 0")).toEqual("0 0 0 0 0");
+    expect(sanitizeSchedule("* 5 5 5 5")).toEqual("0 5 5 5 5");
+    expect(sanitizeSchedule("3-4,6 1 2 3 4")).toEqual("0 1 2 3 4");
+    expect(sanitizeSchedule("* * * * *")).toEqual("0 * * * *");
+    expect(sanitizeSchedule("0 0 0 0 0")).toEqual("0 0 0 0 0");
   });
 });

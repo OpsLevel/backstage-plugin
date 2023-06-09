@@ -89,6 +89,13 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   };
 });
 
+export const sanitizeSchedule = (schedule: string) => {
+  if(schedule.startsWith("0 ")) return schedule;
+
+  // force minute to 0. Export should run at most every hour.
+  return `0 ${schedule.substring(schedule.indexOf(" ") + 1)}`;
+}
+
 export default function BackendExportEntitiesForm() {
   const opslevelPluginApi = useApi(opslevelPluginApiRef);
   const [configuration, setConfiguration] = useState<AutoSyncConfiguration | null>(null);
@@ -106,7 +113,7 @@ export default function BackendExportEntitiesForm() {
   useEffect(() => { currentRunRef.current = currentRun }, [currentRun]);
 
   const setSchedule = (schedule: string) => {
-    const newSchedule = schedule.startsWith("* ") ? schedule.replace("* ", "0 ") : schedule;
+    const newSchedule = sanitizeSchedule(schedule);
     if(configuration === null) return;
     if(newSchedule !== configuration.auto_sync_schedule) {
       setConfiguration({ auto_sync_enabled: configuration.auto_sync_enabled, auto_sync_schedule: newSchedule });
