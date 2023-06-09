@@ -1,5 +1,5 @@
 import React from 'react';
-import BackendExportEntitiesForm from '../components/BackendExportEntitiesForm';
+import BackendExportEntitiesForm, { sanitizeSchedule } from '../components/BackendExportEntitiesForm';
 import { waitFor, screen, render} from '@testing-library/react'
 import { AutoSyncExecution } from '../types/OpsLevelData';
 
