@@ -106,13 +106,19 @@ export default function BackendExportEntitiesForm() {
   useEffect(() => { currentRunRef.current = currentRun }, [currentRun]);
 
   const setSchedule = (schedule: string) => {
-    const newSchedule = schedule.startsWith("* ") ? schedule.replace("* ", "0 ") : schedule;
+    const newSchedule = this.sanitizeSchedule(schedule);
     if(configuration === null) return;
     if(newSchedule !== configuration.auto_sync_schedule) {
       setConfiguration({ auto_sync_enabled: configuration.auto_sync_enabled, auto_sync_schedule: newSchedule });
       setDirty(true);
     }
   };
+
+  const sanitizeSchedule = (schedule: string) => {
+    if(schedule.startsWith("0 ")) return schedule;
+
+    return "0 " + schedule.substring(schedule.indexOf(" ") + 1);
+  }
 
   const setEnabled = (enabled: boolean) => {
     if(configuration === null) return;
