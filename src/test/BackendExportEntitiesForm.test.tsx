@@ -126,5 +126,6 @@ describe('BackendExportEntitiesForm', () => {
     expect(sanitizeSchedule("* 5 5 5 5")).toEqual("0 5 5 5 5");
     expect(sanitizeSchedule("3-4,6 1 2 3 4")).toEqual("0 1 2 3 4");
     expect(sanitizeSchedule("* * * * *")).toEqual("0 * * * *");
+    expect(sanitizeSchedule("0 0 0 0 0")).toEqual("0 0 0 0 0");
   });
 });
