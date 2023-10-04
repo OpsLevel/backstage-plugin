@@ -1,6 +1,13 @@
-2023-10-04  Patrick  <patrick@opslevel.com>
+# Changelog
 
-  * Added (this) changelog file
-  * Added NPM version badge to README.md
+## [Unreleased]
+
+### Added
+
+  * (This) changelog file
+  * NPM version badge to README.md
+
+### Changed
+
   * Upgraded dependencies
   * Upgraded node to 18.18.0
