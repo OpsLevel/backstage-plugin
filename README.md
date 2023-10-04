@@ -1,3 +1,6 @@
+[![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FSX_5tBBV3PXtQcTEe4j6kGw_Sm0ys-piO0swtoWKCwo)](https://app.opslevel.com/services/backstage_plugin/maturity-report)
+[![npm version](https://badge.fury.io/js/backstage-plugin-opslevel-maturity.svg)](https://badge.fury.io/js/backstage-plugin-opslevel-maturity)
+
 # OpsLevel Maturity Plugin
 
 This plugin helps you leverage OpsLevel's powerful maturity features with your existing Backstage catalog. An OpsLevel API Key is required to use this plugin.
@@ -88,8 +91,3 @@ import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturit
 ## Next Steps
 
 Visit the Maturity tab in Backstage to get started.
-
-
-### Maturity of this Plugin
-
-[![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FSX_5tBBV3PXtQcTEe4j6kGw_Sm0ys-piO0swtoWKCwo)](https://app.opslevel.com/services/backstage_plugin/maturity-report)
