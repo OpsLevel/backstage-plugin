@@ -74,7 +74,7 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
         legend: {
           show: true,
           labels: {
-            colors: [this.props.theme.palette.text.primary],
+            colors: this.props.theme.palette.text.primary,
           }
         },
         colors: levelColorPalette(props.levels.length).map(
