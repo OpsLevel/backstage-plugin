@@ -36,7 +36,7 @@ export const OverallMaturity = () => {
   
   const header = (
     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      Export Entities to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em"}} />
+      Export Entities to OpsLevel <img src={opslevelLogo} alt="opslevel logo" style={{marginLeft: "0.25em", width:"34px"}} />
     </div>
   );
 
