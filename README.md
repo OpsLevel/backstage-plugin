@@ -1,5 +1,5 @@
 [![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FSX_5tBBV3PXtQcTEe4j6kGw_Sm0ys-piO0swtoWKCwo)](https://app.opslevel.com/services/backstage_plugin/maturity-report)
-[![npm version](https://badge.fury.io/js/backstage-plugin-opslevel-maturity.svg)](https://badge.fury.io/js/backstage-plugin-opslevel-maturity)
+[![npm](https://img.shields.io/npm/v/backstage-plugin-opslevel-maturity)](https://www.npmjs.com/package/backstage-plugin-opslevel-maturity)
 
 # OpsLevel Maturity Plugin
 
