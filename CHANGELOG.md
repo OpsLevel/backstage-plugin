@@ -11,13 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   * Nothing yet
 
-## [1.1.1]
+## [1.1.2] - 2023-10-24
+
+### Changed
+
+  * Deprecates `backstage-plugin-opslevel-maturity` in favor of the scoped package
+  * Releases `@opslevel/backstage-maturity`
+
+## [1.1.1] - 2023-10-20
 
 ### Changed
 
   * Bugfix to include built assets
 
-## [1.1.0]
+## [1.1.0] - 2023-10-12
 
 ### Added
 

@@ -1,5 +1,5 @@
 [![Overall](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fapp.opslevel.com%2Fapi%2Fservice_level%2FSX_5tBBV3PXtQcTEe4j6kGw_Sm0ys-piO0swtoWKCwo)](https://app.opslevel.com/services/backstage_plugin/maturity-report)
-[![npm](https://img.shields.io/npm/v/backstage-plugin-opslevel-maturity)](https://www.npmjs.com/package/backstage-plugin-opslevel-maturity)
+[![npm](https://img.shields.io/npm/v/@opslevel/backstage-maturity)](https://www.npmjs.com/package/@opslevel/backstage-maturity)
 
 # OpsLevel Maturity Plugin
 
@@ -30,7 +30,7 @@ With the plugin, you can view maturity progress in context with the rest of your
 ## Install Plugin
 
 ```bash
-yarn add --cwd packages/app backstage-plugin-opslevel-maturity
+yarn add --cwd packages/app @opslevel/backstage-maturity
 ```
 
 Update `app-config.yaml` to add a proxy for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
@@ -53,7 +53,7 @@ If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 Update `packages/app/src/App.tsx`
 
 ```jsx
-import { OpslevelMaturityPage } from 'backstage-plugin-opslevel-maturity';
+import { OpslevelMaturityPage } from '@opslevel/backstage-maturity';
 ```
 ```jsx
     <Route path="/opslevel-maturity" element={<OpslevelMaturityPage />}/>
@@ -80,7 +80,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 In `packages/app/src/components/catalog/EntityPage.tsx` import the plugin and add it to `serviceEntityPage`
 
 ```tsx
-import { EntityOpsLevelMaturityContent } from 'backstage-plugin-opslevel-maturity';
+import { EntityOpsLevelMaturityContent } from '@opslevel/backstage-maturity';
 ```
 ```tsx
     <EntityLayout.Route path="/maturity" title="Service Maturity">
