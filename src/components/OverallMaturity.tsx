@@ -32,6 +32,7 @@ export const OverallMaturity = () => {
     }
   });
   useAsync(doFetch);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- This should only fire once.
   useEffect(() => { opslevelPluginApi.isPluginAvailable().then((res) => setBackendPluginPresent(res)) }, [])
   
   const header = (

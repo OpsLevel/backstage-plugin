@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps  -- These should only fire once. TODO: Clean this up */
 import { useState, useEffect, useRef } from "react";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Cron } from 'react-js-cron'

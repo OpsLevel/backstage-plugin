@@ -5,6 +5,5 @@ module.exports = {
   rules: {
     ...cliConfig.rules,
     "indent": ["error", 2],
-    "react-hooks/exhaustive-deps": ["off"],
   }
 };
