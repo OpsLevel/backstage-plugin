@@ -1,4 +1,5 @@
 import React from "react";
+import { BackstageTheme } from '@backstage/theme';
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
@@ -21,7 +22,7 @@ type State = {
   sortedLevels: Array<Level>;
 };
 
-const styles = (theme: any): StyleRules<any, any> => {
+const styles = (theme: BackstageTheme): StyleRules<any, any> => {
   return {
     levelHeaderRow: {
       textAlign: "center",
