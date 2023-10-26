@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { BackstageTheme } from '@backstage/theme';
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
-import { StyleRules, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 
 type Level = {
   index: number;
@@ -15,14 +15,9 @@ type Props = {
   levelCategories:
     | Array<{ level: { name: string }; category: { name: string } }>
     | undefined,
-  classes: { [prop: string]: string }
 };
 
-type State = {
-  sortedLevels: Array<Level>;
-};
-
-const styles = (theme: BackstageTheme): StyleRules<any, any> => {
+const useStyles = makeStyles((theme: BackstageTheme) => {
   return {
     levelHeaderRow: {
       textAlign: "center",
@@ -70,26 +65,22 @@ const styles = (theme: BackstageTheme): StyleRules<any, any> => {
       backgroundColor: theme.palette.background.paper,
     },
   };
-};
+});
 
-class Scorecard extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      sortedLevels: [...props.levels].sort(
-        (a: Level, b: Level) => a.index - b.index
-      ),
-    };
-  }
+function Scorecard(props: Props) {
+  const classes = useStyles();
+  const [sortedLevels]: [Array<Level>, (levels: Array<Level>) => void] = useState([...props.levels].sort(
+    (a: Level, b: Level) => a.index - b.index
+  ));
 
-  getFieldStyle(classes: { [prop: string]: string }, activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] {
+  const getFieldStyle = (activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] => {
     if (activeLevel === null)
       return [`${classes.field} ${classes.disabledField}`, {}];
     if (activeLevel.name !== currentLevel.name)
       return [`${classes.field} ${classes.inactiveField}`, {}];
     const color = levelColor(
-      this.state.sortedLevels.length,
-      this.state.sortedLevels.indexOf(currentLevel)
+      sortedLevels.length,
+      sortedLevels.indexOf(currentLevel)
     );
     return [classes.field, {
       backgroundColor: color.secondary,
@@ -97,17 +88,17 @@ class Scorecard extends React.Component<Props, State> {
     }];
   }
 
-  getFieldCell(classes: { [prop: string]: string }, categoryLevel: { name: string }, renderingLevel: Level) {
+  const getFieldCell=(categoryLevel: { name: string }, renderingLevel: Level)=> {
     return (
       <div
-        className={this.getFieldStyle(classes, categoryLevel, renderingLevel)[0]}
-        style={this.getFieldStyle(classes, categoryLevel, renderingLevel)[1]}
+        className={getFieldStyle(categoryLevel, renderingLevel)[0]}
+        style={getFieldStyle(categoryLevel, renderingLevel)[1]}
       />
     );
   }
 
-  getWrappedFieldCell(classes: { [prop: string]: string }, levelCategory: { level: { name: string }; category: { name: string } }, renderingLevel: Level) {
-    const content = this.getFieldCell(classes, levelCategory.level, renderingLevel);
+  const getWrappedFieldCell = (levelCategory: { level: { name: string }; category: { name: string } }, renderingLevel: Level) =>{
+    const content = getFieldCell(levelCategory.level, renderingLevel);
     if(levelCategory.level === null || levelCategory.level.name !== renderingLevel.name) {
       return content;
     }
@@ -123,19 +114,17 @@ class Scorecard extends React.Component<Props, State> {
     );
   }
 
-  render() {
-    const { classes } = this.props;
-    return (
-      <InfoCard title="Scorecard">
-        <table
-          style={{
-            width: "100%",
-            tableLayout: "fixed",
-          }}
-        >
-          <tbody>
-            {!!this.props.levelCategories &&
-              this.props.levelCategories.map((lc) => (
+  return (
+    <InfoCard title="Scorecard">
+      <table
+        style={{
+          width: "100%",
+          tableLayout: "fixed",
+        }}
+      >
+        <tbody>
+          {!!props.levelCategories &&
+              props.levelCategories.map((lc) => (
                 <tr key={`cat_${lc.category.name}`}>
                   <td
                     className={
@@ -148,24 +137,23 @@ class Scorecard extends React.Component<Props, State> {
                       <span>{lc.category.name}</span>
                     </Tooltip>
                   </td>
-                  {this.state.sortedLevels.map((level) => (
+                  {sortedLevels.map((level) => (
                     <td
                       key={`cat_${lc.category.name}_lvl_${level.name}`}
                       className={classes.fieldCell}
                       style={{
-                        width: `${75.0 / this.state.sortedLevels.length}%`
+                        width: `${75.0 / sortedLevels.length}%`
                       }}
                     >
-                      { this.getWrappedFieldCell(classes, lc, level) }
+                      { getWrappedFieldCell(lc, level) }
                     </td>
                   ))}
                 </tr>
               ))}
-          </tbody>
-        </table>
-      </InfoCard>
-    );
-  }
+        </tbody>
+      </table>
+    </InfoCard>
+  );
 }
 
-export default withStyles(styles)(Scorecard);
+export default Scorecard;

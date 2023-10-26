@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Scorecard from './Scorecard';
 import React from 'react';
-// import { useState } from 'react';
 
 const meta = {
   title: 'Scorecard',
