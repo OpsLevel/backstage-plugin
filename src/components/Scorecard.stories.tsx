@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   decorators: [
     (Story) => (
-      <div style={{ maxWidth: '600px' }}>
+      <div style={{ maxWidth: '400px' }}>
         <Story />
       </div>
     ),

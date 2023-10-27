@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { BackstageTheme } from '@backstage/theme';
 import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
@@ -13,7 +13,7 @@ type Level = {
 type Props = {
   levels: Array<Level>;
   levelCategories:
-    | Array<{ level: { name: string }; category: { name: string } }>
+    | Array<{ level: { name: string } | null; category: { name: string } }>
     | undefined,
 };
 
@@ -69,9 +69,9 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
 
 function Scorecard(props: Props) {
   const classes = useStyles();
-  const [sortedLevels]: [Array<Level>, (levels: Array<Level>) => void] = useState([...props.levels].sort(
+  const sortedLevels= useMemo(()=>[...props.levels].sort(
     (a: Level, b: Level) => a.index - b.index
-  ));
+  ), [props.levels]);
 
   const getFieldStyle = (activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] => {
     if (activeLevel === null)

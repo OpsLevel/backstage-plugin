@@ -2,7 +2,20 @@ import React from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 
-export const OverallLevel = ({ maturityReport }: {maturityReport: any}) => {
+type Props = {
+  maturityReport:
+  {
+    categoryBreakdown: Array<{ level: null | { name: string }; category: { name: string } }>
+    | undefined,
+    overallLevel: {
+      description: string,
+      index: number,
+      name: string,
+    }
+  }
+};
+
+export const OverallLevel = ({ maturityReport }: Props) => {
   return (
     <InfoCard title="Current Level">
       <Box
