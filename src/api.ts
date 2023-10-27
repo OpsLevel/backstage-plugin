@@ -92,9 +92,11 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     return this.client.request(query, { alias: serviceAlias }, { "GraphQL-Visibility": "internal" });
   }
 
-  getServicesReport() {
+  getServicesReport(includeScorecards: boolean) {
     const query = gql`
-      query servicesReport {
+      query servicesReport(
+        $includeScorecards: Boolean
+      ) {
         account {
           rubric {
             levels {
@@ -119,7 +121,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
               }
               serviceCount
             }
-            categoryLevelCounts {
+            categoryLevelCounts(includeScorecards: $includeScorecards) {
               category {
                 name
               }
@@ -134,7 +136,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
       }    
     `;
 
-    return this.client.request(query, { }, { "GraphQL-Visibility": "internal" });
+    return this.client.request(query, { includeScorecards }, { "GraphQL-Visibility": "internal" });
   }
 
   exportEntity(entity: Entity) {
