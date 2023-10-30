@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { OverallLevel } from './OverallLevel';
+import { CurrentLevel } from './CurrentLevel';
 
 const meta = {
-  title: 'OverallLevel',
-  component: OverallLevel,
-} satisfies Meta<typeof OverallLevel>;
+  title: 'CurrentLevel',
+  component: CurrentLevel,
+} satisfies Meta<typeof CurrentLevel>;
 
 export default meta;
 

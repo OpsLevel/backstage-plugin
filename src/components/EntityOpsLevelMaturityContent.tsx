@@ -3,7 +3,7 @@ import { Button, Grid } from '@material-ui/core';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
-import { OverallLevel } from './OverallLevel';
+import { CurrentLevel } from './CurrentLevel';
 import { EntityOpsLevelMaturityProgress } from './EntityOpsLevelMaturityProgress';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
@@ -145,7 +145,7 @@ export const EntityOpsLevelMaturityContent = () => {
       <Grid container item>
         <Grid container item xs={4} direction="column">
           <Grid item>
-            <OverallLevel maturityReport={maturityReport} />
+            <CurrentLevel maturityReport={maturityReport} />
           </Grid>
           <Grid item>
             <Scorecard levels={levels} levelCategories={levelCategories}/>

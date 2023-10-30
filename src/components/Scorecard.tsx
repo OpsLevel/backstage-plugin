@@ -4,6 +4,7 @@ import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
 import { makeStyles } from '@material-ui/core';
+import { LevelCategory } from "../types/OpsLevelData";
 
 type Level = {
   index: number;
@@ -13,7 +14,7 @@ type Level = {
 type Props = {
   levels: Array<Level>;
   levelCategories:
-    | Array<{ level: { name: string } | null; category: { name: string } }>
+    | Array<LevelCategory>
     | undefined,
 };
 
@@ -73,7 +74,7 @@ function Scorecard(props: Props) {
     (a: Level, b: Level) => a.index - b.index
   ), [props.levels]);
 
-  const getFieldStyle = (activeLevel: { name: string }, currentLevel: Level): [string, { [prop: string]: string }] => {
+  const getFieldStyle = (activeLevel: null | { name: string }, currentLevel: Level): [string, { [prop: string]: string }] => {
     if (activeLevel === null)
       return [`${classes.field} ${classes.disabledField}`, {}];
     if (activeLevel.name !== currentLevel.name)
@@ -88,7 +89,7 @@ function Scorecard(props: Props) {
     }];
   }
 
-  const getFieldCell=(categoryLevel: { name: string }, renderingLevel: Level)=> {
+  const getFieldCell=(categoryLevel: null | { name: string }, renderingLevel: Level)=> {
     return (
       <div
         className={getFieldStyle(categoryLevel, renderingLevel)[0]}
@@ -97,7 +98,7 @@ function Scorecard(props: Props) {
     );
   }
 
-  const getWrappedFieldCell = (levelCategory: { level: { name: string }; category: { name: string } }, renderingLevel: Level) =>{
+  const getWrappedFieldCell = (levelCategory: LevelCategory, renderingLevel: Level) =>{
     const content = getFieldCell(levelCategory.level, renderingLevel);
     if(levelCategory.level === null || levelCategory.level.name !== renderingLevel.name) {
       return content;
