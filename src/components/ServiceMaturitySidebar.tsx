@@ -1,4 +1,6 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core';
+import { BackstageTheme } from '@backstage/theme';
 import { InfoCard } from "@backstage/core-components";
 import { LevelCategory, OverallLevel } from "../types/OpsLevelData";
 import Scorecard from "./Scorecard";
@@ -17,10 +19,19 @@ type Props = {
   overallLevel: OverallLevel,
 };
 
+const useStyles = makeStyles((theme: BackstageTheme) => ({
+  currentLevel: {
+    marginBottom: theme.spacing(4),
+  }
+}));
+
 function ServiceMaturitySidebar({levels, levelCategories, overallLevel}: Props) {
+  const classes = useStyles();
   return (
     <InfoCard title="Service Maturity">
-      <CurrentLevel overallLevel={overallLevel} />
+      <div className={classes.currentLevel}>
+        <CurrentLevel overallLevel={overallLevel} />
+      </div>
       <Scorecard levels={levels} levelCategories={levelCategories} />
     </InfoCard>
   );
