@@ -93,7 +93,7 @@ export type OpsLevelApi = {
   url: string;
   getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
   exportEntity: (entity: Entity) => Promise<any>;
-  getServicesReport: () => Promise<any>;
+  getServicesReport: (includeScorecards: boolean) => Promise<any>;
 }
 
 export type AutoSyncConfiguration = {
