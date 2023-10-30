@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { BackstageTheme } from '@backstage/theme';
-import { InfoCard } from "@backstage/core-components";
 import { levelColor } from "../helpers/level_color_helper";
 import { Tooltip } from "@mui/material";
 import { makeStyles } from '@material-ui/core';
@@ -116,15 +115,14 @@ function Scorecard(props: Props) {
   }
 
   return (
-    <InfoCard title="Scorecard">
-      <table
-        style={{
-          width: "100%",
-          tableLayout: "fixed",
-        }}
-      >
-        <tbody>
-          {!!props.levelCategories &&
+    <table
+      style={{
+        width: "100%",
+        tableLayout: "fixed",
+      }}
+    >
+      <tbody>
+        {!!props.levelCategories &&
               props.levelCategories.map((lc) => (
                 <tr key={`cat_${lc.category.name}`}>
                   <td
@@ -151,9 +149,8 @@ function Scorecard(props: Props) {
                   ))}
                 </tr>
               ))}
-        </tbody>
-      </table>
-    </InfoCard>
+      </tbody>
+    </table>
   );
 }
 

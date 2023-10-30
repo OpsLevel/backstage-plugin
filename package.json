@@ -28,6 +28,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@backstage/catalog-model": "^1.2.0",
     "@backstage/config": "^1.0.4",
     "@backstage/core-components": "^0.12.4",
