@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
   * Adds storybook
+  * Changes visuals of the service maturity sidebar to match OpsLevel
 
 ## [1.1.2] - 2023-10-24
 
