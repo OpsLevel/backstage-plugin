@@ -3,7 +3,6 @@ import { Button, Grid } from '@material-ui/core';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
-import { CurrentLevel } from './CurrentLevel';
 import { EntityOpsLevelMaturityProgress } from './EntityOpsLevelMaturityProgress';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
@@ -12,7 +11,7 @@ import { useAsync, useAsyncFn } from 'react-use';
 import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
-import Scorecard from './Scorecard';
+import ServiceMaturitySidebar from './ServiceMaturitySidebar';
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -144,12 +143,7 @@ export const EntityOpsLevelMaturityContent = () => {
       </Grid>
       <Grid container item>
         <Grid container item xs={4} direction="column">
-          <Grid item>
-            {maturityReport?.overallLevel && <CurrentLevel overallLevel={maturityReport.overallLevel} />}
-          </Grid>
-          <Grid item>
-            <Scorecard levels={levels} levelCategories={levelCategories}/>
-          </Grid>
+          {maturityReport?.overallLevel && <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />}
         </Grid>
         <Grid container item xs={8} direction="column">
           <Grid item>
