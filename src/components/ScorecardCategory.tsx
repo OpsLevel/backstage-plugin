@@ -3,6 +3,7 @@ import { Grid, ListItem, ListItemText, Tooltip, makeStyles } from '@material-ui/
 import { Level, LevelCategory } from "../types/OpsLevelData";
 import { levelColor } from "../helpers/level_color_helper";
 import { PieChartOutlined } from "@ant-design/icons";
+import  clsx  from "clsx";
 
 type Props = {
   levels: Array<Level>;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const colorGrey = '#e9e9e9';
+const colorDisabled = '#d9d9d9';
 
 const useStyles = makeStyles(() => {
   return {
@@ -31,6 +33,9 @@ const useStyles = makeStyles(() => {
       display: 'inline-block',
       height: '8px',
     },
+    levelDisabled: {
+      border: `1px solid ${colorDisabled}`,
+    },
   };
 });
 
@@ -39,12 +44,12 @@ function ScorecardCategory({levelCategory, levels}: Props) {
 
   const getLevelColor = useCallback((levelIndexToCheck: number) => {
     if (!levelCategory.level) {
-      return '#d9d9d9';
+      return colorDisabled;
     }
     const levelName = levelCategory.level.name;
     const categoryLevelIndex = levels.findIndex((levelToCheck) => levelToCheck.name === levelName);
     if (categoryLevelIndex < levelIndexToCheck) {
-      return '#d9d9d9';
+      return colorDisabled;
     }
     return levelColor(levels.length, levels.findIndex((levelToCheck) => levelToCheck.name === levelName)).secondary;
   }, [levelCategory, levels])
@@ -56,9 +61,13 @@ function ScorecardCategory({levelCategory, levels}: Props) {
           <Grid item xs={8}>
             {levelCategory.category.name}
           </Grid>
-          <Grid item xs={3} className={classes.levelWrapper} aria-label="level">
-            {levels.map((level) => (<span key={level.index} className={classes.level} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
-          </Grid>
+          <Tooltip title={levelCategory.level?.name ?? ""}>
+            <Grid item xs={3} className={classes.levelWrapper} aria-label="level">
+              <>
+                {levels.map((level) => (<span key={level.index} className={clsx(classes.level, !levelCategory.level ? classes.levelDisabled : '')} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
+              </>
+            </Grid>
+          </Tooltip>
           <Grid item xs={1}>
             <Tooltip title="These checks affect your service's maturity level.">
               <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level"/>
