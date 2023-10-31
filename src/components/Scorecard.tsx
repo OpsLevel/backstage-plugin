@@ -1,156 +1,37 @@
 import React, { useMemo } from "react";
-import { BackstageTheme } from '@backstage/theme';
-import { levelColor } from "../helpers/level_color_helper";
-import { Tooltip } from "@mui/material";
-import { makeStyles } from '@material-ui/core';
-import { LevelCategory } from "../types/OpsLevelData";
-
-type Level = {
-  index: number;
-  name: string;
-};
+import { LevelCategory, Level } from "../types/OpsLevelData";
+import List from '@mui/material/List';
+import ScorecardCategory from "./ScorecardCategory";
 
 type Props = {
   levels: Array<Level>;
-  levelCategories:
-    | Array<LevelCategory>
-    | undefined,
+  levelCategories?:
+    Array<LevelCategory>
 };
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
-  return {
-    levelHeaderRow: {
-      textAlign: "center",
-    },
-    levelHeaderCell: {
-      padding: "5px",
-      paddingBottom: "10px",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
-      color: theme.palette.text.primary,
-    },
-    categoryHeaderCell: {
-      textAlign: "right",
-      color: theme.palette.text.primary,
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
-    },
-    inactiveCategoryHeaderCell: {
-      textAlign: "right",
-      color: theme.palette.text.disabled,
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-      whiteSpace: "nowrap",
-    },
-    fieldCell: {
-      textAlign: "center",
-    },
-    field: {
-      display: "inline-block",
-      width: "calc(100% - 10px)",
-      height: "20px",
-      marginLeft: "5px",
-      marginRight: "5px",
-      borderRadius: "2px",
-      maxWidth: "70px",
-    },
-    inactiveField: {
-      border: `1px solid ${theme.palette.border}`,
-      backgroundColor: theme.palette.background.default,
-    },
-    disabledField: {
-      border: `1px solid ${theme.palette.border}`,
-      backgroundColor: theme.palette.background.paper,
-    },
-  };
-});
-
-function Scorecard(props: Props) {
-  const classes = useStyles();
-  const sortedLevels= useMemo(()=>[...props.levels].sort(
+function Scorecard({levelCategories, levels}: Props) {
+  const sortedLevels= useMemo(()=>[...levels].sort(
     (a: Level, b: Level) => a.index - b.index
-  ), [props.levels]);
-
-  const getFieldStyle = (activeLevel: null | { name: string }, currentLevel: Level): [string, { [prop: string]: string }] => {
-    if (activeLevel === null)
-      return [`${classes.field} ${classes.disabledField}`, {}];
-    if (activeLevel.name !== currentLevel.name)
-      return [`${classes.field} ${classes.inactiveField}`, {}];
-    const color = levelColor(
-      sortedLevels.length,
-      sortedLevels.indexOf(currentLevel)
-    );
-    return [classes.field, {
-      backgroundColor: color.secondary,
-      border: `solid 1px ${color.secondary}`,
-    }];
-  }
-
-  const getFieldCell=(categoryLevel: null | { name: string }, renderingLevel: Level)=> {
-    return (
-      <div
-        className={getFieldStyle(categoryLevel, renderingLevel)[0]}
-        style={getFieldStyle(categoryLevel, renderingLevel)[1]}
-      />
-    );
-  }
-
-  const getWrappedFieldCell = (levelCategory: LevelCategory, renderingLevel: Level) =>{
-    const content = getFieldCell(levelCategory.level, renderingLevel);
-    if(levelCategory.level === null || levelCategory.level.name !== renderingLevel.name) {
-      return content;
-    }
-    return (
-      <Tooltip
-        key={`tt_cat_${levelCategory.category.name}_lvl_${renderingLevel.name}}`}
-        title={<span style={{ fontSize: "14px" }}>{levelCategory.level.name}</span>}
-        aria-label={ levelCategory.level.name }
-        placement="top"
-      >
-        { content }
-      </Tooltip>
-    );
+  ), [levels]);
+  if (!levelCategories) {
+    return null;
   }
 
   return (
-    <table
-      style={{
-        width: "100%",
-        tableLayout: "fixed",
-      }}
-    >
-      <tbody>
-        {!!props.levelCategories &&
-              props.levelCategories.map((lc) => (
-                <tr key={`cat_${lc.category.name}`}>
-                  <td
-                    className={
-                      !!lc.level
-                        ? classes.categoryHeaderCell
-                        : classes.inactiveCategoryHeaderCell
-                    }
-                  >
-                    <Tooltip title={lc.category.name} placement="top">
-                      <span>{lc.category.name}</span>
-                    </Tooltip>
-                  </td>
-                  {sortedLevels.map((level) => (
-                    <td
-                      key={`cat_${lc.category.name}_lvl_${level.name}`}
-                      className={classes.fieldCell}
-                      style={{
-                        width: `${75.0 / sortedLevels.length}%`
-                      }}
-                    >
-                      { getWrappedFieldCell(lc, level) }
-                    </td>
-                  ))}
-                </tr>
-              ))}
-      </tbody>
-    </table>
+    <>
+      <List
+        component="nav"
+        subheader={
+          <h4>
+          Rubric
+          </h4>
+        }
+      >
+        {levelCategories.map(levelCategory => (
+          <ScorecardCategory key={levelCategory.category.name} levelCategory={levelCategory} levels={sortedLevels} />
+        ))}
+      </List>
+    </>
   );
 }
 

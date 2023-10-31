@@ -20,29 +20,10 @@ export const Default: Story = {
     ),
   ],
   args: {
-    maturityReport: {
-      categoryBreakdown: [{
-        category: {
-          name: "Ownership"
-        },
-        level: {
-          name: 'Beginner'
-        }
-      },
-      {
-        category: {
-          name: "Reliability"
-        },
-        level: {
-          name: 'Bronze'
-        }
-      }
-      ],
-      overallLevel: {
-        description: "Services in this level are below the minimum standard to ship to production. You should address your failing checks as soon as possible.",
-        index: 0,
-        name: "Beginner",
-      }
+    overallLevel: {
+      description: "Services in this level are below the minimum standard to ship to production. You should address your failing checks as soon as possible.",
+      index: 0,
+      name: "Beginner",
     }
   },
 };

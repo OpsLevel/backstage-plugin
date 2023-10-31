@@ -4,6 +4,11 @@ export type LevelCategory = {
  level: { name: string } | null; category: { name: string } 
 }
 
+export type Level = {
+  index: number;
+  name: string;
+};
+
 export type OverallLevel =  {
   description: string,
   index: number,

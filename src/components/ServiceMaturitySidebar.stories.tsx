@@ -28,7 +28,8 @@ export const Default: Story = {
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Good"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
     levelCategories: [
       {level: {name: "Amazing"}, category: {name: "Ownership"}},
-      {level: {name: "Slightly better"}, category: {name: "Reliability"}},
+      {level: {name: "Good"}, category: {name: "Reliability"}},
+      {level: null, category: {name: "Security"}},
       {level: {name: "Great"}, category: {name: "Observability"}},
     ]
   },
