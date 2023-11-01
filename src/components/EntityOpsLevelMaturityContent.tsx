@@ -150,7 +150,7 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   function ServiceMaturityError ({ error, showExport }: { error: React.ReactNode, showExport?: boolean }) {
-    return (<Grid container spacing={5}>
+    return (<Grid container direction="column" spacing={5}>
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
       <Grid item>{error}</Grid>
       <Grid item>
@@ -179,7 +179,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   function ServiceMaturityReport () {
     return (<>
-      <Grid container item xs={12} justifyContent="flex-end">
+      <Grid container item xs={12} justifyContent="flex-end" direction="row">
         <Grid item>
           <Button
             variant="contained"
@@ -201,8 +201,8 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item>
-        <Grid item xs={4} direction="column">
+      <Grid container item direction="row">
+        <Grid item xs={4}>
           {maturityReport?.overallLevel && 
             <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />
           }
@@ -227,7 +227,7 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} direction="column">
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
       <ServiceMaturityReport />
     </Grid>
