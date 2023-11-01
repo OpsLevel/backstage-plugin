@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Passing: Story = {
   args: {
+    opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "passed",
     checkResult: {
       message: "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
@@ -41,6 +42,7 @@ export const Passing: Story = {
 
 export const Pending: Story = {
   args: {
+    opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "pending",
     checkResult: {
       message: "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",

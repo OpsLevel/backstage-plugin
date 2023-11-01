@@ -14,6 +14,7 @@ import { BackstageTheme } from '@backstage/theme';
 
 
 type Props = {
+  opslevelUrl?: string,
   checkResultsByLevel: Array<LevelCheckResults>,
   totalChecks: number,
   totalPassingChecks: number
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   };
 });
 
-export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
+export function CheckResultsByLevel({ opslevelUrl, checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
   const [checkResults, setCheckResults] = useState<Array<LevelCheckResults>>([]);
   const [levelCounts, setLevelCounts] = useState<{ [index: number]: { [level: string]: number } }>({});
   const [expandedLevels, setExpandedLevels] = useState<{ [index: number]: boolean }>({});
@@ -155,7 +156,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
         <AccordionDetails className={styles.accordionDetails}>
           {items.nodes.map((checkResult, index) => {
             return (
-              <CheckResultDetails key={`details-${level.name}-${index}`} checkResult={checkResult} combinedStatus={getCombinedStatus(checkResult)} />
+              <CheckResultDetails key={`details-${level.name}-${index}`} opslevelUrl={opslevelUrl} checkResult={checkResult} combinedStatus={getCombinedStatus(checkResult)} />
             );
           })}
           {items.nodes.length === 0 && (<p className={styles.coloredText}>There are no checks in this level.</p>)}

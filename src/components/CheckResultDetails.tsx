@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Link, Typography } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -15,6 +15,7 @@ import MarkdownViewer from './MarkdownViewer';
 
 
 type Props = {
+  opslevelUrl?: string,
   checkResult: CheckResult,
   combinedStatus: CheckResultStatus,
 }
@@ -51,7 +52,7 @@ const getResultMessage = (checkResult: CheckResult) => {
   return checkResult.message;
 }
 
-export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
+export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }: Props) {
   const styles = useStyles();
 
   const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
@@ -110,14 +111,17 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
             <span className={styles.separator}>&#65372;</span>
             <span className={styles.coloredSubtext}>
               <TableOutlined className={styles.checkResultIcon} />
-              { checkResult.check.category.name }
+              {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.category.container.href}`}>{ checkResult.check.category.name }</Link>}
+              {!opslevelUrl && <>{checkResult.check.category.name}</>}
             </span>
           </>}
           {checkResult.check.owner && <>
             <span className={styles.separator}>&#65372;</span>
             <span className={styles.coloredSubtext}>
               <TeamOutlined className={styles.checkResultIcon} />
-              { checkResult.check.owner.name }
+              {}
+              {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>{checkResult.check.owner.name}</Link>}
+              {!opslevelUrl && <>{ checkResult.check.owner.name }</>}
             </span>
           </>}
         </Typography>
