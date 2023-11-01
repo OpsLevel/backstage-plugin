@@ -5,6 +5,7 @@ import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import moment from 'moment';
+import { TableOutlined, TeamOutlined } from '@ant-design/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, { ReactElement } from 'react';
 import { CheckResult, CheckResultStatus } from '../types/OpsLevelData';
@@ -25,6 +26,12 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     },
     coloredSubtext: {
       color: `${theme.palette.text.secondary} !important`,
+    },
+    separator: {
+      color: `${theme.palette.text.secondary}`,
+    },
+    checkResultIcon: {
+      marginRight: theme.spacing(1),
     },
   };
 });
@@ -83,12 +90,6 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     }
   }
 
-  const CheckResultIcon = (
-    <div style={{ color: resultColorMap[combinedStatus].color}}>
-      { checkResultIcons[combinedStatus] }
-    </div>
-  );
-
   return (
     <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
       <AccordionSummary
@@ -99,11 +100,26 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
           overflow: 'hidden',
         }}
       >
-        {CheckResultIcon}
-        <Typography style={{marginLeft: '10px'}} className={styles.coloredText}>
+        <div className={styles.checkResultIcon} style={{ color: resultColorMap[combinedStatus].color}}>
+          { checkResultIcons[combinedStatus] }
+        </div>
+        <Typography className={styles.coloredText}>
           {checkResult.check.name}
           
-          <span style={{fontSize: "smaller"}} className={styles.coloredSubtext}> &bull; <b>{checkResult.check.category?.name || "Uncategorized"}</b> check</span>
+          {checkResult.check.category && <>
+            <span className={styles.separator}>&#65372;</span>
+            <span className={styles.coloredSubtext}>
+              <TableOutlined className={styles.checkResultIcon} />
+              { checkResult.check.category.name }
+            </span>
+          </>}
+          {checkResult.check.owner && <>
+            <span className={styles.separator}>&#65372;</span>
+            <span className={styles.coloredSubtext}>
+              <TeamOutlined className={styles.checkResultIcon} />
+              { checkResult.check.owner.name }
+            </span>
+          </>}
         </Typography>
       </AccordionSummary>
 
