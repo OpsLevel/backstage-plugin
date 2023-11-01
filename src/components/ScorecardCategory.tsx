@@ -21,6 +21,10 @@ const useStyles = makeStyles(() => {
       },
       borderBottom: `1px solid ${colorGrey}`,
     },
+    categoryName: {
+      overflow: 'hidden',
+        textOverflow: 'ellipsis',
+    },
     levelWrapper: {
       display: 'inline-flex',
       verticalAlign: 'middle',
@@ -63,7 +67,7 @@ function ScorecardCategory({levelCategory, levels}: Props) {
       <ListItem className={classes.root} disabled={isDisabled} dense>
         <ListItemText>
           <Grid container>
-            <Grid item xs={8}>
+            <Grid item xs={8} className={classes.categoryName}>
               {levelCategory.category.name}
             </Grid>
             <Grid item xs={4}>

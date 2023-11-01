@@ -143,7 +143,9 @@ export const EntityOpsLevelMaturityContent = () => {
       </Grid>
       <Grid container item>
         <Grid container item xs={4} direction="column">
-          {maturityReport?.overallLevel && <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />}
+          {maturityReport?.overallLevel && <Grid item>
+            <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />
+          </Grid>}
         </Grid>
         <Grid container item xs={8} direction="column">
           <Grid item>
