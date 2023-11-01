@@ -12,9 +12,11 @@ import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 import MarkdownViewer from './MarkdownViewer';
 
+type CheckResultStatus = 'failed' | 'pending' | 'passed' | 'upcoming_failed' | 'upcoming_pending' | 'upcoming_passed';
+
 type Props = {
   checkResult: CheckResult,
-  combinedStatus: string
+  combinedStatus: CheckResultStatus,
 }
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
@@ -46,7 +48,7 @@ const getResultMessage = (checkResult: CheckResult) => {
 export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
   const styles = useStyles();
 
-  const checkResultIcons: { [key: string]: ReactElement } = {
+  const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
     "failed": (<CancelIcon />),
     "pending": (<ErrorIcon />),
     "passed": (<CheckCircleIcon />),
@@ -55,7 +57,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     "upcoming_passed": (<WatchLaterIcon />),
   };
 
-  const resultColorMap: { [key: string]: {[key: string]: string} } = {
+  const resultColorMap: { [key in CheckResultStatus]: {color: string, backgroundColor: string} } = {
     "failed": {
       color: "#CF1322",
       backgroundColor: "#ff000033",
