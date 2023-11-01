@@ -8,7 +8,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ErrorIcon from '@material-ui/icons/Error';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useState, useRef, SyntheticEvent } from 'react';
-import { CheckResult, LevelCheckResults } from '../types/OpsLevelData';
+import { CheckResult, CheckResultStatus, LevelCheckResults } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 
@@ -101,10 +101,21 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
     }
   }, [checkResultsByLevel, prevCheckResults]);
 
-  function getCombinedStatus(checkResult: CheckResult) {
-    let status = checkResult.status;
-    if (checkResult.check.enableOn !== null) status = `upcoming_${status}`;
-    return status;
+  function getCombinedStatus(checkResult: CheckResult): CheckResultStatus  {
+    const isCurrent = checkResult.check.enableOn === null;
+    if (isCurrent) {
+      return checkResult.status;
+    }
+    switch(checkResult.status) {
+    case "passed":
+      return "upcoming_passed"
+    case "failed":
+      return "upcoming_failed"
+    case "pending":
+      return "upcoming_pending"
+    default:
+      return checkResult.status;
+    }
   }
 
   function getPassingPercentage() {

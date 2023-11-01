@@ -5,8 +5,8 @@ import { LevelCheckResults } from '../types/OpsLevelData';
 import { cloneDeep } from 'lodash';
 
 
-describe('OverallMaturityOverview', () => {
-  const checkResultsByLevelData = [
+describe('CheckResultsByLevel', () => {
+  const checkResultsByLevelData: Array<LevelCheckResults> = [
     {
       "level":{
         "index":1,
@@ -27,6 +27,7 @@ describe('OverallMaturityOverview', () => {
                 "id": "id_1",
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"failed"
           }
@@ -53,6 +54,7 @@ describe('OverallMaturityOverview', () => {
                 "id": "id_1",
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"pending"
           },
@@ -66,6 +68,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: passed",
               "category": null,
+              owner: null
             },
             "status":"passed"
           }
@@ -92,6 +95,7 @@ describe('OverallMaturityOverview', () => {
                 "id": "id_1",
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"failed"
           },
@@ -108,6 +112,7 @@ describe('OverallMaturityOverview', () => {
                 "id": "id_1",
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"pending"
           },
@@ -124,6 +129,7 @@ describe('OverallMaturityOverview', () => {
                 "id": "id_1",
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"passed"
           }
