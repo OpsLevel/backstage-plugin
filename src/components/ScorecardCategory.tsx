@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => {
     },
     categoryName: {
       overflow: 'hidden',
-        textOverflow: 'ellipsis',
+      textOverflow: 'ellipsis',
     },
     levelWrapper: {
       display: 'inline-flex',
