@@ -35,6 +35,30 @@ export const Passing: Story = {
   },
 };
 
+export const Pending: Story = {
+  args: {
+    combinedStatus: "pending",
+    checkResult: {
+      message: "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
+      warnMessage: null,
+      createdAt: `${new Date()}`,
+      check: {
+        id: '1',
+        enableOn: null,
+        name: 'Has Owner Defined',
+        type: 'has_owner',
+        category: {
+          name: 'Quality'
+        },
+        owner: {
+          name: 'Bravo'
+        }
+      },
+      status: 'pending',
+    }
+  },
+};
+
 export const Failing: Story = {
   args: {
     combinedStatus: "failed",
