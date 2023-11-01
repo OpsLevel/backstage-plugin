@@ -276,6 +276,7 @@ export const EntityOpsLevelMaturityContent = () => {
           </Grid>
           <Grid item>
             <CheckResultsByLevel
+              opslevelUrl={service?.htmlUrl}
               checkResultsByLevel={allCheckResultsByLevel}
               totalChecks={totalChecks()}
               totalPassingChecks={totalPassingChecks()}

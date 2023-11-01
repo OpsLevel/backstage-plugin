@@ -54,7 +54,32 @@ describe('CheckResultDetails', () => {
     expect(screen.getByText("Please fix and resend a payload to see an updated check result message.")).toBeInTheDocument();
   });
 
-  it('shows the category if it exists', () => {
+  it('shows the category with link if it exists', () => {
+    const categoryName = 'Pumas';
+    const categoryHref = '/services/cats';
+    const baseUrl = 'https://google.com';
+    const checkResult = getCheckResult('failed');
+    checkResult.check.category = {
+      name: categoryName,
+      container: {
+        href: categoryHref,
+      }
+    }
+
+    render(<CheckResultDetails
+      opslevelUrl={baseUrl}
+      checkResult={checkResult}
+      combinedStatus="failed"
+    />);
+
+    const header = screen.getByRole('button')
+
+    expect(within(header).getByText(categoryName)).toBeInTheDocument();
+    expect(within(header).getByText(categoryName).getAttribute('href')).toBe(`${baseUrl}${categoryHref}`);
+    expect(within(header).getByLabelText('table')).toBeInTheDocument();
+  })
+
+  it('shows the category without link if the url is not ready', () => {
     const categoryName = 'Pumas';
     const categoryHref = '/services/cats';
     const checkResult = getCheckResult('failed');
@@ -73,10 +98,34 @@ describe('CheckResultDetails', () => {
     const header = screen.getByRole('button')
 
     expect(within(header).getByText(categoryName)).toBeInTheDocument();
+    expect(within(header).getByText(categoryName).getAttribute('href')).toBe(null);
     expect(within(header).getByLabelText('table')).toBeInTheDocument();
   })
 
-  it('shows the owner if it exists', () => {
+  it('shows the owner with link if it exists', () => {
+    const ownerName = 'Ninja';
+    const baseUrl = 'https://google.com';
+    const ownerHref = '/teams/ninja';
+    const checkResult = getCheckResult('failed');
+    checkResult.check.owner = {
+      name: ownerName,
+      href: ownerHref,
+    }
+
+    render(<CheckResultDetails
+      opslevelUrl={baseUrl}
+      checkResult={checkResult}
+      combinedStatus="failed"
+    />);
+
+    const header = screen.getByRole('button')
+
+    expect(within(header).getByText(ownerName)).toBeInTheDocument();
+    expect(within(header).getByText(ownerName).getAttribute('href')).toBe(`${baseUrl}${ownerHref}`);
+    expect(within(header).getByLabelText('team')).toBeInTheDocument();
+  })
+
+  it('shows the owner without link if the url is not ready', () => {
     const ownerName = 'Ninja';
     const ownerHref = '/teams/ninja';
     const checkResult = getCheckResult('failed');
@@ -93,6 +142,7 @@ describe('CheckResultDetails', () => {
     const header = screen.getByRole('button')
 
     expect(within(header).getByText(ownerName)).toBeInTheDocument();
+    expect(within(header).getByText(ownerName).getAttribute('href')).toBe(null);
     expect(within(header).getByLabelText('team')).toBeInTheDocument();
   })
 
