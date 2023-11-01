@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { stringifyEntityRef } from '@backstage/catalog-model';
 import { Progress } from '@backstage/core-components';
 import Alert from '@material-ui/lab/Alert';
-import { EntityOpsLevelMaturityProgress } from './EntityOpsLevelMaturityProgress';
 import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
-import { CheckResultsByLevel } from './CheckResultsByLevel';
-import ServiceMaturitySidebar from './ServiceMaturitySidebar';
 import ServiceMaturityError from './ServiceMaturityError';
+import ServiceMaturityReport from './ServiceMaturityReport';
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -46,31 +44,9 @@ export const EntityOpsLevelMaturityContent = () => {
     );
   }
 
-  const service = opsLevelData?.account?.service;
-
-  if (!service) {
-    const error = (<span>
-      OpsLevel doesn't know about this service. Export it to get started.
-      <br/>
-      Alternatively, you can export all entities at once from&nbsp;
-      <a href="/opslevel-maturity" target="_blank" style={{textDecoration: "underline"}}>the Maturity page</a>.
-    </span>);
-
-    return <ServiceMaturityError onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} error={error} showExport onExportEntity={exportEntity} exporting={exporting} />
-  }
-
-  const { maturityReport } = service;
-  const levels = opsLevelData.account?.rubric?.levels?.nodes;
-  const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
-  const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
-  const checkStats = opsLevelData.account?.service?.checkStats;
-
-  if (!maturityReport) {
-    return (<ServiceMaturityError opslevelUrl={service?.htmlUrl} error={"We don't have any maturity details for this service yet,"
-      + " please check back in a few minutes."}
-    onExportEntity={exportEntity} exporting={exporting} 
-    onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} 
-    />)
+  function showSnackbar (snackbarProps: SnackbarProps) {
+    setSnackbarOpen(true);
+    setSnackbar({ ...snackbarProps});
   }
 
   async function exportEntity(event: React.MouseEvent) {
@@ -88,64 +64,31 @@ export const EntityOpsLevelMaturityContent = () => {
     doFetch();
   }
 
-  function showSnackbar (snackbarProps: SnackbarProps) {
-    setSnackbarOpen(true);
-    setSnackbar({ ...snackbarProps});
+
+  const service = opsLevelData?.account?.service;
+  if (!service) {
+    const error = (<span>
+      OpsLevel doesn't know about this service. Export it to get started.
+      <br/>
+      Alternatively, you can export all entities at once from&nbsp;
+      <a href="/opslevel-maturity" target="_blank" style={{textDecoration: "underline"}}>the Maturity page</a>.
+    </span>);
+
+    return <ServiceMaturityError onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} error={error} showExport onExportEntity={exportEntity} exporting={exporting} />
   }
 
-  function ServiceMaturityReport () {
-    return (<>
-      <Grid container item xs={12} justifyContent="flex-end">
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={exportEntity}
-            disabled={exporting}
-          >
-            Update Entity
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            color="primary"
-            target="_blank"
-            href={`${service?.htmlUrl}/maturity-report`}
-          >
-            View Maturity in OpsLevel
-          </Button>
-        </Grid>
-      </Grid>
-      <Grid container item>
-        <Grid item xs={4} direction="column">
-          {maturityReport?.overallLevel && 
-            <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />
-          }
-        </Grid>
-        <Grid container item xs={8} direction="column">
-          <Grid item>
-            <EntityOpsLevelMaturityProgress
-              levels={levels}
-              serviceLevel={maturityReport?.overallLevel}
-            />
-          </Grid>
-          <Grid item>
-            <CheckResultsByLevel
-              checkResultsByLevel={checkResultsByLevel}
-              totalChecks={checkStats.totalChecks}
-              totalPassingChecks={checkStats.totalPassingChecks}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-    </>);
+  if (!service.maturityReport) {
+    return (<ServiceMaturityError opslevelUrl={service?.htmlUrl} error={"We don't have any maturity details for this service yet,"
+      + " please check back in a few minutes."}
+    onExportEntity={exportEntity} exporting={exporting} 
+    onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} 
+    />)
   }
 
   return (
     <Grid container spacing={2}>
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
-      <ServiceMaturityReport />
+      <ServiceMaturityReport opsLevelData={opsLevelData} onExportEntity={exportEntity} exporting={exporting} opslevelUrl={service?.htmlUrl}/>
     </Grid>
   );
 };
