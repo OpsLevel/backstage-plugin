@@ -77,6 +77,7 @@ export const EntityOpsLevelMaturityContent = () => {
         const entry = scorecard.checkResults.byLevel.nodes.find(
           (node) => node.level.index === levelIndex,
         );
+        if (!entry) return;
 
         entry.items.nodes.forEach((node) => {
           node.check.isScorecardCheck = true;

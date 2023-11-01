@@ -15,6 +15,15 @@ export type OverallLevel =  {
   name: string,
 }
 
+type Scorecard = {
+  checkResults: {
+    byLevel: {
+      nodes: Array<LevelCheckResults>
+    }
+  }
+}
+
+
 export interface OpsLevelServiceData {
   account: {
     rubric: {
@@ -29,6 +38,9 @@ export interface OpsLevelServiceData {
         categoryBreakdown: Array<LevelCategory>,
       },
       serviceStats: {
+        scorecards: {
+          nodes: Array<Scorecard>
+        },
         rubric: {
           checkResults: {
             byLevel: {
@@ -62,6 +74,7 @@ export type CheckResult = {
   check: {
     id: string,
     enableOn: string | null,
+    isScorecardCheck?: boolean,
     name: string,
     type: string,
     category: {
