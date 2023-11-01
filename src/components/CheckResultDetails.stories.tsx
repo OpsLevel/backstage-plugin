@@ -24,10 +24,14 @@ export const Passing: Story = {
         name: 'Has Owner Defined',
         type: 'has_owner',
         category: {
-          name: 'Quality'
+          name: 'Quality',
+          container: {
+            href: '/categories/quality',
+          },
         },
         owner: {
-          name: 'Bravo'
+          name: 'Bravo',
+          href: '/teams/Bravo',
         }
       },
       status: 'passed',
@@ -48,11 +52,12 @@ export const Pending: Story = {
         name: 'Has Owner Defined',
         type: 'has_owner',
         category: {
-          name: 'Quality'
+          name: 'Quality',
+          container: {
+            href: '/categories/quality',
+          },
         },
-        owner: {
-          name: 'Bravo'
-        }
+        owner: null,
       },
       status: 'pending',
     }
@@ -71,10 +76,8 @@ export const Failing: Story = {
         enableOn: null,
         name: 'Linting is enabled',
         type: 'tool_usage',
-        category: {
-          name: 'Quality'
-        },
-        owner: null
+        category: null,
+        owner: null,
       },
       status: 'failed',
     }
@@ -94,10 +97,11 @@ export const UpcomingFailing: Story = {
         enableOn: `${new Date()}`,
         name: 'Linting is enabled',
         type: 'tool_usage',
-        category: {
-          name: 'Quality'
-        },
-        owner: null
+        category: null,
+        owner: {
+          name: 'Bravo',
+          href: '/teams/Bravo',
+        }
       },
       status: 'upcoming_failed',
     }
@@ -116,10 +120,8 @@ export const Payload: Story = {
         enableOn: null,
         name: 'Service health check is passing',
         type: 'payload',
-        category: {
-          name: 'Quality'
-        },
-        owner: null
+        category: null,
+        owner: null,
       },
       status: 'failed',
     }

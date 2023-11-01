@@ -56,9 +56,13 @@ describe('CheckResultDetails', () => {
 
   it('shows the category if it exists', () => {
     const categoryName = 'Pumas';
+    const categoryHref = '/services/cats';
     const checkResult = getCheckResult('failed');
     checkResult.check.category = {
       name: categoryName,
+      container: {
+        href: categoryHref,
+      }
     }
 
     render(<CheckResultDetails
@@ -74,9 +78,11 @@ describe('CheckResultDetails', () => {
 
   it('shows the owner if it exists', () => {
     const ownerName = 'Ninja';
+    const ownerHref = '/teams/ninja';
     const checkResult = getCheckResult('failed');
     checkResult.check.owner = {
       name: ownerName,
+      href: ownerHref,
     }
 
     render(<CheckResultDetails
