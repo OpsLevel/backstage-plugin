@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
 
@@ -12,13 +11,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  decorators: [
-    (Story) => (
-      <div style={{ maxWidth: '400px' }}>
-        <Story />
-      </div>
-    ),
-  ],
   args: {
     overallLevel: {
       index: 3,

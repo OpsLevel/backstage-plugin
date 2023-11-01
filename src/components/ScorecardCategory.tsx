@@ -22,10 +22,12 @@ const useStyles = makeStyles(() => {
       borderBottom: `1px solid ${colorGrey}`,
     },
     levelWrapper: {
-      display: 'flex',
+      display: 'inline-flex',
       verticalAlign: 'middle',
       marginTop:'auto',
       marginBottom:'auto',
+      paddingRight: '14px',
+      width: '100%',
     },
     level: {
       flexGrow: 1,
@@ -64,14 +66,12 @@ function ScorecardCategory({levelCategory, levels}: Props) {
             <Grid item xs={8}>
               {levelCategory.category.name}
             </Grid>
-            <Tooltip title={levelCategory.level?.name ?? ""}>
-              <Grid item xs={3} className={classes.levelWrapper} aria-label="level">
-                <>
+            <Grid item xs={4} aria-label="level">
+              <Tooltip title={levelCategory.level?.name ?? ""}>
+                <Grid className={classes.levelWrapper} container>
                   {levels.map((level) => (<span key={level.index} className={clsx(classes.level, isDisabled ? classes.levelDisabled : '')} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
-                </>
-              </Grid>
-            </Tooltip>
-            <Grid item xs={1}>
+                </Grid>
+              </Tooltip>
               <Tooltip title={isDisabled ? '' : "These checks affect your service's maturity level."}>
                 <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level"/>
               </Tooltip>
