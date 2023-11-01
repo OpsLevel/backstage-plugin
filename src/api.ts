@@ -100,6 +100,31 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                         id
                         name
                       }
+                      items {
+                        nodes {
+                          message
+                          warnMessage
+                          createdAt
+                          check {
+                            id
+                            enableOn
+                            name
+                            type
+                            category {
+                              name
+                            }
+                            owner {
+                              ... on Team {
+                                name
+                              }
+                              ... on User {
+                                name
+                              }
+                            }
+                          }
+                          status
+                        }
+                      }
                     }
                   }
                   checkResults {

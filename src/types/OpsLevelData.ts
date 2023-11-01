@@ -98,6 +98,9 @@ export type CheckResult = {
       id: string,
       name: string
     } | null,
+    owner: {
+      name: string
+    } | null,
   },
   status: string
 }
