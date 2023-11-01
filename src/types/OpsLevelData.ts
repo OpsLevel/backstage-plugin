@@ -67,10 +67,14 @@ export type CheckResult = {
     name: string,
     type: string,
     category: {
-      name: string
+      name: string,
+      container: {
+        href: string,
+      },
     } | null,
     owner: {
       name: string
+      href: string,
     } | null,
   },
   status: CheckResultStatus
