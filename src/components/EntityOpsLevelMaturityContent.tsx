@@ -12,6 +12,7 @@ import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
+import { cloneDeep } from "lodash";
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -62,7 +63,65 @@ export const EntityOpsLevelMaturityContent = () => {
   const levels = opsLevelData.account?.rubric?.levels?.nodes;
   const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
   const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
+  const scorecards = opsLevelData.account?.service?.serviceStats?.scorecards?.nodes;
   const checkStats = opsLevelData.account?.service?.checkStats;
+
+  function checksByLevelIncludingScorecards() {
+    const result = cloneDeep(checkResultsByLevel);
+
+    result.forEach((checkResults) => {
+      // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
+      const levelIndex = checkResults.level.index;
+
+      scorecards.forEach((scorecard) => {
+        const entry = scorecard.checkResults.byLevel.nodes.find(
+          (node) => node.level.index === levelIndex,
+        );
+
+        entry.items.nodes.forEach((node) => {
+          node.check.isScorecardCheck = true;
+        });
+        checkResults.items.nodes = [
+          ...checkResults.items.nodes,
+          ...entry.items.nodes,
+        ];
+      })
+    })
+    return result;
+  }
+
+  const allCheckResultsByLevel = checksByLevelIncludingScorecards()
+
+  function totalChecks() {
+    return allCheckResultsByLevel.reduce(
+      (accumulator, checkByLevel) =>
+        accumulator + checkByLevel.items.nodes.length,
+      0,
+    );
+  }
+
+  const ResultStatusEnum = Object.freeze({
+    FAILED: "failed",
+    PENDING: "pending",
+    PASSED: "passed",
+    UPCOMING_FAILED: "upcoming_failed",
+    UPCOMING_PENDING: "upcoming_pending",
+    UPCOMING_PASSED: "upcoming_passed",
+  });
+
+  function totalPassingChecks() {
+    return allCheckResultsByLevel.reduce(
+      (accumulator, checkByLevel) =>
+        accumulator +
+        checkByLevel.items.nodes.reduce(
+          (passingChecks, check) =>
+            passingChecks +
+            (check.status === ResultStatusEnum.PASSED  ? 1 : 0),
+          0,
+        ),
+      0,
+    );
+  }
 
   if (!maturityReport) {
     return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
@@ -156,9 +215,9 @@ export const EntityOpsLevelMaturityContent = () => {
           </Grid>
           <Grid item>
             <CheckResultsByLevel
-              checkResultsByLevel={checkResultsByLevel}
-              totalChecks={checkStats.totalChecks}
-              totalPassingChecks={checkStats.totalPassingChecks}
+              checkResultsByLevel={allCheckResultsByLevel}
+              totalChecks={totalChecks()}
+              totalPassingChecks={totalPassingChecks()}
             />
           </Grid>
         </Grid>
