@@ -12,9 +12,7 @@ const getCheckResult = (status: CheckResultStatus):CheckResult => ({
     "type":"has_owner",
     "enableOn":null,
     "name":`Status: ${status}`,
-    "category":{
-      "name":"Service Ownership"
-    },
+    "category": null,
     owner: null
   },
   status
@@ -35,7 +33,6 @@ describe('CheckResultDetails', () => {
     const header = screen.getByRole('button')
 
     expect(within(header).getByText(checkResult.check.name)).toBeInTheDocument();
-    expect(within(header).getByText(checkResult.check.category?.name as string)).toBeInTheDocument();
 
     expect(screen.getByText("May 11th 2023, 20:47:53 (UTC)")).toBeInTheDocument();
     expect(screen.queryByText(checkResult.warnMessage as string)).not.toBeInTheDocument();
@@ -56,6 +53,42 @@ describe('CheckResultDetails', () => {
     expect(screen.getByText("We were unable to fully parse the result message due to the following Liquid errors:")).toBeInTheDocument();
     expect(screen.getByText("Please fix and resend a payload to see an updated check result message.")).toBeInTheDocument();
   });
+
+  it('shows the category if it exists', () => {
+    const categoryName = 'Pumas';
+    const checkResult = getCheckResult('failed');
+    checkResult.check.category = {
+      name: categoryName,
+    }
+
+    render(<CheckResultDetails
+      checkResult={checkResult}
+      combinedStatus="failed"
+    />);
+
+    const header = screen.getByRole('button')
+
+    expect(within(header).getByText(categoryName)).toBeInTheDocument();
+    expect(within(header).getByLabelText('table')).toBeInTheDocument();
+  })
+
+  it('shows the owner if it exists', () => {
+    const ownerName = 'Ninja';
+    const checkResult = getCheckResult('failed');
+    checkResult.check.owner = {
+      name: ownerName,
+    }
+
+    render(<CheckResultDetails
+      checkResult={checkResult}
+      combinedStatus="failed"
+    />);
+
+    const header = screen.getByRole('button')
+
+    expect(within(header).getByText(ownerName)).toBeInTheDocument();
+    expect(within(header).getByLabelText('team')).toBeInTheDocument();
+  })
 
   it('renders a generic check with payload details', () => {  
     const checkResult = getCheckResult('failed');
