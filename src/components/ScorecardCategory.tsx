@@ -66,9 +66,9 @@ function ScorecardCategory({levelCategory, levels}: Props) {
             <Grid item xs={8}>
               {levelCategory.category.name}
             </Grid>
-            <Grid item xs={4} aria-label="level">
+            <Grid item xs={4}>
               <Tooltip title={levelCategory.level?.name ?? ""}>
-                <Grid className={classes.levelWrapper} container>
+                <Grid className={classes.levelWrapper} container aria-label="level">
                   {levels.map((level) => (<span key={level.index} className={clsx(classes.level, isDisabled ? classes.levelDisabled : '')} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
                 </Grid>
               </Tooltip>
