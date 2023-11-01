@@ -1,5 +1,20 @@
 import { Entity } from '@backstage/catalog-model';
 
+export type LevelCategory = {
+ level: { name: string } | null; category: { name: string } 
+}
+
+export type Level = {
+  index: number;
+  name: string;
+};
+
+export type OverallLevel =  {
+  description: string,
+  index: number,
+  name: string,
+}
+
 export interface OpsLevelServiceData {
   account: {
     rubric: {
@@ -10,11 +25,8 @@ export interface OpsLevelServiceData {
     service: {
       htmlUrl: string,
       maturityReport?: {
-        overallLevel: Object,
-        categoryBreakdown: Array<{
-          level: { name: string },
-          category: { name: string }
-        }>,
+        overallLevel: OverallLevel,
+        categoryBreakdown: Array<LevelCategory>,
       },
       serviceStats: {
         rubric: {

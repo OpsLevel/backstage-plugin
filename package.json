@@ -28,6 +28,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@backstage/catalog-model": "^1.2.0",
     "@backstage/config": "^1.0.4",
     "@backstage/core-components": "^0.12.4",
@@ -47,6 +48,7 @@
     "@types/react-dom": "^17",
     "antd": "^5.0.0",
     "apexcharts": "^3.40.0",
+    "clsx": "^2.0.0",
     "dompurify": "^3.0.3",
     "enzyme": "^3.11.0",
     "graphql": "^16.6.0",
