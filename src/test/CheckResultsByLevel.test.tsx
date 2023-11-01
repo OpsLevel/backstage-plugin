@@ -4,8 +4,8 @@ import { CheckResultsByLevel } from '../components/CheckResultsByLevel';
 import { LevelCheckResults } from '../types/OpsLevelData';
 
 
-describe('OverallMaturityOverview', () => {
-  const checkResultsByLevelData = [
+describe('CheckResultsByLevel', () => {
+  const checkResultsByLevelData: Array<LevelCheckResults> = [
     {
       "level":{
         "index":1,
@@ -25,6 +25,7 @@ describe('OverallMaturityOverview', () => {
               "category":{
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"failed"
           }
@@ -50,6 +51,7 @@ describe('OverallMaturityOverview', () => {
               "category":{
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"pending"
           },
@@ -63,6 +65,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: passed",
               "category": null,
+              owner: null
             },
             "status":"passed"
           }
@@ -88,6 +91,7 @@ describe('OverallMaturityOverview', () => {
               "category":{
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"failed"
           },
@@ -103,6 +107,7 @@ describe('OverallMaturityOverview', () => {
               "category":{
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"pending"
           },
@@ -118,6 +123,7 @@ describe('OverallMaturityOverview', () => {
               "category":{
                 "name":"Service Ownership"
               },
+              owner: null
             },
             "status":"passed"
           }

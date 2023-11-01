@@ -55,6 +55,8 @@ export type LevelCheckResults = {
   }
 }
 
+export type CheckResultStatus = 'failed' | 'pending' | 'passed' | 'upcoming_failed' | 'upcoming_pending' | 'upcoming_passed';
+
 export type CheckResult = {
   message: string,
   warnMessage: string | null,
@@ -71,7 +73,7 @@ export type CheckResult = {
       name: string
     } | null,
   },
-  status: string
+  status: CheckResultStatus
 }
 
 export interface OpsLevelOverallData {

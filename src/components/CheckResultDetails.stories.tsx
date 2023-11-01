@@ -81,6 +81,29 @@ export const Failing: Story = {
   },
 };
 
+
+export const UpcomingFailing: Story = {
+  args: {
+    combinedStatus: "upcoming_failed",
+    checkResult: {
+      message: "No import linting is enabled",
+      warnMessage: "Oh no, better fix it",
+      createdAt: `${new Date()}`,
+      check: {
+        id: '1',
+        enableOn: `${new Date()}`,
+        name: 'Linting is enabled',
+        type: 'tool_usage',
+        category: {
+          name: 'Quality'
+        },
+        owner: null
+      },
+      status: 'upcoming_failed',
+    }
+  },
+};
+
 export const Payload: Story = {
   args: {
     combinedStatus: "failed",

@@ -7,12 +7,11 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import moment from 'moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, { ReactElement } from 'react';
-import { CheckResult } from '../types/OpsLevelData';
+import { CheckResult, CheckResultStatus } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 import MarkdownViewer from './MarkdownViewer';
 
-type CheckResultStatus = 'failed' | 'pending' | 'passed' | 'upcoming_failed' | 'upcoming_pending' | 'upcoming_passed';
 
 type Props = {
   checkResult: CheckResult,
@@ -111,9 +110,9 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
       <AccordionDetails className={styles.coloredText} style={{marginTop: "-20px"}}>
         <p className="p-will-be-enabled" hidden={!combinedStatus.startsWith("upcoming_")}>
           This check will be enabled on {moment.utc(checkResult.check.enableOn).format("MMMM Do YYYY, HH:mm:ss")} (UTC)
-          <span className="span-is-failing" hidden={combinedStatus !== "upcoming_failed"}>, but it is currently failing.</span>
-          <span className="span-not-evaluated" hidden={combinedStatus !== "upcoming_pending"}>, but it has not been evaluated yet.</span>
-          <span className="span-is-passing" hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
+          {combinedStatus === "upcoming_failed" && <span className="span-is-failing">, but it is currently failing.</span>}
+          {combinedStatus === "upcoming_pending" && <span className="span-not-evaluated">, but it has not been evaluated yet.</span>}
+          {combinedStatus === "upcoming_passed" && <span className="span-is-passing">, but it is currently passing.</span>}
         </p>
 
         { getShowWarnMessage(checkResult) && (<span className="span-warn-message">
