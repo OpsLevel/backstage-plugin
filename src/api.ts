@@ -71,6 +71,14 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                             category {
                               name
                             }
+                            owner {
+                              ... on Team {
+                                name
+                              }
+                              ... on User {
+                                name
+                              }
+                            }
                           }
                           status
                         }
