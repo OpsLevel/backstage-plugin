@@ -12,6 +12,7 @@ import { OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
+import ServiceMaturityError from './ServiceMaturityError';
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -55,7 +56,7 @@ export const EntityOpsLevelMaturityContent = () => {
       <a href="/opslevel-maturity" target="_blank" style={{textDecoration: "underline"}}>the Maturity page</a>.
     </span>);
 
-    return <ServiceMaturityError error={error} showExport />
+    return <ServiceMaturityError onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} error={error} showExport onExportEntity={exportEntity} exporting={exporting} />
   }
 
   const { maturityReport } = service;
@@ -65,8 +66,11 @@ export const EntityOpsLevelMaturityContent = () => {
   const checkStats = opsLevelData.account?.service?.checkStats;
 
   if (!maturityReport) {
-    return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
-      + " please check back in a few minutes."}/>)
+    return (<ServiceMaturityError opslevelUrl={service?.htmlUrl} error={"We don't have any maturity details for this service yet,"
+      + " please check back in a few minutes."}
+    onExportEntity={exportEntity} exporting={exporting} 
+    onSetSnackbarOpen={setSnackbarOpen} snackbar={snackbar} snackbarOpen={snackbarOpen} 
+    />)
   }
 
   async function exportEntity(event: React.MouseEvent) {
@@ -87,34 +91,6 @@ export const EntityOpsLevelMaturityContent = () => {
   function showSnackbar (snackbarProps: SnackbarProps) {
     setSnackbarOpen(true);
     setSnackbar({ ...snackbarProps});
-  }
-
-  function ServiceMaturityError ({ error, showExport }: { error: React.ReactNode, showExport?: boolean }) {
-    return (<Grid container spacing={5}>
-      <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
-      <Grid item>{error}</Grid>
-      <Grid item>
-        { showExport ?
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={exportEntity}
-            disabled={exporting}
-          >
-          Export Entity to OpsLevel
-          </Button> :
-          <Button
-            variant="contained"
-            color="primary"
-            target="_blank"
-            href={`${service?.htmlUrl}/maturity-report`}
-          >
-          View Maturity in OpsLevel
-          </Button>
-        }
-      </Grid>
-    </Grid>
-    )
   }
 
   function ServiceMaturityReport () {
