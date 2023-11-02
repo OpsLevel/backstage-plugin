@@ -13,9 +13,8 @@ type Level = {
 
 type Props = {
   levels: Array<Level>;
-  levelCategories:
-    | Array<LevelCategory>
-    | undefined,
+  levelCategories?: Array<LevelCategory>,
+  scorecardCategories?: Array<LevelCategory>,
   overallLevel: OverallLevel,
 };
 
@@ -25,14 +24,15 @@ const useStyles = makeStyles((theme: BackstageTheme) => ({
   }
 }));
 
-function ServiceMaturitySidebar({levels, levelCategories, overallLevel}: Props) {
+function ServiceMaturitySidebar({levels, levelCategories, scorecardCategories, overallLevel}: Props) {
   const classes = useStyles();
   return (
     <InfoCard title="Service Maturity">
       <div className={classes.currentLevel}>
         <CurrentLevel overallLevel={overallLevel} />
       </div>
-      <Scorecard levels={levels} levelCategories={levelCategories} />
+      <Scorecard levels={levels} levelCategories={levelCategories} title="Rubric"/>
+      {scorecardCategories && <Scorecard levels={levels} levelCategories={scorecardCategories} title="Scorecards"/>}
     </InfoCard>
   );
 }

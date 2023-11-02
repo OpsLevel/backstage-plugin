@@ -18,11 +18,28 @@ describe('Scorecard', () => {
       {level: {name: "Great"}, category: {name: "Security"}},
       {level: {name: "Amazing"}, category: {name: "Quality"}},
     ];
+    const title = "Special Scorecard"
 
-    render(<Scorecard levels={levels} levelCategories={levelCategories}/>)
+    render(<Scorecard levels={levels} levelCategories={levelCategories} title={title} />)
 
     levelCategories.forEach(levelCategory=>{
       expect(screen.getByText(levelCategory.category.name)).toBeInTheDocument();
     })
+    expect(screen.getByText(title)).toBeInstanceOf(HTMLHeadingElement);
+  });
+
+  it('renders header if there is no data', () => {
+    const levels = [
+      {index: 5, name: "Amazing"},
+      {index: 4, name: "Great"},
+      {index: 2, name: "Meh"},
+      {index: 1, name: "Slightly better"},
+      {index: 0, name: "Not so great"},
+    ];
+    const title = "Another Rubric"
+
+    render(<Scorecard levels={levels} title={title} />)
+
+    expect(screen.getByText(title)).toBeInstanceOf(HTMLHeadingElement);
   });
 });
