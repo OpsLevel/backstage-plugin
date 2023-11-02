@@ -254,9 +254,9 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item direction="row">
-        <Grid item xs={4}>
-          {maturityReport?.overallLevel && 
+      <Grid container item>
+        <Grid container item xs={4} direction="column" />
+        {maturityReport?.overallLevel && 
             <ServiceMaturitySidebar 
               levels={levels} 
               scorecardCategories={scorecardCategories}
@@ -265,23 +265,22 @@ export const EntityOpsLevelMaturityContent = () => {
               selectedCategoryIds={selectedCategories}
               onCategorySelectionChanged={updateCategoryIdSelection}
             />
-          }
+        }
+      </Grid>
+      <Grid container item xs={8} direction="column">
+        <Grid item>
+          <EntityOpsLevelMaturityProgress
+            levels={levels}
+            serviceLevel={overallLevel}
+          />
         </Grid>
-        <Grid container item xs={8} direction="column">
-          <Grid item>
-            <EntityOpsLevelMaturityProgress
-              levels={levels}
-              serviceLevel={overallLevel}
-            />
-          </Grid>
-          <Grid item>
-            <CheckResultsByLevel
-              opslevelUrl={service?.htmlUrl}
-              checkResultsByLevel={allCheckResultsByLevel}
-              totalChecks={totalChecks()}
-              totalPassingChecks={totalPassingChecks()}
-            />
-          </Grid>
+        <Grid item>
+          <CheckResultsByLevel
+            opslevelUrl={service?.htmlUrl}
+            checkResultsByLevel={allCheckResultsByLevel}
+            totalChecks={totalChecks()}
+            totalPassingChecks={totalPassingChecks()}
+          />
         </Grid>
       </Grid>
     </>);
