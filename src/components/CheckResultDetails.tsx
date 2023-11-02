@@ -103,30 +103,30 @@ export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }
         }}
       >
         <Box style={{ display: "flex", alignItems: "center" }}>
-        <div className={styles.checkResultIcon} style={{ color: resultColorMap[combinedStatus].color}}>
-          { checkResultIcons[combinedStatus] }
-        </div>
-        <Typography className={styles.coloredText}>
-          {checkResult.check.name}
+          <div className={styles.checkResultIcon} style={{ color: resultColorMap[combinedStatus].color}}>
+            { checkResultIcons[combinedStatus] }
+          </div>
+          <Typography className={styles.coloredText}>
+            {checkResult.check.name}
 
-          {checkResult.check.category && <>
-            <span className={styles.separator}>&#65372;</span>
-            <span className={styles.coloredSubtext}>
-              <TableOutlined className={styles.checkResultIcon} />
-              {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.category.container.href}`}>{ checkResult.check.category.name }</Link>}
-              {!opslevelUrl && <>{checkResult.check.category.name}</>}
-            </span>
-          </>}
-          {checkResult.check.owner && <>
-            <span className={styles.separator}>&#65372;</span>
-            <span className={styles.coloredSubtext}>
-              <TeamOutlined className={styles.checkResultIcon} />
-              {}
-              {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>{checkResult.check.owner.name}</Link>}
-              {!opslevelUrl && <>{ checkResult.check.owner.name }</>}
-            </span>
-          </>}
-        </Typography>
+            {checkResult.check.category && <>
+              <span className={styles.separator}>&#65372;</span>
+              <span className={styles.coloredSubtext}>
+                <TableOutlined className={styles.checkResultIcon} />
+                {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.category.container.href}`}>{ checkResult.check.category.name }</Link>}
+                {!opslevelUrl && <>{checkResult.check.category.name}</>}
+              </span>
+            </>}
+            {checkResult.check.owner && <>
+              <span className={styles.separator}>&#65372;</span>
+              <span className={styles.coloredSubtext}>
+                <TeamOutlined className={styles.checkResultIcon} />
+                {}
+                {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>{checkResult.check.owner.name}</Link>}
+                {!opslevelUrl && <>{ checkResult.check.owner.name }</>}
+              </span>
+            </>}
+          </Typography>
         </Box>
       </AccordionSummary>
 
