@@ -78,7 +78,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
 
     function getInitialExpandedLevelIndex(newLevelCounts: { [index: number]: { [level: string]: number } }) {
       for(const index in newLevelCounts) {
-        if(newLevelCounts[index].failed > 0 || newLevelCounts[index].upcoming_failed > 0 || newLevelCounts[index].upcoming_pending > 0) return index;
+        if(newLevelCounts[index].failed > 0 || newLevelCounts[index].upcoming_failed > 0 || newLevelCounts[index].upcoming_pending > 0 || newLevelCounts[index].pending > 0) return index;
       }
       return -1;
     }
