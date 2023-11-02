@@ -91,6 +91,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                     edges {
                       level {
                         id
+                        index
                         name
                       }
                       node {

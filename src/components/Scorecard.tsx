@@ -12,8 +12,9 @@ type Props = {
 
 function Scorecard({levelCategories, levels, title}: Props) {
   const sortedLevels= useMemo(()=>[...levels].sort(
-    (a: Level, b: Level) => a.index - b.index
-  ), [levels]);
+    (a: Level, b: Level) =>{
+      return (a.index || 0) - (b.index || 0);
+    }), [levels]);
 
   return (
     <>

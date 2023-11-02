@@ -1,12 +1,15 @@
 import { Entity } from '@backstage/catalog-model';
 
 export type LevelCategory = {
- level: { name: string } | null; category: { name: string } 
+  id?: string;
+  level: { name: string } | null;
+  category: { name: string } 
+  rollsUp?: boolean;
 }
 
 export type Level = {
-  index: number;
-  name: string;
+  index?: number;
+  name?: string;
 };
 
 export type OverallLevel =  {
@@ -15,10 +18,23 @@ export type OverallLevel =  {
   name: string,
 }
 
-type Scorecard = {
-  checkResults: {
-    byLevel: {
-      nodes: Array<LevelCheckResults>
+type ScorecardStats = {
+  scorecard?: {
+    affectsOverallServiceLevels: boolean,
+    id: string,
+    name: string,
+  }
+  categories?: {
+    edges?: Array<{
+      level?: Level
+      node?: {
+        name: string
+      }
+    }>
+  }
+  checkResults?: {
+    byLevel?: {
+      nodes?: Array<LevelCheckResults>
     }
   }
 }
@@ -37,9 +53,9 @@ export interface OpsLevelServiceData {
         overallLevel: OverallLevel,
         categoryBreakdown: Array<LevelCategory>,
       },
-      serviceStats: {
-        scorecards: {
-          nodes: Array<Scorecard>
+      serviceStats?: {
+        scorecards?: {
+          nodes?: Array<ScorecardStats>
         },
         rubric: {
           checkResults: {
@@ -49,7 +65,7 @@ export interface OpsLevelServiceData {
           }
         }
       },
-      checkStats: {
+      checkStats?: {
         totalChecks: number,
         totalPassingChecks: number
       }
