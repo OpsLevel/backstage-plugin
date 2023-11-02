@@ -1,4 +1,4 @@
-import { Link, Typography } from '@material-ui/core';
+import { Link, Typography, Box } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     },
     checkResultIcon: {
       marginRight: theme.spacing(1),
+      display: "inline-flex",
     },
   };
 });
@@ -101,12 +102,13 @@ export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }
           overflow: 'hidden',
         }}
       >
+        <Box style={{ display: "flex", alignItems: "center" }}>
         <div className={styles.checkResultIcon} style={{ color: resultColorMap[combinedStatus].color}}>
           { checkResultIcons[combinedStatus] }
         </div>
         <Typography className={styles.coloredText}>
           {checkResult.check.name}
-          
+
           {checkResult.check.category && <>
             <span className={styles.separator}>&#65372;</span>
             <span className={styles.coloredSubtext}>
@@ -125,6 +127,7 @@ export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }
             </span>
           </>}
         </Typography>
+        </Box>
       </AccordionSummary>
 
       <AccordionDetails className={styles.coloredText} style={{marginTop: "-20px"}}>
@@ -141,13 +144,13 @@ export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }
           <p className="p-unable-parse-following">We were able to parse the following from the message:</p>
         </span>) }
 
-        
+
         <div style={ getShowWarnMessage(checkResult) ? { padding: "24px", backgroundColor: "rgba(0, 0, 0, 0.1)" } : {} }>
           <p className="p-check-message">
             <MarkdownViewer value={ getResultMessage(checkResult) } truncate={ false } />
           </p>
         </div>
-        
+
 
         { getShowWarnMessage(checkResult) && (<p>Please fix and resend a payload to see an updated check result message.</p>)}
 
