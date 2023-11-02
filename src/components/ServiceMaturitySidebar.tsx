@@ -41,12 +41,12 @@ function ServiceMaturitySidebar({levels, levelCategories, scorecardCategories, o
         onCategorySelectionChanged={onCategorySelectionChanged}
       />
       {scorecardCategories && <Scorecard
-                                levels={levels}
-                                levelCategories={scorecardCategories}
-                                title="Scorecards"
-                                selectedCategoryIds={selectedCategoryIds}
-                                onCategorySelectionChanged={onCategorySelectionChanged}
-                              />}
+        levels={levels}
+        levelCategories={scorecardCategories}
+        title="Scorecards"
+        selectedCategoryIds={selectedCategoryIds}
+        onCategorySelectionChanged={onCategorySelectionChanged}
+      />}
     </InfoCard>
   );
 }

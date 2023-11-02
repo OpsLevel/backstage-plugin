@@ -27,7 +27,7 @@ function checkboxState(levelCategories, selectedCategoryIds) {
 }
 
 function toggleEntireScorecard(currentState, levelCategories, onCategorySelectionChanged) {
-  if(currentState == null || currentState == false) {
+  if(currentState === null || currentState === false) {
     onCategorySelectionChanged(levelCategories.map((c) => c.category.id), []);
   } else {
     onCategorySelectionChanged([], levelCategories.map((c) => c.category.id));
@@ -47,11 +47,11 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
         subheader={
           <span>
             <h4><Checkbox
-                  style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
-                  checked={checkboxValue}
-                  indeterminate={checkboxValue == null}
-                  onChange={() => {toggleEntireScorecard(checkboxValue, levelCategories, onCategorySelectionChanged)}}
-                /> {title}</h4>
+              style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
+              checked={checkboxValue}
+              indeterminate={checkboxValue === null}
+              onChange={() => {toggleEntireScorecard(checkboxValue, levelCategories, onCategorySelectionChanged)}}
+            /> {title}</h4>
           </span>
         }
       >

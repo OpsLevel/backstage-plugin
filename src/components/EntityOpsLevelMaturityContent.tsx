@@ -33,9 +33,9 @@ export const EntityOpsLevelMaturityContent = () => {
         result.account.service.maturityReport.categoryBreakdown
           .filter((cb) => !!cb.level)
           .map((cb) => cb.category.id).concat(
-          result.account.service.serviceStats.scorecards.nodes
-            .filter((s) => s.scorecard.affectsOverallServiceLevels && !!s.categories.edges[0].level)
-            .map((s) => s.categories.edges[0].node.id)
+            result.account.service.serviceStats.scorecards.nodes
+              .filter((s) => s.scorecard.affectsOverallServiceLevels && !!s.categories.edges[0].level)
+              .map((s) => s.categories.edges[0].node.id)
           )
       );
     }
@@ -105,22 +105,21 @@ export const EntityOpsLevelMaturityContent = () => {
     result?.forEach((checkResults) => {
       // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
       const levelIndex = checkResults.level.index;
-      scorecards?
-        .forEach((scorecard) => {
-          const entry = scorecard.checkResults?.byLevel?.nodes?.find(
-            (node) => node.level.index === levelIndex,
-          );
-          if (!entry) return;
+      scorecards?.forEach((scorecard) => {
+        const entry = scorecard.checkResults?.byLevel?.nodes?.find(
+          (node) => node.level.index === levelIndex,
+        );
+        if (!entry) return;
 
-          entry.items.nodes.forEach((node) => {
-            node.check.isScorecardCheck = true;
-          });
-          checkResults.items.nodes = [
-            ...checkResults.items.nodes,
-            ...entry.items.nodes,
-          ].filter((i) => selectedCategories.includes(i.check.category.id));
-          ;
-        })
+        entry.items.nodes.forEach((node) => {
+          node.check.isScorecardCheck = true;
+        });
+        checkResults.items.nodes = [
+          ...checkResults.items.nodes,
+          ...entry.items.nodes,
+        ].filter((i) => selectedCategories.includes(i.check.category.id));
+        ;
+      })
     })
     return result || [];
   }
@@ -184,7 +183,7 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   function updateCategoryIdSelection(addedCategoryIds, removedCategoryIds) {
-    let newSelection = selectedCategories.filter((c) => !removedCategoryIds.includes(c));
+    const newSelection = selectedCategories.filter((c) => !removedCategoryIds.includes(c));
     addedCategoryIds.forEach((id) => {
       if(!newSelection.includes(id)) newSelection.push(id);
     });
@@ -197,7 +196,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
     let i;
     for(i = 0; i < sortedCheckResults.length; i++) {
-      if(sortedCheckResults[i].items.nodes.some((e) => e.status == "failed" || e.status == "pending")) {
+      if(sortedCheckResults[i].items.nodes.some((e) => e.status === "failed" || e.status === "pending")) {
         return sortedLevels[i];
       }
     }
