@@ -12,7 +12,7 @@ describe('Scorecard Category', () => {
       {index: 4, name: "Great"},
       {index: 5, name: "Amazing"},
     ];
-    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}};
+    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}, rollsUp: true};
 
     render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
 
