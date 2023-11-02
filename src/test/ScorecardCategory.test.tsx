@@ -4,7 +4,7 @@ import ScorecardCategory from '../components/ScorecardCategory';
 
 
 describe('Scorecard Category', () => {
-  it('shows the name, level, and pie chart', () => {
+  it('shows the checkbox, name, level, and pie chart', () => {
     const levels = [
       {index: 0, name: "Not so great"},
       {index: 1, name: "Slightly better"},
@@ -16,9 +16,21 @@ describe('Scorecard Category', () => {
 
     render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
 
+    expect(screen.getByTestId("checkbox-id")).toBeInTheDocument();
     expect(screen.getByText('Ownership')).toBeInTheDocument();
     expect(screen.getByLabelText('pie-chart')).toBeInTheDocument();
     expect(screen.getByLabelText('level').children).toHaveLength(5);
+  });
+
+  it('does not show the pie chart if the scorecard does not roll up', () => {
+    const levels = [
+      {index: 0, name: "Not so great"},
+    ];
+    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}, rollsUp: false};
+
+    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
+
+    expect(() => screen.getByLabelText('pie-chart')).toThrow();
   });
 
   it('highlights up to the level of the category', () => {

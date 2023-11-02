@@ -47,6 +47,7 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
         subheader={
           <span>
             <h4><Checkbox
+              data-testid={`category-checkbox-${title}`}
               style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
               checked={checkboxValue || undefined}
               indeterminate={checkboxValue === null}

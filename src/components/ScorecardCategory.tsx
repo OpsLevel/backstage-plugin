@@ -81,6 +81,7 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
         <Grid container spacing={0}>
           <Grid item xs={3} lg={1}>
             <Checkbox
+              data-testid={`checkbox-${levelCategory.category.id}`}
               disabled={isDisabled}
               className={classes.scorecardCheckbox}
               checked={(checked && !isDisabled) || undefined}
