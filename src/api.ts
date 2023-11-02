@@ -70,6 +70,24 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
                             type
                             category {
                               name
+                              container {
+                                ... on Scorecard {
+                                  href
+                                }
+                                ... on Rubric {
+                                  href
+                                }
+                              }
+                            }
+                            owner {
+                              ... on Team {
+                                name
+                                href
+                              }
+                              ... on User {
+                                name
+                                href
+                              }
                             }
                           }
                           status

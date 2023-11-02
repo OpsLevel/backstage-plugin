@@ -142,8 +142,8 @@ export const EntityOpsLevelMaturityContent = () => {
         </Grid>
       </Grid>
       <Grid container item>
-        <Grid item xs={4} direction="column">
-          {maturityReport?.overallLevel && 
+        <Grid container item xs={4} direction="column">
+          {maturityReport?.overallLevel &&
             <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />
           }
         </Grid>
@@ -156,6 +156,7 @@ export const EntityOpsLevelMaturityContent = () => {
           </Grid>
           <Grid item>
             <CheckResultsByLevel
+              opslevelUrl={service?.htmlUrl}
               checkResultsByLevel={checkResultsByLevel}
               totalChecks={checkStats.totalChecks}
               totalPassingChecks={checkStats.totalPassingChecks}

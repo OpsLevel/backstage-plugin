@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   * Adds storybook
   * Changes visuals of the service maturity sidebar to match OpsLevel
+  * Adds link back to OpsLevel from Check category
+  * Adds Check owner (with a link back to OpsLevel)
 
 ## [1.1.2] - 2023-10-24
 

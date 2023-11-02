@@ -1,20 +1,23 @@
-import { Typography } from '@material-ui/core';
+import { Link, Typography, Box } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import moment from 'moment';
+import { TableOutlined, TeamOutlined } from '@ant-design/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, { ReactElement } from 'react';
-import { CheckResult } from '../types/OpsLevelData';
+import { CheckResult, CheckResultStatus } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 import MarkdownViewer from './MarkdownViewer';
 
+
 type Props = {
+  opslevelUrl?: string,
   checkResult: CheckResult,
-  combinedStatus: string
+  combinedStatus: CheckResultStatus,
 }
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
@@ -24,6 +27,13 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     },
     coloredSubtext: {
       color: `${theme.palette.text.secondary} !important`,
+    },
+    separator: {
+      color: `${theme.palette.text.secondary}`,
+    },
+    checkResultIcon: {
+      marginRight: theme.spacing(1),
+      display: "inline-flex",
     },
   };
 });
@@ -43,10 +53,10 @@ const getResultMessage = (checkResult: CheckResult) => {
   return checkResult.message;
 }
 
-export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
+export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }: Props) {
   const styles = useStyles();
 
-  const checkResultIcons: { [key: string]: ReactElement } = {
+  const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
     "failed": (<CancelIcon />),
     "pending": (<ErrorIcon />),
     "passed": (<CheckCircleIcon />),
@@ -55,7 +65,7 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     "upcoming_passed": (<WatchLaterIcon />),
   };
 
-  const resultColorMap: { [key: string]: {[key: string]: string} } = {
+  const resultColorMap: { [key in CheckResultStatus]: {color: string, backgroundColor: string} } = {
     "failed": {
       color: "#CF1322",
       backgroundColor: "#ff000033",
@@ -82,12 +92,6 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
     }
   }
 
-  const CheckResultIcon = (
-    <div style={{ color: resultColorMap[combinedStatus].color}}>
-      { checkResultIcons[combinedStatus] }
-    </div>
-  );
-
   return (
     <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
       <AccordionSummary
@@ -98,20 +102,40 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
           overflow: 'hidden',
         }}
       >
-        {CheckResultIcon}
-        <Typography style={{marginLeft: '10px'}} className={styles.coloredText}>
-          {checkResult.check.name}
-          
-          <span style={{fontSize: "smaller"}} className={styles.coloredSubtext}> &bull; <b>{checkResult.check.category?.name || "Uncategorized"}</b> check</span>
-        </Typography>
+        <Box style={{ display: "flex", alignItems: "center" }}>
+          <div className={styles.checkResultIcon} style={{ color: resultColorMap[combinedStatus].color}}>
+            { checkResultIcons[combinedStatus] }
+          </div>
+          <Typography className={styles.coloredText}>
+            {checkResult.check.name}
+
+            {checkResult.check.category && <>
+              <span className={styles.separator}>&#65372;</span>
+              <span className={styles.coloredSubtext}>
+                <TableOutlined className={styles.checkResultIcon} />
+                {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.category.container.href}`}>{ checkResult.check.category.name }</Link>}
+                {!opslevelUrl && <>{checkResult.check.category.name}</>}
+              </span>
+            </>}
+            {checkResult.check.owner && <>
+              <span className={styles.separator}>&#65372;</span>
+              <span className={styles.coloredSubtext}>
+                <TeamOutlined className={styles.checkResultIcon} />
+                {}
+                {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>{checkResult.check.owner.name}</Link>}
+                {!opslevelUrl && <>{ checkResult.check.owner.name }</>}
+              </span>
+            </>}
+          </Typography>
+        </Box>
       </AccordionSummary>
 
       <AccordionDetails className={styles.coloredText} style={{marginTop: "-20px"}}>
         <p className="p-will-be-enabled" hidden={!combinedStatus.startsWith("upcoming_")}>
           This check will be enabled on {moment.utc(checkResult.check.enableOn).format("MMMM Do YYYY, HH:mm:ss")} (UTC)
-          <span className="span-is-failing" hidden={combinedStatus !== "upcoming_failed"}>, but it is currently failing.</span>
-          <span className="span-not-evaluated" hidden={combinedStatus !== "upcoming_pending"}>, but it has not been evaluated yet.</span>
-          <span className="span-is-passing" hidden={combinedStatus !== "upcoming_passed"}>, but it is currently passing.</span>
+          {combinedStatus === "upcoming_failed" && <span className="span-is-failing">, but it is currently failing.</span>}
+          {combinedStatus === "upcoming_pending" && <span className="span-not-evaluated">, but it has not been evaluated yet.</span>}
+          {combinedStatus === "upcoming_passed" && <span className="span-is-passing">, but it is currently passing.</span>}
         </p>
 
         { getShowWarnMessage(checkResult) && (<span className="span-warn-message">
@@ -120,13 +144,13 @@ export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
           <p className="p-unable-parse-following">We were able to parse the following from the message:</p>
         </span>) }
 
-        
+
         <div style={ getShowWarnMessage(checkResult) ? { padding: "24px", backgroundColor: "rgba(0, 0, 0, 0.1)" } : {} }>
           <p className="p-check-message">
             <MarkdownViewer value={ getResultMessage(checkResult) } truncate={ false } />
           </p>
         </div>
-        
+
 
         { getShowWarnMessage(checkResult) && (<p>Please fix and resend a payload to see an updated check result message.</p>)}
 
