@@ -12,15 +12,15 @@ describe('Scorecard', () => {
       {index: 0, name: "Not so great"},
     ];
     const levelCategories = [
-      {level: {name: "Not so great"}, category: {name: "Ownership"}},
-      {level: {name: "Slightly better"}, category: {name: "Reliability"}},
-      {level: {name: "Meh"}, category: {name: "Observability"}},
-      {level: {name: "Great"}, category: {name: "Security"}},
-      {level: {name: "Amazing"}, category: {name: "Quality"}},
+      {level: {name: "Not so great"}, category: {id: "id_1", name: "Ownership"}},
+      {level: {name: "Slightly better"}, category: {id: "id_2", name: "Reliability"}},
+      {level: {name: "Meh"}, category: {id: "id_3", name: "Observability"}},
+      {level: {name: "Great"}, category: {id: "id_4", name: "Security"}},
+      {level: {name: "Amazing"}, category: {id: "id_5", name: "Quality"}},
     ];
     const title = "Special Scorecard"
 
-    render(<Scorecard levels={levels} levelCategories={levelCategories} title={title} />)
+    render(<Scorecard levels={levels} levelCategories={levelCategories} title={title} selectedCategoryIds={[]} onCategorySelectionChanged={() => {}}/>)
 
     levelCategories.forEach(levelCategory=>{
       expect(screen.getByText(levelCategory.category.name)).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('Scorecard', () => {
     ];
     const title = "Another Rubric"
 
-    render(<Scorecard levels={levels} title={title} />)
+    render(<Scorecard levels={levels} levelCategories={[]} title={title} selectedCategoryIds={[]} onCategorySelectionChanged={() => {}} />)
 
     expect(screen.getByText(title)).toBeInstanceOf(HTMLHeadingElement);
   });

@@ -23,6 +23,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: failed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -48,6 +49,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: pending",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -86,6 +88,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_failed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -101,6 +104,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_pending",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -116,6 +120,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_passed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },

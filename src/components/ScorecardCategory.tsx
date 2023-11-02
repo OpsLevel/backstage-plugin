@@ -9,7 +9,9 @@ import Checkbox from '@mui/material/Checkbox';
 
 type Props = {
   levels: Array<Level>;
-  levelCategory: LevelCategory
+  levelCategory: LevelCategory;
+  checked: boolean | null;
+  onCheckedChange: Function;
 };
 
 const colorGrey = '#e9e9e9';
@@ -81,7 +83,7 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
             <Checkbox
               disabled={isDisabled}
               className={classes.scorecardCheckbox}
-              checked={checked && !isDisabled}
+              checked={(checked && !isDisabled) || undefined}
               style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
               onChange={(e) => onCheckedChange(e.target.checked)}
             />

@@ -12,9 +12,9 @@ describe('Scorecard Category', () => {
       {index: 4, name: "Great"},
       {index: 5, name: "Amazing"},
     ];
-    const levelCategory = {level: {name: "Not so great"}, category: {name: "Ownership"}};
+    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}};
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory}/>)
+    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
 
     expect(screen.getByText('Ownership')).toBeInTheDocument();
     expect(screen.getByLabelText('pie-chart')).toBeInTheDocument();
@@ -27,9 +27,9 @@ describe('Scorecard Category', () => {
       {index: 2, name: "Meh"},
       {index: 5, name: "Amazing"},
     ];
-    const levelCategory = {level: {name: "Meh"}, category: {name: "Ownership"}};
+    const levelCategory = {level: {name: "Meh"}, category: {id: "id", name: "Ownership"}};
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory}/>)
+    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
 
     expect(screen.getByText('Ownership').closest('li')).not.toHaveAttribute('disabled');
     const expectedLevelColors = ["rgb(64, 169, 255)","rgb(64, 169, 255)","rgb(217, 217, 217)"]
@@ -44,9 +44,9 @@ describe('Scorecard Category', () => {
       {index: 2, name: "Meh"},
       {index: 5, name: "Amazing"},
     ];
-    const levelCategory = {level: null, category: {name: "Ownership"}};
+    const levelCategory = {level: null, category: {id: "id", name: "Ownership"}};
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory}/>)
+    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
 
     expect(screen.getByText('Ownership').closest('li')).toHaveAttribute('disabled');
     Array.from(screen.getByLabelText('level').children).forEach((element) => {

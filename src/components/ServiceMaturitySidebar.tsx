@@ -14,10 +14,11 @@ type Level = {
 
 type Props = {
   levels: Array<Level>;
-  levelCategories?: Array<LevelCategory>,
+  levelCategories: Array<LevelCategory>,
   scorecardCategories?: Array<LevelCategory>,
   overallLevel: OverallLevel,
-  selectedCategoryIds: Array<String>
+  selectedCategoryIds: Array<String>,
+  onCategorySelectionChanged: Function
 };
 
 const useStyles = makeStyles((theme: BackstageTheme) => ({

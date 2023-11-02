@@ -3,7 +3,7 @@ import { Entity } from '@backstage/catalog-model';
 export type LevelCategory = {
   id?: string;
   level: { name: string } | null;
-  category: { name: string } 
+  category: { id: string, name: string } 
   rollsUp?: boolean;
 }
 
@@ -28,6 +28,7 @@ type ScorecardStats = {
     edges?: Array<{
       level?: Level
       node?: {
+        id: string,
         name: string
       }
     }>
@@ -49,7 +50,7 @@ export interface OpsLevelServiceData {
     },
     service: {
       htmlUrl: string,
-      maturityReport?: {
+      maturityReport: {
         overallLevel: OverallLevel,
         categoryBreakdown: Array<LevelCategory>,
       },
@@ -94,6 +95,7 @@ export type CheckResult = {
     name: string,
     type: string,
     category: {
+      id: string,
       name: string
     } | null,
   },
@@ -113,7 +115,7 @@ export interface OpsLevelOverallData {
     servicesReport: {
       totalServicesNotEvaluated: number,
       levelCounts: Array<{ level: { name: string }, serviceCount: number }>,
-      categoryLevelCounts: Array<{ category: { name: string }, level: { name: string, index: number }, serviceCount: number }>,
+      categoryLevelCounts: Array<{ category: { id: string, name: string }, level: { name: string, index: number }, serviceCount: number }>,
     }
   }
 }

@@ -2,17 +2,17 @@ import React, { useMemo } from "react";
 import { LevelCategory, Level } from "../types/OpsLevelData";
 import List from '@mui/material/List';
 import ScorecardCategory from "./ScorecardCategory";
-import { useState } from "react";
 import Checkbox from '@mui/material/Checkbox';
 
 type Props = {
   title: string;
   levels: Array<Level>;
-  levelCategories?:
-    Array<LevelCategory>
+  levelCategories: Array<LevelCategory>;
+  selectedCategoryIds: Array<String>;
+  onCategorySelectionChanged: Function;
 };
 
-function checkboxState(levelCategories, selectedCategoryIds) {
+function checkboxState(levelCategories: Array<LevelCategory>, selectedCategoryIds: Array<String>): boolean | null {
   let someSelected = false;
   let someUnselected = false;
   levelCategories.forEach((c) => {
@@ -26,7 +26,7 @@ function checkboxState(levelCategories, selectedCategoryIds) {
   return false;
 }
 
-function toggleEntireScorecard(currentState, levelCategories, onCategorySelectionChanged) {
+function toggleEntireScorecard(currentState: boolean | null, levelCategories: Array<LevelCategory>, onCategorySelectionChanged: Function) {
   if(currentState === null || currentState === false) {
     onCategorySelectionChanged(levelCategories.map((c) => c.category.id), []);
   } else {
@@ -48,7 +48,7 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
           <span>
             <h4><Checkbox
               style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
-              checked={checkboxValue}
+              checked={checkboxValue || undefined}
               indeterminate={checkboxValue === null}
               onChange={() => {toggleEntireScorecard(checkboxValue, levelCategories, onCategorySelectionChanged)}}
             /> {title}</h4>
@@ -61,7 +61,7 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
             levelCategory={levelCategory}
             levels={sortedLevels}
             checked={ selectedCategoryIds?.includes(levelCategory.category.id) }
-            onCheckedChange={ (e) => onCategorySelectionChanged(e ? [levelCategory.category.id] : [], e ? [] : [levelCategory.category.id]) }
+            onCheckedChange={ (e: any) => onCategorySelectionChanged(e ? [levelCategory.category.id] : [], e ? [] : [levelCategory.category.id]) }
           />
         ))}
       </List>
