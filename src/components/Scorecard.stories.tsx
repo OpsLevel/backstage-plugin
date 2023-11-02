@@ -21,11 +21,14 @@ export const Default: Story = {
     ),
   ],
   args: {
+    title: "Scorecard",
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Slightly better"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
     levelCategories: [
-      {level: {name: "Not so great"}, category: {name: "Ownership"}},
-      {level: {name: "Slightly better"}, category: {name: "Reliability"}},
-      {level: {name: "Great"}, category: {name: "Observability"}},
-    ]
+      {level: {name: "Not so great"}, category: {id: "1", name: "Ownership"}},
+      {level: {name: "Slightly better"}, category: {id: "2", name: "Reliability"}},
+      {level: {name: "Great"}, category: {id: "3", name: "Observability"}},
+    ],
+    selectedCategoryIds: [],
+    onCategorySelectionChanged: () => {},
   },
 };
