@@ -1,11 +1,11 @@
-import { Link, Typography, Box } from '@material-ui/core';
+import { Link, Typography, Box, Tooltip } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import moment from 'moment';
-import { TableOutlined, TeamOutlined } from '@ant-design/icons';
+import { FileDoneOutlined, TableOutlined, TeamOutlined } from '@ant-design/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, { ReactElement, useState } from 'react';
 import { CheckResult, CheckResultStatus } from '../types/OpsLevelData';
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       marginRight: theme.spacing(1),
       display: "inline-flex",
     },
+    infoTooltip: {
+      fontSize: theme.typography.button.fontSize,
+    }
   };
 });
 
@@ -115,7 +118,12 @@ export function CheckResultDetails ({ checkResult, combinedStatus, opslevelUrl }
             {checkResult.check.category && <>
               <span className={styles.separator}>&#65372;</span>
               <span className={styles.coloredSubtext}>
-                <TableOutlined className={styles.checkResultIcon} />
+                <Tooltip className={styles.infoTooltip} title={`This check belongs to ${checkResult.check.isScorecardCheck ? "a scorecard." : "the main rubric"}.`}>
+                  <span>
+                    {checkResult.check.isScorecardCheck && <FileDoneOutlined className={styles.checkResultIcon} />}
+                    {!checkResult.check.isScorecardCheck && <TableOutlined className={styles.checkResultIcon} />}
+                  </span>
+                </Tooltip>
                 {opslevelUrl && <Link href={`${opslevelUrl}${checkResult.check.category.container.href}`}>{ checkResult.check.category.name }</Link>}
                 {!opslevelUrl && <>{checkResult.check.category.name}</>}
               </span>
