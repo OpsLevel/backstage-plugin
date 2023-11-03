@@ -8,6 +8,36 @@ export const opslevelApiRef = createApiRef<OpsLevelApi>({
   id: 'plugin.opslevel.service',
 });
 
+const CHECK_RESULT_DETAILS_FRAGMENT = gql`
+  fragment checkResultDetailsFragment on ServiceCheckResults {
+    byLevel {
+      nodes {
+        level {
+          index
+          name
+        }
+        items {
+          nodes {
+            message
+            warnMessage
+            createdAt
+            check {
+              id
+              enableOn
+              name
+              type
+              category {
+                name
+              }
+            }
+            status
+          }
+        }
+      }
+    }
+  }
+`;
+
 export class OpsLevelGraphqlAPI implements OpsLevelApi {
   static fromConfig(config: Config) {
     return new OpsLevelGraphqlAPI(config.getString('backend.baseUrl'));
@@ -50,33 +80,34 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
               }
             }
             serviceStats {
-              rubric {
-                checkResults {
-                  byLevel {
-                    nodes {
+              scorecards(affectsOverallServiceLevels: true) {
+                nodes {
+                  scorecard {
+                    id
+                    name
+                    affectsOverallServiceLevels
+                  }
+                  categories {
+                    edges {
                       level {
+                        id
                         index
                         name
                       }
-                      items {
-                        nodes {
-                          message
-                          warnMessage
-                          createdAt
-                          check {
-                            id
-                            enableOn
-                            name
-                            type
-                            category {
-                              name
-                            }
-                          }
-                          status
-                        }
+                      node {
+                        id
+                        name
                       }
                     }
                   }
+                  checkResults {
+                    ...checkResultDetailsFragment
+                  }
+                }
+              }
+              rubric {
+                checkResults {
+                  ...checkResultDetailsFragment
                 }
               }
             }
@@ -87,6 +118,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
           }
         }
       }
+      ${CHECK_RESULT_DETAILS_FRAGMENT}
     `;
 
     return this.client.request(query, { alias: serviceAlias }, { "GraphQL-Visibility": "internal" });

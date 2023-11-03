@@ -21,6 +21,7 @@ export const Default: Story = {
     ),
   ],
   args: {
+    title: "Scorecard",
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Slightly better"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
     levelCategories: [
       {level: {name: "Not so great"}, category: {name: "Ownership"}},

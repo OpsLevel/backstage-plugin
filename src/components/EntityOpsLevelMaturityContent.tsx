@@ -8,10 +8,11 @@ import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
-import { OpsLevelServiceData } from '../types/OpsLevelData';
+import { LevelCategory, OpsLevelServiceData } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
+import { cloneDeep } from "lodash";
 
 export const EntityOpsLevelMaturityContent = () => {
   const { entity } = useEntity();
@@ -59,10 +60,91 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   const { maturityReport } = service;
-  const levels = opsLevelData.account?.rubric?.levels?.nodes;
-  const levelCategories = opsLevelData.account?.service?.maturityReport?.categoryBreakdown;
-  const checkResultsByLevel = opsLevelData.account?.service?.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
-  const checkStats = opsLevelData.account?.service?.checkStats;
+  const levels = opsLevelData.account.rubric?.levels?.nodes;
+  const levelCategories = opsLevelData.account.service.maturityReport?.categoryBreakdown;
+  const checkResultsByLevel = opsLevelData.account.service.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
+  const scorecards = opsLevelData.account.service.serviceStats?.scorecards?.nodes;
+  const scorecardCategories = scorecards?.reduce(
+    (scoreCardAccumulator: LevelCategory[], currentScorecard) => {
+      if (!currentScorecard.categories?.edges) return scoreCardAccumulator;
+      return [
+        ...scoreCardAccumulator,
+        ...currentScorecard.categories.edges.reduce(
+          (nodeAccumulator: LevelCategory[], currentEdge): LevelCategory[] => [
+            ...nodeAccumulator,
+            {
+              category: {name: currentEdge.node?.name ?? ''},
+              level: currentEdge.level?.name ? {name: currentEdge.level?.name} : null,
+              rollsUp:
+                  currentScorecard?.scorecard?.affectsOverallServiceLevels,
+            },
+          ],
+          [],
+        ),
+      ];
+    },
+    [],
+  ).sort((a, b) => (a.category.name < b.category.name ? -1 : 1));
+
+
+  function checksByLevelIncludingScorecards() {
+    if (!checkResultsByLevel) return [];
+    const result = cloneDeep(checkResultsByLevel);
+
+    result.forEach((checkResults) => {
+      // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
+      const levelIndex = checkResults.level.index;
+
+      scorecards?.forEach((scorecard) => {
+        const entry = scorecard.checkResults?.byLevel?.nodes?.find(
+          (node) => node.level.index === levelIndex,
+        );
+        if (!entry) return;
+
+        entry.items.nodes.forEach((node) => {
+          node.check.isScorecardCheck = true;
+        });
+        checkResults.items.nodes = [
+          ...checkResults.items.nodes,
+          ...entry.items.nodes,
+        ];
+      })
+    })
+    return result;
+  }
+
+  const allCheckResultsByLevel = checksByLevelIncludingScorecards()
+
+  function totalChecks() {
+    return allCheckResultsByLevel?.reduce(
+      (accumulator, checkByLevel) =>
+        accumulator + checkByLevel.items.nodes.length,
+      0,
+    );
+  }
+
+  const ResultStatusEnum = Object.freeze({
+    FAILED: "failed",
+    PENDING: "pending",
+    PASSED: "passed",
+    UPCOMING_FAILED: "upcoming_failed",
+    UPCOMING_PENDING: "upcoming_pending",
+    UPCOMING_PASSED: "upcoming_passed",
+  });
+
+  function totalPassingChecks() {
+    return allCheckResultsByLevel.reduce(
+      (accumulator, checkByLevel) =>
+        accumulator +
+        checkByLevel.items.nodes.reduce(
+          (passingChecks, check) =>
+            passingChecks +
+            (check.status === ResultStatusEnum.PASSED  ? 1 : 0),
+          0,
+        ),
+      0,
+    );
+  }
 
   if (!maturityReport) {
     return (<ServiceMaturityError error={"We don't have any maturity details for this service yet,"
@@ -90,7 +172,7 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   function ServiceMaturityError ({ error, showExport }: { error: React.ReactNode, showExport?: boolean }) {
-    return (<Grid container spacing={5}>
+    return (<Grid container direction="column" spacing={5}>
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
       <Grid item>{error}</Grid>
       <Grid item>
@@ -119,7 +201,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   function ServiceMaturityReport () {
     return (<>
-      <Grid container item xs={12} justifyContent="flex-end">
+      <Grid container item xs={12} justifyContent="flex-end" direction="row">
         <Grid item>
           <Button
             variant="contained"
@@ -141,10 +223,15 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item>
-        <Grid item xs={4} direction="column">
+      <Grid container item direction="row">
+        <Grid item xs={4}>
           {maturityReport?.overallLevel && 
-            <ServiceMaturitySidebar levels={levels} levelCategories={levelCategories} overallLevel={maturityReport.overallLevel} />
+            <ServiceMaturitySidebar 
+              levels={levels} 
+              scorecardCategories={scorecardCategories}
+              levelCategories={levelCategories} 
+              overallLevel={maturityReport.overallLevel}
+            />
           }
         </Grid>
         <Grid container item xs={8} direction="column">
@@ -156,9 +243,9 @@ export const EntityOpsLevelMaturityContent = () => {
           </Grid>
           <Grid item>
             <CheckResultsByLevel
-              checkResultsByLevel={checkResultsByLevel}
-              totalChecks={checkStats.totalChecks}
-              totalPassingChecks={checkStats.totalPassingChecks}
+              checkResultsByLevel={allCheckResultsByLevel}
+              totalChecks={totalChecks()}
+              totalPassingChecks={totalPassingChecks()}
             />
           </Grid>
         </Grid>
@@ -167,7 +254,7 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} direction="column">
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
       <ServiceMaturityReport />
     </Grid>
