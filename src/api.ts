@@ -29,6 +29,24 @@ const CHECK_RESULT_DETAILS_FRAGMENT = gql`
               category {
                 id
                 name
+                container {
+                  ... on Scorecard {
+                    href
+                  }
+                  ... on Rubric {
+                    href
+                  }
+                }
+              }
+              owner {
+                ... on Team {
+                  name
+                  href
+                }
+                ... on User {
+                  name
+                  href
+                }
               }
             }
             status
@@ -52,74 +70,74 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
 
   getServiceMaturityByAlias(serviceAlias: string) {
     const query = gql`
-      query getServiceMaturityForBackstage($alias: String!) {
-        account {
-          rubric {
-            levels {
-              nodes {
-                index
+    query getServiceMaturityForBackstage($alias: String!) {
+      account {
+        rubric {
+          levels {
+            nodes {
+              index
+              name
+              description
+            }
+          }
+        }
+        service(alias: $alias) {
+          htmlUrl
+          maturityReport {
+            overallLevel {
+              index
+              name
+              description
+            }
+            categoryBreakdown {
+              category {
+                id
                 name
-                description
+              }
+              level {
+                name
               }
             }
           }
-          service(alias: $alias) {
-            htmlUrl
-            maturityReport {
-              overallLevel {
-                index
-                name
-                description
-              }
-              categoryBreakdown {
-                category {
+          serviceStats {
+            scorecards(affectsOverallServiceLevels: false) {
+              nodes {
+                scorecard {
                   id
                   name
+                  affectsOverallServiceLevels
                 }
-                level {
-                  name
-                }
-              }
-            }
-            serviceStats {
-              scorecards(affectsOverallServiceLevels: false) {
-                nodes {
-                  scorecard {
-                    id
-                    name
-                    affectsOverallServiceLevels
-                  }
-                  categories {
-                    edges {
-                      level {
-                        id
-                        index
-                        name
-                      }
-                      node {
-                        id
-                        name
-                      }
+                categories {
+                  edges {
+                    level {
+                      id
+                      index
+                      name
+                    }
+                    node {
+                      id
+                      name
                     }
                   }
-                  checkResults {
-                    ...checkResultDetailsFragment
-                  }
                 }
-              }
-              rubric {
                 checkResults {
                   ...checkResultDetailsFragment
                 }
               }
             }
-            checkStats {
-              totalChecks
-              totalPassingChecks
+            rubric {
+              checkResults {
+                ...checkResultDetailsFragment
+              }
             }
+          }
+          checkStats {
+            totalChecks
+            totalPassingChecks
           }
         }
       }
+    }
       ${CHECK_RESULT_DETAILS_FRAGMENT}
     `;
 
