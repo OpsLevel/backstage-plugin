@@ -19,13 +19,19 @@ const colorGrey = '#e9e9e9';
 const colorDisabled = '#d9d9d9';
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
-
   return {
     root: {
       '&:first-of-type': {
         borderTop: `1px solid ${colorGrey}`,
       },
       borderBottom: `1px solid ${colorGrey}`,
+      cursor: "pointer",
+      '&:hover': {
+        backgroundColor: theme.palette.background.default
+      },
+      "&.Mui-disabled": {
+        cursor: "not-allowed"
+      }
     },
     categoryName: {
       overflow: 'hidden',
@@ -78,9 +84,14 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
 
   const isDisabled = !levelCategory.level;
   const disabledTooltipMessage = "There are no checks in this category that apply to this service";
+  const isChecked = (checked && !isDisabled) || undefined;
+
+  const toggleChecked = () => {
+    onCheckedChange(!isChecked);
+  }
 
   return (
-    <ListItem className={classes.root} disabled={isDisabled} dense>
+    <ListItem className={classes.root} disabled={isDisabled} dense onClick={toggleChecked}>
       <ListItemText>
         <Grid container spacing={0}>
           <Grid item xs={2} lg={1}>
@@ -88,8 +99,7 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
               data-testid={`checkbox-${levelCategory.category.id}`}
               disabled={isDisabled}
               className={classes.scorecardCheckbox}
-              checked={(checked && !isDisabled) || undefined}
-              onChange={(e) => onCheckedChange(e.target.checked)}
+              checked={isChecked}
             />
           </Grid>
           <Grid item xs={10} lg={6} className={classes.categoryName}>
