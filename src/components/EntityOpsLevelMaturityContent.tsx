@@ -287,7 +287,7 @@ export const EntityOpsLevelMaturityContent = () => {
               totalPassingChecks={totalPassingChecks()}
             />
           </Grid>
-      </Grid>
+        </Grid>
       </Grid>
     </>);
   }
