@@ -64,8 +64,7 @@ export const EntityOpsLevelMaturityContent = () => {
   const levelCategories = opsLevelData.account.service.maturityReport?.categoryBreakdown;
   const checkResultsByLevel = opsLevelData.account.service.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
   const scorecards = opsLevelData.account.service.serviceStats?.scorecards?.nodes;
-  // const checkStats = opsLevelData.account.service.checkStats;
-  const scorecardCategories = scorecards ? scorecards.reduce(
+  const scorecardCategories = scorecards?.reduce(
     (scoreCardAccumulator: LevelCategory[], currentScorecard) => {
       if (!currentScorecard.categories?.edges) return scoreCardAccumulator;
       return [
@@ -85,14 +84,14 @@ export const EntityOpsLevelMaturityContent = () => {
       ];
     },
     [],
-  ).sort((a, b) => (a.category.name < b.category.name ? -1 : 1)) : undefined;
-  // const scorecardCategories: LevelCategory[] = []
+  ).sort((a, b) => (a.category.name < b.category.name ? -1 : 1));
 
 
   function checksByLevelIncludingScorecards() {
+    if (!checkResultsByLevel) return [];
     const result = cloneDeep(checkResultsByLevel);
 
-    result?.forEach((checkResults) => {
+    result.forEach((checkResults) => {
       // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
       const levelIndex = checkResults.level.index;
 
@@ -111,7 +110,7 @@ export const EntityOpsLevelMaturityContent = () => {
         ];
       })
     })
-    return result || [];
+    return result;
   }
 
   const allCheckResultsByLevel = checksByLevelIncludingScorecards()
