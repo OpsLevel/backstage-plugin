@@ -71,7 +71,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   const { maturityReport } = service;
   const levels = opsLevelData.account.rubric?.levels?.nodes;
-  const levelCategories = opsLevelData.account.service.maturityReport.categoryBreakdown;
+  const levelCategories = opsLevelData.account.service.maturityReport.categoryBreakdown.map((c) => { return { ...c, rollsUp: true }});
   const checkResultsByLevel = opsLevelData.account.service.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
   const scorecards = opsLevelData.account.service.serviceStats?.scorecards?.nodes;
   // const checkStats = opsLevelData.account.service.checkStats;
