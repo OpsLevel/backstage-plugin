@@ -60,6 +60,7 @@ describe('CheckResultDetails', () => {
     const baseUrl = 'https://google.com';
     const checkResult = getCheckResult('failed');
     checkResult.check.category = {
+      id: '1989',
       name: categoryName,
       container: {
         href: categoryHref,
@@ -84,6 +85,7 @@ describe('CheckResultDetails', () => {
     const categoryHref = '/services/cats';
     const checkResult = getCheckResult('failed');
     checkResult.check.category = {
+      id: '1989',
       name: categoryName,
       container: {
         href: categoryHref,

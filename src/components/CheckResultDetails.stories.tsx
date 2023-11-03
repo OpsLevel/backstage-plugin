@@ -25,6 +25,7 @@ export const Passing: Story = {
         name: 'Has Owner Defined',
         type: 'has_owner',
         category: {
+          id: '1989',
           name: 'Quality',
           container: {
             href: '/categories/quality',
@@ -54,6 +55,7 @@ export const Pending: Story = {
         name: 'Has Owner Defined',
         type: 'has_owner',
         category: {
+          id: '1989',
           name: 'Quality',
           container: {
             href: '/categories/quality',
