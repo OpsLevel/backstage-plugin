@@ -25,7 +25,7 @@ export const OverallMaturity = () => {
   const opslevelApi = useApi(opslevelApiRef);
   const opslevelPluginApi = useApi(opslevelPluginApiRef);
   const [fetchState, doFetch] = useAsyncFn(async () => {
-    const result = await opslevelApi.getServicesReport();
+    const result = await opslevelApi.getServicesReport(true);
 
     if (result) {
       setData(result);

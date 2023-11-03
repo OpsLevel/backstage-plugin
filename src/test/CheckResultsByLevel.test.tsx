@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { CheckResultsByLevel } from '../components/CheckResultsByLevel';
 import { LevelCheckResults } from '../types/OpsLevelData';
+import { cloneDeep } from 'lodash';
 
 
 describe('OverallMaturityOverview', () => {
@@ -23,6 +24,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: failed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -48,6 +50,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":null,
               "name":"Status: pending",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -86,6 +89,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_failed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -101,6 +105,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_pending",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -116,6 +121,7 @@ describe('OverallMaturityOverview', () => {
               "enableOn":"2023-05-11T20:47:53.869313Z",
               "name":"Status: upcoming_passed",
               "category":{
+                "id": "id_1",
                 "name":"Service Ownership"
               },
             },
@@ -375,5 +381,13 @@ describe('OverallMaturityOverview', () => {
     expect(checkContents.at(0).find(".span-warn-message").length).toEqual(0);
     expect(checkContents.at(0).find(".p-last-updated").props().hidden).toBe(false);
     expect(checkContents.at(0).find(".p-last-updated").text()).toEqual("Last updated: May 11th 2023, 20:47:53 (UTC)");
+  });
+
+  it('automatically expands a level if it has pending checks', () => {
+    const data = cloneDeep(checkResultsByLevelData);
+    data[0].items.nodes[0].status = "passed";
+    const wrapper = getWrapper(data, 4, 2);
+    const goldHeader = wrapper.find("div#level-accordion-3.Mui-expanded");
+    expect(goldHeader.text()).toContain("Gold");
   });
 });
