@@ -259,34 +259,35 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item>
-        <Grid container item xs={4} direction="column" />
-        {maturityReport?.overallLevel && 
-            <ServiceMaturitySidebar 
-              levels={levels} 
-              scorecardCategories={scorecardCategories}
-              levelCategories={levelCategories} 
-              overallLevel={maturityReport.overallLevel}
-              selectedCategoryIds={selectedCategories}
-              onCategorySelectionChanged={updateCategoryIdSelection}
+      <Grid container>
+        <Grid item xs={4}>
+          {maturityReport?.overallLevel && 
+              <ServiceMaturitySidebar 
+                levels={levels} 
+                scorecardCategories={scorecardCategories}
+                levelCategories={levelCategories} 
+                overallLevel={maturityReport.overallLevel}
+                selectedCategoryIds={selectedCategories}
+                onCategorySelectionChanged={updateCategoryIdSelection}
+              />
+          }
+        </Grid>
+        <Grid container item xs={8} direction="column">
+          <Grid item>
+            <EntityOpsLevelMaturityProgress
+              levels={levels}
+              serviceLevel={overallLevel}
             />
-        }
+          </Grid>
+          <Grid item>
+            <CheckResultsByLevel
+              opslevelUrl={opslevelUrl}
+              checkResultsByLevel={allCheckResultsByLevel}
+              totalChecks={totalChecks()}
+              totalPassingChecks={totalPassingChecks()}
+            />
+          </Grid>
       </Grid>
-      <Grid container item xs={8} direction="column">
-        <Grid item>
-          <EntityOpsLevelMaturityProgress
-            levels={levels}
-            serviceLevel={overallLevel}
-          />
-        </Grid>
-        <Grid item>
-          <CheckResultsByLevel
-            opslevelUrl={opslevelUrl}
-            checkResultsByLevel={allCheckResultsByLevel}
-            totalChecks={totalChecks()}
-            totalPassingChecks={totalPassingChecks()}
-          />
-        </Grid>
       </Grid>
     </>);
   }

@@ -29,6 +29,24 @@ const CHECK_RESULT_DETAILS_FRAGMENT = gql`
               category {
                 id
                 name
+                container {
+                  ... on Scorecard {
+                    href
+                  }
+                  ... on Rubric {
+                    href
+                  }
+                }
+              }
+              owner {
+                ... on Team {
+                  name
+                  href
+                }
+                ... on User {
+                  name
+                  href
+                }
               }
             }
             status
