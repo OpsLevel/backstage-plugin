@@ -7,13 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-  * Updates package description text
+## [1.2.0] - 2023-11-03
+
+### Added
+
+  * Storybook
+  * Support for Scorecards
 
 ### Changed
 
-  * Adds storybook
+  * Package description text
   * Changes visuals of the service maturity sidebar to match OpsLevel
-  * Adds support for Scorecards
   * Adds link back to OpsLevel from Check category
   * Adds Check owner (with a link back to OpsLevel)
 
