@@ -53,7 +53,7 @@ const getResultMessage = (checkResult: CheckResult) => {
   return checkResult.message;
 }
 
-export function CheckResultDetails ({ checkResult, combinedStatus }: Props) {
+export function CheckResultDetails ({ checkResult, combinedStatus, opslevelUrl }: Props) {
   const [expanded, setExpanded] = useState<boolean>(combinedStatus.endsWith("failed") || combinedStatus.endsWith("pending") );
   const styles = useStyles();
 
