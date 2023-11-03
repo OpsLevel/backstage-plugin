@@ -245,22 +245,34 @@ describe('CheckResultDetails', () => {
       checkResult={getCheckResult('upcoming_failed')}
       combinedStatus="upcoming_failed"
     />);
-    expect(screen.getByText('Status: upcoming_failed').closest('div')).toHaveClass('Mui-expanded')
+
+    expect(screen.getByRole("button", {
+      name: "Status: upcoming_failed",
+      expanded: true,
+    })).toHaveClass('Mui-expanded')
   });
 
-  // it('expands failing tests', () => {
-  //   render(<CheckResultDetails
-  //     checkResult={getCheckResult('failed')}
-  //     combinedStatus="failed"
-  //   />);
-  //   expect(screen.find("div.MuiPaper-root.Mui-expanded").length).toBeGreaterThan(0);
-  // });
+  it('expands failing tests', () => {
+    render(<CheckResultDetails
+      checkResult={getCheckResult('failed')}
+      combinedStatus="failed"
+    />);
 
-  // it('does not expand passing tests', () => {
-  //   render(<CheckResultDetails
-  //     checkResult={getCheckResult('passed')}
-  //     combinedStatus="passed"
-  //   />);
-  //   expect(screen.find("div.MuiPaper-root.Mui-expanded").length).toBe(0);
-  // });
+    expect(screen.getByRole("button", {
+      name: "Status: failed",
+      expanded: true,
+    })).toHaveClass('Mui-expanded')
+  });
+
+  it('does not expand passing tests', () => {
+    render(<CheckResultDetails
+      checkResult={getCheckResult('passed')}
+      combinedStatus="passed"
+    />);
+
+    expect(screen.getByRole("button", {
+      name: "Status: passed",
+      expanded: false,
+    })).not.toHaveClass('Mui-expanded')
+  });
 });
