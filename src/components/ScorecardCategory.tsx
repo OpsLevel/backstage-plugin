@@ -19,6 +19,7 @@ const colorGrey = '#e9e9e9';
 const colorDisabled = '#d9d9d9';
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
+  console.log(theme);
   return {
     root: {
       '&:first-of-type': {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       borderBottom: `1px solid ${colorGrey}`,
       cursor: "pointer",
       '&:hover': {
-        backgroundColor: theme.palette.infoBackground
+        backgroundColor: "#0000FF11"
       },
       "&.Mui-disabled": {
         cursor: "not-allowed"
