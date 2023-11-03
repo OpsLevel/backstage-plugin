@@ -57,6 +57,11 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   const service = opsLevelData?.account?.service;
+  let opslevelUrl = "https://app.opslevel.com";
+  if (service) {
+    const extensionToRemove = `/services/${entity.metadata.name}`;
+    opslevelUrl = service.htmlUrl.split(extensionToRemove).filter(s=>s).join(extensionToRemove)
+  }
 
   if (!service) {
     const error = (<span>
@@ -254,17 +259,17 @@ export const EntityOpsLevelMaturityContent = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container item direction="row">
+      <Grid container>
         <Grid item xs={4}>
           {maturityReport?.overallLevel && 
-            <ServiceMaturitySidebar 
-              levels={levels} 
-              scorecardCategories={scorecardCategories}
-              levelCategories={levelCategories} 
-              overallLevel={maturityReport.overallLevel}
-              selectedCategoryIds={selectedCategories}
-              onCategorySelectionChanged={updateCategoryIdSelection}
-            />
+              <ServiceMaturitySidebar 
+                levels={levels} 
+                scorecardCategories={scorecardCategories}
+                levelCategories={levelCategories} 
+                overallLevel={maturityReport.overallLevel}
+                selectedCategoryIds={selectedCategories}
+                onCategorySelectionChanged={updateCategoryIdSelection}
+              />
           }
         </Grid>
         <Grid container item xs={8} direction="column">
@@ -276,6 +281,7 @@ export const EntityOpsLevelMaturityContent = () => {
           </Grid>
           <Grid item>
             <CheckResultsByLevel
+              opslevelUrl={opslevelUrl}
               checkResultsByLevel={allCheckResultsByLevel}
               totalChecks={totalChecks()}
               totalPassingChecks={totalPassingChecks()}

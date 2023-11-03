@@ -8,12 +8,13 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ErrorIcon from '@material-ui/icons/Error';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { useState, useRef, SyntheticEvent } from 'react';
-import { CheckResult, LevelCheckResults } from '../types/OpsLevelData';
+import { CheckResult, CheckResultStatus, LevelCheckResults } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
 
 
 type Props = {
+  opslevelUrl?: string,
   checkResultsByLevel: Array<LevelCheckResults>,
   totalChecks: number,
   totalPassingChecks: number
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   };
 });
 
-export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
+export function CheckResultsByLevel({ opslevelUrl, checkResultsByLevel, totalChecks, totalPassingChecks }: Props) {
   const [checkResults, setCheckResults] = useState<Array<LevelCheckResults>>([]);
   const [levelCounts, setLevelCounts] = useState<{ [index: number]: { [level: string]: number } }>({});
   const [expandedLevels, setExpandedLevels] = useState<{ [index: number]: boolean }>({});
@@ -101,10 +102,21 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
     }
   }, [checkResultsByLevel, prevCheckResults]);
 
-  function getCombinedStatus(checkResult: CheckResult) {
-    let status = checkResult.status;
-    if (checkResult.check.enableOn !== null) status = `upcoming_${status}`;
-    return status;
+  function getCombinedStatus(checkResult: CheckResult): CheckResultStatus  {
+    const isCurrent = checkResult.check.enableOn === null;
+    if (isCurrent) {
+      return checkResult.status;
+    }
+    switch(checkResult.status) {
+    case "passed":
+      return "upcoming_passed"
+    case "failed":
+      return "upcoming_failed"
+    case "pending":
+      return "upcoming_pending"
+    default:
+      return checkResult.status;
+    }
   }
 
   function getPassingPercentage() {
@@ -144,7 +156,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
         <AccordionDetails className={styles.accordionDetails}>
           {items.nodes.map((checkResult, index) => {
             return (
-              <CheckResultDetails key={`details-${level.name}-${index}`} checkResult={checkResult} combinedStatus={getCombinedStatus(checkResult)} />
+              <CheckResultDetails key={`details-${level.name}-${index}`} opslevelUrl={opslevelUrl} checkResult={checkResult} combinedStatus={getCombinedStatus(checkResult)} />
             );
           })}
           {items.nodes.length === 0 && (<p className={styles.coloredText}>There are no checks in this level.</p>)}
