@@ -7,7 +7,7 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import moment from 'moment';
 import { TableOutlined, TeamOutlined } from '@ant-design/icons';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { CheckResult, CheckResultStatus } from '../types/OpsLevelData';
 import { makeStyles } from '@material-ui/core';
 import { BackstageTheme } from '@backstage/theme';
@@ -53,8 +53,11 @@ const getResultMessage = (checkResult: CheckResult) => {
   return checkResult.message;
 }
 
-export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }: Props) {
+export function CheckResultDetails ({ checkResult, combinedStatus, opslevelUrl }: Props) {
+  const [expanded, setExpanded] = useState<boolean>(combinedStatus.endsWith("failed") || combinedStatus.endsWith("pending") );
   const styles = useStyles();
+
+  const handleOnExpansionChange = (_: React.SyntheticEvent, isExpanded: boolean) => setExpanded(isExpanded);
 
   const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
     "failed": (<CancelIcon />),
@@ -93,7 +96,7 @@ export function CheckResultDetails ({ opslevelUrl, checkResult, combinedStatus }
   }
 
   return (
-    <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }}>
+    <Accordion id={`accordion-check-${checkResult.check.id}`} style={{ ...resultColorMap[combinedStatus], color: "inherit" }} expanded={expanded} onChange={handleOnExpansionChange}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         style={{
