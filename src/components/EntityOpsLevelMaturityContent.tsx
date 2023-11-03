@@ -8,7 +8,7 @@ import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
-import { LevelCategory, OpsLevelServiceData } from '../types/OpsLevelData';
+import { LevelCategory, OpsLevelServiceData, ScorecardStats } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
@@ -34,8 +34,8 @@ export const EntityOpsLevelMaturityContent = () => {
           .filter((cb: LevelCategory) => !!cb.level)
           .map((cb: LevelCategory) => cb.category.id).concat(
             result.account.service.serviceStats.scorecards.nodes
-              .filter((s: any) => s.scorecard.affectsOverallServiceLevels && !!s.categories.edges[0].level)
-              .map((s: any) => s.categories.edges[0].node.id)
+              .filter((s: ScorecardStats) => s.scorecard?.affectsOverallServiceLevels && !!s.categories?.edges?.[0]?.level)
+              .map((s: ScorecardStats) => s.categories?.edges?.[0]?.node?.id)
           )
       );
     }

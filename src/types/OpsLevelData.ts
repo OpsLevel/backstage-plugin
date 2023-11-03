@@ -18,7 +18,7 @@ export type OverallLevel =  {
   name: string,
 }
 
-type ScorecardStats = {
+export type ScorecardStats = {
   scorecard?: {
     affectsOverallServiceLevels: boolean,
     id: string,
