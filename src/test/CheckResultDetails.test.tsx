@@ -23,7 +23,7 @@ const getCheckResult = (status: CheckResultStatus):CheckResult => ({
 describe('CheckResultDetails', () => {
   it('renders a check with baseline information', () => {  
     const checkResult = getCheckResult('failed');
-    checkResult.createdAt="2023-05-11T20:47:53.869313Z";
+    checkResult.createdAt = "2023-05-11T20:47:53.869313Z";
 
     render(<CheckResultDetails
       checkResult={checkResult}
