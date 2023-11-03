@@ -57,6 +57,11 @@ export const EntityOpsLevelMaturityContent = () => {
   }
 
   const service = opsLevelData?.account?.service;
+  let opslevelUrl = "https://app.opslevel.com";
+  if (service) {
+    const extensionToRemove = `/services/${entity.metadata.name}`;
+    opslevelUrl = service.htmlUrl.split(extensionToRemove).filter(s=>s).join(extensionToRemove)
+  }
 
   if (!service) {
     const error = (<span>
@@ -276,7 +281,7 @@ export const EntityOpsLevelMaturityContent = () => {
         </Grid>
         <Grid item>
           <CheckResultsByLevel
-            opslevelUrl={service?.htmlUrl}
+            opslevelUrl={opslevelUrl}
             checkResultsByLevel={allCheckResultsByLevel}
             totalChecks={totalChecks()}
             totalPassingChecks={totalPassingChecks()}
