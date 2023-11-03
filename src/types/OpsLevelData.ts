@@ -50,7 +50,7 @@ export interface OpsLevelServiceData {
     },
     service: {
       htmlUrl: string,
-      maturityReport: {
+      maturityReport?: {
         overallLevel: OverallLevel,
         categoryBreakdown: Array<LevelCategory>,
       },

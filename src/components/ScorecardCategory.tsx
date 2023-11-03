@@ -5,6 +5,7 @@ import { levelColor } from "../helpers/level_color_helper";
 import { PieChartOutlined } from "@ant-design/icons";
 import  clsx  from "clsx";
 import Checkbox from '@mui/material/Checkbox';
+import { BackstageTheme } from '@backstage/theme';
 
 
 type Props = {
@@ -17,7 +18,8 @@ type Props = {
 const colorGrey = '#e9e9e9';
 const colorDisabled = '#d9d9d9';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: BackstageTheme) => {
+
   return {
     root: {
       '&:first-of-type': {
@@ -28,6 +30,7 @@ const useStyles = makeStyles(() => {
     categoryName: {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      paddingRight: '12px',
     },
     levelWrapper: {
       display: 'inline-flex',
@@ -49,10 +52,11 @@ const useStyles = makeStyles(() => {
     scorecardCheckbox: {
       width: "10px",
       height: "10px",
-      transform: "translateY(-1px)"
+      transform: "translateY(-1px)",
+      marginRight: "4px"
     },
     tooltip: {
-      fontSize: "12pt",
+      fontSize: theme.typography.button.fontSize,
     },
   };
 });
@@ -79,17 +83,16 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
     <ListItem className={classes.root} disabled={isDisabled} dense>
       <ListItemText>
         <Grid container spacing={0}>
-          <Grid item xs={3} lg={1}>
+          <Grid item xs={2} lg={1}>
             <Checkbox
               data-testid={`checkbox-${levelCategory.category.id}`}
               disabled={isDisabled}
               className={classes.scorecardCheckbox}
               checked={(checked && !isDisabled) || undefined}
-              style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
               onChange={(e) => onCheckedChange(e.target.checked)}
             />
           </Grid>
-          <Grid item xs={9} lg={6} className={classes.categoryName}>
+          <Grid item xs={10} lg={6} className={classes.categoryName}>
             {levelCategory.category.name}
           </Grid>
           <Grid item xs={12} lg={5}>

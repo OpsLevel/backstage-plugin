@@ -31,8 +31,8 @@ export const EntityOpsLevelMaturityContent = () => {
       setOpsLevelData(result);
       setSelectedCategories(
         result.account.service.maturityReport.categoryBreakdown
-          .filter((cb: any) => !!cb.level)
-          .map((cb: any) => cb.category.id).concat(
+          .filter((cb: LevelCategory) => !!cb.level)
+          .map((cb: LevelCategory) => cb.category.id).concat(
             result.account.service.serviceStats.scorecards.nodes
               .filter((s: any) => s.scorecard.affectsOverallServiceLevels && !!s.categories.edges[0].level)
               .map((s: any) => s.categories.edges[0].node.id)
@@ -71,7 +71,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   const { maturityReport } = service;
   const levels = opsLevelData.account.rubric?.levels?.nodes;
-  const levelCategories = opsLevelData.account.service.maturityReport.categoryBreakdown.map((c) => { return { ...c, rollsUp: true }});
+  const levelCategories = opsLevelData.account.service.maturityReport?.categoryBreakdown.map((c) => { return { ...c, rollsUp: true }}) || [];
   const checkResultsByLevel = opsLevelData.account.service.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
   const scorecards = opsLevelData.account.service.serviceStats?.scorecards?.nodes;
   // const checkStats = opsLevelData.account.service.checkStats;
@@ -190,7 +190,7 @@ export const EntityOpsLevelMaturityContent = () => {
     setSelectedCategories(newSelection);
   }
 
-  function determineOverallLevel() {
+  const overallLevel = (() => {
     const sortedLevels = levels.sort((a, b) => (a.index > b.index) ? 1 : -1);
     const sortedCheckResults = allCheckResultsByLevel.sort((a, b) => (a.level.index > b.level.index) ? 1 : -1);
 
@@ -201,7 +201,7 @@ export const EntityOpsLevelMaturityContent = () => {
       }
     }
     return sortedLevels[i];
-  }
+  })();
 
   function ServiceMaturityError ({ error, showExport }: { error: React.ReactNode, showExport?: boolean }) {
     return (<Grid container direction="column" spacing={5}>
@@ -272,7 +272,7 @@ export const EntityOpsLevelMaturityContent = () => {
           <Grid item>
             <EntityOpsLevelMaturityProgress
               levels={levels}
-              serviceLevel={determineOverallLevel()}
+              serviceLevel={overallLevel}
             />
           </Grid>
           <Grid item>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react'
 import ScorecardCategory from '../components/ScorecardCategory';
 
 
@@ -64,5 +64,22 @@ describe('Scorecard Category', () => {
     Array.from(screen.getByLabelText('level').children).forEach((element) => {
       expect((element as HTMLElement).style.background).toBe("rgb(217, 217, 217)")
     })
+  });
+
+  it('fires onCheckedChange events', () => {
+    const levels = [{index: 0, name: "Not so great"}];
+    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}};
+
+    let value = null;
+    const checkedChangeHandler = (newValue: boolean) => {
+      value = newValue;
+    };
+
+    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={checkedChangeHandler}/>)
+    const checkbox = screen.getByTestId("checkbox-id").querySelector('input');
+  
+    expect(checkbox).toHaveAttribute("checked");
+    if(!!checkbox) fireEvent.click(checkbox);
+    expect(value).toBe(false);
   });
 });

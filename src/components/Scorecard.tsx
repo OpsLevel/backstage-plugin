@@ -1,45 +1,61 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { LevelCategory, Level } from "../types/OpsLevelData";
 import List from '@mui/material/List';
 import ScorecardCategory from "./ScorecardCategory";
 import Checkbox from '@mui/material/Checkbox';
+import { makeStyles } from '@material-ui/core';
 
 type Props = {
   title: string;
   levels: Array<Level>;
   levelCategories: Array<LevelCategory>;
   selectedCategoryIds: Array<String>;
-  onCategorySelectionChanged: Function;
+  onCategorySelectionChanged: (addedIds: Array<String>, removedIds: Array<String>) => void;
 };
 
-function checkboxState(levelCategories: Array<LevelCategory>, selectedCategoryIds: Array<String>): boolean | null {
-  let someSelected = false;
-  let someUnselected = false;
-  levelCategories.forEach((c) => {
-    if(!c.level) return;
-
-    if(selectedCategoryIds.includes(c.category.id)) someSelected = true;
-    if(!selectedCategoryIds.includes(c.category.id)) someUnselected = true;
-  });
-  if(someSelected && !someUnselected) return true;
-  if(someSelected && someUnselected) return null;
-  return false;
-}
-
-function toggleEntireScorecard(currentState: boolean | null, levelCategories: Array<LevelCategory>, onCategorySelectionChanged: Function) {
-  if(currentState === null || currentState === false) {
-    onCategorySelectionChanged(levelCategories.map((c) => c.category.id), []);
-  } else {
-    onCategorySelectionChanged([], levelCategories.map((c) => c.category.id));
-  }
-}
+const useStyles = makeStyles(() => {
+  return {
+    checkbox: {
+      width: "10px",
+      height: "10px",
+      transform: "translateY(-2px)",
+      marginRight: "4px" 
+    },
+  };
+});
 
 function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCategorySelectionChanged}: Props) {
+  const classes = useStyles();
   const sortedLevels= useMemo(()=>[...levels].sort(
     (a: Level, b: Level) =>{
       return (a.index || 0) - (b.index || 0);
     }), [levels]);
-  const checkboxValue = checkboxState(levelCategories, selectedCategoryIds);
+
+  const [checkboxValue, setCheckboxValue] = useState<boolean | null>(false);
+
+  useEffect(() => {
+    let someSelected = false;
+    let someUnselected = false;
+    levelCategories.forEach((c) => {
+      if(!c.level) return;
+    
+      if(selectedCategoryIds.includes(c.category.id)) someSelected = true;
+      if(!selectedCategoryIds.includes(c.category.id)) someUnselected = true;
+    });
+    let val: boolean | null = false;
+    if(someSelected && !someUnselected) val = true;
+    if(someSelected && someUnselected) val = null;
+    setCheckboxValue(val);
+  }, [levelCategories, selectedCategoryIds])
+  
+  function toggleEntireScorecard() {
+    if(checkboxValue === null || checkboxValue === false) {
+      onCategorySelectionChanged(levelCategories.map((c) => c.category.id), []);
+    } else {
+      onCategorySelectionChanged([], levelCategories.map((c) => c.category.id));
+    }
+  }
+
   return (
     <>
       <List
@@ -48,10 +64,10 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
           <span>
             <h4><Checkbox
               data-testid={`category-checkbox-${title}`}
-              style={{width: "10px", height: "10px", transform: "translateY(-2px)", marginRight: "4px" }}
-              checked={checkboxValue || undefined}
+              className={classes.checkbox}
+              checked={checkboxValue || false}
               indeterminate={checkboxValue === null}
-              onChange={() => {toggleEntireScorecard(checkboxValue, levelCategories, onCategorySelectionChanged)}}
+              onChange={toggleEntireScorecard}
             /> {title}</h4>
           </span>
         }
@@ -62,7 +78,7 @@ function Scorecard({levelCategories, levels, title, selectedCategoryIds, onCateg
             levelCategory={levelCategory}
             levels={sortedLevels}
             checked={ selectedCategoryIds?.includes(levelCategory.category.id) }
-            onCheckedChange={ (e: any) => onCategorySelectionChanged(e ? [levelCategory.category.id] : [], e ? [] : [levelCategory.category.id]) }
+            onCheckedChange={ (val: boolean) => onCategorySelectionChanged(val ? [levelCategory.category.id] : [], val ? [] : [levelCategory.category.id]) }
           />
         ))}
       </List>
