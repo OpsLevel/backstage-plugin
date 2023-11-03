@@ -3,7 +3,7 @@ import { Entity } from '@backstage/catalog-model';
 export type LevelCategory = {
   id?: string;
   level: { name: string } | null;
-  category: { name: string } 
+  category: { id: string, name: string } 
   rollsUp?: boolean;
 }
 
@@ -18,7 +18,7 @@ export type OverallLevel =  {
   name: string,
 }
 
-type ScorecardStats = {
+export type ScorecardStats = {
   scorecard?: {
     affectsOverallServiceLevels: boolean,
     id: string,
@@ -28,6 +28,7 @@ type ScorecardStats = {
     edges?: Array<{
       level?: Level
       node?: {
+        id: string,
         name: string
       }
     }>
@@ -94,6 +95,7 @@ export type CheckResult = {
     name: string,
     type: string,
     category: {
+      id: string,
       name: string
     } | null,
   },
@@ -113,7 +115,7 @@ export interface OpsLevelOverallData {
     servicesReport: {
       totalServicesNotEvaluated: number,
       levelCounts: Array<{ level: { name: string }, serviceCount: number }>,
-      categoryLevelCounts: Array<{ category: { name: string }, level: { name: string, index: number }, serviceCount: number }>,
+      categoryLevelCounts: Array<{ category: { id: string, name: string }, level: { name: string, index: number }, serviceCount: number }>,
     }
   }
 }

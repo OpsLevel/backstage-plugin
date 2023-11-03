@@ -78,7 +78,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
 
     function getInitialExpandedLevelIndex(newLevelCounts: { [index: number]: { [level: string]: number } }) {
       for(const index in newLevelCounts) {
-        if(newLevelCounts[index].failed > 0 || newLevelCounts[index].upcoming_failed > 0 || newLevelCounts[index].upcoming_pending > 0) return index;
+        if(newLevelCounts[index].failed > 0 || newLevelCounts[index].upcoming_failed > 0 || newLevelCounts[index].upcoming_pending > 0 || newLevelCounts[index].pending > 0) return index;
       }
       return -1;
     }
@@ -119,7 +119,7 @@ export function CheckResultsByLevel({ checkResultsByLevel, totalChecks, totalPas
 
   const accordionComponents = checkResults.map(({items, level}) => {
     return (
-      <Accordion className={styles.accordion} key={level.name} expanded={expandedLevels[level.index]} onChange={handleExpandedLevelIndexChange(level.index)}>
+      <Accordion className={styles.accordion} id={`level-accordion-${level.index}`} key={level.name} expanded={expandedLevels[level.index]} onChange={handleExpandedLevelIndexChange(level.index)}>
         <AccordionSummary className={styles.accordionSummary} key={`${level.name}-summary`} expandIcon={<ExpandMoreIcon />}>
           <Typography sx={{width: '90%'}}>
             { level.name } ({ items.nodes.length })

@@ -8,7 +8,7 @@ import { opslevelApiRef } from '../api';
 import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useAsync, useAsyncFn } from 'react-use';
-import { LevelCategory, OpsLevelServiceData } from '../types/OpsLevelData';
+import { LevelCategory, OpsLevelServiceData, ScorecardStats } from '../types/OpsLevelData';
 import { SnackAlert, SnackbarProps } from './SnackAlert';
 import { CheckResultsByLevel } from './CheckResultsByLevel';
 import ServiceMaturitySidebar from './ServiceMaturitySidebar';
@@ -23,11 +23,21 @@ export const EntityOpsLevelMaturityContent = () => {
   const [exporting, setExporting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbar, setSnackbar] = useState<SnackbarProps>({ message: "", severity: "info" });
+  const [selectedCategories, setSelectedCategories] = useState<Array<String>>([]);
   const [fetchState, doFetch] = useAsyncFn(async () => {
     const result = await opslevelApi.getServiceMaturityByAlias(serviceAlias)
 
     if (result) {
       setOpsLevelData(result);
+      setSelectedCategories(
+        result.account.service.maturityReport.categoryBreakdown
+          .filter((cb: LevelCategory) => !!cb.level)
+          .map((cb: LevelCategory) => cb.category.id).concat(
+            result.account.service.serviceStats.scorecards.nodes
+              .filter((s: ScorecardStats) => s.scorecard?.affectsOverallServiceLevels && !!s.categories?.edges?.[0]?.level)
+              .map((s: ScorecardStats) => s.categories?.edges?.[0]?.node?.id)
+          )
+      );
     }
   });
   useAsync(doFetch, [serviceAlias])
@@ -61,7 +71,7 @@ export const EntityOpsLevelMaturityContent = () => {
 
   const { maturityReport } = service;
   const levels = opsLevelData.account.rubric?.levels?.nodes;
-  const levelCategories = opsLevelData.account.service.maturityReport?.categoryBreakdown;
+  const levelCategories = opsLevelData.account.service.maturityReport?.categoryBreakdown.map((c) => { return { ...c, rollsUp: true }}) || [];
   const checkResultsByLevel = opsLevelData.account.service.serviceStats?.rubric?.checkResults?.byLevel?.nodes;
   const scorecards = opsLevelData.account.service.serviceStats?.scorecards?.nodes;
   const scorecardCategories = scorecards?.reduce(
@@ -73,7 +83,7 @@ export const EntityOpsLevelMaturityContent = () => {
           (nodeAccumulator: LevelCategory[], currentEdge): LevelCategory[] => [
             ...nodeAccumulator,
             {
-              category: {name: currentEdge.node?.name ?? ''},
+              category: {id: currentEdge.node?.id ?? '', name: currentEdge.node?.name ?? ''},
               level: currentEdge.level?.name ? {name: currentEdge.level?.name} : null,
               rollsUp:
                   currentScorecard?.scorecard?.affectsOverallServiceLevels,
@@ -94,7 +104,6 @@ export const EntityOpsLevelMaturityContent = () => {
     result.forEach((checkResults) => {
       // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
       const levelIndex = checkResults.level.index;
-
       scorecards?.forEach((scorecard) => {
         const entry = scorecard.checkResults?.byLevel?.nodes?.find(
           (node) => node.level.index === levelIndex,
@@ -107,7 +116,8 @@ export const EntityOpsLevelMaturityContent = () => {
         checkResults.items.nodes = [
           ...checkResults.items.nodes,
           ...entry.items.nodes,
-        ];
+        ].filter((i) => !!i.check.category && selectedCategories.includes(i.check.category.id));
+        ;
       })
     })
     return result;
@@ -171,6 +181,27 @@ export const EntityOpsLevelMaturityContent = () => {
     setSnackbar({ ...snackbarProps});
   }
 
+  function updateCategoryIdSelection(addedCategoryIds: Array<String>, removedCategoryIds: Array<String>) {
+    const newSelection = selectedCategories.filter((c) => !removedCategoryIds.includes(c));
+    addedCategoryIds.forEach((id) => {
+      if(!newSelection.includes(id)) newSelection.push(id);
+    });
+    setSelectedCategories(newSelection);
+  }
+
+  const overallLevel = (() => {
+    const sortedLevels = levels.sort((a, b) => (a.index > b.index) ? 1 : -1);
+    const sortedCheckResults = allCheckResultsByLevel.sort((a, b) => (a.level.index > b.level.index) ? 1 : -1);
+
+    let i;
+    for(i = 0; i < sortedCheckResults.length; i++) {
+      if(sortedCheckResults[i].items.nodes.some((e) => e.status === "failed" || e.status === "pending")) {
+        return sortedLevels[i];
+      }
+    }
+    return sortedLevels[i];
+  })();
+
   function ServiceMaturityError ({ error, showExport }: { error: React.ReactNode, showExport?: boolean }) {
     return (<Grid container direction="column" spacing={5}>
       <SnackAlert  {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
@@ -231,6 +262,8 @@ export const EntityOpsLevelMaturityContent = () => {
               scorecardCategories={scorecardCategories}
               levelCategories={levelCategories} 
               overallLevel={maturityReport.overallLevel}
+              selectedCategoryIds={selectedCategories}
+              onCategorySelectionChanged={updateCategoryIdSelection}
             />
           }
         </Grid>
@@ -238,7 +271,7 @@ export const EntityOpsLevelMaturityContent = () => {
           <Grid item>
             <EntityOpsLevelMaturityProgress
               levels={levels}
-              serviceLevel={maturityReport?.overallLevel}
+              serviceLevel={overallLevel}
             />
           </Grid>
           <Grid item>

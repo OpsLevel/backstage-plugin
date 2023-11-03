@@ -4,16 +4,22 @@ import { Level, LevelCategory } from "../types/OpsLevelData";
 import { levelColor } from "../helpers/level_color_helper";
 import { PieChartOutlined } from "@ant-design/icons";
 import  clsx  from "clsx";
+import Checkbox from '@mui/material/Checkbox';
+import { BackstageTheme } from '@backstage/theme';
+
 
 type Props = {
   levels: Array<Level>;
-  levelCategory: LevelCategory
+  levelCategory: LevelCategory;
+  checked: boolean | null;
+  onCheckedChange: Function;
 };
 
 const colorGrey = '#e9e9e9';
 const colorDisabled = '#d9d9d9';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: BackstageTheme) => {
+
   return {
     root: {
       '&:first-of-type': {
@@ -24,6 +30,7 @@ const useStyles = makeStyles(() => {
     categoryName: {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      paddingRight: '12px',
     },
     levelWrapper: {
       display: 'inline-flex',
@@ -42,10 +49,19 @@ const useStyles = makeStyles(() => {
     levelDisabled: {
       border: `1px solid ${colorDisabled}`,
     },
+    scorecardCheckbox: {
+      width: "10px",
+      height: "10px",
+      transform: "translateY(-1px)",
+      marginRight: "4px"
+    },
+    tooltip: {
+      fontSize: theme.typography.button.fontSize,
+    },
   };
 });
 
-function ScorecardCategory({levelCategory, levels}: Props) {
+function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Props) {
   const classes = useStyles();
 
   const getLevelColor = useCallback((levelIndexToCheck: number) => {
@@ -61,29 +77,37 @@ function ScorecardCategory({levelCategory, levels}: Props) {
   }, [levelCategory, levels])
 
   const isDisabled = !levelCategory.level;
+  const disabledTooltipMessage = "There are no checks in this category that apply to this service";
 
   return (
-    <Tooltip title={isDisabled ? "There are no checks in this category that apply to this service" : ''}>
-      <ListItem className={classes.root} disabled={isDisabled} dense>
-        <ListItemText>
-          <Grid container>
-            <Grid item xs={8} className={classes.categoryName}>
-              {levelCategory.category.name}
-            </Grid>
-            <Grid item xs={4}>
-              <Tooltip title={levelCategory.level?.name ?? ""}>
-                <Grid className={classes.levelWrapper} container aria-label="level">
-                  {levels.map((level) => (<span key={level.index} className={clsx(classes.level, isDisabled ? classes.levelDisabled : '')} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
-                </Grid>
-              </Tooltip>
-              <Tooltip title={isDisabled ? '' : "These checks affect your service's maturity level."}>
-                <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level"/>
-              </Tooltip>
-            </Grid>
+    <ListItem className={classes.root} disabled={isDisabled} dense>
+      <ListItemText>
+        <Grid container spacing={0}>
+          <Grid item xs={2} lg={1}>
+            <Checkbox
+              data-testid={`checkbox-${levelCategory.category.id}`}
+              disabled={isDisabled}
+              className={classes.scorecardCheckbox}
+              checked={(checked && !isDisabled) || undefined}
+              onChange={(e) => onCheckedChange(e.target.checked)}
+            />
           </Grid>
-        </ListItemText>
-      </ListItem>
-    </Tooltip>
+          <Grid item xs={10} lg={6} className={classes.categoryName}>
+            {levelCategory.category.name}
+          </Grid>
+          <Grid item xs={12} lg={5}>
+            <Tooltip classes={{tooltip: classes.tooltip}} title={isDisabled ? disabledTooltipMessage : (levelCategory.level?.name ?? "")}>
+              <Grid className={classes.levelWrapper} container aria-label="level">
+                {levels.map((level) => (<span key={level.index} className={clsx(classes.level, isDisabled ? classes.levelDisabled : '')} style={{backgroundColor: getLevelColor(levels.indexOf(level))}} />))}
+              </Grid>
+            </Tooltip>
+            {levelCategory.rollsUp && <Tooltip classes={{tooltip: classes.tooltip}} title={isDisabled ? disabledTooltipMessage : "These checks affect your service's maturity level."}>
+              <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level"/>
+            </Tooltip>}
+          </Grid>
+        </Grid>
+      </ListItemText>
+    </ListItem>
   );
 }
 

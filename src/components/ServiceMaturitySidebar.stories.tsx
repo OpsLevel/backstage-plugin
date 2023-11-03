@@ -19,20 +19,22 @@ export const Default: Story = {
     },
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Good"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
     levelCategories: [
-      {level: {name: "Amazing"}, category: {name: "Ownership"}},
-      {level: {name: "Good"}, category: {name: "Reliability"}},
-      {level: null, category: {name: "Security"}},
-      {level: {name: "Great"}, category: {name: "Observability"}},
-    ]
+      {level: {name: "Amazing"}, category: {id: "1", name: "Ownership"}},
+      {level: {name: "Good"}, category: {id: "2", name: "Reliability"}},
+      {level: null, category: {id: "3", name: "Security"}},
+      {level: {name: "Great"}, category: {id: "4", name: "Observability"}},
+    ],
+    selectedCategoryIds: [],
+    onCategorySelectionChanged: () => {},
   },
 };
 
 export const WithScorecards: Story = {
   args: {
     scorecardCategories: [
-      {level: {name: "Not so great"}, category: {name: "Back-End Scorecard"}},
-      {level: {name: "Amazing"}, category: {name: "Front-End Scorecard"}},
-      {level: null, category: {name: "Team Bravo Services"}},
+      {level: {name: "Not so great"}, category: {id: "1", name: "Back-End Scorecard"}},
+      {level: {name: "Amazing"}, category: {id: "2", name: "Front-End Scorecard"}},
+      {level: null, category: {id: "3", name: "Team Bravo Services"}},
     ],
     overallLevel: {
       index: 3,
@@ -41,10 +43,12 @@ export const WithScorecards: Story = {
     },
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Good"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
     levelCategories: [
-      {level: {name: "Amazing"}, category: {name: "Ownership"}},
-      {level: {name: "Good"}, category: {name: "Reliability"}},
-      {level: null, category: {name: "Security"}},
-      {level: {name: "Great"}, category: {name: "Observability"}},
-    ]
+      {level: {name: "Amazing"}, category: {id: "1", name: "Ownership"}},
+      {level: {name: "Good"}, category: {id: "2", name: "Reliability"}},
+      {level: null, category: {id: "3", name: "Security"}},
+      {level: {name: "Great"}, category: {id: "4", name: "Observability"}},
+    ],
+    selectedCategoryIds: [],
+    onCategorySelectionChanged: () => {},
   },
 };

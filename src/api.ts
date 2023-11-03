@@ -27,6 +27,7 @@ const CHECK_RESULT_DETAILS_FRAGMENT = gql`
               name
               type
               category {
+                id
                 name
               }
             }
@@ -72,6 +73,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
               }
               categoryBreakdown {
                 category {
+                  id
                   name
                 }
                 level {
@@ -80,7 +82,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
               }
             }
             serviceStats {
-              scorecards(affectsOverallServiceLevels: true) {
+              scorecards(affectsOverallServiceLevels: false) {
                 nodes {
                   scorecard {
                     id
