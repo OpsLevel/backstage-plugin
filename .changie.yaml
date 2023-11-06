@@ -17,6 +17,10 @@ kinds:
   auto: patch
 - label: Security
   auto: patch
+replacements:
+  - path: package.json
+    find: '  "version": ".*",'
+    replace: '  "version": "{{.VersionNoPrefix}}",'  
 newlines:
   afterChangelogHeader: 1
   beforeChangelogVersion: 1

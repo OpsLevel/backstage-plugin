@@ -5,6 +5,7 @@
 3. [Getting the code](#getting-the-code)
 4. [Local development](#local-development)
 5. [Submitting a Pull Request](#submitting-a-pull-request)
+6. [Releasing](#releasing)
 
 ## About this document
 
@@ -78,3 +79,39 @@ A maintainer will review your PR. They may suggest code revision for style or cl
 - First time contributors should note code checks + unit tests require a maintainer to approve.
 
 Once all tests are passing and your PR has been approved, a maintainer will merge your changes into the active development branch. And that's it!  It will be available in the next release that is cut. Happy developing :tada:
+
+## Releasing
+
+To release a new version, you will need to be a maintainer of the package.
+
+### Update version
+
+In the plugin's directory, ensure that changie entries are bundled by running
+
+```
+yarn bump-version
+```
+
+### Build
+
+```sh
+yarn clean
+yarn install
+yarn tsc
+yarn build
+```
+Ensure steps above completed successfully and `/dist/` contains compiled code. We've accidentally published empty packages before so please do not skip this step.
+
+### Commit changes
+Use a message like "Release v1.2.3"
+
+Once merged, tag it (on main branch). 
+```sh
+git tag v1.2.3
+git push --tags
+```
+
+```sh
+npm login # (first time only - ensure you have your account in our org account in npm)
+npm publish
+```

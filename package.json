@@ -25,6 +25,7 @@
     "clean": "backstage-cli package clean",
     "prepack": "backstage-cli package prepack",
     "postpack": "backstage-cli package postpack",
+    "bump-version": "changie batch auto",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
