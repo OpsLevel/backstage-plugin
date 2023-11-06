@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+  * Shows different icon for category and scorecard in check result
+  * Fixes bug where scorecard section showed when an empty array returned
+
 ## [1.2.0] - 2023-11-03
 
 ### Added

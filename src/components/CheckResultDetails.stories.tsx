@@ -131,3 +131,30 @@ export const Payload: Story = {
     }
   },
 };
+
+export const Scorecard: Story = {
+  args: {
+    combinedStatus: "failed",
+    checkResult: {
+      message: "Ticket number 34 has caused the reduction from 76% to 72%.",
+      warnMessage: "Health has dipped to 72%. The limit is 74%.",
+      createdAt: `${new Date()}`,
+      check: {
+        id: '1',
+        enableOn: null,
+        isScorecardCheck: true,
+        name: 'Scorecard check',
+        type: 'payload',
+        category: {
+          id: '1989',
+          name: 'First scorecard',
+          container: {
+            href: '/categories/quality',
+          },
+        },
+        owner: null,
+      },
+      status: 'failed',
+    }
+  },
+};

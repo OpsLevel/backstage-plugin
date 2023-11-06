@@ -18,8 +18,6 @@ const getCheckResult = (status: CheckResultStatus):CheckResult => ({
   status
 })
 
-    
-
 describe('CheckResultDetails', () => {
   it('renders a check with baseline information', () => {  
     const checkResult = getCheckResult('failed');
@@ -275,4 +273,43 @@ describe('CheckResultDetails', () => {
       expanded: false,
     })).not.toHaveClass('Mui-expanded')
   });
+
+  it('shows a table icon for categories', () => {
+    const checkResult = getCheckResult('failed');
+    checkResult.check.category = {
+      id: '1989',
+      name: 'Tigers',
+      container: {
+        href: '/services/cats',
+      }
+    }
+
+    render(<CheckResultDetails
+      checkResult={checkResult}
+      combinedStatus="passed"
+    />);
+
+    expect(screen.getByLabelText("table")).toBeInTheDocument()
+    expect(screen.queryByLabelText("file-done")).not.toBeInTheDocument()
+  })
+
+  it('shows a file-done icon for scorecards', () => {
+    const checkResult = getCheckResult('failed');
+    checkResult.check.isScorecardCheck = true;
+    checkResult.check.category = {
+      id: '1989',
+      name: 'Tigers',
+      container: {
+        href: '/services/cats',
+      }
+    }
+
+    render(<CheckResultDetails
+      checkResult={checkResult}
+      combinedStatus="passed"
+    />);
+
+    expect(screen.queryByLabelText("table")).not.toBeInTheDocument()
+    expect(screen.getByLabelText("file-done")).toBeInTheDocument()
+  })
 });
