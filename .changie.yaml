@@ -9,10 +9,8 @@ changeFormat: '* {{.Body}}'
 kinds:
 - label: Added
   auto: minor
-- label: Changed
+- label: Breaking
   auto: major
-- label: Deprecated
-  auto: minor
 - label: Removed
   auto: major
 - label: Fixed
