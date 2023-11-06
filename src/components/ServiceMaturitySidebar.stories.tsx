@@ -10,7 +10,7 @@ const meta = {
 export default meta;
 
 
-const getProps = (propsOverrides?: Props) => ({
+const getProps = () => ({
   overallLevel: {
     index: 3,
     name: 'Good',
@@ -26,7 +26,6 @@ const getProps = (propsOverrides?: Props) => ({
   ],
   selectedCategoryIds: [],
   onCategorySelectionChanged: () => {},
-  ...propsOverrides,
 });
 const DynamicSidebar = (props: Props): React.ReactElement => {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState(props.selectedCategoryIds ?? []);
@@ -44,6 +43,13 @@ const DynamicSidebar = (props: Props): React.ReactElement => {
 
 export const Default = {
   render: () => (<DynamicSidebar {...getProps()} />)
+}
+
+export const WithPreselectedValues = {
+  render: () => {
+    const selectedCategoryIds = ['1'];
+    return (<DynamicSidebar {...getProps()} selectedCategoryIds={selectedCategoryIds}/>);
+  }
 }
 
 export const WithScorecards = {
