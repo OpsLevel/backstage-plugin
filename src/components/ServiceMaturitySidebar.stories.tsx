@@ -18,6 +18,7 @@ export const Default: Story = {
       description: 'Your services are on their way but still can be better. Primarily, you should be focused on styling and maintainability now that security concerns are out of the way.'
     },
     levels: [{index: 0, name: "Not so great"}, {index: 1, name: "Good"}, {index: 3, name: "Great"}, {index: 4, name: "Amazing"}],
+    scorecardCategories: [],
     levelCategories: [
       {level: {name: "Amazing"}, category: {id: "1", name: "Ownership"}},
       {level: {name: "Good"}, category: {id: "2", name: "Reliability"}},
