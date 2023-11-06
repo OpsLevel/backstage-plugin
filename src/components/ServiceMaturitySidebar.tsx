@@ -12,7 +12,7 @@ type Level = {
   name: string;
 };
 
-type Props = {
+export type Props = {
   levels: Array<Level>,
   levelCategories: Array<LevelCategory>,
   scorecardCategories?: Array<LevelCategory>,
