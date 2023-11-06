@@ -87,6 +87,7 @@
     "@testing-library/user-event": "^14.0.0",
     "@types/node": "*",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
+    "changie": "^1.15.1",
     "cross-fetch": "^3.1.5",
     "msw": "^0.47.0",
     "resize-observer-polyfill": "^1.5.1",

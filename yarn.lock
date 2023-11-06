@@ -6883,6 +6883,11 @@ chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+changie@^1.15.1:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/changie/-/changie-1.15.1.tgz#60d078cc13658606d1f0fb8d58179ab70bd560b1"
+  integrity sha512-qqXpmVjzq/TN0/4j8MpwAEshRWA2L2Ajh3zu+6IHQ3RupJj/CZE6lRGDlKRXRQ8F8yvPYSiyifcFS9CGxSo0Vw==
+
 char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
