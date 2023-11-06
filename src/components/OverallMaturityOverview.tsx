@@ -1,32 +1,32 @@
 import React from "react";
-import { InfoCard } from "@backstage/core-components";
-import { Progress } from "@backstage/core-components";
+import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
+import cloneDeep from "lodash/cloneDeep";
+import { withTheme } from "@material-ui/core/styles";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import { servicesByLevel, fontFamily } from "../helpers/maturity_report_helper";
-import cloneDeep from 'lodash/cloneDeep';
-import { withTheme } from "@material-ui/core/styles";
 
 type Props = {
-  loading: Boolean,
-  levels: Array<any>,
-  levelCounts: Array<any>,
-  theme: any,
+  loading: Boolean;
+  levels: Array<any>;
+  levelCounts: Array<any>;
+  theme: any;
 };
 
 type State = {
-  data: Array<any>,
-  options: any,
+  data: Array<any>;
+  options: any;
 };
 
 class OverallMaturityOverview extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let data: { String: Number }[];
-    if (props.loading)
+    if (props.loading) {
       data = [];
-    else
+    } else {
       data = servicesByLevel(props.levels, props.levelCounts);
+    }
 
     this.state = {
       data: data.length > 0 ? data.flatMap((obj) => Object.values(obj)) : [],
@@ -60,7 +60,7 @@ class OverallMaturityOverview extends React.Component<Props, State> {
                       (a: number, b: number) => {
                         return a + b;
                       },
-                      0
+                      0,
                     );
                     return `${total} Services`;
                   },
@@ -127,10 +127,11 @@ class OverallMaturityOverview extends React.Component<Props, State> {
 
   setDataFromProps() {
     let data: { String: Number }[];
-    if (this.props.loading)
+    if (this.props.loading) {
       data = [];
-    else
+    } else {
       data = servicesByLevel(this.props.levels, this.props.levelCounts);
+    }
 
     const stateCopy = cloneDeep(this.state);
     this.setState({

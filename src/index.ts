@@ -1,5 +1,5 @@
 export {
   opslevelMaturityPlugin,
   OpslevelMaturityPage,
-  EntityOpsLevelMaturityContent
-} from './plugin';
+  EntityOpsLevelMaturityContent,
+} from "./plugin";

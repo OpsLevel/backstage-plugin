@@ -11,13 +11,13 @@ export const mountInitialLevelArray = (levels) => {
 export const updateCategoryAggregateWithLevelCounter = (
   aggregate,
   level,
-  serviceCounter
+  serviceCounter,
 ) => {
   return aggregate.map((obj) => {
     const currentKey = Object.keys(obj)[0];
     if (level === currentKey) {
       return { [currentKey]: serviceCounter };
-    } 
+    }
     return obj;
   });
 };
@@ -25,7 +25,7 @@ export const updateCategoryAggregateWithLevelCounter = (
 export const servicesByLevel = (levels, servicesLevelCount) => {
   return levels.map((level) => {
     const serviceLevelCount = servicesLevelCount.find(
-      (entry) => entry.level.name === level.name
+      (entry) => entry.level.name === level.name,
     );
     // serviceLevelCount is undefined when no services exist at that level
     return { [escape(level.name)]: serviceLevelCount?.serviceCount || 0 };
@@ -45,7 +45,7 @@ export const levelsByCategory = (levels, servicesLevelCountByCategory) => {
     const newCategoryAggregate = updateCategoryAggregateWithLevelCounter(
       categoryAggregate,
       levelName,
-      categoryLevel.serviceCount
+      categoryLevel.serviceCount,
     );
 
     return {

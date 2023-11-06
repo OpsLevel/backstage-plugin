@@ -1,23 +1,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import React from 'react';
-import { Marked } from '@ts-stack/markdown';
+import React from "react";
+import { Marked } from "@ts-stack/markdown";
 import DOMPurify from "dompurify";
-import {truncate} from "lodash";
+import { truncate } from "lodash";
 import { withTheme } from "@material-ui/core/styles";
 
 type Props = {
-  value?: string,
-  truncate: boolean,
-  theme: any,
-}
+  value?: string;
+  truncate: boolean;
+  theme: any;
+};
 
 type State = {
-  sanitizedValue: string,
-  sanitizedTruncatedValue: string,
-  shouldTruncate: boolean,
-  truncated: boolean,
+  sanitizedValue: string;
+  sanitizedTruncatedValue: string;
+  shouldTruncate: boolean;
+  truncated: boolean;
 };
 
 const TRUNCATE_LENGTH = 100;
@@ -27,19 +27,31 @@ class MarkdownViewer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      sanitizedValue: !!props.value ? this.getDisplayValue(props.value, false) : "",
-      sanitizedTruncatedValue: !!props.value ? this.getDisplayValue(props.value, true) : "",
+      sanitizedValue: props.value
+        ? this.getDisplayValue(props.value, false)
+        : "",
+      sanitizedTruncatedValue: props.value
+        ? this.getDisplayValue(props.value, true)
+        : "",
       shouldTruncate: props.truncate && this.getCanTruncate(props.value),
       truncated: true,
     };
   }
 
   componentDidUpdate(prevProps: Props) {
-    if(prevProps.value !== this.props.value || prevProps.truncate !== this.props.truncate) {
+    if (
+      prevProps.value !== this.props.value ||
+      prevProps.truncate !== this.props.truncate
+    ) {
       this.setState({
-        sanitizedValue: !!this.props.value ? this.getDisplayValue(this.props.value, false) : "",
-        sanitizedTruncatedValue: !!this.props.value ? this.getDisplayValue(this.props.value, true) : "",
-        shouldTruncate: this.props.truncate && this.getCanTruncate(this.props.value),
+        sanitizedValue: this.props.value
+          ? this.getDisplayValue(this.props.value, false)
+          : "",
+        sanitizedTruncatedValue: this.props.value
+          ? this.getDisplayValue(this.props.value, true)
+          : "",
+        shouldTruncate:
+          this.props.truncate && this.getCanTruncate(this.props.value),
         truncated: this.state.truncated,
       });
     }
@@ -55,12 +67,18 @@ class MarkdownViewer extends React.Component<Props, State> {
   }
 
   getDisplayText() {
-    return this.isTruncated() ? this.state.sanitizedTruncatedValue : this.state.sanitizedValue;
+    return this.isTruncated()
+      ? this.state.sanitizedTruncatedValue
+      : this.state.sanitizedValue;
   }
 
   getCanTruncate(value: string | undefined) {
-    if(!value) return false;
-    return (value.length > TRUNCATE_LENGTH || value.split(NEWLINE_REGEX).length > 2);
+    if (!value) {
+      return false;
+    }
+    return (
+      value.length > TRUNCATE_LENGTH || value.split(NEWLINE_REGEX).length > 2
+    );
   }
 
   isTruncated() {
@@ -81,18 +99,30 @@ class MarkdownViewer extends React.Component<Props, State> {
   }
 
   render() {
-    const ret = [<span className="span-markdown" key="markup" dangerouslySetInnerHTML={{ __html: this.getDisplayText() }}/>];
+    const ret = [
+      <span
+        className="span-markdown"
+        key="markup"
+        dangerouslySetInnerHTML={{ __html: this.getDisplayText() }}
+      />,
+    ];
     if (this.state.shouldTruncate) {
-      ret.push((
+      ret.push(
         <span
           className="span-toggle-expansion"
           key="markup-toggle-truncate"
-          style={{ color: this.props.theme.palette.link, textDecoration: "underline", cursor: "pointer" }}
-          onClick={ () => this.setState({ ...this.state, truncated: !this.state.truncated }) }
+          style={{
+            color: this.props.theme.palette.link,
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          onClick={() =>
+            this.setState({ ...this.state, truncated: !this.state.truncated })
+          }
         >
           ({this.getToggleText()})
-        </span>
-      ));
+        </span>,
+      );
     }
     return ret;
   }

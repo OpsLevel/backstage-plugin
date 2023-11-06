@@ -1,13 +1,12 @@
-import React from 'react';
-import { BackstageTheme } from '@backstage/theme';
-import { makeStyles } from '@material-ui/core';
-import { Box, Typography } from '@material-ui/core';
-import { OverallLevel } from '../types/OpsLevelData';
-import { InfoCircleOutlined, PieChartOutlined } from '@ant-design/icons';
-import Tooltip from '@mui/material/Tooltip';
+import React from "react";
+import { BackstageTheme } from "@backstage/theme";
+import { makeStyles, Box, Typography } from "@material-ui/core";
+import { InfoCircleOutlined, PieChartOutlined } from "@ant-design/icons";
+import Tooltip from "@mui/material/Tooltip";
+import { OverallLevel } from "../types/OpsLevelData";
 
 type Props = {
-  overallLevel: OverallLevel
+  overallLevel: OverallLevel;
 };
 
 const useStyles = makeStyles((theme: BackstageTheme) => ({
@@ -18,11 +17,11 @@ const useStyles = makeStyles((theme: BackstageTheme) => ({
     marginLeft: theme.spacing(1),
     fontSize: theme.typography.fontSize,
     lineHeight: theme.typography.h6.lineHeight,
-    verticalAlign: 'middle',
+    verticalAlign: "middle",
   },
-}))
+}));
 
-export const CurrentLevel = ({ overallLevel }: Props) => {
+export function CurrentLevel({ overallLevel }: Props) {
   const classes = useStyles();
 
   return (
@@ -30,14 +29,16 @@ export const CurrentLevel = ({ overallLevel }: Props) => {
       <Typography variant="h6">
         <PieChartOutlined className={classes.headerIcon} />
         Current Level
-
-        <Tooltip className={classes.infoTooltip} title="The current level is determined by identifying the lowest level of check that requires fixing in the rubric.">
+        <Tooltip
+          className={classes.infoTooltip}
+          title="The current level is determined by identifying the lowest level of check that requires fixing in the rubric."
+        >
           <InfoCircleOutlined />
         </Tooltip>
       </Typography>
       <Box
         sx={{
-          borderColor: 'primary.contrastText',
+          borderColor: "primary.contrastText",
         }}
         display="inline-flex"
         justifyContent="center"
@@ -52,4 +53,4 @@ export const CurrentLevel = ({ overallLevel }: Props) => {
       <div>{overallLevel.description}</div>
     </>
   );
-};
+}
