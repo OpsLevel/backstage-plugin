@@ -84,7 +84,7 @@ function ScorecardCategory({levelCategory, levels, checked, onCheckedChange}: Pr
 
   const isDisabled = !levelCategory.level;
   const disabledTooltipMessage = "There are no checks in this category that apply to this service";
-  const isChecked = (checked && !isDisabled) || undefined;
+  const isChecked = (checked && !isDisabled) ?? false;
 
   const toggleChecked = () => {
     onCheckedChange(!isChecked);
