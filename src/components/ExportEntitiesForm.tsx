@@ -35,6 +35,19 @@ function useListAllEntities() {
   };
 }
 
+function startExportMessage(entity: Entity) {
+  const entityRef = stringifyEntityRef(entity);
+  return `Exporting ${entityRef}... `;
+}
+
+function finishExportMessage(result: any) {
+  let message = result.importEntityFromBackstage.actionMessage;
+  if (result.importEntityFromBackstage.errors.length) {
+    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
+  }
+  return message;
+}
+
 async function exportEntity(
   entity: Entity,
   opslevelApi: OpsLevelApi,
@@ -63,19 +76,6 @@ async function performExport(
   for (const entity of components) {
     await exportEntity(entity, opslevelApi, appendOutput);
   }
-}
-
-function startExportMessage(entity: Entity) {
-  const entityRef = stringifyEntityRef(entity);
-  return `Exporting ${entityRef}... `;
-}
-
-function finishExportMessage(result: any) {
-  let message = result.importEntityFromBackstage.actionMessage;
-  if (result.importEntityFromBackstage.errors.length) {
-    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
-  }
-  return message;
 }
 
 const useStyles = makeStyles((theme: BackstageTheme) => {

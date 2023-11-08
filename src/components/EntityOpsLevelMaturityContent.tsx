@@ -82,6 +82,73 @@ export function EntityOpsLevelMaturityContent() {
       .join(extensionToRemove);
   }
 
+  function showSnackbar(snackbarProps: SnackbarProps) {
+    setSnackbarOpen(true);
+    setSnackbar({ ...snackbarProps });
+  }
+
+  async function exportEntity(event: React.MouseEvent) {
+    event.preventDefault();
+    setExporting(true);
+
+    showSnackbar({
+      message: "Updating service in OpsLevel...",
+      severity: "info",
+    });
+
+    const result = await opslevelApi.exportEntity(entity);
+
+    showSnackbar({
+      message: result?.importEntityFromBackstage.actionMessage,
+      severity: "success",
+      duration: 5000,
+    });
+
+    setExporting(false);
+
+    doFetch();
+  }
+
+  function ServiceMaturityError({
+    error,
+    showExport,
+  }: {
+    error: React.ReactNode;
+    showExport?: boolean;
+  }) {
+    return (
+      <Grid container direction="column" spacing={5}>
+        <SnackAlert
+          {...snackbar}
+          open={snackbarOpen}
+          setOpen={setSnackbarOpen}
+        />
+        <Grid item>{error}</Grid>
+        <Grid item>
+          {showExport ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={exportEntity}
+              disabled={exporting}
+            >
+              Export Entity to OpsLevel
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              target="_blank"
+              href={`${service?.htmlUrl}/maturity-report`}
+            >
+              View Maturity in OpsLevel
+            </Button>
+          )}
+        </Grid>
+      </Grid>
+    );
+  }
+
   if (!service) {
     const error = (
       <span>
@@ -215,34 +282,6 @@ export function EntityOpsLevelMaturityContent() {
       />
     );
   }
-
-  async function exportEntity(event: React.MouseEvent) {
-    event.preventDefault();
-    setExporting(true);
-
-    showSnackbar({
-      message: "Updating service in OpsLevel...",
-      severity: "info",
-    });
-
-    const result = await opslevelApi.exportEntity(entity);
-
-    showSnackbar({
-      message: result?.importEntityFromBackstage.actionMessage,
-      severity: "success",
-      duration: 5000,
-    });
-
-    setExporting(false);
-
-    doFetch();
-  }
-
-  function showSnackbar(snackbarProps: SnackbarProps) {
-    setSnackbarOpen(true);
-    setSnackbar({ ...snackbarProps });
-  }
-
   function updateCategoryIdSelection(
     addedCategoryIds: Array<String>,
     removedCategoryIds: Array<String>,
@@ -276,46 +315,6 @@ export function EntityOpsLevelMaturityContent() {
     }
     return sortedLevels[i];
   })();
-
-  function ServiceMaturityError({
-    error,
-    showExport,
-  }: {
-    error: React.ReactNode;
-    showExport?: boolean;
-  }) {
-    return (
-      <Grid container direction="column" spacing={5}>
-        <SnackAlert
-          {...snackbar}
-          open={snackbarOpen}
-          setOpen={setSnackbarOpen}
-        />
-        <Grid item>{error}</Grid>
-        <Grid item>
-          {showExport ? (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={exportEntity}
-              disabled={exporting}
-            >
-              Export Entity to OpsLevel
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              target="_blank"
-              href={`${service?.htmlUrl}/maturity-report`}
-            >
-              View Maturity in OpsLevel
-            </Button>
-          )}
-        </Grid>
-      </Grid>
-    );
-  }
 
   function ServiceMaturityReport() {
     return (
