@@ -3,14 +3,14 @@ import {
   createRoutableExtension,
   createApiFactory,
   configApiRef,
-} from '@backstage/core-plugin-api';
-import { opslevelApiRef, OpsLevelGraphqlAPI } from './api';
-import { opslevelPluginApiRef, OpsLevelPluginAPI } from './backend_api';
+} from "@backstage/core-plugin-api";
+import { opslevelApiRef, OpsLevelGraphqlAPI } from "./api";
+import { opslevelPluginApiRef, OpsLevelPluginAPI } from "./backend_api";
 
-import { rootRouteRef } from './routes';
+import { rootRouteRef } from "./routes";
 
 export const opslevelMaturityPlugin = createPlugin({
-  id: 'opslevel-maturity',
+  id: "opslevel-maturity",
   routes: {
     root: rootRouteRef,
   },
@@ -30,19 +30,19 @@ export const opslevelMaturityPlugin = createPlugin({
 
 export const OpslevelMaturityPage = opslevelMaturityPlugin.provide(
   createRoutableExtension({
-    name: 'OpslevelMaturityPage',
+    name: "OpslevelMaturityPage",
     component: () =>
-      import('./components/OverallMaturity').then(m => m.OverallMaturity),
+      import("./components/OverallMaturity").then((m) => m.OverallMaturity),
     mountPoint: rootRouteRef,
   }),
 );
 
 export const EntityOpsLevelMaturityContent = opslevelMaturityPlugin.provide(
   createRoutableExtension({
-    name: 'EntityOpsLevelMaturityContent',
+    name: "EntityOpsLevelMaturityContent",
     component: () =>
-      import('./components/EntityOpsLevelMaturityContent').then(
-        m => m.EntityOpsLevelMaturityContent,
+      import("./components/EntityOpsLevelMaturityContent").then(
+        (m) => m.EntityOpsLevelMaturityContent,
       ),
     mountPoint: rootRouteRef,
   }),

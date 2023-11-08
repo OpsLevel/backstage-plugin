@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { CheckResultDetails } from './CheckResultDetails';
+import { CheckResultDetails } from "./CheckResultDetails";
 
 const meta = {
-  title: 'CheckResultDetails',
+  title: "CheckResultDetails",
   component: CheckResultDetails,
 } satisfies Meta<typeof CheckResultDetails>;
 
@@ -16,28 +16,29 @@ export const Passing: Story = {
     opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "passed",
     checkResult: {
-      message: "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
+      message:
+        "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
       warnMessage: null,
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: null,
-        name: 'Has Owner Defined',
-        type: 'has_owner',
+        name: "Has Owner Defined",
+        type: "has_owner",
         category: {
-          id: '1989',
-          name: 'Quality',
+          id: "1989",
+          name: "Quality",
           container: {
-            href: '/categories/quality',
+            href: "/categories/quality",
           },
         },
         owner: {
-          name: 'Bravo',
-          href: '/teams/Bravo',
-        }
+          name: "Bravo",
+          href: "/teams/Bravo",
+        },
       },
-      status: 'passed',
-    }
+      status: "passed",
+    },
   },
 };
 
@@ -46,25 +47,26 @@ export const Pending: Story = {
     opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "pending",
     checkResult: {
-      message: "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
+      message:
+        "Service is owned by team 'Bravo' which has a contact method of type 'SLACK'.",
       warnMessage: null,
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: null,
-        name: 'Has Owner Defined',
-        type: 'has_owner',
+        name: "Has Owner Defined",
+        type: "has_owner",
         category: {
-          id: '1989',
-          name: 'Quality',
+          id: "1989",
+          name: "Quality",
           container: {
-            href: '/categories/quality',
+            href: "/categories/quality",
           },
         },
         owner: null,
       },
-      status: 'pending',
-    }
+      status: "pending",
+    },
   },
 };
 
@@ -76,18 +78,17 @@ export const Failing: Story = {
       warnMessage: "Oh no, better fix it",
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: null,
-        name: 'Linting is enabled',
-        type: 'tool_usage',
+        name: "Linting is enabled",
+        type: "tool_usage",
         category: null,
         owner: null,
       },
-      status: 'failed',
-    }
+      status: "failed",
+    },
   },
 };
-
 
 export const UpcomingFailing: Story = {
   args: {
@@ -97,18 +98,18 @@ export const UpcomingFailing: Story = {
       warnMessage: "Oh no, better fix it",
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: `${new Date()}`,
-        name: 'Linting is enabled',
-        type: 'tool_usage',
+        name: "Linting is enabled",
+        type: "tool_usage",
         category: null,
         owner: {
-          name: 'Bravo',
-          href: '/teams/Bravo',
-        }
+          name: "Bravo",
+          href: "/teams/Bravo",
+        },
       },
-      status: 'upcoming_failed',
-    }
+      status: "upcoming_failed",
+    },
   },
 };
 
@@ -120,15 +121,15 @@ export const Payload: Story = {
       warnMessage: "Health has dipped to 72%. The limit is 74%.",
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: null,
-        name: 'Service health check is passing',
-        type: 'payload',
+        name: "Service health check is passing",
+        type: "payload",
         category: null,
         owner: null,
       },
-      status: 'failed',
-    }
+      status: "failed",
+    },
   },
 };
 
@@ -140,21 +141,21 @@ export const Scorecard: Story = {
       warnMessage: "Health has dipped to 72%. The limit is 74%.",
       createdAt: `${new Date()}`,
       check: {
-        id: '1',
+        id: "1",
         enableOn: null,
         isScorecardCheck: true,
-        name: 'Scorecard check',
-        type: 'payload',
+        name: "Scorecard check",
+        type: "payload",
         category: {
-          id: '1989',
-          name: 'First scorecard',
+          id: "1989",
+          name: "First scorecard",
           container: {
-            href: '/categories/quality',
+            href: "/categories/quality",
           },
         },
         owner: null,
       },
-      status: 'failed',
-    }
+      status: "failed",
+    },
   },
 };

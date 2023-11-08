@@ -1,9 +1,9 @@
-import React from 'react';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import { BackstageTheme } from '@backstage/theme';
-import { Box, LinearProgress, Tooltip, makeStyles } from '@material-ui/core';
-import { InfoCard } from '@backstage/core-components';
+import React from "react";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import { BackstageTheme } from "@backstage/theme";
+import { Box, LinearProgress, Tooltip, makeStyles } from "@material-ui/core";
+import { InfoCard } from "@backstage/core-components";
 
 const useStyles = makeStyles((theme: BackstageTheme) => ({
   progressBar: {
@@ -13,17 +13,27 @@ const useStyles = makeStyles((theme: BackstageTheme) => ({
     color: theme.palette.success.main,
   },
   notAchieved: {
-    color: 'gray',
+    color: "gray",
   },
 }));
 
 function determineProgress(level: any, serviceLevelIndex: number) {
-  if (level.index < serviceLevelIndex) return 100;
-  if (level.index === serviceLevelIndex) return 50;
+  if (level.index < serviceLevelIndex) {
+    return 100;
+  }
+  if (level.index === serviceLevelIndex) {
+    return 50;
+  }
   return 0;
 }
 
-export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { levels: any, serviceLevel: any }) {
+export function EntityOpsLevelMaturityProgress({
+  levels,
+  serviceLevel,
+}: {
+  levels: any;
+  serviceLevel: any;
+}) {
   const classes = useStyles();
 
   const levelComponents = levels.map((level: any, index: number) => {
@@ -42,7 +52,7 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
     );
 
     const progressComponent = (
-      <div style={{ width: '100%', marginTop: '20px' }}>
+      <div style={{ width: "100%", marginTop: "20px" }}>
         <LinearProgress
           variant="determinate"
           value={progress}
@@ -60,10 +70,10 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
           placement="top"
           style={{
             flexGrow: 1,
-            margin: '10px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            margin: "10px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <div>
@@ -74,14 +84,16 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
                 height: "0px",
                 display: "block",
                 position: "relative",
-                transform: "translate(-60px)"
+                transform: "translate(-60px)",
               }}
             >
-              <div style={{
-                width: "120px",
-                textAlign: "center",
-                overflow: "hidden",
-              }}>
+              <div
+                style={{
+                  width: "120px",
+                  textAlign: "center",
+                  overflow: "hidden",
+                }}
+              >
                 {level.name}
               </div>
             </div>
@@ -96,13 +108,13 @@ export function EntityOpsLevelMaturityProgress({ levels, serviceLevel }: { level
     <InfoCard title="Progress">
       <Box
         style={{
-          display: 'inline-flex',
-          alignItems: 'start',
-          justifyContent: 'space-between',
-          width: '100%',
-          minHeight: '90px',
-          paddingLeft: '25px',
-          paddingRight: '25px'
+          display: "inline-flex",
+          alignItems: "start",
+          justifyContent: "space-between",
+          width: "100%",
+          minHeight: "90px",
+          paddingLeft: "25px",
+          paddingRight: "25px",
         }}
       >
         {levelComponents}

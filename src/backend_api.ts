@@ -1,14 +1,17 @@
-import { Config } from '@backstage/config';
-import { createApiRef } from '@backstage/core-plugin-api';
-import { AutoSyncConfiguration, OpsLevelBackendApi } from './types/OpsLevelData';
+import { Config } from "@backstage/config";
+import { createApiRef } from "@backstage/core-plugin-api";
+import {
+  AutoSyncConfiguration,
+  OpsLevelBackendApi,
+} from "./types/OpsLevelData";
 
 export const opslevelPluginApiRef = createApiRef<OpsLevelBackendApi>({
-  id: 'plugin.opslevel.backend.service',
+  id: "plugin.opslevel.backend.service",
 });
 
 export class OpsLevelPluginAPI implements OpsLevelBackendApi {
   static fromConfig(config: Config) {
-    return new OpsLevelPluginAPI(config.getString('backend.baseUrl'));
+    return new OpsLevelPluginAPI(config.getString("backend.baseUrl"));
   }
 
   constructor(public url: string) {
@@ -37,9 +40,9 @@ export class OpsLevelPluginAPI implements OpsLevelBackendApi {
 
   public async setAutoSyncConfiguration(configuration: AutoSyncConfiguration) {
     return await fetch(`${this.url}/auto_sync`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(configuration)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(configuration),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -52,9 +55,9 @@ export class OpsLevelPluginAPI implements OpsLevelBackendApi {
 
   public async getAutoSyncExecution(index: number) {
     return await fetch(`${this.url}/auto_sync/runs`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page_size: 1, page_number: index })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ page_size: 1, page_number: index }),
     })
       .then((response) => response.json())
       .then((data) => {

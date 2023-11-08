@@ -1,85 +1,150 @@
-import React from 'react';
-import {render, screen, fireEvent} from '@testing-library/react'
-import ScorecardCategory from '../components/ScorecardCategory';
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import ScorecardCategory from "../components/ScorecardCategory";
 
-
-describe('Scorecard Category', () => {
-  it('shows the checkbox, name, level, and pie chart', () => {
+describe("Scorecard Category", () => {
+  it("shows the checkbox, name, level, and pie chart", () => {
     const levels = [
-      {index: 0, name: "Not so great"},
-      {index: 1, name: "Slightly better"},
-      {index: 2, name: "Meh"},
-      {index: 4, name: "Great"},
-      {index: 5, name: "Amazing"},
+      { index: 0, name: "Not so great" },
+      { index: 1, name: "Slightly better" },
+      { index: 2, name: "Meh" },
+      { index: 4, name: "Great" },
+      { index: 5, name: "Amazing" },
     ];
-    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}, rollsUp: true};
+    const levelCategory = {
+      level: { name: "Not so great" },
+      category: { id: "id", name: "Ownership" },
+      rollsUp: true,
+    };
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
+    render(
+      <ScorecardCategory
+        levels={levels}
+        levelCategory={levelCategory}
+        checked
+        onCheckedChange={() => {}}
+      />,
+    );
 
     expect(screen.getByTestId("checkbox-id")).toBeInTheDocument();
-    expect(screen.getByText('Ownership')).toBeInTheDocument();
-    expect(screen.getByLabelText('pie-chart')).toBeInTheDocument();
-    expect(screen.getByLabelText('level').children).toHaveLength(5);
+    expect(screen.getByText("Ownership")).toBeInTheDocument();
+    expect(screen.getByLabelText("pie-chart")).toBeInTheDocument();
+    expect(screen.getByLabelText("level").children).toHaveLength(5);
   });
 
-  it('does not show the pie chart if the scorecard does not roll up', () => {
+  it("does not show the pie chart if the scorecard does not roll up", () => {
+    const levels = [{ index: 0, name: "Not so great" }];
+    const levelCategory = {
+      level: { name: "Not so great" },
+      category: { id: "id", name: "Ownership" },
+      rollsUp: false,
+    };
+
+    render(
+      <ScorecardCategory
+        levels={levels}
+        levelCategory={levelCategory}
+        checked
+        onCheckedChange={() => {}}
+      />,
+    );
+
+    expect(() => screen.getByLabelText("pie-chart")).toThrow();
+  });
+
+  it("highlights up to the level of the category", () => {
     const levels = [
-      {index: 0, name: "Not so great"},
+      { index: 0, name: "Not so great" },
+      { index: 2, name: "Meh" },
+      { index: 5, name: "Amazing" },
     ];
-    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}, rollsUp: false};
+    const levelCategory = {
+      level: { name: "Meh" },
+      category: { id: "id", name: "Ownership" },
+    };
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
+    render(
+      <ScorecardCategory
+        levels={levels}
+        levelCategory={levelCategory}
+        checked
+        onCheckedChange={() => {}}
+      />,
+    );
 
-    expect(() => screen.getByLabelText('pie-chart')).toThrow();
+    expect(screen.getByText("Ownership").closest("li")).not.toHaveAttribute(
+      "disabled",
+    );
+    const expectedLevelColors = [
+      "rgb(64, 169, 255)",
+      "rgb(64, 169, 255)",
+      "rgb(217, 217, 217)",
+    ];
+    Array.from(screen.getByLabelText("level").children).forEach(
+      (element, index) => {
+        expect((element as HTMLElement).style.background).toBe(
+          expectedLevelColors[index],
+        );
+      },
+    );
   });
 
-  it('highlights up to the level of the category', () => {
+  it("disables items without a level", () => {
     const levels = [
-      {index: 0, name: "Not so great"},
-      {index: 2, name: "Meh"},
-      {index: 5, name: "Amazing"},
+      { index: 0, name: "Not so great" },
+      { index: 2, name: "Meh" },
+      { index: 5, name: "Amazing" },
     ];
-    const levelCategory = {level: {name: "Meh"}, category: {id: "id", name: "Ownership"}};
+    const levelCategory = {
+      level: null,
+      category: { id: "id", name: "Ownership" },
+    };
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
+    render(
+      <ScorecardCategory
+        levels={levels}
+        levelCategory={levelCategory}
+        checked
+        onCheckedChange={() => {}}
+      />,
+    );
 
-    expect(screen.getByText('Ownership').closest('li')).not.toHaveAttribute('disabled');
-    const expectedLevelColors = ["rgb(64, 169, 255)","rgb(64, 169, 255)","rgb(217, 217, 217)"]
-    Array.from(screen.getByLabelText('level').children).forEach((element, index) => {
-      expect((element as HTMLElement).style.background).toBe(expectedLevelColors[index])
-    })
+    expect(screen.getByText("Ownership").closest("li")).toHaveAttribute(
+      "disabled",
+    );
+    Array.from(screen.getByLabelText("level").children).forEach((element) => {
+      expect((element as HTMLElement).style.background).toBe(
+        "rgb(217, 217, 217)",
+      );
+    });
   });
 
-  it('disables items without a level', () => {
-    const levels = [
-      {index: 0, name: "Not so great"},
-      {index: 2, name: "Meh"},
-      {index: 5, name: "Amazing"},
-    ];
-    const levelCategory = {level: null, category: {id: "id", name: "Ownership"}};
-
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={() => {}}/>)
-
-    expect(screen.getByText('Ownership').closest('li')).toHaveAttribute('disabled');
-    Array.from(screen.getByLabelText('level').children).forEach((element) => {
-      expect((element as HTMLElement).style.background).toBe("rgb(217, 217, 217)")
-    })
-  });
-
-  it('fires onCheckedChange events', () => {
-    const levels = [{index: 0, name: "Not so great"}];
-    const levelCategory = {level: {name: "Not so great"}, category: {id: "id", name: "Ownership"}};
+  it("fires onCheckedChange events", () => {
+    const levels = [{ index: 0, name: "Not so great" }];
+    const levelCategory = {
+      level: { name: "Not so great" },
+      category: { id: "id", name: "Ownership" },
+    };
 
     let value = null;
     const checkedChangeHandler = (newValue: boolean) => {
       value = newValue;
     };
 
-    render(<ScorecardCategory levels={levels} levelCategory={levelCategory} checked onCheckedChange={checkedChangeHandler}/>)
-    const checkbox = screen.getByTestId("checkbox-id").querySelector('input');
-  
+    render(
+      <ScorecardCategory
+        levels={levels}
+        levelCategory={levelCategory}
+        checked
+        onCheckedChange={checkedChangeHandler}
+      />,
+    );
+    const checkbox = screen.getByTestId("checkbox-id").querySelector("input");
+
     expect(checkbox).toHaveAttribute("checked");
-    if(!!checkbox) fireEvent.click(checkbox);
+    if (checkbox) {
+      fireEvent.click(checkbox);
+    }
     expect(value).toBe(false);
   });
 });

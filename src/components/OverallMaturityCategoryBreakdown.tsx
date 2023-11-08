@@ -1,32 +1,35 @@
 import React from "react";
-import { InfoCard } from "@backstage/core-components";
-import { Progress } from "@backstage/core-components";
+import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
-import { levelColorPalette } from "../helpers/level_color_helper";
-import { levelsByCategory, fontFamily } from "../helpers/maturity_report_helper";
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from "lodash/cloneDeep";
 import { withTheme } from "@material-ui/core/styles";
+import { levelColorPalette } from "../helpers/level_color_helper";
+import {
+  levelsByCategory,
+  fontFamily,
+} from "../helpers/maturity_report_helper";
 
 type Props = {
-  loading: Boolean,
-  levels: Array<any>,
-  categoryLevelCounts: Array<any>,
-  theme: any,
+  loading: Boolean;
+  levels: Array<any>;
+  categoryLevelCounts: Array<any>;
+  theme: any;
 };
 
 type State = {
-  data: Array<any>,
-  options: any,
+  data: Array<any>;
+  options: any;
 };
 
 class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     let data: { [key: string]: Array<{ string: number }> } | {};
-    if (props.loading)
+    if (props.loading) {
       data = {};
-    else
+    } else {
       data = levelsByCategory(props.levels, props.categoryLevelCounts);
+    }
 
     this.state = {
       data: this.computeSeries(data),
@@ -75,10 +78,10 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
           show: true,
           labels: {
             colors: this.props.theme.palette.text.primary,
-          }
+          },
         },
         colors: levelColorPalette(props.levels.length).map(
-          (color) => color.secondary
+          (color) => color.secondary,
         ),
         xaxis: {
           categories: Object.keys(data),
@@ -121,7 +124,11 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
     const series: Array<{ name: String; data: Array<any> }> = [];
 
     for (const categoryName in servicesByCategory) {
-      if (!Object.prototype.hasOwnProperty.call(servicesByCategory, categoryName)) continue;
+      if (
+        !Object.prototype.hasOwnProperty.call(servicesByCategory, categoryName)
+      ) {
+        continue;
+      }
       servicesByCategory[categoryName].forEach(
         (serviceLevel: { [key: string]: number }) => {
           const level = Object.keys(serviceLevel)[0];
@@ -134,7 +141,7 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
           } else {
             series.push({ name: level, data: [serviceCount] });
           }
-        }
+        },
       );
     }
 
@@ -143,13 +150,14 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
 
   setDataFromProps() {
     let data: { [key: string]: Array<{ string: number }> } | {};
-    if (this.props.loading)
+    if (this.props.loading) {
       data = {};
-    else
+    } else {
       data = levelsByCategory(
         this.props.levels,
-        this.props.categoryLevelCounts
+        this.props.categoryLevelCounts,
       );
+    }
     const stateCopy = cloneDeep(this.state);
     this.setState({
       ...stateCopy,
@@ -157,7 +165,7 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
       options: {
         ...stateCopy.options,
         colors: levelColorPalette(this.props.levels.length).map(
-          (color) => color.secondary
+          (color) => color.secondary,
         ),
         xaxis: {
           ...stateCopy.options.xaxis,
