@@ -1,5 +1,38 @@
 import { Entity } from "@backstage/catalog-model";
 
+export type CheckResultStatus =
+  | "failed"
+  | "pending"
+  | "passed"
+  | "upcoming_failed"
+  | "upcoming_pending"
+  | "upcoming_passed";
+
+export type CheckResult = {
+  message: string;
+  warnMessage: string | null;
+  createdAt: string;
+  check: {
+    id: string;
+    enableOn: string | null;
+    isScorecardCheck?: boolean;
+    name: string;
+    type: string;
+    category: {
+      id: string;
+      name: string;
+      container: {
+        href: string;
+      };
+    } | null;
+    owner: {
+      name: string;
+      href: string;
+    } | null;
+  };
+  status: CheckResultStatus;
+};
+
 export type LevelCategory = {
   id?: string;
   level: { name: string } | null;
@@ -10,6 +43,16 @@ export type LevelCategory = {
 export type Level = {
   index?: number;
   name?: string;
+};
+
+export type LevelCheckResults = {
+  level: {
+    index: number;
+    name: string;
+  };
+  items: {
+    nodes: Array<CheckResult>;
+  };
 };
 
 export type OverallLevel = {
@@ -72,49 +115,6 @@ export interface OpsLevelServiceData {
     };
   };
 }
-
-export type LevelCheckResults = {
-  level: {
-    index: number;
-    name: string;
-  };
-  items: {
-    nodes: Array<CheckResult>;
-  };
-};
-
-export type CheckResultStatus =
-  | "failed"
-  | "pending"
-  | "passed"
-  | "upcoming_failed"
-  | "upcoming_pending"
-  | "upcoming_passed";
-
-export type CheckResult = {
-  message: string;
-  warnMessage: string | null;
-  createdAt: string;
-  check: {
-    id: string;
-    enableOn: string | null;
-    isScorecardCheck?: boolean;
-    name: string;
-    type: string;
-    category: {
-      id: string;
-      name: string;
-      container: {
-        href: string;
-      };
-    } | null;
-    owner: {
-      name: string;
-      href: string;
-    } | null;
-  };
-  status: CheckResultStatus;
-};
 
 export interface OpsLevelOverallData {
   account: {
