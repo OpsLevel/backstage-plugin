@@ -8,7 +8,7 @@
 
 ## Changelog
 
-- [ ] I have updated the changelog or given a reason why this does not need an entry in this section.
+- [ ] I have added a Changie entry or given a reason why this does not need an entry in this section.
 
 ## Screenshots
 

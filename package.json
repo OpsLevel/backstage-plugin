@@ -25,6 +25,7 @@
     "clean": "backstage-cli package clean",
     "prepack": "backstage-cli package prepack",
     "postpack": "backstage-cli package postpack",
+    "bump-version": "changie batch auto && changie merge",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -87,6 +88,7 @@
     "@testing-library/user-event": "^14.0.0",
     "@types/node": "*",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
+    "changie": "^1.15.1",
     "cross-fetch": "^3.1.5",
     "msw": "^0.47.0",
     "resize-observer-polyfill": "^1.5.1",
