@@ -39,7 +39,7 @@ export class OpsLevelPluginAPI implements OpsLevelBackendApi {
   }
 
   public async setAutoSyncConfiguration(configuration: AutoSyncConfiguration) {
-    return await fetch(`${this.url}/auto_sync`, {
+    return fetch(`${this.url}/auto_sync`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(configuration),
@@ -54,7 +54,7 @@ export class OpsLevelPluginAPI implements OpsLevelBackendApi {
   }
 
   public async getAutoSyncExecution(index: number) {
-    return await fetch(`${this.url}/auto_sync/runs`, {
+    return fetch(`${this.url}/auto_sync/runs`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ page_size: 1, page_number: index }),
