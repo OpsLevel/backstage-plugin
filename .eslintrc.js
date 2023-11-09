@@ -56,8 +56,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'react/no-access-state-in-setstate': 'off',
     'react/jsx-no-useless-fragment': 'off',
-    'jest/no-conditional-expect': 'off',
-    'react/sort-comp': 'off',
     'react/no-unstable-nested-components': 'off',
   },
 };
