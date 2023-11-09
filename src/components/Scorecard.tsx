@@ -85,42 +85,40 @@ function Scorecard({
   }
 
   return (
-    <>
-      <List
-        component="nav"
-        subheader={
-          <span>
-            <h4>
-              <Checkbox
-                data-testid={`category-checkbox-${title}`}
-                className={classes.checkbox}
-                checked={checkboxValue || false}
-                indeterminate={checkboxValue === null}
-                onChange={toggleEntireScorecard}
-              />{" "}
-              {title}
-            </h4>
-          </span>
-        }
-      >
-        {levelCategories &&
-          levelCategories.map((levelCategory) => (
-            <ScorecardCategory
-              key={levelCategory.category.id}
-              levelCategory={levelCategory}
-              levels={sortedLevels}
-              checked={selectedCategoryIds?.includes(levelCategory.category.id)}
-              onCheckedChange={(val: boolean) =>
-                onCategorySelectionChanged(
-                  val ? [levelCategory.category.id] : [],
-                  val ? [] : [levelCategory.category.id],
-                )
-              }
-            />
-          ))}
-      </List>
-    </>
+    <List
+      component="nav"
+      subheader={
+        <span>
+          <h4>
+            <Checkbox
+              data-testid={`category-checkbox-${title}`}
+              className={classes.checkbox}
+              checked={checkboxValue || false}
+              indeterminate={checkboxValue === null}
+              onChange={toggleEntireScorecard}
+            />{" "}
+            {title}
+          </h4>
+        </span>
+      }
+    >
+      {levelCategories &&
+        levelCategories.map((levelCategory) => (
+          <ScorecardCategory
+            key={levelCategory.category.id}
+            levelCategory={levelCategory}
+            levels={sortedLevels}
+            checked={selectedCategoryIds?.includes(levelCategory.category.id)}
+            onCheckedChange={(val: boolean) =>
+              onCategorySelectionChanged(
+                val ? [levelCategory.category.id] : [],
+                val ? [] : [levelCategory.category.id],
+              )
+            }
+          />
+        ))}
+    </List>
   );
 }
 
-export default Scorecard;
+

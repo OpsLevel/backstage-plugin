@@ -172,7 +172,7 @@ export function CheckResultDetails({
                       {checkResult.check.category.name}
                     </Link>
                   )}
-                  {!opslevelUrl && <>{checkResult.check.category.name}</>}
+                  {!opslevelUrl && checkResult.check.category.name}
                 </span>
               </>
             )}
@@ -189,7 +189,7 @@ export function CheckResultDetails({
                       {checkResult.check.owner.name}
                     </Link>
                   )}
-                  {!opslevelUrl && <>{checkResult.check.owner.name}</>}
+                  {!opslevelUrl && checkResult.check.owner.name}
                 </span>
               </>
             )}
