@@ -40,7 +40,7 @@ class MarkdownViewer extends React.Component<Props, State> {
       prevProps.value !== this.props.value ||
       prevProps.truncate !== this.props.truncate
     ) {
-      this.setState({
+      this.setState((prevState) => ({
         sanitizedValue: this.props.value
           ? this.getDisplayValue(this.props.value, false)
           : "",
@@ -49,8 +49,8 @@ class MarkdownViewer extends React.Component<Props, State> {
           : "",
         shouldTruncate:
           this.props.truncate && this.getCanTruncate(this.props.value),
-        truncated: this.state.truncated,
-      });
+        truncated: prevState.truncated,
+      }));
     }
   }
 
@@ -114,7 +114,10 @@ class MarkdownViewer extends React.Component<Props, State> {
             cursor: "pointer",
           }}
           onClick={() =>
-            this.setState({ ...this.state, truncated: !this.state.truncated })
+            this.setState((prevState) => ({
+              ...prevState,
+              truncated: !prevState.truncated,
+            }))
           }
         >
           ({this.getToggleText()})
