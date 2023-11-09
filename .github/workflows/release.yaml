@@ -1,0 +1,82 @@
+name: "Release"
+
+on:
+  workflow_dispatch: {}
+  repository_dispatch:
+    types:
+      - release
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'true'
+          token: ${{ secrets.ORG_GITHUB_TOKEN }}
+      - name: Fetch All Tags
+        run: git fetch --force --tags
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: yarn install
+      - name: Validate Release Is Needed
+        run: |
+      - name: Bump Release Version
+        id: version
+        run: |
+          yarn bump-version
+          RELEASE_VERSION=$(awk -F'"' '/"version": ".+"/{ print $4; exit; }' package.json)
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+          if test -f ./.changes/${{ steps.version.outputs.RELEASE_VERSION }}.md
+          then
+            echo "No valid release found for . stage 2 will not run."
+            exit 1
+          else
+            echo "New release created."
+          fi
+          git add .
+          git commit -m "Cut Release '${{ steps.version.outputs.RELEASE_VERSION }}'"
+      - name: Ensure Release Does Not Exist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete ${{ steps.version.outputs.RELEASE_VERSION }} || true
+      - name: Ensure Changelog
+        run: |
+          git config user.name "OpsLevel Bots"
+          git config user.email "bots@opslevel.com"
+          if test -f ./.changes/${{ steps.version.outputs.RELEASE_VERSION }}.md
+          then
+            echo "Skip Changie..."
+          else
+            go install github.com/miniscruff/changie@latest
+            changie batch ${{ steps.version.outputs.RELEASE_VERSION }}
+            changie merge
+            git add .
+            git commit -m "Cut Release '${{ steps.version.outputs.RELEASE_VERSION }}'"
+            git push origin HEAD
+          fi
+          git tag -f ${{ steps.version.outputs.RELEASE_VERSION }} -m "Cut Release '${{ steps.version.outputs.RELEASE_VERSION }}'"
+          git push -f origin refs/tags/${{ steps.version.outputs.RELEASE_VERSION }}
+      # - name: Run GoReleaser
+      #   uses: goreleaser/goreleaser-action@v5.0.0
+      #   with:
+      #     args: release --rm-dist --release-notes=../.changes/${{ steps.version.outputs.RELEASE_VERSION }}.md
+      #     workdir: ./src
+      #   env:
+      #     GPG_FINGERPRINT: ${{ steps.import_gpg.outputs.fingerprint }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     ORG_GITHUB_TOKEN: ${{ secrets.ORG_GITHUB_TOKEN }}
+      - name: Report Release To OpsLevel
+        uses: opslevel/report-deploy-github-action@v0.7.0
+        with:
+          integration_url: ${{ secrets.DEPLOY_INTEGRATION_URL }}
+          service: "backstage-plugin"
