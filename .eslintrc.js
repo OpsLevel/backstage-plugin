@@ -50,7 +50,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'eslint-comments/disable-enable-pair': 'off',
     'no-param-reassign': 'off',
-    'react/no-access-state-in-setstate': 'off',
     'react/no-unstable-nested-components': 'off',
   },
 };
