@@ -49,7 +49,6 @@ module.exports = {
     'no-await-in-loop': 'off',
     'react/no-danger': 'off',
     'no-return-await': 'off',
-    'camelcase': 'off',
     'no-restricted-globals': 'off',
     'import/prefer-default-export': 'off',
     'eslint-comments/require-description': 'off',
