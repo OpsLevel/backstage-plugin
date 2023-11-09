@@ -38,7 +38,7 @@ describe("OverallMaturityOverview", () => {
   });
 
   it("renders a donut chart when there is data", () => {
-    // See issue - https://github.com/ZeeCoder/use-resize-observer/issues/40
+    // eslint-disable-next-line global-require -- https://github.com/ZeeCoder/use-resize-observer/issues/40
     global.ResizeObserver = require("resize-observer-polyfill");
 
     const wrapper = mount(
