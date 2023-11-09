@@ -118,6 +118,33 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
     }
   }
 
+  setDataFromProps() {
+    let data: { [key: string]: Array<{ string: number }> } | {};
+    if (this.props.loading) {
+      data = {};
+    } else {
+      data = levelsByCategory(
+        this.props.levels,
+        this.props.categoryLevelCounts,
+      );
+    }
+    const stateCopy = cloneDeep(this.state);
+    this.setState({
+      ...stateCopy,
+      data: this.computeSeries(data),
+      options: {
+        ...stateCopy.options,
+        colors: levelColorPalette(this.props.levels.length).map(
+          (color) => color.secondary,
+        ),
+        xaxis: {
+          ...stateCopy.options.xaxis,
+          categories: Object.keys(data),
+        },
+      },
+    });
+  }
+
   computeSeries(servicesByCategory: {
     [key: string]: Array<{ string: number }>;
   }) {
@@ -148,33 +175,6 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
     }
 
     return series;
-  }
-
-  setDataFromProps() {
-    let data: { [key: string]: Array<{ string: number }> } | {};
-    if (this.props.loading) {
-      data = {};
-    } else {
-      data = levelsByCategory(
-        this.props.levels,
-        this.props.categoryLevelCounts,
-      );
-    }
-    const stateCopy = cloneDeep(this.state);
-    this.setState({
-      ...stateCopy,
-      data: this.computeSeries(data),
-      options: {
-        ...stateCopy.options,
-        colors: levelColorPalette(this.props.levels.length).map(
-          (color) => color.secondary,
-        ),
-        xaxis: {
-          ...stateCopy.options.xaxis,
-          categories: Object.keys(data),
-        },
-      },
-    });
   }
 
   render() {
