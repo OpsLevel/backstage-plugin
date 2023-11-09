@@ -65,17 +65,20 @@ async function performExport(
   opslevelApi: OpsLevelApi,
   appendOutput: Function,
 ) {
+  const exportPromises = [];
   for (const entity of users) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
 
   for (const entity of groups) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
 
   for (const entity of components) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
+
+  await Promise.all(exportPromises);
 }
 
 const useStyles = makeStyles((theme: BackstageTheme) => {
