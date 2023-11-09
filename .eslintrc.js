@@ -47,7 +47,6 @@ module.exports = {
     // TODO: Disabled rules that will be fixed as part of this ticket in a follow on PR
     'global-require': ["off"],
     'no-await-in-loop': 'off',
-    'react/no-danger': 'off',
     'no-return-await': 'off',
     'no-restricted-globals': 'off',
     'import/prefer-default-export': 'off',
