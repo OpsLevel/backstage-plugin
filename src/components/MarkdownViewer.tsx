@@ -81,10 +81,6 @@ class MarkdownViewer extends React.Component<Props, State> {
     );
   }
 
-  isTruncated() {
-    return this.state.shouldTruncate && this.state.truncated;
-  }
-
   getTruncatedText(value: string) {
     const result = value
       .split(NEWLINE_REGEX)
@@ -96,6 +92,10 @@ class MarkdownViewer extends React.Component<Props, State> {
       omission: " ...",
       separator: /,? + \r\n|\r|\n/,
     })}`;
+  }
+
+  isTruncated() {
+    return this.state.shouldTruncate && this.state.truncated;
   }
 
   render() {
