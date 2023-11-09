@@ -134,10 +134,12 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
           const level = Object.keys(serviceLevel)[0];
           const serviceCount = serviceLevel[level];
 
-          const existent_serie = series.find((serie) => serie.name === level);
+          const existentSeries = series.find(
+            (categorySeries) => categorySeries.name === level,
+          );
 
-          if (existent_serie) {
-            existent_serie.data.push(serviceCount);
+          if (existentSeries) {
+            existentSeries.data.push(serviceCount);
           } else {
             series.push({ name: level, data: [serviceCount] });
           }
