@@ -27,15 +27,6 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: yarn install
-      - name: Validate Release Is Needed
-        run: |
-          if [ -n "$(ls .changes/unreleased 2>/dev/null)" ]
-          then
-            echo "Changes detected. Creating a new release."
-          else
-            echo "No changes detected. Aborting release process."
-            exit 1
-          fi
       - name: Bump release version
         id: version
         env:
@@ -43,15 +34,27 @@ jobs:
         run: |
           git config user.name "OpsLevel Bots"
           git config user.email "bots@opslevel.com"
-          yarn bump-version
+          if [ -n "$(ls .changes/unreleased 2>/dev/null)" ]
+          then
+            echo "Changes detected. Creating a new release."
+            yarn bump-version
+          else
+            echo "No changes detected. Skipping version bump."
+          fi
           RELEASE_VERSION=$(awk -F'"' '/"version": ".+"/{ print $4; exit; }' package.json)
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
-          git add .
-          git commit -m "Cut Release '$RELEASE_VERSION'"
-          git push origin HEAD
-          gh release delete $RELEASE_VERSION || true
-          git tag -f v$RELEASE_VERSION -m "Cut Release 'v$RELEASE_VERSION'"
-          git push -f origin refs/tags/v$RELEASE_VERSION 
+          if [ $(git tag -l v$RELEASE_VERSION | grep v$RELEASE_VERSION) ]
+          then
+            echo "Tag has already been pushed. Skipping tag creation."
+          else
+            echo "Tag has not been pushed. Creating tag."
+            git add .
+            git commit -m "Cut Release '$RELEASE_VERSION'"
+            git push origin HEAD
+            gh release delete $RELEASE_VERSION || true
+            git tag -f v$RELEASE_VERSION -m "Cut Release 'v$RELEASE_VERSION'"
+            git push -f origin refs/tags/v$RELEASE_VERSION 
+          fi
       - name: Release to npm
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
