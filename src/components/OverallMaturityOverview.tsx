@@ -1,7 +1,6 @@
 import React from "react";
 import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
-import cloneDeep from "lodash/cloneDeep";
 import { withTheme } from "@material-ui/core/styles";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import { servicesByLevel, fontFamily } from "../helpers/maturity_report_helper";
@@ -133,16 +132,15 @@ class OverallMaturityOverview extends React.Component<Props, State> {
       data = servicesByLevel(this.props.levels, this.props.levelCounts);
     }
 
-    const stateCopy = cloneDeep(this.state);
-    this.setState({
-      ...stateCopy,
+    this.setState((prevState) => ({
+      ...prevState,
       data: data.length > 0 ? data.flatMap((obj) => Object.values(obj)) : [],
       options: {
-        ...stateCopy.options,
+        ...prevState.options,
         colors: levelColorPalette(data.length).map((color) => color.secondary),
         labels: data.length > 0 ? data.flatMap((obj) => Object.keys(obj)) : [],
       },
-    });
+    }));
   }
 
   render() {

@@ -52,7 +52,6 @@ module.exports = {
     'eslint-comments/require-description': 'off',
     'eslint-comments/disable-enable-pair': 'off',
     'no-param-reassign': 'off',
-    'react/no-access-state-in-setstate': 'off',
     'react/jsx-no-useless-fragment': 'off',
     'react/no-unstable-nested-components': 'off',
   },
