@@ -45,18 +45,12 @@ module.exports = {
     "jsx-a11y/click-events-have-key-events": ["off"], // Requires some manual validation and thought for a11y
     "jsx-a11y/no-static-element-interactions": ["off"], // Requires some manual validation and thought for a11y
     // TODO: Disabled rules that will be fixed as part of this ticket in a follow on PR
-    'global-require': ["off"],
-    'no-await-in-loop': 'off',
-    'no-return-await': 'off',
     'no-restricted-globals': 'off',
     'import/prefer-default-export': 'off',
-    'eslint-comments/require-description': 'off',
     'eslint-comments/disable-enable-pair': 'off',
     'no-param-reassign': 'off',
     'react/no-access-state-in-setstate': 'off',
     'react/jsx-no-useless-fragment': 'off',
-    'jest/no-conditional-expect': 'off',
-    'react/sort-comp': 'off',
     'react/no-unstable-nested-components': 'off',
   },
 };
