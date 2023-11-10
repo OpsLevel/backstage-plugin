@@ -50,7 +50,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'eslint-comments/disable-enable-pair': 'off',
     'no-param-reassign': 'off',
-    'react/jsx-no-useless-fragment': 'off',
     'react/no-unstable-nested-components': 'off',
   },
 };
