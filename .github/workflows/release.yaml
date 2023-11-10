@@ -63,7 +63,7 @@ jobs:
           yarn install
           yarn tsc
           yarn build
-          if [ $(npm publish --dry-run 2>&1 | grep dist) ]
+          if HAS_ARTIFACTS=$(npm publish --dry-run 2>&1 | grep dist)
           then
             npm publish
           else
