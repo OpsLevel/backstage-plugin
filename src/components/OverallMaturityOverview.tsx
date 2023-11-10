@@ -91,7 +91,7 @@ class OverallMaturityOverview extends React.Component<Props, State> {
           formatter: (val: number, opts: any) => {
             const percent = opts.w.globals.seriesPercent[opts.seriesIndex];
             let roundedPercent = 0;
-            if (!isNaN(percent)) {
+            if (!Number.isNaN(percent)) {
               roundedPercent = Math.round(percent);
             }
             return `${val} (${roundedPercent}%)`;
