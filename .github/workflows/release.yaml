@@ -59,7 +59,17 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish
+          yarn clean
+          yarn install
+          yarn tsc
+          yarn build
+          if [ $(npm publish --dry-run 2>&1 | grep dist) ]
+          then
+            npm publish
+          else
+            echo "No assets generated to publish. Failing release."
+            exit 1
+          fi
       - name: Report release to opsLevel
         uses: opslevel/report-deploy-github-action@v0.7.0
         with:
