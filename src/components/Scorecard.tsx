@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => {
   };
 });
 
-function Scorecard({
+export default function Scorecard({
   levelCategories,
   levels,
   title,
@@ -120,5 +120,3 @@ function Scorecard({
     </List>
   );
 }
-
-
