@@ -100,6 +100,7 @@ class MarkdownViewer extends React.Component<Props, State> {
       <span
         className="span-markdown"
         key="markup"
+        // eslint-disable-next-line react/no-danger -- This is sanitized
         dangerouslySetInnerHTML={{ __html: this.getDisplayText() }}
       />,
     ];
