@@ -46,7 +46,6 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": ["off"], // Requires some manual validation and thought for a11y
     // TODO: Disabled rules that will be fixed as part of this ticket in a follow on PR
     'no-restricted-globals': 'off',
-    'import/prefer-default-export': 'off',
     'eslint-comments/disable-enable-pair': 'off',
     'no-param-reassign': 'off',
     'react/no-unstable-nested-components': 'off',

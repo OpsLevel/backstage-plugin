@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
-import { CheckResultDetails } from "../components/CheckResultDetails";
+import CheckResultDetails from "../components/CheckResultDetails";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
 
 const getCheckResult = (status: CheckResultStatus): CheckResult => ({

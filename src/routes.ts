@@ -1,5 +1,7 @@
 import { createRouteRef } from "@backstage/core-plugin-api";
 
-export const rootRouteRef = createRouteRef({
+const rootRouteRef = createRouteRef({
   id: "opslevel-maturity",
 });
+
+export default rootRouteRef;
