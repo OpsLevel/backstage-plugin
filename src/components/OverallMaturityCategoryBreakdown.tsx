@@ -1,7 +1,6 @@
 import React from "react";
 import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
-import cloneDeep from "lodash/cloneDeep";
 import { withTheme } from "@material-ui/core/styles";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import {
@@ -128,21 +127,20 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
         this.props.categoryLevelCounts,
       );
     }
-    const stateCopy = cloneDeep(this.state);
-    this.setState({
-      ...stateCopy,
+    this.setState((prevState) => ({
+      ...prevState,
       data: this.computeSeries(data),
       options: {
-        ...stateCopy.options,
+        ...prevState.options,
         colors: levelColorPalette(this.props.levels.length).map(
           (color) => color.secondary,
         ),
         xaxis: {
-          ...stateCopy.options.xaxis,
+          ...prevState.options.xaxis,
           categories: Object.keys(data),
         },
       },
-    });
+    }));
   }
 
   computeSeries(servicesByCategory: {
