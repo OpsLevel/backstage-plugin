@@ -4,7 +4,7 @@ import { BackstageTheme } from "@backstage/theme";
 import { InfoCard } from "@backstage/core-components";
 import { LevelCategory, OverallLevel } from "../types/OpsLevelData";
 import Scorecard from "./Scorecard";
-import { CurrentLevel } from "./CurrentLevel";
+import CurrentLevel from "./CurrentLevel";
 
 type Level = {
   index: number;
