@@ -7,7 +7,7 @@ import { useApi } from "@backstage/core-plugin-api";
 import { useEntity } from "@backstage/plugin-catalog-react";
 import { useAsync, useAsyncFn } from "react-use";
 import { cloneDeep } from "lodash";
-import { EntityOpsLevelMaturityProgress } from "./EntityOpsLevelMaturityProgress";
+import EntityOpsLevelMaturityProgress from "./EntityOpsLevelMaturityProgress";
 import { opslevelApiRef } from "../api";
 import {
   LevelCategory,
@@ -15,9 +15,10 @@ import {
   ScorecardStats,
 } from "../types/OpsLevelData";
 import { SnackAlert, SnackbarProps } from "./SnackAlert";
-import { CheckResultsByLevel } from "./CheckResultsByLevel";
+import CheckResultsByLevel from "./CheckResultsByLevel";
 import ServiceMaturitySidebar from "./ServiceMaturitySidebar";
 
+// eslint-disable-next-line import/prefer-default-export -- One of the top level exports
 export function EntityOpsLevelMaturityContent() {
   const { entity } = useEntity();
   const opslevelApi = useApi(opslevelApiRef);

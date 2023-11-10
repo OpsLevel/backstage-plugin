@@ -7,7 +7,7 @@ import {
 import { opslevelApiRef, OpsLevelGraphqlAPI } from "./api";
 import { opslevelPluginApiRef, OpsLevelPluginAPI } from "./backend_api";
 
-import { rootRouteRef } from "./routes";
+import rootRouteRef from "./routes";
 
 export const opslevelMaturityPlugin = createPlugin({
   id: "opslevel-maturity",

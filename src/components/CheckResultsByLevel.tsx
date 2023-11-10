@@ -19,7 +19,7 @@ import {
   CheckResultStatus,
   LevelCheckResults,
 } from "../types/OpsLevelData";
-import { CheckResultDetails } from "./CheckResultDetails";
+import CheckResultDetails from "./CheckResultDetails";
 
 type Props = {
   opslevelUrl?: string;
@@ -75,7 +75,7 @@ function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
   }
 }
 
-export function CheckResultsByLevel({
+export default function CheckResultsByLevel({
   opslevelUrl,
   checkResultsByLevel,
   totalChecks,

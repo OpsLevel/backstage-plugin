@@ -27,7 +27,7 @@ function determineProgress(level: any, serviceLevelIndex: number) {
   return 0;
 }
 
-export function EntityOpsLevelMaturityProgress({
+export default function EntityOpsLevelMaturityProgress({
   levels,
   serviceLevel,
 }: {

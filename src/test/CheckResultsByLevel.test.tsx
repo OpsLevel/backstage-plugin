@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { cloneDeep } from "lodash";
-import { CheckResultsByLevel } from "../components/CheckResultsByLevel";
+import CheckResultsByLevel from "../components/CheckResultsByLevel";
 import { LevelCheckResults } from "../types/OpsLevelData";
 
 describe("CheckResultsByLevel", () => {

@@ -66,7 +66,7 @@ const getResultMessage = (checkResult: CheckResult) => {
   return checkResult.message;
 };
 
-export function CheckResultDetails({
+export default function CheckResultDetails({
   checkResult,
   combinedStatus,
   opslevelUrl,
