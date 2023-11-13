@@ -226,8 +226,10 @@ export function EntityOpsLevelMaturityContent() {
         }
 
         entry.items.nodes.forEach((node) => {
+          // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
           node.check.isScorecardCheck = true;
         });
+        // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
         checkResults.items.nodes = [
           ...checkResults.items.nodes,
           ...entry.items.nodes,
