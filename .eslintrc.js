@@ -45,7 +45,6 @@ module.exports = {
     "jsx-a11y/click-events-have-key-events": ["off"], // Requires some manual validation and thought for a11y
     "jsx-a11y/no-static-element-interactions": ["off"], // Requires some manual validation and thought for a11y
     // TODO: Disabled rules that will be fixed as part of this ticket in a follow on PR
-    'no-param-reassign': 'off',
     'react/no-unstable-nested-components': 'off',
   },
 };
