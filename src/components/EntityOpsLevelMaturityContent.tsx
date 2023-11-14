@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { stringifyEntityRef } from "@backstage/catalog-model";
 import { Progress } from "@backstage/core-components";
 import Alert from "@material-ui/lab/Alert";
 import { useApi } from "@backstage/core-plugin-api";
 import { useEntity } from "@backstage/plugin-catalog-react";
 import { useAsync, useAsyncFn } from "react-use";
+import ServiceMaturityError from "./ServiceMaturityError";
 import { opslevelApiRef } from "../api";
 import ServiceMaturityReport from "./ServiceMaturityReport";
 import {
@@ -68,8 +69,6 @@ export function EntityOpsLevelMaturityContent() {
     return <Alert severity="error">{fetchState.error?.message}</Alert>;
   }
 
-  const service = opsLevelData?.account?.service;
-
   function showSnackbar(snackbarProps: SnackbarProps) {
     setSnackbarOpen(true);
     setSnackbar({ ...snackbarProps });
@@ -97,46 +96,7 @@ export function EntityOpsLevelMaturityContent() {
     doFetch();
   }
 
-  function ServiceMaturityError({
-    error,
-    showExport,
-  }: {
-    error: React.ReactNode;
-    showExport?: boolean;
-  }) {
-    return (
-      <Grid container direction="column" spacing={5}>
-        <SnackAlert
-          {...snackbar}
-          open={snackbarOpen}
-          setOpen={setSnackbarOpen}
-        />
-        <Grid item>{error}</Grid>
-        <Grid item>
-          {showExport ? (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={exportEntity}
-              disabled={exporting}
-            >
-              Export Entity to OpsLevel
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              target="_blank"
-              href={`${service?.htmlUrl}/maturity-report`}
-            >
-              View Maturity in OpsLevel
-            </Button>
-          )}
-        </Grid>
-      </Grid>
-    );
-  }
-
+  const service = opsLevelData?.account?.service;
   if (!service) {
     const error = (
       <span>
@@ -154,7 +114,21 @@ export function EntityOpsLevelMaturityContent() {
       </span>
     );
 
-    return <ServiceMaturityError error={error} showExport />;
+    return (
+      <Grid container direction="column" spacing={5}>
+        <SnackAlert
+          {...snackbar}
+          open={snackbarOpen}
+          setOpen={setSnackbarOpen}
+        />
+        <ServiceMaturityError
+          error={error}
+          showExport
+          exportEntity={exportEntity}
+          exporting={exporting}
+        />
+      </Grid>
+    );
   }
 
   const { maturityReport } = service;
@@ -167,12 +141,19 @@ export function EntityOpsLevelMaturityContent() {
 
   if (!maturityReport) {
     return (
-      <ServiceMaturityError
-        error={
-          "We don't have any maturity details for this service yet," +
-          " please check back in a few minutes."
-        }
-      />
+      <Grid container direction="column" spacing={5}>
+        <SnackAlert
+          {...snackbar}
+          open={snackbarOpen}
+          setOpen={setSnackbarOpen}
+        />
+        <ServiceMaturityError
+          exportEntity={exportEntity}
+          exporting={exporting}
+          serviceUrl={service.htmlUrl}
+          error="We don't have any maturity details for this service yet, please check back in a few minutes."
+        />
+      </Grid>
     );
   }
 

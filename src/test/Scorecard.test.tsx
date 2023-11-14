@@ -84,7 +84,7 @@ describe("Scorecard", () => {
   });
 
   it("does not preselect the checkbox if no categories are selected", () => {
-    const selectedCategoryIds: Array<String> = [];
+    const selectedCategoryIds: string[] = [];
     render(
       <Scorecard
         levels={levels}
