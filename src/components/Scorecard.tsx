@@ -9,10 +9,10 @@ type Props = {
   title: string;
   levels: Array<Level>;
   levelCategories: Array<LevelCategory>;
-  selectedCategoryIds: Array<String>;
+  selectedCategoryIds: string[];
   onCategorySelectionChanged: (
-    addedIds: Array<String>,
-    removedIds: Array<String>,
+    addedIds: string[],
+    removedIds: string[],
   ) => void;
 };
 
