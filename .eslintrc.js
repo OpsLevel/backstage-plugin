@@ -44,7 +44,5 @@ module.exports = {
     "react/no-unescaped-entities": ["off"], // Easy fix but is UI impacting so I want to make sure we do it right
     "jsx-a11y/click-events-have-key-events": ["off"], // Requires some manual validation and thought for a11y
     "jsx-a11y/no-static-element-interactions": ["off"], // Requires some manual validation and thought for a11y
-    // TODO: Disabled rules that will be fixed as part of this ticket in a follow on PR
-    'react/no-unstable-nested-components': 'off',
   },
 };
