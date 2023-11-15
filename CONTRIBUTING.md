@@ -82,36 +82,10 @@ Once all tests are passing and your PR has been approved, a maintainer will merg
 
 ## Releasing
 
-To release a new version, you will need to be a maintainer of the package.
+To release a new version, you will need to be a maintainer of the package and have access to [OpsLevel](https://app.opslevel.com).
 
-### Update version
-
-In the plugin's directory, ensure that changie entries are bundled by running
-
-```
-yarn bump-version
-```
-
-### Build
-
-```sh
-yarn clean
-yarn install
-yarn tsc
-yarn build
-```
-Ensure steps above completed successfully and `/dist/` contains compiled code. We've accidentally published empty packages before so please do not skip this step.
-
-### Commit changes
-Use a message like "Release v1.2.3"
-
-Once merged, tag it (on main branch). 
-```sh
-git tag v1.2.3
-git push --tags
-```
-
-```sh
-npm login # (first time only - ensure you have your account in our org account in npm)
-npm publish
-```
+1. Navigate to the [service](https://app.opslevel.com/services/backstage_plugin).
+1. Click the "Actions" button.
+1. Click the "Release" button.
+1. Ignore the "version bump type". Versioning will be automatically handled by Changie and this drop down is ignored for this library.
+1. Click "execute".
