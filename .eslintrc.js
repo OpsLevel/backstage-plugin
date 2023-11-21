@@ -28,6 +28,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error"],
     "react/no-danger": ["error"], // This is only a warning by default and we should not allow it without a written exception
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     // TODO: Disabled rules that should be on
     "react-hooks/exhaustive-deps": ["off"],
     "import/extensions": ["off"], // This just requires a lot of manual work
