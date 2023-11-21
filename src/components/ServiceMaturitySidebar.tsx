@@ -16,10 +16,10 @@ export type Props = {
   levelCategories: Array<LevelCategory>;
   scorecardCategories?: Array<LevelCategory>;
   overallLevel: OverallLevel;
-  selectedCategoryIds: Array<String>;
+  selectedCategoryIds: string[];
   onCategorySelectionChanged: (
-    addedIds: Array<String>,
-    removedIds: Array<String>,
+    addedIds: string[],
+    removedIds: string[],
   ) => void;
 };
 

@@ -83,36 +83,43 @@ export type ScorecardStats = {
   };
 };
 
+export type LevelNode = {
+  index: number;
+  name: string;
+};
+
+export type OpsLevelService = {
+  htmlUrl: string;
+  maturityReport?: {
+    overallLevel: OverallLevel;
+    categoryBreakdown: Array<LevelCategory>;
+  };
+  serviceStats?: {
+    scorecards?: {
+      nodes?: Array<ScorecardStats>;
+    };
+    rubric: {
+      checkResults: {
+        byLevel: {
+          nodes: Array<LevelCheckResults>;
+        };
+      };
+    };
+  };
+  checkStats?: {
+    totalChecks: number;
+    totalPassingChecks: number;
+  };
+};
+
 export interface OpsLevelServiceData {
   account: {
     rubric: {
       levels: {
-        nodes: Array<{ index: number; name: string }>;
+        nodes: Array<LevelNode>;
       };
     };
-    service: {
-      htmlUrl: string;
-      maturityReport?: {
-        overallLevel: OverallLevel;
-        categoryBreakdown: Array<LevelCategory>;
-      };
-      serviceStats?: {
-        scorecards?: {
-          nodes?: Array<ScorecardStats>;
-        };
-        rubric: {
-          checkResults: {
-            byLevel: {
-              nodes: Array<LevelCheckResults>;
-            };
-          };
-        };
-      };
-      checkStats?: {
-        totalChecks: number;
-        totalPassingChecks: number;
-      };
-    };
+    service: OpsLevelService;
   };
 }
 

@@ -37,8 +37,8 @@ function DynamicSidebar(props: Props): React.ReactElement {
     props.selectedCategoryIds ?? [],
   );
   const handleCategorySelectionChanged = (
-    addedIds: Array<String>,
-    removedIds: Array<String>,
+    addedIds: string[],
+    removedIds: string[],
   ) => {
     setSelectedCategoryIds(
       [...new Set([...selectedCategoryIds, ...addedIds])].filter(
