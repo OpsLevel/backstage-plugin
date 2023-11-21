@@ -23,7 +23,7 @@ type Props = {
   selectedCategories: string[];
   scorecards: ScorecardStats[] | undefined;
   overallLevel?: OverallLevel;
-  setSelectedCategories: (selectedCategories: string[]) => void;
+  onCategorySelectionChange: (selectedCategories: string[]) => void;
 };
 
 export default function ServiceMaturityReport({
@@ -35,7 +35,7 @@ export default function ServiceMaturityReport({
   selectedCategories,
   scorecards,
   overallLevel,
-  setSelectedCategories,
+  onCategorySelectionChange,
 }: Props) {
   const { entity } = useEntity();
   let opslevelUrl = "https://app.opslevel.com";
@@ -176,7 +176,7 @@ export default function ServiceMaturityReport({
         newSelection.push(id);
       }
     });
-    setSelectedCategories(newSelection);
+    onCategorySelectionChange(newSelection);
   }
 
   return (

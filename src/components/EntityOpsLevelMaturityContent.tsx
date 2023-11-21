@@ -169,7 +169,7 @@ export function EntityOpsLevelMaturityContent() {
         selectedCategories={selectedCategories}
         scorecards={scorecards}
         overallLevel={maturityReport?.overallLevel}
-        setSelectedCategories={setSelectedCategories}
+        onCategorySelectionChange={setSelectedCategories}
       />
     </Grid>
   );
