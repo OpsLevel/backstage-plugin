@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Grid } from "@material-ui/core";
 
 type Props = {
-  exportEntity: (event: React.MouseEvent) => void;
+  onExportEntity: (event: React.MouseEvent) => void;
   exporting: boolean;
   error: React.ReactNode;
   showExport?: boolean;
@@ -13,7 +13,7 @@ export default function ServiceMaturityError({
   error,
   showExport,
   exporting,
-  exportEntity,
+  onExportEntity,
   serviceUrl,
 }: Props) {
   return (
@@ -25,7 +25,7 @@ export default function ServiceMaturityError({
             <Button
               variant="contained"
               color="primary"
-              onClick={exportEntity}
+              onClick={onExportEntity}
               disabled={exporting}
             >
               Export Entity to OpsLevel

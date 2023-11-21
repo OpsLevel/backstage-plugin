@@ -15,7 +15,7 @@ import {
 } from "../types/OpsLevelData";
 
 type Props = {
-  exportEntity: (event: React.MouseEvent) => void;
+  onExportEntity: (event: React.MouseEvent) => void;
   exporting: boolean;
   levels: LevelNode[];
   service: OpsLevelService;
@@ -27,7 +27,7 @@ type Props = {
 };
 
 export default function ServiceMaturityReport({
-  exportEntity,
+  onExportEntity,
   exporting,
   levels,
   service,
@@ -186,7 +186,7 @@ export default function ServiceMaturityReport({
           <Button
             variant="contained"
             color="primary"
-            onClick={exportEntity}
+            onClick={onExportEntity}
             disabled={exporting}
           >
             Update Entity

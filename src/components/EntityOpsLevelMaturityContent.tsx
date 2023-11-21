@@ -74,7 +74,7 @@ export function EntityOpsLevelMaturityContent() {
     setSnackbar({ ...snackbarProps });
   }
 
-  async function exportEntity(event: React.MouseEvent) {
+  async function handleExportEntity(event: React.MouseEvent) {
     event.preventDefault();
     setExporting(true);
 
@@ -124,7 +124,7 @@ export function EntityOpsLevelMaturityContent() {
         <ServiceMaturityError
           error={error}
           showExport
-          exportEntity={exportEntity}
+          onExportEntity={handleExportEntity}
           exporting={exporting}
         />
       </Grid>
@@ -148,7 +148,7 @@ export function EntityOpsLevelMaturityContent() {
           setOpen={setSnackbarOpen}
         />
         <ServiceMaturityError
-          exportEntity={exportEntity}
+          onExportEntity={handleExportEntity}
           exporting={exporting}
           serviceUrl={service.htmlUrl}
           error="We don't have any maturity details for this service yet, please check back in a few minutes."
@@ -161,7 +161,7 @@ export function EntityOpsLevelMaturityContent() {
     <Grid container spacing={2} direction="column">
       <SnackAlert {...snackbar} open={snackbarOpen} setOpen={setSnackbarOpen} />
       <ServiceMaturityReport
-        exportEntity={exportEntity}
+        onExportEntity={handleExportEntity}
         exporting={exporting}
         levels={levels}
         service={service}
