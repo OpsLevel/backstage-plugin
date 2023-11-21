@@ -1,88 +1,5 @@
 import { Entity } from "@backstage/catalog-model";
 
-export type LevelCategory = {
-  id?: string;
-  level: { name: string } | null;
-  category: { id: string; name: string };
-  rollsUp?: boolean;
-};
-
-export type Level = {
-  index?: number;
-  name?: string;
-};
-
-export type OverallLevel = {
-  description: string;
-  index: number;
-  name: string;
-};
-
-export type ScorecardStats = {
-  scorecard?: {
-    affectsOverallServiceLevels: boolean;
-    id: string;
-    name: string;
-  };
-  categories?: {
-    edges?: Array<{
-      level?: Level;
-      node?: {
-        id: string;
-        name: string;
-      };
-    }>;
-  };
-  checkResults?: {
-    byLevel?: {
-      nodes?: Array<LevelCheckResults>;
-    };
-  };
-};
-
-export interface OpsLevelServiceData {
-  account: {
-    rubric: {
-      levels: {
-        nodes: Array<{ index: number; name: string }>;
-      };
-    };
-    service: {
-      htmlUrl: string;
-      maturityReport?: {
-        overallLevel: OverallLevel;
-        categoryBreakdown: Array<LevelCategory>;
-      };
-      serviceStats?: {
-        scorecards?: {
-          nodes?: Array<ScorecardStats>;
-        };
-        rubric: {
-          checkResults: {
-            byLevel: {
-              nodes: Array<LevelCheckResults>;
-            };
-          };
-        };
-      };
-      checkStats?: {
-        totalChecks: number;
-        totalPassingChecks: number;
-      };
-    };
-  };
-}
-
-export type LevelCheckResults = {
-  level: {
-    index: number;
-    name: string;
-  };
-  items: {
-    nodes: Array<CheckResult>;
-  };
-};
-
 export type CheckResultStatus =
   | "failed"
   | "pending"
@@ -115,6 +32,96 @@ export type CheckResult = {
   };
   status: CheckResultStatus;
 };
+
+export type LevelCategory = {
+  id?: string;
+  level: { name: string } | null;
+  category: { id: string; name: string };
+  rollsUp?: boolean;
+};
+
+export type Level = {
+  index?: number;
+  name?: string;
+};
+
+export type LevelCheckResults = {
+  level: {
+    index: number;
+    name: string;
+  };
+  items: {
+    nodes: Array<CheckResult>;
+  };
+};
+
+export type OverallLevel = {
+  description: string;
+  index: number;
+  name: string;
+};
+
+export type ScorecardStats = {
+  scorecard?: {
+    affectsOverallServiceLevels: boolean;
+    id: string;
+    name: string;
+  };
+  categories?: {
+    edges?: Array<{
+      level?: Level;
+      node?: {
+        id: string;
+        name: string;
+      };
+    }>;
+  };
+  checkResults?: {
+    byLevel?: {
+      nodes?: Array<LevelCheckResults>;
+    };
+  };
+};
+
+export type LevelNode = {
+  index: number;
+  name: string;
+};
+
+export type OpsLevelService = {
+  htmlUrl: string;
+  maturityReport?: {
+    overallLevel: OverallLevel;
+    categoryBreakdown: Array<LevelCategory>;
+  };
+  serviceStats?: {
+    scorecards?: {
+      nodes?: Array<ScorecardStats>;
+    };
+    rubric: {
+      checkResults: {
+        byLevel: {
+          nodes: Array<LevelCheckResults>;
+        };
+      };
+    };
+  };
+  checkStats?: {
+    totalChecks: number;
+    totalPassingChecks: number;
+  };
+};
+
+export interface OpsLevelServiceData {
+  account: {
+    rubric: {
+      levels: {
+        nodes: Array<LevelNode>;
+      };
+    };
+    service: OpsLevelService;
+  };
+}
 
 export interface OpsLevelOverallData {
   account: {

@@ -35,7 +35,7 @@ describe("OverallMaturityCategoryBreakdown", () => {
   ];
 
   function bandaidsForApexCharts() {
-    // See issue - https://github.com/ZeeCoder/use-resize-observer/issues/40
+    // eslint-disable-next-line global-require -- https://github.com/ZeeCoder/use-resize-observer/issues/40
     global.ResizeObserver = require("resize-observer-polyfill");
     // Fixes an ugly warning in Apexcharts
     // @ts-ignore

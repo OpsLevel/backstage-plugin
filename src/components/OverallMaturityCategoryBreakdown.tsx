@@ -1,7 +1,6 @@
 import React from "react";
 import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
-import cloneDeep from "lodash/cloneDeep";
 import { withTheme } from "@material-ui/core/styles";
 import { levelColorPalette } from "../helpers/level_color_helper";
 import {
@@ -118,6 +117,32 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
     }
   }
 
+  setDataFromProps() {
+    let data: { [key: string]: Array<{ string: number }> } | {};
+    if (this.props.loading) {
+      data = {};
+    } else {
+      data = levelsByCategory(
+        this.props.levels,
+        this.props.categoryLevelCounts,
+      );
+    }
+    this.setState((prevState) => ({
+      ...prevState,
+      data: this.computeSeries(data),
+      options: {
+        ...prevState.options,
+        colors: levelColorPalette(this.props.levels.length).map(
+          (color) => color.secondary,
+        ),
+        xaxis: {
+          ...prevState.options.xaxis,
+          categories: Object.keys(data),
+        },
+      },
+    }));
+  }
+
   computeSeries(servicesByCategory: {
     [key: string]: Array<{ string: number }>;
   }) {
@@ -134,10 +159,12 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
           const level = Object.keys(serviceLevel)[0];
           const serviceCount = serviceLevel[level];
 
-          const existent_serie = series.find((serie) => serie.name === level);
+          const existentSeries = series.find(
+            (categorySeries) => categorySeries.name === level,
+          );
 
-          if (existent_serie) {
-            existent_serie.data.push(serviceCount);
+          if (existentSeries) {
+            existentSeries.data.push(serviceCount);
           } else {
             series.push({ name: level, data: [serviceCount] });
           }
@@ -146,33 +173,6 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
     }
 
     return series;
-  }
-
-  setDataFromProps() {
-    let data: { [key: string]: Array<{ string: number }> } | {};
-    if (this.props.loading) {
-      data = {};
-    } else {
-      data = levelsByCategory(
-        this.props.levels,
-        this.props.categoryLevelCounts,
-      );
-    }
-    const stateCopy = cloneDeep(this.state);
-    this.setState({
-      ...stateCopy,
-      data: this.computeSeries(data),
-      options: {
-        ...stateCopy.options,
-        colors: levelColorPalette(this.props.levels.length).map(
-          (color) => color.secondary,
-        ),
-        xaxis: {
-          ...stateCopy.options.xaxis,
-          categories: Object.keys(data),
-        },
-      },
-    });
   }
 
   render() {

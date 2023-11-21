@@ -19,7 +19,7 @@ import {
   CheckResultStatus,
   LevelCheckResults,
 } from "../types/OpsLevelData";
-import { CheckResultDetails } from "./CheckResultDetails";
+import CheckResultDetails from "./CheckResultDetails";
 
 type Props = {
   opslevelUrl?: string;
@@ -50,7 +50,32 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
   };
 });
 
-export function CheckResultsByLevel({
+function usePrevious(value: Array<LevelCheckResults>) {
+  const ref = useRef<Array<LevelCheckResults>>();
+  React.useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
+  const isCurrent = checkResult.check.enableOn === null;
+  if (isCurrent) {
+    return checkResult.status;
+  }
+  switch (checkResult.status) {
+    case "passed":
+      return "upcoming_passed";
+    case "failed":
+      return "upcoming_failed";
+    case "pending":
+      return "upcoming_pending";
+    default:
+      return checkResult.status;
+  }
+}
+
+export default function CheckResultsByLevel({
   opslevelUrl,
   checkResultsByLevel,
   totalChecks,
@@ -67,14 +92,6 @@ export function CheckResultsByLevel({
   }>({});
   const prevCheckResults = usePrevious(checkResults);
   const styles = useStyles();
-
-  function usePrevious(value: Array<LevelCheckResults>) {
-    const ref = useRef<Array<LevelCheckResults>>();
-    React.useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current;
-  }
 
   React.useEffect(() => {
     function getLevelCounts(itemCheckResults: Array<CheckResult>) {
@@ -135,23 +152,6 @@ export function CheckResultsByLevel({
       setExpandedLevels(newExpandedLevels);
     }
   }, [checkResultsByLevel, prevCheckResults]);
-
-  function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
-    const isCurrent = checkResult.check.enableOn === null;
-    if (isCurrent) {
-      return checkResult.status;
-    }
-    switch (checkResult.status) {
-      case "passed":
-        return "upcoming_passed";
-      case "failed":
-        return "upcoming_failed";
-      case "pending":
-        return "upcoming_pending";
-      default:
-        return checkResult.status;
-    }
-  }
 
   function getPassingPercentage() {
     return totalChecks === 0

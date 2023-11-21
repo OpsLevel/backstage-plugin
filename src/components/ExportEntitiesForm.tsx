@@ -35,6 +35,19 @@ function useListAllEntities() {
   };
 }
 
+function startExportMessage(entity: Entity) {
+  const entityRef = stringifyEntityRef(entity);
+  return `Exporting ${entityRef}... `;
+}
+
+function finishExportMessage(result: any) {
+  let message = result.importEntityFromBackstage.actionMessage;
+  if (result.importEntityFromBackstage.errors.length) {
+    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
+  }
+  return message;
+}
+
 async function exportEntity(
   entity: Entity,
   opslevelApi: OpsLevelApi,
@@ -52,30 +65,20 @@ async function performExport(
   opslevelApi: OpsLevelApi,
   appendOutput: Function,
 ) {
+  const exportPromises = [];
   for (const entity of users) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
 
   for (const entity of groups) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
 
   for (const entity of components) {
-    await exportEntity(entity, opslevelApi, appendOutput);
+    exportPromises.push(exportEntity(entity, opslevelApi, appendOutput));
   }
-}
 
-function startExportMessage(entity: Entity) {
-  const entityRef = stringifyEntityRef(entity);
-  return `Exporting ${entityRef}... `;
-}
-
-function finishExportMessage(result: any) {
-  let message = result.importEntityFromBackstage.actionMessage;
-  if (result.importEntityFromBackstage.errors.length) {
-    message += ` (error: ${result.importEntityFromBackstage.errors[0].message})`;
-  }
-  return message;
+  await Promise.all(exportPromises);
 }
 
 const useStyles = makeStyles((theme: BackstageTheme) => {

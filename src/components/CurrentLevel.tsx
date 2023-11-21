@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => ({
   },
 }));
 
-export function CurrentLevel({ overallLevel }: Props) {
+export default function CurrentLevel({ overallLevel }: Props) {
   const classes = useStyles();
 
   return (

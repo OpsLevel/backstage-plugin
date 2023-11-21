@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
 import React from "react";
 import { Marked } from "@ts-stack/markdown";
 import DOMPurify from "dompurify";
@@ -43,7 +40,7 @@ class MarkdownViewer extends React.Component<Props, State> {
       prevProps.value !== this.props.value ||
       prevProps.truncate !== this.props.truncate
     ) {
-      this.setState({
+      this.setState((prevState) => ({
         sanitizedValue: this.props.value
           ? this.getDisplayValue(this.props.value, false)
           : "",
@@ -52,8 +49,8 @@ class MarkdownViewer extends React.Component<Props, State> {
           : "",
         shouldTruncate:
           this.props.truncate && this.getCanTruncate(this.props.value),
-        truncated: this.state.truncated,
-      });
+        truncated: prevState.truncated,
+      }));
     }
   }
 
@@ -81,10 +78,6 @@ class MarkdownViewer extends React.Component<Props, State> {
     );
   }
 
-  isTruncated() {
-    return this.state.shouldTruncate && this.state.truncated;
-  }
-
   getTruncatedText(value: string) {
     const result = value
       .split(NEWLINE_REGEX)
@@ -98,11 +91,16 @@ class MarkdownViewer extends React.Component<Props, State> {
     })}`;
   }
 
+  isTruncated() {
+    return this.state.shouldTruncate && this.state.truncated;
+  }
+
   render() {
     const ret = [
       <span
         className="span-markdown"
         key="markup"
+        // eslint-disable-next-line react/no-danger -- This is sanitized
         dangerouslySetInnerHTML={{ __html: this.getDisplayText() }}
       />,
     ];
@@ -117,7 +115,10 @@ class MarkdownViewer extends React.Component<Props, State> {
             cursor: "pointer",
           }}
           onClick={() =>
-            this.setState({ ...this.state, truncated: !this.state.truncated })
+            this.setState((prevState) => ({
+              ...prevState,
+              truncated: !prevState.truncated,
+            }))
           }
         >
           ({this.getToggleText()})
