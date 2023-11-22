@@ -3,7 +3,9 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import WatchLaterIcon from "@material-ui/icons/WatchLater";
 import ErrorIcon from "@material-ui/icons/Error";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Accordion from "@mui/material/Accordion";
 import moment from "moment";
 import {
   FileDoneOutlined,
