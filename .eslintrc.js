@@ -9,6 +9,7 @@ module.exports = {
       "plugin:eslint-comments/recommended",
       'plugin:import/recommended',
       "plugin:import/typescript",
+      "plugin:prettier/recommended",
       "plugin:jsx-a11y/recommended",
       "plugin:react/recommended",
       "prettier",
@@ -18,6 +19,7 @@ module.exports = {
     "plugins": [
       'jsx-a11y',
       "react",
+      "prettier",
       '@typescript-eslint/eslint-plugin',
     ],
   rules: {
