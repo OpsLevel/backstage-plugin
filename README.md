@@ -33,7 +33,11 @@ With the plugin, you can view maturity progress in context with the rest of your
 yarn add --cwd packages/app @opslevel/backstage-maturity
 ```
 
-Update `app-config.yaml` to add a proxy for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
+Setting up this plugin requires the following changes to the `app-config.yaml` file:
+
+### Set Up Proxy Configuration
+
+Add a proxy configuration for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
 
 ```yaml
 proxy:
@@ -47,6 +51,14 @@ proxy:
 
 If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 
+### Set Up the Base OpsLevel URL
+
+```yaml
+opslevel:
+  baseUrl: 'https://app.opslevel.com'
+```
+
+If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 
 ## Add Route & Global nav
 
