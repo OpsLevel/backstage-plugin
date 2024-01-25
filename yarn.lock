@@ -15270,10 +15270,10 @@ react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-js-cron@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-js-cron/-/react-js-cron-3.2.0.tgz#f3f3b0312077fa03594b8c769174478a0b4763e5"
-  integrity sha512-DAluNX6ZpfsSDAIAfJKNyWIckTWTcQ/7IK91J4jaS4o4iihRJo/8gd7kf6ACDTE2RKt0PiSpOf1MBrrSdmdyUQ==
+react-js-cron@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-js-cron/-/react-js-cron-5.0.1.tgz#7228652679c4bf3bb8ecf44c08b7d92f6975741a"
+  integrity sha512-qHUb/qWeMvXklGW6/hLtH9CjboRU7pu2hHxGGErUDTjHDOLn/b6CZHvVsx/e3ak+UObwf4Y0BHSQJzpn1JpvvA==
 
 react-markdown@^8.0.0:
   version "8.0.7"
