@@ -35,11 +35,6 @@ function useListAllEntities() {
   };
 }
 
-function useBaseOpsLevelUrl() {
-  const config = useApi(configApiRef);
-  return config.getString("opslevel.baseUrl");
-}
-
 function startExportMessage(entity: Entity) {
   const entityRef = stringifyEntityRef(entity);
   return `Exporting ${entityRef}... `;
@@ -102,7 +97,8 @@ export default function ExportEntityForm() {
   const opslevelApi = useApi(opslevelApiRef);
 
   const entityStates = useListAllEntities();
-  const baseUrl = useBaseOpsLevelUrl();
+  const config = useApi(configApiRef);
+  const baseUrl = config.getString("opslevel.baseUrl");
 
   const error =
     entityStates.components.error ||

@@ -20,7 +20,6 @@ import {
 import CheckResultDetails from "./CheckResultDetails";
 
 type Props = {
-  opslevelUrl?: string;
   checkResultsByLevel: Array<LevelCheckResults>;
   totalChecks: number;
   totalPassingChecks: number;
@@ -74,7 +73,6 @@ function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
 }
 
 export default function CheckResultsByLevel({
-  opslevelUrl,
   checkResultsByLevel,
   totalChecks,
   totalPassingChecks,
@@ -225,7 +223,6 @@ export default function CheckResultsByLevel({
             return (
               <CheckResultDetails
                 key={`details-${level.name}-${index}`}
-                opslevelUrl={opslevelUrl}
                 checkResult={checkResult}
                 combinedStatus={getCombinedStatus(checkResult)}
               />

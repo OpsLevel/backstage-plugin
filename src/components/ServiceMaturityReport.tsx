@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { cloneDeep } from "lodash";
-import { useEntity } from "@backstage/plugin-catalog-react";
 import EntityOpsLevelMaturityProgress from "./EntityOpsLevelMaturityProgress";
 import CheckResultsByLevel from "./CheckResultsByLevel";
 import ServiceMaturitySidebar from "./ServiceMaturitySidebar";
@@ -37,15 +36,6 @@ export default function ServiceMaturityReport({
   overallLevel,
   onCategorySelectionChange,
 }: Props) {
-  const { entity } = useEntity();
-  let opslevelUrl = "https://app.opslevel.com";
-  if (service) {
-    const extensionToRemove = `/services/${entity.metadata.name}`;
-    opslevelUrl = service.htmlUrl
-      .split(extensionToRemove)
-      .filter((s) => s)
-      .join(extensionToRemove);
-  }
   const levelCategories =
     service.maturityReport?.categoryBreakdown.map((c) => {
       return { ...c, rollsUp: true };
@@ -225,7 +215,6 @@ export default function ServiceMaturityReport({
           </Grid>
           <Grid item>
             <CheckResultsByLevel
-              opslevelUrl={opslevelUrl}
               checkResultsByLevel={allCheckResultsByLevel}
               totalChecks={totalChecks()}
               totalPassingChecks={totalPassingChecks()}

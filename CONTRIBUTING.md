@@ -1,11 +1,19 @@
 # Contributing
 
-1. [About this document](#about-this-document)
-2. [Proposing a change](#proposing-a-change)
-3. [Getting the code](#getting-the-code)
-4. [Local development](#local-development)
-5. [Submitting a Pull Request](#submitting-a-pull-request)
-6. [Releasing](#releasing)
+- [Contributing](#contributing)
+  - [About this document](#about-this-document)
+  - [Proposing a change](#proposing-a-change)
+    - [Defining the problem](#defining-the-problem)
+    - [Submitting a change](#submitting-a-change)
+  - [Getting the code](#getting-the-code)
+    - [Installing git](#installing-git)
+    - [External contributors](#external-contributors)
+    - [OpsLevel contributors](#opslevel-contributors)
+  - [Local Development](#local-development)
+    - [Installation](#installation)
+    - [Changie (Change log generation)](#changie-change-log-generation)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+  - [Releasing](#releasing)
 
 ## About this document
 

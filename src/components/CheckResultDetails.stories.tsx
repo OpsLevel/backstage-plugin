@@ -13,7 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Passing: Story = {
   args: {
-    opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "passed",
     checkResult: {
       message:
@@ -44,7 +43,6 @@ export const Passing: Story = {
 
 export const Pending: Story = {
   args: {
-    opslevelUrl: "https://app.opslevel.com",
     combinedStatus: "pending",
     checkResult: {
       message:
