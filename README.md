@@ -58,7 +58,7 @@ opslevel:
   baseUrl: 'https://app.opslevel.com'
 ```
 
-If you're running Self-Hosted OpsLevel, replace `target` with your URL.
+If you're running Self-Hosted OpsLevel, replace `baseUrl` with your URL.
 
 ## Add Route & Global nav
 
