@@ -1,10 +1,29 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import {
+  MockConfigApi,
+  TestApiProvider,
+  wrapInTestApp,
+} from "@backstage/test-utils";
+import { configApiRef } from "@backstage/core-plugin-api";
 
 import CheckResultDetails from "./CheckResultDetails";
+
+const mockConfig = new MockConfigApi({
+  opslevel: { baseUrl: "https://example.com" },
+});
 
 const meta = {
   title: "CheckResultDetails",
   component: CheckResultDetails,
+  decorators: [
+    (Story) => (
+      wrapInTestApp(
+        <TestApiProvider apis={[[configApiRef, mockConfig]]}>
+          <Story />
+        </TestApiProvider>
+      )
+    )
+  ]
 } satisfies Meta<typeof CheckResultDetails>;
 
 export default meta;
