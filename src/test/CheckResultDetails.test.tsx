@@ -28,16 +28,21 @@ const getCheckResult = (status: CheckResultStatus): CheckResult => ({
   status,
 });
 
+const customRender = async (component: React.JSX.Element) => {
+  return renderInTestApp(
+    <TestApiProvider apis={[[configApiRef, mockConfig]]}>
+      {component}
+    </TestApiProvider>,
+  );
+};
+
 describe("CheckResultDetails", () => {
   it("renders a check with baseline information", async () => {
     const checkResult = getCheckResult("failed");
     checkResult.createdAt = "2023-05-11T20:47:53.869313Z";
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />
-        ,
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />,
     );
 
     const header = screen.getByRole("button");
@@ -68,11 +73,8 @@ describe("CheckResultDetails", () => {
     const checkResult = getCheckResult("failed");
     checkResult.check.type = "payload";
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />
-        ,
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />,
     );
 
     expect(
@@ -102,11 +104,8 @@ describe("CheckResultDetails", () => {
       },
     };
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />
-        ,
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />,
     );
 
     const header = screen.getByRole("button");
@@ -127,11 +126,8 @@ describe("CheckResultDetails", () => {
       href: ownerHref,
     };
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />
-        ,
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />,
     );
 
     const header = screen.getByRole("button");
@@ -147,11 +143,8 @@ describe("CheckResultDetails", () => {
     const checkResult = getCheckResult("failed");
     checkResult.check.type = "generic";
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />
-        ,
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="failed" />,
     );
 
     expect(
@@ -170,13 +163,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders a failing check in the right color", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("failed")}
-          combinedStatus="failed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("failed")}
+        combinedStatus="failed"
+      />,
     );
 
     expect(screen.getByRole("button").parentNode).toHaveStyle({
@@ -185,13 +176,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders a pending check in the right color", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("pending")}
-          combinedStatus="pending"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("pending")}
+        combinedStatus="pending"
+      />,
     );
 
     expect(screen.getByRole("button").parentNode).toHaveStyle({
@@ -200,13 +189,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders a passed check in the right color", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("passed")}
-          combinedStatus="passed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("passed")}
+        combinedStatus="passed"
+      />,
     );
 
     expect(screen.getByRole("button").parentNode).toHaveStyle({
@@ -215,13 +202,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders an upcoming_failed check in the right color with an upcoming message", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("upcoming_failed")}
-          combinedStatus="upcoming_failed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("upcoming_failed")}
+        combinedStatus="upcoming_failed"
+      />,
     );
 
     expect(
@@ -236,13 +221,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders an upcoming_pending check in the right color with an upcoming message", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("upcoming_pending")}
-          combinedStatus="upcoming_pending"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("upcoming_pending")}
+        combinedStatus="upcoming_pending"
+      />,
     );
 
     expect(
@@ -257,13 +240,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("renders an upcoming_passed check in the right color with an upcoming message", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("upcoming_passed")}
-          combinedStatus="upcoming_passed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("upcoming_passed")}
+        combinedStatus="upcoming_passed"
+      />,
     );
 
     expect(
@@ -278,13 +259,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("expands upcoming failing tests", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("upcoming_failed")}
-          combinedStatus="upcoming_failed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("upcoming_failed")}
+        combinedStatus="upcoming_failed"
+      />,
     );
 
     expect(
@@ -296,13 +275,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("expands failing tests", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("failed")}
-          combinedStatus="failed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("failed")}
+        combinedStatus="failed"
+      />,
     );
 
     expect(
@@ -314,13 +291,11 @@ describe("CheckResultDetails", () => {
   });
 
   it("does not expand passing tests", async () => {
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails
-          checkResult={getCheckResult("passed")}
-          combinedStatus="passed"
-        />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails
+        checkResult={getCheckResult("passed")}
+        combinedStatus="passed"
+      />,
     );
 
     expect(
@@ -341,10 +316,8 @@ describe("CheckResultDetails", () => {
       },
     };
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="passed" />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="passed" />,
     );
 
     expect(screen.getByLabelText("table")).toBeInTheDocument();
@@ -362,10 +335,8 @@ describe("CheckResultDetails", () => {
       },
     };
 
-    await renderInTestApp(
-      <TestApiProvider apis={[[configApiRef, mockConfig]]}>
-        <CheckResultDetails checkResult={checkResult} combinedStatus="passed" />
-      </TestApiProvider>,
+    await customRender(
+      <CheckResultDetails checkResult={checkResult} combinedStatus="passed" />,
     );
 
     expect(screen.queryByLabelText("table")).not.toBeInTheDocument();

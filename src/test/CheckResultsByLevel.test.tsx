@@ -1,8 +1,18 @@
 import React from "react";
 import { mount } from "enzyme";
 import { cloneDeep } from "lodash";
+import {
+  MockConfigApi,
+  wrapInTestApp,
+  TestApiProvider,
+} from "@backstage/test-utils";
+import { configApiRef } from "@backstage/core-plugin-api";
 import CheckResultsByLevel from "../components/CheckResultsByLevel";
 import { LevelCheckResults } from "../types/OpsLevelData";
+
+const mockConfig = new MockConfigApi({
+  opslevel: { baseUrl: "https://example.com" },
+});
 
 describe("CheckResultsByLevel", () => {
   const checkResultsByLevelData: Array<LevelCheckResults> = [
@@ -167,13 +177,17 @@ describe("CheckResultsByLevel", () => {
     passingChecks: number,
   ) =>
     mount(
-      <CheckResultsByLevel
-        checkResultsByLevel={data}
-        totalChecks={totalChecks}
-        totalPassingChecks={passingChecks}
-      />,
+      wrapInTestApp(
+        <TestApiProvider apis={[[configApiRef, mockConfig]]}>
+          <CheckResultsByLevel
+            checkResultsByLevel={data}
+            totalChecks={totalChecks}
+            totalPassingChecks={passingChecks}
+          />
+          ,
+        </TestApiProvider>,
+      ),
     );
-
   it("renders the header check correctly when things make sense", () => {
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
 
@@ -201,14 +215,14 @@ describe("CheckResultsByLevel", () => {
   it("renders the appropriate number of accordion elements", () => {
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
 
-    const checkSummaries = wrapper.find("div.MuiAccordionSummary-root");
+    const checkSummaries = wrapper.find("div.v5-MuiAccordionSummary-root");
     expect(checkSummaries.length).toEqual(10); // 4 levels + 6 checks
   });
 
   it("renders the right level headers", () => {
     const wrapper = getWrapper(checkResultsByLevelData, 4, 2);
 
-    const checkSummaries = wrapper.find("div.MuiAccordionSummary-root");
+    const checkSummaries = wrapper.find("div.v5-MuiAccordionSummary-root");
 
     const bronzeLevelHeader = checkSummaries.at(0);
     const bronzeLevelHeaderParagraphs = bronzeLevelHeader.find("p");

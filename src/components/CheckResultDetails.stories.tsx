@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
 import {
   MockConfigApi,
   TestApiProvider,
@@ -16,14 +17,13 @@ const meta = {
   title: "CheckResultDetails",
   component: CheckResultDetails,
   decorators: [
-    (Story) => (
+    (Story) =>
       wrapInTestApp(
         <TestApiProvider apis={[[configApiRef, mockConfig]]}>
           <Story />
-        </TestApiProvider>
-      )
-    )
-  ]
+        </TestApiProvider>,
+      ),
+  ],
 } satisfies Meta<typeof CheckResultDetails>;
 
 export default meta;
