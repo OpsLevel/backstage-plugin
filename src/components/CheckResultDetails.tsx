@@ -15,11 +15,11 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { ReactElement, useState } from "react";
 import { BackstageTheme } from "@backstage/theme";
+import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
 import MarkdownViewer from "./MarkdownViewer";
 
 type Props = {
-  opslevelUrl?: string;
   checkResult: CheckResult;
   combinedStatus: CheckResultStatus;
 };
@@ -71,12 +71,13 @@ const getResultMessage = (checkResult: CheckResult) => {
 export default function CheckResultDetails({
   checkResult,
   combinedStatus,
-  opslevelUrl,
 }: Props) {
   const [expanded, setExpanded] = useState<boolean>(
     combinedStatus.endsWith("failed") || combinedStatus.endsWith("pending"),
   );
   const styles = useStyles();
+  const config = useApi(configApiRef);
+  const opslevelUrl = config.getString("opslevel.baseUrl");
 
   const handleOnExpansionChange = (
     _: React.SyntheticEvent,
@@ -167,14 +168,11 @@ export default function CheckResultDetails({
                       )}
                     </span>
                   </Tooltip>
-                  {opslevelUrl && (
-                    <Link
-                      href={`${opslevelUrl}${checkResult.check.category.container.href}`}
-                    >
-                      {checkResult.check.category.name}
-                    </Link>
-                  )}
-                  {!opslevelUrl && checkResult.check.category.name}
+                  <Link
+                    href={`${opslevelUrl}${checkResult.check.category.container.href}`}
+                  >
+                    {checkResult.check.category.name}
+                  </Link>
                 </span>
               </>
             )}
@@ -184,14 +182,9 @@ export default function CheckResultDetails({
                 <span className={styles.coloredSubtext}>
                   <TeamOutlined className={styles.checkResultIcon} />
                   {}
-                  {opslevelUrl && (
-                    <Link
-                      href={`${opslevelUrl}${checkResult.check.owner.href}`}
-                    >
-                      {checkResult.check.owner.name}
-                    </Link>
-                  )}
-                  {!opslevelUrl && checkResult.check.owner.name}
+                  <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>
+                    {checkResult.check.owner.name}
+                  </Link>
                 </span>
               </>
             )}

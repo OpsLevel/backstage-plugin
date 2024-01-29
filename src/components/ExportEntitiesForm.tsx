@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { catalogApiRef } from "@backstage/plugin-catalog-react";
 import { Entity, stringifyEntityRef } from "@backstage/catalog-model";
-import { useApi } from "@backstage/core-plugin-api";
+import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { useAsync } from "react-use";
 import { BackstageTheme } from "@backstage/theme";
 import { OpsLevelApi } from "../types/OpsLevelData";
@@ -97,6 +97,9 @@ export default function ExportEntityForm() {
   const opslevelApi = useApi(opslevelApiRef);
 
   const entityStates = useListAllEntities();
+  const config = useApi(configApiRef);
+  const baseUrl = config.getString("opslevel.baseUrl");
+
   const error =
     entityStates.components.error ||
     entityStates.users.error ||
@@ -214,7 +217,7 @@ export default function ExportEntityForm() {
           variant="contained"
           color="primary"
           target="_blank"
-          href="https://app.opslevel.com/reports/rubric"
+          href={`${baseUrl}/reports/rubric`}
         >
           View Full Maturity Report in OpsLevel
         </Button>

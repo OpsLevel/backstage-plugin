@@ -86,7 +86,6 @@ describe("BackendExportEntitiesForm", () => {
   it("displays the execution header as expected if it is the first execution", async () => {
     await renderComponent();
 
-    screen.debug(screen.getByTestId("execution-header"));
     expect(screen.getByTestId("execution-header")).toHaveTextContent(
       "<<< Showing execution 1 of 10 >>>",
     );
