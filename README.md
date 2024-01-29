@@ -37,7 +37,7 @@ Setting up this plugin requires the following changes to the `app-config.yaml` f
 
 ### Set Up Proxy Configuration
 
-Add a proxy configuration for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens.
+Add a proxy configuration for OpsLevel. Replace `<your_OpsLevel_API_token>` with a token from https://app.opslevel.com/api_tokens (or, if you're running a self-hosted OpsLevel instance, the `/api_tokens` page on your OpsLevel instance).
 
 ```yaml
 proxy:
