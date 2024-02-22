@@ -10,6 +10,9 @@ const config = {
   transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!(@backstage|react-syntax-highlighter|@ts-stack|react-js-cron|d3-zoom|uuid)/)",
   ],
+  moduleNameMapper: {
+    "\\.(css|less)$": "identity-obj-proxy",
+  },
   transform: {
     "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx|mjs)$": "babel-jest",

@@ -1,11 +1,5 @@
 import React, { useCallback } from "react";
-import {
-  Grid,
-  ListItem,
-  ListItemText,
-  Tooltip,
-  makeStyles,
-} from "@material-ui/core";
+import { Grid, ListItem, Tooltip, makeStyles } from "@material-ui/core";
 import { PieChartOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import Checkbox from "@mui/material/Checkbox";
