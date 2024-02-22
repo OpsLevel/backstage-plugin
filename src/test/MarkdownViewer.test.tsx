@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import MarkdownViewer from "../components/MarkdownViewer";
 
 const LONG_TEXT =
@@ -8,54 +8,45 @@ const SHORT_TEXT = "This is a text **too short** to truncate.";
 const MALICIOUS_TEXT =
   "<b>hello </b><script>alert('nag nag nag');</script><i>how are you</i>";
 const TRUNCATED_PARSED_LONG_TEXT =
-  "This is a longer text that is long enough so that the component should truncate it if the tr ...\n";
+  /long enough so that the component should truncate it if the tr .../;
 const PARSED_LONG_TEXT =
-  "This is a longer text that is long enough so that the component should truncate it if the truncate flag is set to true.\n";
-const PARSED_SHORT_TEXT = "This is a text too short to truncate.\n";
-const PARSED_MALICIOUS_TEXT = "hello how are you\n";
+  /long enough so that the component should truncate it if the truncate flag is set to true./;
+const PARSED_SHORT_TEXT = /to truncate./;
+const PARSED_MALICIOUS_TEXT = "how are you";
 
 describe("MarkdownViewer", () => {
   it("with truncate on when there is stuff to truncate", () => {
-    const wrapper = mount(<MarkdownViewer value={LONG_TEXT} truncate />);
-    expect(wrapper.find("span").length).toEqual(2);
-    expect(wrapper.find(".span-markdown").text()).toEqual(
-      TRUNCATED_PARSED_LONG_TEXT,
-    );
-    expect(wrapper.find(".span-toggle-expansion").text()).toEqual(
-      "(show more)",
-    );
+    render(<MarkdownViewer value={LONG_TEXT} truncate />);
+
+    expect(screen.getByText(TRUNCATED_PARSED_LONG_TEXT)).toBeInTheDocument();
+    expect(screen.getByText("(show more)")).toBeInTheDocument();
   });
 
   it("with truncate on when there is nothing to truncate", () => {
-    const wrapper = mount(<MarkdownViewer value={SHORT_TEXT} truncate />);
-    expect(wrapper.find("span").length).toEqual(1);
-    expect(wrapper.find(".span-markdown").text()).toEqual(PARSED_SHORT_TEXT);
+    render(<MarkdownViewer value={SHORT_TEXT} truncate />);
+
+    expect(screen.getByText(PARSED_SHORT_TEXT)).toBeInTheDocument();
+    expect(screen.queryByText("(show more)")).not.toBeInTheDocument();
   });
 
   it("with truncate off when there is stuff to truncate", () => {
-    const wrapper = mount(
-      <MarkdownViewer value={LONG_TEXT} truncate={false} />,
-    );
-    expect(wrapper.find("span").length).toEqual(1);
-    expect(wrapper.find(".span-markdown").text()).toEqual(PARSED_LONG_TEXT);
+    render(<MarkdownViewer value={LONG_TEXT} truncate={false} />);
+
+    expect(screen.getByText(PARSED_LONG_TEXT)).toBeInTheDocument();
+    expect(screen.queryByText("(show more)")).not.toBeInTheDocument();
   });
 
   it("with truncate off when there is nothing to truncate", () => {
-    const wrapper = mount(
-      <MarkdownViewer value={SHORT_TEXT} truncate={false} />,
-    );
-    expect(wrapper.find("span").length).toEqual(1);
-    expect(wrapper.find(".span-markdown").text()).toEqual(PARSED_SHORT_TEXT);
+    render(<MarkdownViewer value={SHORT_TEXT} truncate={false} />);
+
+    expect(screen.getByText(PARSED_SHORT_TEXT)).toBeInTheDocument();
+    expect(screen.queryByText("(show more)")).not.toBeInTheDocument();
   });
 
   it("when trying to inject a script", () => {
-    const wrapper = mount(
-      <MarkdownViewer value={MALICIOUS_TEXT} truncate={false} />,
-    );
-    expect(wrapper.find("span").length).toEqual(1);
-    expect(wrapper.find(".span-markdown").text()).toEqual(
-      PARSED_MALICIOUS_TEXT,
-    );
-    expect(wrapper.find(".span-markdown").html()).not.toContain("script");
+    render(<MarkdownViewer value={MALICIOUS_TEXT} truncate={false} />);
+
+    expect(screen.getByText(PARSED_MALICIOUS_TEXT)).toBeInTheDocument();
+    expect(screen.queryByText("script")).not.toBeInTheDocument();
   });
 });

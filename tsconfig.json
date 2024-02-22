@@ -6,7 +6,6 @@
     "rootDir": ".",
     "checkJs": true,
   },
-  "include": [
-    "src"
-  ],
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "include": ["src", "test/jestImports.ts"],
 }
