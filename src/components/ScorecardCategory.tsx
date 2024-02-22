@@ -110,60 +110,56 @@ function ScorecardCategory({
       dense
       onClick={toggleChecked}
     >
-        <Grid container spacing={0}>
-          <Grid item xs={2} lg={1}>
-            <Checkbox
-              data-testid={`checkbox-${levelCategory.category.id}`}
-              disabled={isDisabled}
-              size="small"
-              checked={isChecked}
-            />
-          </Grid>
-          <Grid item xs={10} lg={6} className={classes.categoryName}>
-            {levelCategory.category.name}
-          </Grid>
-          <Grid item xs={12} lg={5}>
+      <Grid container spacing={0}>
+        <Grid item xs={2} lg={1}>
+          <Checkbox
+            data-testid={`checkbox-${levelCategory.category.id}`}
+            disabled={isDisabled}
+            size="small"
+            checked={isChecked}
+          />
+        </Grid>
+        <Grid item xs={10} lg={6} className={classes.categoryName}>
+          {levelCategory.category.name}
+        </Grid>
+        <Grid item xs={12} lg={5}>
+          <Tooltip
+            classes={{ tooltip: classes.tooltip }}
+            title={
+              isDisabled
+                ? disabledTooltipMessage
+                : levelCategory.level?.name ?? ""
+            }
+          >
+            <Grid className={classes.levelWrapper} container aria-label="level">
+              {levels.map((level) => (
+                <span
+                  key={level.index}
+                  className={clsx(
+                    classes.level,
+                    isDisabled ? classes.levelDisabled : "",
+                  )}
+                  style={{
+                    backgroundColor: getLevelColor(levels.indexOf(level)),
+                  }}
+                />
+              ))}
+            </Grid>
+          </Tooltip>
+          {levelCategory.rollsUp && (
             <Tooltip
               classes={{ tooltip: classes.tooltip }}
               title={
                 isDisabled
                   ? disabledTooltipMessage
-                  : levelCategory.level?.name ?? ""
+                  : "These checks affect your service's maturity level."
               }
             >
-              <Grid
-                className={classes.levelWrapper}
-                container
-                aria-label="level"
-              >
-                {levels.map((level) => (
-                  <span
-                    key={level.index}
-                    className={clsx(
-                      classes.level,
-                      isDisabled ? classes.levelDisabled : "",
-                    )}
-                    style={{
-                      backgroundColor: getLevelColor(levels.indexOf(level)),
-                    }}
-                  />
-                ))}
-              </Grid>
+              <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level" />
             </Tooltip>
-            {levelCategory.rollsUp && (
-              <Tooltip
-                classes={{ tooltip: classes.tooltip }}
-                title={
-                  isDisabled
-                    ? disabledTooltipMessage
-                    : "These checks affect your service's maturity level."
-                }
-              >
-                <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level" />
-              </Tooltip>
-            )}
-          </Grid>
+          )}
         </Grid>
+      </Grid>
     </ListItem>
   );
 }
