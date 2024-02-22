@@ -60,12 +60,6 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
     levelDisabled: {
       border: `1px solid ${colorDisabled}`,
     },
-    scorecardCheckbox: {
-      width: "10px",
-      height: "10px",
-      transform: "translateY(-1px)",
-      marginRight: "4px",
-    },
     tooltip: {
       fontSize: theme.typography.button.fontSize,
     },
@@ -116,13 +110,12 @@ function ScorecardCategory({
       dense
       onClick={toggleChecked}
     >
-      <ListItemText>
         <Grid container spacing={0}>
           <Grid item xs={2} lg={1}>
             <Checkbox
               data-testid={`checkbox-${levelCategory.category.id}`}
               disabled={isDisabled}
-              className={classes.scorecardCheckbox}
+              size="small"
               checked={isChecked}
             />
           </Grid>
@@ -171,7 +164,6 @@ function ScorecardCategory({
             )}
           </Grid>
         </Grid>
-      </ListItemText>
     </ListItem>
   );
 }
