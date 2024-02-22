@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       backgroundColor: `${theme.palette.background.default} !important`,
       borderRadius: "5px !important",
       color: `${theme.palette.text.primary} !important`,
+      width: '100% !important',
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     accordionDetails: {
       backgroundColor: theme.palette.background.paper,
