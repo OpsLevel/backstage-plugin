@@ -14,9 +14,9 @@ import {
 } from "@ant-design/icons";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { ReactElement, useState } from "react";
+import { useTheme } from "@mui/material/styles";
 import { BackstageTheme } from "@backstage/theme";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
-import { useTheme } from "@mui/material";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
 import MarkdownViewer from "./MarkdownViewer";
 
