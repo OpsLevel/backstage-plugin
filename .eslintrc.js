@@ -47,5 +47,6 @@ module.exports = {
     "react/no-unescaped-entities": ["off"], // Easy fix but is UI impacting so I want to make sure we do it right
     "jsx-a11y/click-events-have-key-events": ["off"], // Requires some manual validation and thought for a11y
     "jsx-a11y/no-static-element-interactions": ["off"], // Requires some manual validation and thought for a11y
+    "jsx-a11y/no-noninteractive-element-interactions": 'off', // Throwing error about unknown record type due to react upgrade
   },
 };

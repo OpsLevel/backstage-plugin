@@ -1,11 +1,5 @@
 import React, { useCallback } from "react";
-import {
-  Grid,
-  ListItem,
-  ListItemText,
-  Tooltip,
-  makeStyles,
-} from "@material-ui/core";
+import { Grid, ListItem, Tooltip, makeStyles } from "@material-ui/core";
 import { PieChartOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import Checkbox from "@mui/material/Checkbox";
@@ -61,10 +55,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       border: `1px solid ${colorDisabled}`,
     },
     scorecardCheckbox: {
-      width: "10px",
-      height: "10px",
       transform: "translateY(-1px)",
-      marginRight: "4px",
     },
     tooltip: {
       fontSize: theme.typography.button.fontSize,
@@ -116,62 +107,57 @@ function ScorecardCategory({
       dense
       onClick={toggleChecked}
     >
-      <ListItemText>
-        <Grid container spacing={0}>
-          <Grid item xs={2} lg={1}>
-            <Checkbox
-              data-testid={`checkbox-${levelCategory.category.id}`}
-              disabled={isDisabled}
-              className={classes.scorecardCheckbox}
-              checked={isChecked}
-            />
-          </Grid>
-          <Grid item xs={10} lg={6} className={classes.categoryName}>
-            {levelCategory.category.name}
-          </Grid>
-          <Grid item xs={12} lg={5}>
+      <Grid container spacing={0}>
+        <Grid item xs={2} lg={1}>
+          <Checkbox
+            data-testid={`checkbox-${levelCategory.category.id}`}
+            className={classes.scorecardCheckbox}
+            disabled={isDisabled}
+            size="small"
+            checked={isChecked}
+          />
+        </Grid>
+        <Grid item xs={10} lg={6} className={classes.categoryName}>
+          {levelCategory.category.name}
+        </Grid>
+        <Grid item xs={12} lg={5}>
+          <Tooltip
+            classes={{ tooltip: classes.tooltip }}
+            title={
+              isDisabled
+                ? disabledTooltipMessage
+                : levelCategory.level?.name ?? ""
+            }
+          >
+            <Grid className={classes.levelWrapper} container aria-label="level">
+              {levels.map((level) => (
+                <span
+                  key={level.index}
+                  className={clsx(
+                    classes.level,
+                    isDisabled ? classes.levelDisabled : "",
+                  )}
+                  style={{
+                    backgroundColor: getLevelColor(levels.indexOf(level)),
+                  }}
+                />
+              ))}
+            </Grid>
+          </Tooltip>
+          {levelCategory.rollsUp && (
             <Tooltip
               classes={{ tooltip: classes.tooltip }}
               title={
                 isDisabled
                   ? disabledTooltipMessage
-                  : levelCategory.level?.name ?? ""
+                  : "These checks affect your service's maturity level."
               }
             >
-              <Grid
-                className={classes.levelWrapper}
-                container
-                aria-label="level"
-              >
-                {levels.map((level) => (
-                  <span
-                    key={level.index}
-                    className={clsx(
-                      classes.level,
-                      isDisabled ? classes.levelDisabled : "",
-                    )}
-                    style={{
-                      backgroundColor: getLevelColor(levels.indexOf(level)),
-                    }}
-                  />
-                ))}
-              </Grid>
+              <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level" />
             </Tooltip>
-            {levelCategory.rollsUp && (
-              <Tooltip
-                classes={{ tooltip: classes.tooltip }}
-                title={
-                  isDisabled
-                    ? disabledTooltipMessage
-                    : "These checks affect your service's maturity level."
-                }
-              >
-                <PieChartOutlined alt="icon indicating that this category contributes to overall maturity level" />
-              </Tooltip>
-            )}
-          </Grid>
+          )}
         </Grid>
-      </ListItemText>
+      </Grid>
     </ListItem>
   );
 }

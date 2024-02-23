@@ -14,6 +14,7 @@ import {
 } from "@ant-design/icons";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { ReactElement, useState } from "react";
+import { useTheme } from "@mui/material/styles";
 import { BackstageTheme } from "@backstage/theme";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
@@ -72,6 +73,7 @@ export default function CheckResultDetails({
   checkResult,
   combinedStatus,
 }: Props) {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState<boolean>(
     combinedStatus.endsWith("failed") || combinedStatus.endsWith("pending"),
   );
@@ -135,6 +137,8 @@ export default function CheckResultDetails({
           display: "inline-flex",
           width: "100%",
           overflow: "hidden",
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
         }}
       >
         <Box style={{ display: "flex", alignItems: "center" }}>
