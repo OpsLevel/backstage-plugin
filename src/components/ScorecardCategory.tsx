@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       border: `1px solid ${colorDisabled}`,
     },
     scorecardCheckbox: {
-      transform: "translateY(-7px)",
+      transform: "translateY(-1px)",
     },
     tooltip: {
       fontSize: theme.typography.button.fontSize,
