@@ -51,6 +51,8 @@ proxy:
 
 If you're running Self-Hosted OpsLevel, replace `target` with your URL.
 
+> :warning: **If you are using an authentication solution with Backstage**: Ensure that it does not interfere with the HTTP headers going through this proxy. If requests to OpsLevel seemingly inexplicably fail with a HTTP 401 (Unauthorized) response, but you have confirmed that your API token is valid, this is one possible root cause. Due to the customizable nature of Backstage, the support we will be able to offer in such cases will be limited.
+
 ### Set Up the Base OpsLevel URL
 
 ```yaml
