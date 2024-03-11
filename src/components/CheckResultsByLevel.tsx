@@ -75,6 +75,46 @@ function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
   }
 }
 
+function getLevelCounts(itemCheckResults: Array<CheckResult>) {
+  const ret: { [key: string]: number } = {
+    passed: 0,
+    failed: 0,
+    pending: 0,
+    upcoming_passed: 0,
+    upcoming_failed: 0,
+    upcoming_pending: 0,
+    upcoming: 0,
+  };
+  for (const i in itemCheckResults) {
+    if (!{}.hasOwnProperty.call(itemCheckResults, i)) {
+      continue;
+    }
+    const combinedStatus = getCombinedStatus(itemCheckResults[i]);
+    if (combinedStatus in ret) {
+      ret[combinedStatus]++;
+    }
+  }
+  ret.upcoming =
+    ret.upcoming_passed + ret.upcoming_failed + ret.upcoming_pending;
+  return ret;
+}
+
+function getInitialExpandedLevelIndex(newLevelCounts: {
+  [index: number]: { [level: string]: number };
+}) {
+  for (const index in newLevelCounts) {
+    if (
+      newLevelCounts[index].failed > 0 ||
+      newLevelCounts[index].upcoming_failed > 0 ||
+      newLevelCounts[index].upcoming_pending > 0 ||
+      newLevelCounts[index].pending > 0
+    ) {
+      return index;
+    }
+  }
+  return -1;
+}
+
 export default function CheckResultsByLevel({
   checkResultsByLevel,
   totalChecks,
@@ -93,46 +133,6 @@ export default function CheckResultsByLevel({
   const styles = useStyles();
 
   React.useEffect(() => {
-    function getLevelCounts(itemCheckResults: Array<CheckResult>) {
-      const ret: { [key: string]: number } = {
-        passed: 0,
-        failed: 0,
-        pending: 0,
-        upcoming_passed: 0,
-        upcoming_failed: 0,
-        upcoming_pending: 0,
-        upcoming: 0,
-      };
-      for (const i in itemCheckResults) {
-        if (!{}.hasOwnProperty.call(itemCheckResults, i)) {
-          continue;
-        }
-        const combinedStatus = getCombinedStatus(itemCheckResults[i]);
-        if (combinedStatus in ret) {
-          ret[combinedStatus]++;
-        }
-      }
-      ret.upcoming =
-        ret.upcoming_passed + ret.upcoming_failed + ret.upcoming_pending;
-      return ret;
-    }
-
-    function getInitialExpandedLevelIndex(newLevelCounts: {
-      [index: number]: { [level: string]: number };
-    }) {
-      for (const index in newLevelCounts) {
-        if (
-          newLevelCounts[index].failed > 0 ||
-          newLevelCounts[index].upcoming_failed > 0 ||
-          newLevelCounts[index].upcoming_pending > 0 ||
-          newLevelCounts[index].pending > 0
-        ) {
-          return index;
-        }
-      }
-      return -1;
-    }
-
     if (checkResultsByLevel !== prevCheckResults) {
       setCheckResults(checkResultsByLevel);
       const newLevelCounts: { [index: number]: { [level: string]: number } } =
