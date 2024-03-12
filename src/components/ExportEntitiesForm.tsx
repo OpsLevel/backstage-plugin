@@ -12,7 +12,6 @@ import { catalogApiRef } from "@backstage/plugin-catalog-react";
 import { Entity, stringifyEntityRef } from "@backstage/catalog-model";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { useAsync } from "react-use";
-import { BackstageTheme } from "@backstage/theme";
 import { OpsLevelApi } from "../types/OpsLevelData";
 import { opslevelApiRef } from "../api";
 
@@ -81,7 +80,7 @@ async function performExport(
   await Promise.all(exportPromises);
 }
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     outputComponentStyle: {
       backgroundColor: theme.palette.background.default,

@@ -10,7 +10,6 @@ import { Button, Typography, Link, makeStyles } from "@material-ui/core";
 import { Progress } from "@backstage/core-components";
 import Switch from "@mui/material/Switch";
 import { useApi } from "@backstage/core-plugin-api";
-import { BackstageTheme } from "@backstage/theme";
 import moment from "moment";
 import { opslevelPluginApiRef } from "../backend_api";
 import {
@@ -18,7 +17,7 @@ import {
   AutoSyncExecution,
 } from "../types/OpsLevelData";
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     paddingCell: {
       paddingLeft: "10px",

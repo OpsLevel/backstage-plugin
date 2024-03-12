@@ -3,7 +3,6 @@ import { Grid, ListItem, Tooltip, makeStyles } from "@material-ui/core";
 import { PieChartOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import Checkbox from "@mui/material/Checkbox";
-import { BackstageTheme } from "@backstage/theme";
 import { levelColor } from "../helpers/level_color_helper";
 import { Level, LevelCategory } from "../types/OpsLevelData";
 
@@ -17,7 +16,7 @@ type Props = {
 const colorGrey = "#e9e9e9";
 const colorDisabled = "#d9d9d9";
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     root: {
       "&:first-of-type": {

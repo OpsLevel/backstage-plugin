@@ -1,11 +1,10 @@
 import React from "react";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import { BackstageTheme } from "@backstage/theme";
 import { Box, LinearProgress, Tooltip, makeStyles } from "@material-ui/core";
 import { InfoCard } from "@backstage/core-components";
 
-const useStyles = makeStyles((theme: BackstageTheme) => ({
+const useStyles = makeStyles((theme) => ({
   progressBar: {
     backgroundColor: theme.palette.success.main,
   },

@@ -11,7 +11,6 @@ import ErrorIcon from "@material-ui/icons/Error";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useState, useRef, SyntheticEvent } from "react";
 import { makeStyles } from "@material-ui/core";
-import { BackstageTheme } from "@backstage/theme";
 import {
   CheckResult,
   CheckResultStatus,
@@ -25,7 +24,7 @@ type Props = {
   totalPassingChecks: number;
 };
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     accordion: {
       backgroundColor: `${theme.palette.background.default} !important`,
