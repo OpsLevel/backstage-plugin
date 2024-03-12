@@ -3,6 +3,11 @@ import { Entity } from "@backstage/catalog-model";
 export type CheckResultStatus =
   | "failed"
   | "pending"
+  | "passed";
+
+export type CheckResultStatusWithUpcoming =
+  | "failed"
+  | "pending"
   | "passed"
   | "upcoming_failed"
   | "upcoming_pending"
@@ -89,6 +94,7 @@ export type LevelNode = {
 };
 
 export type OpsLevelService = {
+  id: string;
   htmlUrl: string;
   maturityReport?: {
     overallLevel: OverallLevel;
@@ -121,6 +127,42 @@ export interface OpsLevelServiceData {
     };
     service: OpsLevelService;
   };
+}
+
+export type CampaignStatus = 'in_progress'|'draft'| 'scheduled'|'delayed'|'ended' 
+type ChecksByCampaignStatus = 'passing'|'failing'
+
+export interface ChecksByCampaign  {
+  campaign?: {
+    owner: {
+      id: string;
+      name: string;
+      href: string;
+    } | null;
+    id: string;
+    name: string;
+    href: string;
+    startDate: string|null;
+    targetDate: string|null;
+    endedDate: string|null;
+    status:CampaignStatus;
+  },
+  items?: {
+    nodes?: Array<CheckResult>,
+  },
+  status?: ChecksByCampaignStatus;
+  };
+
+export interface CampaignsResponse {
+  account: {
+    service?: {
+      campaignReport?: {
+        checkResultsByCampaign?: {
+          nodes: Array<ChecksByCampaign>;
+        }
+      },
+  }
+};
 }
 
 export interface OpsLevelOverallData {

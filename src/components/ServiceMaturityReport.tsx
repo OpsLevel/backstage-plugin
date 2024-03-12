@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { cloneDeep } from "lodash";
+import Campaigns from "./Campaigns";
 import EntityOpsLevelMaturityProgress from "./EntityOpsLevelMaturityProgress";
 import CheckResultsByLevel from "./CheckResultsByLevel";
 import ServiceMaturitySidebar from "./ServiceMaturitySidebar";
@@ -194,8 +195,9 @@ export default function ServiceMaturityReport({
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={4}>
+        <Grid item container xs={4}>
           {overallLevel && (
+            <Grid item xs={12}>
             <ServiceMaturitySidebar
               levels={levels}
               scorecardCategories={scorecardCategories}
@@ -204,7 +206,11 @@ export default function ServiceMaturityReport({
               selectedCategoryIds={selectedCategories}
               onCategorySelectionChanged={updateCategoryIdSelection}
             />
+            </Grid>
           )}
+          {service &&<Grid item xs={12}> <Campaigns serviceId={service.id}/>
+            </Grid>
+          }
         </Grid>
         <Grid container item xs={8} direction="column">
           <Grid item>

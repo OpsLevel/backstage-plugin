@@ -17,7 +17,7 @@ import React, { ReactElement, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { BackstageTheme } from "@backstage/theme";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
-import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
+import { CheckResult, CheckResultStatus, CheckResultStatusWithUpcoming } from "../types/OpsLevelData";
 import MarkdownViewer from "./MarkdownViewer";
 
 type Props = {
@@ -86,7 +86,7 @@ export default function CheckResultDetails({
     isExpanded: boolean,
   ) => setExpanded(isExpanded);
 
-  const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
+  const checkResultIcons: { [key in CheckResultStatusWithUpcoming]: ReactElement } = {
     failed: <CancelIcon />,
     pending: <ErrorIcon />,
     passed: <CheckCircleIcon />,
