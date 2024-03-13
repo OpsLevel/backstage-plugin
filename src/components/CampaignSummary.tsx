@@ -5,6 +5,7 @@ import { BackstageTheme } from "@backstage/theme";
 import { InfoCard } from "@backstage/core-components";
 import { Button,Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { ChecksByCampaign } from "../types/OpsLevelData";
@@ -93,12 +94,13 @@ export default function CampaignSummary({campaignByService}: CampaignSummaryProp
             </Typography>
         </Grid>
         {campaignByService.items?.nodes && (<Grid className={classes.nodeStatusesWrapper} item xs={12} lg={6} container alignItems="center" justifyContent="flex-start">
-          <span className={classes.nodeStatusWrapper}>
-            <CheckCircleOutlineIcon className={classes.success}/>
-            {campaignByService.items.nodes.filter((node) => node.status === 'passed').length}
-</span><span className={classes.nodeStatusWrapper}>
+<span className={classes.nodeStatusWrapper}>
             <CancelIcon className={classes.failure}/>
             {campaignByService.items.nodes.filter((node) => node.status === 'failed').length}
+</span>
+          <span className={classes.nodeStatusWrapper}>
+            <CheckCircleIcon className={classes.success}/>
+            {campaignByService.items.nodes.filter((node) => node.status === 'passed').length}
 </span>
         </Grid>)}
       </Grid>
@@ -107,10 +109,10 @@ export default function CampaignSummary({campaignByService}: CampaignSummaryProp
         <ColoredCampaignStatus status={campaignByService.campaign.status}/>
       </Typography>}
       <Typography>
-          Started: {formatDate(campaignByService.campaign?.startDate)}
+          Start Date: {formatDate(campaignByService.campaign?.startDate)}
 </Typography>
       {campaignByService.campaign?.targetDate && <Typography >
-          Target: {formatDate(campaignByService.campaign?.targetDate)}
+          Target Date: {formatDate(campaignByService.campaign?.targetDate)}
 </Typography>}
 <div>
     </div>
