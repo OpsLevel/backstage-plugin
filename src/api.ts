@@ -18,16 +18,15 @@ const BASIC_CAMPAIGN_FRAGMENT = gql`
     status
     href
   }
-  `;
-
+`;
 
 export const CAMPAIGN_OWNER_FRAGMENT = gql`
-fragment CampaignOwnerFragment on Campaign {
-  owner {
-    name
-    href
+  fragment CampaignOwnerFragment on Campaign {
+    owner {
+      name
+      href
+    }
   }
-}
 `;
 
 const CHECK_RESULT_DETAILS_FRAGMENT = gql`
@@ -237,56 +236,56 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
     return this.client.request(query, { entityRef, entity });
   }
 
+  getCampaigns(serviceId: string): Promise<CampaignsResponse> {
+    const SERVICE_CAMPAIGNS_FILTER = `
+      filter:
+        [
+          {key: status, type: equals, arg: "delayed"},
+          {key: status, type: equals, arg: "in_progress"},
+          {key: status, type: equals, arg: "scheduled"}
+        ],
+      connective: or
+      `;
 
-
-  getCampaigns(serviceId: string): CampaignsResponse {
-
-const SERVICE_CAMPAIGNS_FILTER = `
-filter:
-  [
-    {key: status, type: equals, arg: "delayed"},
-    {key: status, type: equals, arg: "in_progress"},
-    {key: status, type: equals, arg: "scheduled"}
-  ],
-connective: or
-`;
-
-const query= gql`
-query checkResultsByCampaign($id: ID!) {
-  account {
-    service(id: $id) {
-      campaignReport(${SERVICE_CAMPAIGNS_FILTER}) {
-        checkResultsByCampaign {
-          nodes {
-            campaign {
-              ...BasicCampaignFragment
-              ...CampaignOwnerFragment
-            }
-            status
-            items {
-              nodes {
-                combinedStatus: status
-                status
-                message
-                htmlMessage
-                warnMessage
-                createdAt
-                isInitialManualCheckResult
-                check {
-                  id
-                  gid: id
-                  notes: rawNotes
-                  enableOn
-                  name
-                  type
-                  args
-                  url
-                  fix
-                  ... on ManualCheck {
-                    updateRequiresComment
-                    startTime
-                    prevWindowStart
-                    windowEnd
+    const query = gql`
+      query checkResultsByCampaign($id: ID!) {
+        account {
+          service(id: $id) {
+            campaignReport(${SERVICE_CAMPAIGNS_FILTER}) {
+              checkResultsByCampaign {
+                nodes {
+                  campaign {
+                    ...BasicCampaignFragment
+                    ...CampaignOwnerFragment
+                  }
+                  status
+                  items {
+                    nodes {
+                      combinedStatus: status
+                      status
+                      message
+                      htmlMessage
+                      warnMessage
+                      createdAt
+                      isInitialManualCheckResult
+                      check {
+                        id
+                        gid: id
+                        notes: rawNotes
+                        enableOn
+                        name
+                        type
+                        args
+                        url
+                        fix
+                        ... on ManualCheck {
+                          updateRequiresComment
+                          startTime
+                          prevWindowStart
+                          windowEnd
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -294,54 +293,14 @@ query checkResultsByCampaign($id: ID!) {
           }
         }
       }
-    }
-  }
-}
-${BASIC_CAMPAIGN_FRAGMENT}
-${CAMPAIGN_OWNER_FRAGMENT}
-`;
-    // const query = SERVICE_CAMPAIGNS_QUERY;
-  //    gql`
-  // query campaigns(
-  //   $after: String
-  //   $first: Int
-  //   $sortBy: CampaignSortEnum
-  //   $filter: [CampaignFilterInput!]
-  // ) {
-  //   account {
-  //     campaigns(
-  //       after: $after
-  //       first: $first
-  //       sortBy: $sortBy
-  //       filter: $filter
-  //     ) {
-  //       totalCount
-  //       nodes {
-  //         ...BasicCampaignFragment
-  //         ...CampaignStatsFragment
-  //         owner {
-  //           name
-  //           id
-  //           href
-  //         }
-  //         filter {
-  //           name
-  //           id
-  //           href
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  // ${BASIC_CAMPAIGN_FRAGMENT}
-  // ${CAMPAIGN_STATS_FRAGMENT}
-  //   `;
+      ${BASIC_CAMPAIGN_FRAGMENT}
+      ${CAMPAIGN_OWNER_FRAGMENT}
+      `;
 
     return this.client.request(
       query,
-      {id: serviceId},
+      { id: serviceId },
       { "GraphQL-Visibility": "internal" },
     );
   }
 }
-

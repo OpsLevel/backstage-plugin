@@ -3,11 +3,6 @@ import { Entity } from "@backstage/catalog-model";
 export type CheckResultStatus =
   | "failed"
   | "pending"
-  | "passed";
-
-export type CheckResultStatusWithUpcoming =
-  | "failed"
-  | "pending"
   | "passed"
   | "upcoming_failed"
   | "upcoming_pending"
@@ -129,10 +124,15 @@ export interface OpsLevelServiceData {
   };
 }
 
-export type CampaignStatus = 'in_progress'|'draft'| 'scheduled'|'delayed'|'ended' 
-type ChecksByCampaignStatus = 'passing'|'failing'
+export type CampaignStatus =
+  | "in_progress"
+  | "draft"
+  | "scheduled"
+  | "delayed"
+  | "ended";
+type ChecksByCampaignStatus = "passing" | "failing";
 
-export interface ChecksByCampaign  {
+export interface ChecksByCampaign {
   campaign?: {
     owner: {
       id: string;
@@ -142,16 +142,16 @@ export interface ChecksByCampaign  {
     id: string;
     name: string;
     href: string;
-    startDate: string|null;
-    targetDate: string|null;
-    endedDate: string|null;
-    status:CampaignStatus;
-  },
-  items?: {
-    nodes?: Array<CheckResult>,
-  },
-  status?: ChecksByCampaignStatus;
+    startDate: string | null;
+    targetDate: string | null;
+    endedDate: string | null;
+    status: CampaignStatus;
   };
+  items?: {
+    nodes?: Array<CheckResult>;
+  };
+  status?: ChecksByCampaignStatus;
+}
 
 export interface CampaignsResponse {
   account: {
@@ -159,10 +159,10 @@ export interface CampaignsResponse {
       campaignReport?: {
         checkResultsByCampaign?: {
           nodes: Array<ChecksByCampaign>;
-        }
-      },
-  }
-};
+        };
+      };
+    };
+  };
 }
 
 export interface OpsLevelOverallData {

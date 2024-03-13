@@ -198,19 +198,22 @@ export default function ServiceMaturityReport({
         <Grid item container xs={4}>
           {overallLevel && (
             <Grid item xs={12}>
-            <ServiceMaturitySidebar
-              levels={levels}
-              scorecardCategories={scorecardCategories}
-              levelCategories={levelCategories}
-              overallLevel={overallLevel}
-              selectedCategoryIds={selectedCategories}
-              onCategorySelectionChanged={updateCategoryIdSelection}
-            />
+              <ServiceMaturitySidebar
+                levels={levels}
+                scorecardCategories={scorecardCategories}
+                levelCategories={levelCategories}
+                overallLevel={overallLevel}
+                selectedCategoryIds={selectedCategories}
+                onCategorySelectionChanged={updateCategoryIdSelection}
+              />
             </Grid>
           )}
-          {service &&<Grid item xs={12}> <Campaigns serviceId={service.id}/>
+          {service && (
+            <Grid item xs={12}>
+              {" "}
+              <Campaigns serviceId={service.id} />
             </Grid>
-          }
+          )}
         </Grid>
         <Grid container item xs={8} direction="column">
           <Grid item>

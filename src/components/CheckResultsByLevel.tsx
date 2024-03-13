@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core";
 import { BackstageTheme } from "@backstage/theme";
 import {
   CheckResult,
-  CheckResultStatusWithUpcoming,
+  CheckResultStatus,
   LevelCheckResults,
 } from "../types/OpsLevelData";
 import CheckResultDetails from "./CheckResultDetails";
@@ -58,7 +58,9 @@ function usePrevious(value: Array<LevelCheckResults>) {
   return ref.current;
 }
 
-function getCombinedStatus(checkResult: CheckResult): CheckResultStatusWithUpcoming {
+function getCombinedStatus(
+  checkResult: CheckResult,
+): CheckResultStatus {
   const isCurrent = checkResult.check.enableOn === null;
   if (isCurrent) {
     return checkResult.status;

@@ -1,24 +1,35 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { wrapInTestApp } from "@backstage/test-utils";
 import CampaignSummary from "../components/CampaignSummary";
+import { ChecksByCampaign } from "../types/OpsLevelData";
 
 describe("CampaignSummary", () => {
   it("shows passing campaigns", () => {
     const campaignByService = {
       campaign: {
-        id: '1',
-        name: 'Campaign Name',
-        status: 'delayed',
-      }
-      
-    };
+        owner: {
+          id: "1",
+          name: "Team name",
+          href: "http://opslevel.com/teams/8",
+        },
+        id: "49",
+        name: "Campaign Name",
+        href: "http://opslevel.com/campaigns/49",
+        startDate: null,
+        targetDate: null,
+        endedDate: null,
+        status: "in_progress",
+      },
+      status: "passing",
+    } as ChecksByCampaign;
 
     render(
-      <CampaignSummary
-      campaignByService={campaignByService}
-      />,
+      wrapInTestApp(<CampaignSummary campaignByService={campaignByService} />),
     );
 
-    expect(screen.getByText(title)).toBeInTheDocument();
+    expect(
+      screen.getByText(campaignByService.campaign?.name!),
+    ).toBeInTheDocument();
   });
 });
