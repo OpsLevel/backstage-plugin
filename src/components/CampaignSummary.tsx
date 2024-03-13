@@ -79,16 +79,22 @@ export default function CampaignSummary({
       title={
         <span className={classes.title}>
           {campaignByService.status === "passing" && (
-            <CheckCircleIcon className={classes.success} />
+            <CheckCircleIcon
+              className={classes.success}
+              titleAccess="Passing Campaign Icon"
+            />
           )}
           {campaignByService.status === "failing" && (
-            <CancelIcon className={classes.failure} />
+            <CancelIcon
+              className={classes.failure}
+              titleAccess="Failing Campaign Icon"
+            />
           )}
           <span>{campaignByService.campaign?.name ?? "Campaign"}</span>
         </span>
       }
     >
-      <Grid container xs={12}>
+      <Grid container>
         <Grid item xs={12} lg={campaignByService.items?.nodes ? 6 : 12}>
           <Typography>
             <TeamOutlined className={classes.ownerIcon} />
@@ -110,7 +116,10 @@ export default function CampaignSummary({
             justifyContent="flex-start"
           >
             <span className={classes.nodeStatusWrapper}>
-              <CancelIcon className={classes.failure} />
+              <CancelIcon
+                className={classes.failure}
+                titleAccess="Failing Checks Icon"
+              />
               {
                 campaignByService.items.nodes.filter(
                   (node) => node.status === "failed",
@@ -118,7 +127,10 @@ export default function CampaignSummary({
               }
             </span>
             <span className={classes.nodeStatusWrapper}>
-              <CheckCircleIcon className={classes.success} />
+              <CheckCircleIcon
+                className={classes.success}
+                titleAccess="Passing Checks Icon"
+              />
               {
                 campaignByService.items.nodes.filter(
                   (node) => node.status === "passed",
