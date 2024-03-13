@@ -190,6 +190,7 @@ export interface OpsLevelOverallData {
 export type OpsLevelApi = {
   url: string;
   getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
+  getCampaigns: (serviceId: string) => Promise<CampaignsResponse>;
   exportEntity: (entity: Entity) => Promise<any>;
   getServicesReport: (includeScorecards: boolean) => Promise<any>;
 };

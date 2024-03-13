@@ -6,7 +6,7 @@ import { FlagOutlined } from "@ant-design/icons";
 import { makeStyles, Grid } from "@material-ui/core";
 import { opslevelApiRef } from "../api";
 import CampaignSummary from "./CampaignSummary";
-import { CampaignsResponse, ChecksByCampaign } from "../types/OpsLevelData";
+import { ChecksByCampaign } from "../types/OpsLevelData";
 
 const useStyles = makeStyles((theme: BackstageTheme) => ({
   headerIcon: {
@@ -29,9 +29,7 @@ export default function Campaigns({ serviceId }: Props) {
   useEffect(() => {
     // Eventually we want to use Suspense https://github.com/facebook/react/issues/14326
     const fetchCampaigns = async () => {
-      const campaignsResponse: CampaignsResponse =
-        await opslevelApi.getCampaigns(serviceId);
-
+      const campaignsResponse = await opslevelApi.getCampaigns(serviceId);
       if (campaignsResponse) {
         setCampaignsByService(
           campaignsResponse.account.service?.campaignReport
