@@ -58,9 +58,7 @@ function usePrevious(value: Array<LevelCheckResults>) {
   return ref.current;
 }
 
-function getCombinedStatus(
-  checkResult: CheckResult,
-): CheckResultStatus {
+function getCombinedStatus(checkResult: CheckResult): CheckResultStatus {
   const isCurrent = checkResult.check.enableOn === null;
   if (isCurrent) {
     return checkResult.status;
