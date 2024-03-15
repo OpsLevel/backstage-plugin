@@ -178,6 +178,7 @@ export default function CheckResultDetails({
                     </span>
                   </Tooltip>
                   <Link
+                    target="_blank"
                     href={`${opslevelUrl}${checkResult.check.category.container.href}`}
                   >
                     {checkResult.check.category.name}
@@ -191,7 +192,10 @@ export default function CheckResultDetails({
                 <span className={styles.coloredSubtext}>
                   <TeamOutlined className={styles.checkResultIcon} />
                   {}
-                  <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>
+                  <Link
+                    href={`${opslevelUrl}${checkResult.check.owner.href}`}
+                    target="_blank"
+                  >
                     {checkResult.check.owner.name}
                   </Link>
                 </span>

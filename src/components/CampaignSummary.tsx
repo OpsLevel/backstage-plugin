@@ -99,6 +99,7 @@ export default function CampaignSummary({
           <Typography>
             <TeamOutlined className={classes.ownerIcon} />
             <Link
+              target="_blank"
               href={`${opslevelUrl}${campaignByService.campaign?.owner?.href}`}
             >
               {campaignByService.campaign?.owner?.name ?? "Unknown"}
@@ -160,7 +161,10 @@ export default function CampaignSummary({
       <div />
       <div className={classes.actions}>
         <Button variant="text">
-          <Link href={`${opslevelUrl}${campaignByService.campaign?.href}`}>
+          <Link
+            href={`${opslevelUrl}${campaignByService.campaign?.href}`}
+            target="_blank"
+          >
             See Details
           </Link>
         </Button>
