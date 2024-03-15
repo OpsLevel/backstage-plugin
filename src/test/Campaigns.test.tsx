@@ -100,4 +100,39 @@ describe("Campaigns", () => {
       await screen.findByText(checksByCampaign.campaign!.name),
     ).toBeInTheDocument();
   });
+
+  it("shows nothing if there are no campaigns", async () => {
+    const serviceId = "123";
+    const checksByCampaign = getChecksByCampaign();
+
+    const mockOpsLevelConfig = getMockOpsLevelConfig();
+    mockOpsLevelConfig.getCampaigns.mockImplementationOnce(() =>
+      Promise.resolve({
+        account: {
+          service: {
+            campaignReport: {
+              checkResultsByCampaign: { nodes: [] },
+            },
+          },
+        },
+      }),
+    );
+
+    render(
+      wrapInTestApp(
+        <TestApiProvider
+          apis={[
+            [configApiRef, getMockConfig()],
+            [opslevelApiRef, mockOpsLevelConfig],
+          ]}
+        >
+          <Campaigns serviceId={serviceId} />
+        </TestApiProvider>,
+      ),
+    );
+
+    expect(mockOpsLevelConfig.getCampaigns).toHaveBeenCalledWith(serviceId);
+
+    expect(await screen.queryByText("Campaigns")).not.toBeInTheDocument();
+  });
 });
