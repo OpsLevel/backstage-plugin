@@ -103,7 +103,6 @@ describe("Campaigns", () => {
 
   it("shows nothing if there are no campaigns", async () => {
     const serviceId = "123";
-    const checksByCampaign = getChecksByCampaign();
 
     const mockOpsLevelConfig = getMockOpsLevelConfig();
     mockOpsLevelConfig.getCampaigns.mockImplementationOnce(() =>
