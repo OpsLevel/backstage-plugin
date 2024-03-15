@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core";
 import List from "@mui/material/List";
 import Checkbox from "@mui/material/Checkbox";
 import ScorecardCategory from "./ScorecardCategory";
@@ -14,6 +15,17 @@ type Props = {
     removedIds: string[],
   ) => void;
 };
+const useStyles = makeStyles(() => {
+  return {
+    header: {
+      display: "flex",
+    },
+    headerText: {
+      marginTop: "auto",
+      marginBottom: "auto",
+    },
+  };
+});
 
 export default function Scorecard({
   levelCategories,
@@ -22,6 +34,7 @@ export default function Scorecard({
   selectedCategoryIds,
   onCategorySelectionChanged,
 }: Props) {
+  const classes = useStyles();
   const sortedLevels = useMemo(
     () =>
       [...levels].sort((a: Level, b: Level) => {
@@ -76,15 +89,15 @@ export default function Scorecard({
       component="nav"
       subheader={
         <span>
-          <h4>
+          <h4 className={classes.header}>
             <Checkbox
               size="small"
               data-testid={`category-checkbox-${title}`}
               checked={checkboxValue || false}
               indeterminate={checkboxValue === null}
               onChange={toggleEntireScorecard}
-            />{" "}
-            {title}
+            />
+            <span className={classes.headerText}>{` ${title}`}</span>
           </h4>
         </span>
       }
