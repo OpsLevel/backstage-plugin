@@ -39,10 +39,10 @@ describe("Scorecard", () => {
     levelCategories.forEach((levelCategory) => {
       expect(screen.getByText(levelCategory.category.name)).toBeInTheDocument();
     });
-    expect(screen.getByText(title)).toBeInstanceOf(HTMLHeadingElement);
+    expect(screen.getByText(title)).toBeInstanceOf(HTMLSpanElement);
   });
 
-  it("renders header if there is no data", () => {
+  it("renders header if there is not data", () => {
     const myLevels = [
       { index: 5, name: "Amazing" },
       { index: 4, name: "Great" },
@@ -62,7 +62,7 @@ describe("Scorecard", () => {
       />,
     );
 
-    expect(screen.getByText(myTitle)).toBeInstanceOf(HTMLHeadingElement);
+    expect(screen.getByText(myTitle)).toBeInstanceOf(HTMLSpanElement);
   });
 
   it("preselects the checkbox if all categories are selected", () => {
