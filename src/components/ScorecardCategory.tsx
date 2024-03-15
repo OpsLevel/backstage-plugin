@@ -59,9 +59,6 @@ const useStyles = makeStyles((theme) => {
     levelDisabled: {
       border: `1px solid ${colorDisabled}`,
     },
-    scorecardCheckbox: {
-      transform: "translateY(-1px)",
-    },
     tooltip: {
       fontSize: theme.typography.button.fontSize,
     },
@@ -116,7 +113,6 @@ function ScorecardCategory({
         <Grid item xs={2} lg={1}>
           <Checkbox
             data-testid={`checkbox-${levelCategory.category.id}`}
-            className={classes.scorecardCheckbox}
             disabled={isDisabled}
             size="small"
             checked={isChecked}
