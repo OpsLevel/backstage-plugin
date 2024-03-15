@@ -35,6 +35,12 @@ const useStyles = makeStyles((theme) => {
       overflow: "hidden",
       textOverflow: "ellipsis",
       paddingRight: "12px",
+      marginTop: "auto",
+      marginBottom: "auto",
+    },
+    levelSection: {
+      marginTop: "auto",
+      marginBottom: "auto",
     },
     levelWrapper: {
       display: "inline-flex",
@@ -119,7 +125,7 @@ function ScorecardCategory({
         <Grid item xs={10} lg={6} className={classes.categoryName}>
           {levelCategory.category.name}
         </Grid>
-        <Grid item xs={12} lg={5}>
+        <Grid item xs={12} lg={5} className={classes.levelSection}>
           <Tooltip
             classes={{ tooltip: classes.tooltip }}
             title={
