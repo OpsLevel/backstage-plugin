@@ -86,7 +86,9 @@ export default function CheckResultDetails({
     isExpanded: boolean,
   ) => setExpanded(isExpanded);
 
-  const checkResultIcons: { [key in CheckResultStatus]: ReactElement } = {
+  const checkResultIcons: {
+    [key in CheckResultStatus]: ReactElement;
+  } = {
     failed: <CancelIcon />,
     pending: <ErrorIcon />,
     passed: <CheckCircleIcon />,
@@ -96,7 +98,10 @@ export default function CheckResultDetails({
   };
 
   const resultColorMap: {
-    [key in CheckResultStatus]: { color: string; backgroundColor: string };
+    [key in CheckResultStatus]: {
+      color: string;
+      backgroundColor: string;
+    };
   } = {
     failed: {
       color: "#CF1322",
@@ -173,6 +178,7 @@ export default function CheckResultDetails({
                     </span>
                   </Tooltip>
                   <Link
+                    target="_blank"
                     href={`${opslevelUrl}${checkResult.check.category.container.href}`}
                   >
                     {checkResult.check.category.name}
@@ -186,7 +192,10 @@ export default function CheckResultDetails({
                 <span className={styles.coloredSubtext}>
                   <TeamOutlined className={styles.checkResultIcon} />
                   {}
-                  <Link href={`${opslevelUrl}${checkResult.check.owner.href}`}>
+                  <Link
+                    href={`${opslevelUrl}${checkResult.check.owner.href}`}
+                    target="_blank"
+                  >
                     {checkResult.check.owner.name}
                   </Link>
                 </span>

@@ -2,11 +2,32 @@ import { Config } from "@backstage/config";
 import { createApiRef } from "@backstage/core-plugin-api";
 import { Entity, stringifyEntityRef } from "@backstage/catalog-model";
 import { GraphQLClient, gql } from "graphql-request";
-import { OpsLevelApi } from "./types/OpsLevelData";
+import { CampaignsResponse, OpsLevelApi } from "./types/OpsLevelData";
 
 export const opslevelApiRef = createApiRef<OpsLevelApi>({
   id: "plugin.opslevel.service",
 });
+
+const BASIC_CAMPAIGN_FRAGMENT = gql`
+  fragment BasicCampaignFragment on Campaign {
+    id
+    name
+    startDate
+    targetDate
+    endedDate
+    status
+    href
+  }
+`;
+
+export const CAMPAIGN_OWNER_FRAGMENT = gql`
+  fragment CampaignOwnerFragment on Campaign {
+    owner {
+      name
+      href
+    }
+  }
+`;
 
 const CHECK_RESULT_DETAILS_FRAGMENT = gql`
   fragment checkResultDetailsFragment on ServiceCheckResults {
@@ -82,6 +103,7 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
             }
           }
           service(alias: $alias) {
+            id
             htmlUrl
             maturityReport {
               overallLevel {
@@ -212,5 +234,73 @@ export class OpsLevelGraphqlAPI implements OpsLevelApi {
 
     const entityRef = stringifyEntityRef(entity);
     return this.client.request(query, { entityRef, entity });
+  }
+
+  getCampaigns(serviceId: string): Promise<CampaignsResponse> {
+    const SERVICE_CAMPAIGNS_FILTER = `
+      filter:
+        [
+          {key: status, type: equals, arg: "delayed"},
+          {key: status, type: equals, arg: "in_progress"},
+          {key: status, type: equals, arg: "scheduled"}
+        ],
+      connective: or
+      `;
+
+    const query = gql`
+      query checkResultsByCampaign($id: ID!) {
+        account {
+          service(id: $id) {
+            campaignReport(${SERVICE_CAMPAIGNS_FILTER}) {
+              checkResultsByCampaign {
+                nodes {
+                  campaign {
+                    ...BasicCampaignFragment
+                    ...CampaignOwnerFragment
+                  }
+                  status
+                  items {
+                    nodes {
+                      combinedStatus: status
+                      status
+                      message
+                      htmlMessage
+                      warnMessage
+                      createdAt
+                      isInitialManualCheckResult
+                      check {
+                        id
+                        gid: id
+                        notes: rawNotes
+                        enableOn
+                        name
+                        type
+                        args
+                        url
+                        fix
+                        ... on ManualCheck {
+                          updateRequiresComment
+                          startTime
+                          prevWindowStart
+                          windowEnd
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      ${BASIC_CAMPAIGN_FRAGMENT}
+      ${CAMPAIGN_OWNER_FRAGMENT}
+      `;
+
+    return this.client.request(
+      query,
+      { id: serviceId },
+      { "GraphQL-Visibility": "internal" },
+    );
   }
 }

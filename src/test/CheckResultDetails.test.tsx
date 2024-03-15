@@ -13,7 +13,13 @@ const mockConfig = new MockConfigApi({
   opslevel: { baseUrl: "https://example.com" },
 });
 
-const getCheckResult = (status: CheckResultStatus): CheckResult => ({
+type CheckResultWithUpcoming = Omit<CheckResult, "status"> & {
+  status: CheckResultStatus;
+};
+
+const getCheckResult = (
+  status: CheckResultStatus,
+): CheckResultWithUpcoming => ({
   message: `This check has status ${status}.`,
   warnMessage: "Something went wrong",
   createdAt: "2023-05-11T20:47:53.869313Z",

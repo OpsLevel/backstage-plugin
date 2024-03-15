@@ -89,6 +89,7 @@ export type LevelNode = {
 };
 
 export type OpsLevelService = {
+  id: string;
   htmlUrl: string;
   maturityReport?: {
     overallLevel: OverallLevel;
@@ -123,6 +124,47 @@ export interface OpsLevelServiceData {
   };
 }
 
+export type CampaignStatus =
+  | "in_progress"
+  | "draft"
+  | "scheduled"
+  | "delayed"
+  | "ended";
+type ChecksByCampaignStatus = "passing" | "failing";
+
+export interface ChecksByCampaign {
+  campaign?: {
+    owner: {
+      id: string;
+      name: string;
+      href: string;
+    } | null;
+    id: string;
+    name: string;
+    href: string;
+    startDate: string | null;
+    targetDate: string | null;
+    endedDate: string | null;
+    status: CampaignStatus;
+  };
+  items?: {
+    nodes?: Array<CheckResult>;
+  };
+  status?: ChecksByCampaignStatus;
+}
+
+export interface CampaignsResponse {
+  account: {
+    service?: {
+      campaignReport?: {
+        checkResultsByCampaign?: {
+          nodes: Array<ChecksByCampaign>;
+        };
+      };
+    };
+  };
+}
+
 export interface OpsLevelOverallData {
   account: {
     rubric: {
@@ -148,6 +190,7 @@ export interface OpsLevelOverallData {
 export type OpsLevelApi = {
   url: string;
   getServiceMaturityByAlias: (serviceAlias: string) => Promise<any>;
+  getCampaigns: (serviceId: string) => Promise<CampaignsResponse>;
   exportEntity: (entity: Entity) => Promise<any>;
   getServicesReport: (includeScorecards: boolean) => Promise<any>;
 };
