@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import moment from "moment";
 import { Link, Grid, Typography, makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { BackstageTheme } from "@backstage/theme";
 import { InfoCard } from "@backstage/core-components";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -15,7 +14,7 @@ interface CampaignSummaryProps {
   campaignByService: ChecksByCampaign;
 }
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     card: {
       backgroundColor: theme.palette.background.default,

@@ -1,5 +1,4 @@
 import React from "react";
-import { BackstageTheme } from "@backstage/theme";
 import { makeStyles } from "@material-ui/core";
 import { CampaignStatus } from "../types/OpsLevelData";
 
@@ -7,7 +6,7 @@ interface Props {
   status: CampaignStatus;
 }
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     success: {
       color: theme.palette.success.main,
