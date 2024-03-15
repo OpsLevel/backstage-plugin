@@ -23,8 +23,8 @@ const useStyles = makeStyles(() => {
     headerText: {
       marginTop: "auto",
       marginBottom: "auto",
-    }
-  }
+    },
+  };
 });
 
 export default function Scorecard({
@@ -97,9 +97,7 @@ export default function Scorecard({
               indeterminate={checkboxValue === null}
               onChange={toggleEntireScorecard}
             />
-            <span className={classes.headerText}>
-              {` ${title}`}
-            </span>
+            <span className={classes.headerText}>{` ${title}`}</span>
           </h4>
         </span>
       }
