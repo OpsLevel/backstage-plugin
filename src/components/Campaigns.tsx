@@ -38,7 +38,7 @@ export default function Campaigns({ serviceId }: Props) {
     };
     fetchCampaigns();
   }, []);
-  if (!campaignsByService) {
+  if (!campaignsByService?.length) {
     return null;
   }
 
