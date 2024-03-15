@@ -3,7 +3,6 @@ import { Grid, ListItem, Tooltip, makeStyles } from "@material-ui/core";
 import { PieChartOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import Checkbox from "@mui/material/Checkbox";
-import { BackstageTheme } from "@backstage/theme";
 import { levelColor } from "../helpers/level_color_helper";
 import { Level, LevelCategory } from "../types/OpsLevelData";
 
@@ -17,7 +16,7 @@ type Props = {
 const colorGrey = "#e9e9e9";
 const colorDisabled = "#d9d9d9";
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     root: {
       "&:first-of-type": {
@@ -36,6 +35,12 @@ const useStyles = makeStyles((theme: BackstageTheme) => {
       overflow: "hidden",
       textOverflow: "ellipsis",
       paddingRight: "12px",
+      marginTop: "auto",
+      marginBottom: "auto",
+    },
+    levelSection: {
+      marginTop: "auto",
+      marginBottom: "auto",
     },
     levelWrapper: {
       display: "inline-flex",
@@ -120,7 +125,7 @@ function ScorecardCategory({
         <Grid item xs={10} lg={6} className={classes.categoryName}>
           {levelCategory.category.name}
         </Grid>
-        <Grid item xs={12} lg={5}>
+        <Grid item xs={12} lg={5} className={classes.levelSection}>
           <Tooltip
             classes={{ tooltip: classes.tooltip }}
             title={

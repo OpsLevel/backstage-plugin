@@ -15,7 +15,6 @@ import {
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { ReactElement, useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import { BackstageTheme } from "@backstage/theme";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
 import MarkdownViewer from "./MarkdownViewer";
@@ -25,7 +24,7 @@ type Props = {
   combinedStatus: CheckResultStatus;
 };
 
-const useStyles = makeStyles((theme: BackstageTheme) => {
+const useStyles = makeStyles((theme) => {
   return {
     coloredText: {
       color: `${theme.palette.text.primary} !important`,

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { InfoCard } from "@backstage/core-components";
-import { BackstageTheme } from "@backstage/theme";
 import { useApi } from "@backstage/core-plugin-api";
 import { FlagOutlined } from "@ant-design/icons";
 import { makeStyles, Grid } from "@material-ui/core";
@@ -8,7 +7,7 @@ import { opslevelApiRef } from "../api";
 import CampaignSummary from "./CampaignSummary";
 import { ChecksByCampaign } from "../types/OpsLevelData";
 
-const useStyles = makeStyles((theme: BackstageTheme) => ({
+const useStyles = makeStyles((theme) => ({
   headerIcon: {
     marginRight: theme.spacing(1),
   },

@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import { BackstageTheme } from "@backstage/theme";
 import { InfoCard } from "@backstage/core-components";
 import { LevelCategory, OverallLevel } from "../types/OpsLevelData";
 import Scorecard from "./Scorecard";
@@ -23,7 +22,7 @@ export type Props = {
   ) => void;
 };
 
-const useStyles = makeStyles((theme: BackstageTheme) => ({
+const useStyles = makeStyles((theme) => ({
   currentLevel: {
     marginBottom: theme.spacing(4),
   },

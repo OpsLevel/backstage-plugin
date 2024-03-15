@@ -1,5 +1,4 @@
 import React from "react";
-import { BackstageTheme } from "@backstage/theme";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import { InfoCircleOutlined, PieChartOutlined } from "@ant-design/icons";
 import Tooltip from "@mui/material/Tooltip";
@@ -9,7 +8,7 @@ type Props = {
   overallLevel: OverallLevel;
 };
 
-const useStyles = makeStyles((theme: BackstageTheme) => ({
+const useStyles = makeStyles((theme) => ({
   headerIcon: {
     marginRight: theme.spacing(1),
   },
