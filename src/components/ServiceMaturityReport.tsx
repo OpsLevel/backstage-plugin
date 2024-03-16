@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import { cloneDeep } from "lodash";
 import Campaigns from "./Campaigns";
 import EntityOpsLevelMaturityProgress from "./EntityOpsLevelMaturityProgress";
 import CheckResultsByLevel from "./CheckResultsByLevel";
