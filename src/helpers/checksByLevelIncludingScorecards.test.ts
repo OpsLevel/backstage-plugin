@@ -213,6 +213,26 @@ describe("checksByLevelIncludingScorecards", () => {
     });
   });
 
+  it("filters by selected categories when scorecards are empty", () => {
+    const selectedCategories = ["Z2lkOi8vb3BzbGV2ZWwvQ2F0ZWdvcnkvMQ"];
+    const checkResultsByLevel = getCheckResultsByLevel();
+
+    const result = checksByLevelIncludingScorecards(
+      selectedCategories,
+      checkResultsByLevel,
+    );
+
+    expect(result.length).toEqual(2);
+    result.forEach((level) => {
+      level.items.nodes.forEach((node) => {
+        expect(node.check.category!.id).toEqual(
+          "Z2lkOi8vb3BzbGV2ZWwvQ2F0ZWdvcnkvMQ",
+        );
+      });
+      expect(level.items.nodes).toHaveLength(1);
+    });
+  });
+
   it("gives levelCheckResults including scorecards", () => {
     const selectedCategories = [
       "Z2lkOi8vb3BzbGV2ZWwvQ2F0ZWdvcnkvMQ",

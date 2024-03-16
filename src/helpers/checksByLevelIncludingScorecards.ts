@@ -30,12 +30,14 @@ export default function checksByLevelIncludingScorecards(
       checkResults.items.nodes = [
         ...checkResults.items.nodes,
         ...entry.items.nodes,
-      ].filter(
-        (i) =>
-          !!i.check.category &&
-          selectedCategories.includes(i.check.category.id),
-      );
+      ];
     });
+
+    // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
+    checkResults.items.nodes = checkResults.items.nodes.filter(
+      (i) =>
+        !!i.check.category && selectedCategories.includes(i.check.category.id),
+    );
   });
   return result;
 }
