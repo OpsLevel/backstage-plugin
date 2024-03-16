@@ -13,6 +13,7 @@ import {
   OverallLevel,
   ScorecardStats,
 } from "../types/OpsLevelData";
+import checksByLevelIncludingScorecards from "../helpers/checksByLevelIncludingScorecards";
 
 type Props = {
   onExportEntity: (event: React.MouseEvent) => void;
@@ -42,42 +43,11 @@ export default function ServiceMaturityReport({
       return { ...c, rollsUp: true };
     }) || [];
 
-  function checksByLevelIncludingScorecards() {
-    if (!checkResultsByLevel) {
-      return [];
-    }
-    const result = cloneDeep(checkResultsByLevel);
-
-    result.forEach((checkResults) => {
-      // Use level's 'index' field b/c we don't have level ID here. Note: 'index' *is not* the same as array index
-      const levelIndex = checkResults.level.index;
-      scorecards?.forEach((scorecard) => {
-        const entry = scorecard.checkResults?.byLevel?.nodes?.find(
-          (node) => node.level.index === levelIndex,
-        );
-        if (!entry) {
-          return;
-        }
-
-        entry.items.nodes.forEach((node) => {
-          // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
-          node.check.isScorecardCheck = true;
-        });
-        // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
-        checkResults.items.nodes = [
-          ...checkResults.items.nodes,
-          ...entry.items.nodes,
-        ].filter(
-          (i) =>
-            !!i.check.category &&
-            selectedCategories.includes(i.check.category.id),
-        );
-      });
-    });
-    return result;
-  }
-
-  const allCheckResultsByLevel = checksByLevelIncludingScorecards();
+  const allCheckResultsByLevel = checksByLevelIncludingScorecards(
+    selectedCategories,
+    checkResultsByLevel,
+    scorecards,
+  );
 
   const serviceLevel = (() => {
     const sortedLevels = levels.sort((a, b) => (a.index > b.index ? 1 : -1));
