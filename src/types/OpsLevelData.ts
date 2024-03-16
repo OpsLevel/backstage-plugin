@@ -41,6 +41,7 @@ export type LevelCategory = {
 };
 
 export type Level = {
+  id?: string;
   index?: number;
   name?: string;
 };
