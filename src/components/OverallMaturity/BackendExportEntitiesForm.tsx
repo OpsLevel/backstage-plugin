@@ -11,11 +11,11 @@ import { Progress } from "@backstage/core-components";
 import Switch from "@mui/material/Switch";
 import { useApi } from "@backstage/core-plugin-api";
 import moment from "moment";
-import { opslevelPluginApiRef } from "../backend_api";
+import { opslevelPluginApiRef } from "../../backend_api";
 import {
   AutoSyncConfiguration,
   AutoSyncExecution,
-} from "../types/OpsLevelData";
+} from "../../types/OpsLevelData";
 
 const useStyles = makeStyles((theme) => {
   return {

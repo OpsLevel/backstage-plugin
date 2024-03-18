@@ -3,7 +3,7 @@ import { waitFor, screen, render } from "@testing-library/react";
 import BackendExportEntitiesForm, {
   sanitizeSchedule,
 } from "./BackendExportEntitiesForm";
-import { AutoSyncExecution } from "../types/OpsLevelData";
+import { AutoSyncExecution } from "../../types/OpsLevelData";
 
 const CONFIG_ENABLED_EVERY_HOUR = {
   auto_sync_enabled: true,

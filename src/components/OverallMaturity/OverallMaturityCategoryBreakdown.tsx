@@ -2,11 +2,11 @@ import React from "react";
 import { InfoCard, Progress } from "@backstage/core-components";
 import Chart from "react-apexcharts";
 import { withTheme } from "@material-ui/core/styles";
-import { levelColorPalette } from "../helpers/level_color_helper";
+import { levelColorPalette } from "../../helpers/level_color_helper";
 import {
   levelsByCategory,
   fontFamily,
-} from "../helpers/maturity_report_helper";
+} from "../../helpers/maturity_report_helper";
 
 type Props = {
   loading: Boolean;

@@ -32,7 +32,9 @@ export const OpslevelMaturityPage = opslevelMaturityPlugin.provide(
   createRoutableExtension({
     name: "OpslevelMaturityPage",
     component: () =>
-      import("./components/OverallMaturity").then((m) => m.OverallMaturity),
+      import("./components/OverallMaturity/OverallMaturity").then(
+        (m) => m.OverallMaturity,
+      ),
     mountPoint: rootRouteRef,
   }),
 );
