@@ -1,9 +1,11 @@
 /** @type {import('jest').Config} */
 const config = {
   rootDir: "../../../..",
+  setupFiles: ["jest-canvas-mock"],
   setupFilesAfterEnv: [
     "<rootDir>/test/textEncoder.js",
     "<rootDir>/test/jestImports.ts",
+    "<rootDir>/test/resizeObservers.ts",
   ],
   testEnvironment: "jsdom",
   preset: "ts-jest",
