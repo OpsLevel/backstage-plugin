@@ -43,7 +43,7 @@ export const EntityOpsLevelMaturityContent = opslevelMaturityPlugin.provide(
   createRoutableExtension({
     name: "EntityOpsLevelMaturityContent",
     component: () =>
-      import("./components/EntityOpsLevelMaturityContent").then(
+      import("./components/EntityOpsLevelMaturityContent/EntityOpsLevelMaturityContent").then(
         (m) => m.EntityOpsLevelMaturityContent,
       ),
     mountPoint: rootRouteRef,

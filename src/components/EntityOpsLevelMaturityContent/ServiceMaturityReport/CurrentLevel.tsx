@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import { InfoCircleOutlined, PieChartOutlined } from "@ant-design/icons";
 import Tooltip from "@mui/material/Tooltip";
-import { OverallLevel } from "../types/OpsLevelData";
+import { OverallLevel } from "../../../types/OpsLevelData";
 
 type Props = {
   overallLevel: OverallLevel;

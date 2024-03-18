@@ -16,7 +16,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React, { ReactElement, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
-import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
+import { CheckResult, CheckResultStatus } from "../../../../types/OpsLevelData";
 import MarkdownViewer from "./MarkdownViewer";
 
 type Props = {

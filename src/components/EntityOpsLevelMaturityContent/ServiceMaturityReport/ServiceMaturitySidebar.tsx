@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
 import { InfoCard } from "@backstage/core-components";
-import { LevelCategory, OverallLevel } from "../types/OpsLevelData";
-import Scorecard from "./Scorecard";
+import { LevelCategory, OverallLevel } from "../../../types/OpsLevelData";
+import Scorecard from "../Scorecard";
 import CurrentLevel from "./CurrentLevel";
 
 type Level = {

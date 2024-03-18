@@ -7,13 +7,13 @@ import { useApi } from "@backstage/core-plugin-api";
 import { useEntity } from "@backstage/plugin-catalog-react";
 import { useAsync, useAsyncFn } from "react-use";
 import ServiceMaturityError from "./ServiceMaturityError";
-import { opslevelApiRef } from "../api";
-import ServiceMaturityReport from "./ServiceMaturityReport";
+import { opslevelApiRef } from "../../api";
+import ServiceMaturityReport from "./ServiceMaturityReport/ServiceMaturityReport";
 import {
   LevelCategory,
   OpsLevelServiceData,
   ScorecardStats,
-} from "../types/OpsLevelData";
+} from "../../types/OpsLevelData";
 import { SnackAlert, SnackbarProps } from "./SnackAlert";
 
 // eslint-disable-next-line import/prefer-default-export -- One of the top level exports

@@ -15,7 +15,7 @@ import {
   CheckResult,
   CheckResultStatus,
   LevelCheckResults,
-} from "../types/OpsLevelData";
+} from "../../../../types/OpsLevelData";
 import CheckResultDetails from "./CheckResultDetails";
 
 type Props = {

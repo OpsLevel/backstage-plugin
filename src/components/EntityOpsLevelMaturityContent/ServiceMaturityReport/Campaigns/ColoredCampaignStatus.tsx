@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import { CampaignStatus } from "../types/OpsLevelData";
+import { CampaignStatus } from "../../../../types/OpsLevelData";
 
 interface Props {
   status: CampaignStatus;
