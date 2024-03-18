@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import ScorecardCategory from "../components/ScorecardCategory";
+import ScorecardCategory from "./ScorecardCategory";
 
 describe("Scorecard Category", () => {
   it("shows the checkbox, name, level, and pie chart", () => {

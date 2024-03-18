@@ -8,7 +8,7 @@ import {
 import { configApiRef } from "@backstage/core-plugin-api";
 import { opslevelApiRef } from "../api";
 import { ChecksByCampaign } from "../types/OpsLevelData";
-import Campaigns from "../components/Campaigns";
+import Campaigns from "./Campaigns";
 
 const getMockConfig = () =>
   new MockConfigApi({

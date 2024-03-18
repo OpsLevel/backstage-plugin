@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import OverallMaturityCategoryBreakdown from "../components/OverallMaturityCategoryBreakdown";
+import OverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
 
 describe("OverallMaturityCategoryBreakdown", () => {
   function bandaidsForApexCharts() {

@@ -6,7 +6,7 @@ import {
   TestApiProvider,
 } from "@backstage/test-utils";
 import { configApiRef } from "@backstage/core-plugin-api";
-import CheckResultDetails from "../components/CheckResultDetails";
+import CheckResultDetails from "./CheckResultDetails";
 import { CheckResult, CheckResultStatus } from "../types/OpsLevelData";
 
 const mockConfig = new MockConfigApi({
