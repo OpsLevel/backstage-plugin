@@ -107,7 +107,7 @@
     "jest-canvas-mock": "^2.5.2",
     "prettier": "3.0.3",
     "resize-observer-polyfill": "^1.5.1",
-    "storybook": "^7.5.1",
+    "storybook": "^8.0.2",
     "ts-jest": "^29.1.2"
   },
   "resolutions": {
