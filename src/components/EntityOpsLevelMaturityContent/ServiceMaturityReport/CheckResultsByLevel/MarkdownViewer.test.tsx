@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import MarkdownViewer from "../components/MarkdownViewer";
+import MarkdownViewer from "./MarkdownViewer";
 
 const LONG_TEXT =
   "This is a longer text that **is** long enough so that the component should truncate it if the truncate flag is set to true.";

@@ -6,8 +6,8 @@ import {
   wrapInTestApp,
 } from "@backstage/test-utils";
 import { configApiRef } from "@backstage/core-plugin-api";
-import CampaignSummary from "../components/CampaignSummary";
-import { ChecksByCampaign } from "../types/OpsLevelData";
+import CampaignSummary from "./CampaignSummary";
+import { ChecksByCampaign } from "../../../../types/OpsLevelData";
 
 const getMockConfig = () =>
   new MockConfigApi({

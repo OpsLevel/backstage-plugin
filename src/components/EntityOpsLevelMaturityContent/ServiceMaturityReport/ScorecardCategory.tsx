@@ -3,8 +3,8 @@ import { Grid, ListItem, Tooltip, makeStyles } from "@material-ui/core";
 import { PieChartOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import Checkbox from "@mui/material/Checkbox";
-import { levelColor } from "../helpers/level_color_helper";
-import { Level, LevelCategory } from "../types/OpsLevelData";
+import { levelColor } from "../../../helpers/level_color_helper";
+import { Level, LevelCategory } from "../../../types/OpsLevelData";
 
 type Props = {
   levels: Array<Level>;

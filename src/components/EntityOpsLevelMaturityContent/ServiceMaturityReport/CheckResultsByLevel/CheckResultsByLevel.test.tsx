@@ -6,8 +6,8 @@ import {
   renderInTestApp,
 } from "@backstage/test-utils";
 import { configApiRef } from "@backstage/core-plugin-api";
-import CheckResultsByLevel from "../components/CheckResultsByLevel";
-import { LevelCheckResults } from "../types/OpsLevelData";
+import CheckResultsByLevel from "./CheckResultsByLevel";
+import { LevelCheckResults } from "../../../../types/OpsLevelData";
 
 const mockConfig = new MockConfigApi({
   opslevel: { baseUrl: "https://example.com" },

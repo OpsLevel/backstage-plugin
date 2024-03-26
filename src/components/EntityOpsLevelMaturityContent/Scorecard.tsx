@@ -2,8 +2,8 @@ import React, { useMemo, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import List from "@mui/material/List";
 import Checkbox from "@mui/material/Checkbox";
-import ScorecardCategory from "./ScorecardCategory";
-import { LevelCategory, Level } from "../types/OpsLevelData";
+import ScorecardCategory from "./ServiceMaturityReport/ScorecardCategory";
+import { LevelCategory, Level } from "../../types/OpsLevelData";
 
 type Props = {
   title: string;

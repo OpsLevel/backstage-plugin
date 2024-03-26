@@ -12,8 +12,8 @@ import { catalogApiRef } from "@backstage/plugin-catalog-react";
 import { Entity, stringifyEntityRef } from "@backstage/catalog-model";
 import { useApi, configApiRef } from "@backstage/core-plugin-api";
 import { useAsync } from "react-use";
-import { OpsLevelApi } from "../types/OpsLevelData";
-import { opslevelApiRef } from "../api";
+import { OpsLevelApi } from "../../types/OpsLevelData";
+import { opslevelApiRef } from "../../api";
 
 function useListEntities(kind: string) {
   const catalogApi = useApi(catalogApiRef);

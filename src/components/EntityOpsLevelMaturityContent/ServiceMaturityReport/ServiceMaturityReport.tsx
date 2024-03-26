@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Grid } from "@material-ui/core";
-import Campaigns from "./Campaigns";
+import Campaigns from "./Campaigns/Campaigns";
 import EntityOpsLevelMaturityProgress from "./EntityOpsLevelMaturityProgress";
-import CheckResultsByLevel from "./CheckResultsByLevel";
+import CheckResultsByLevel from "./CheckResultsByLevel/CheckResultsByLevel";
 import ServiceMaturitySidebar from "./ServiceMaturitySidebar";
 import {
   LevelCategory,
@@ -11,8 +11,8 @@ import {
   OpsLevelService,
   OverallLevel,
   ScorecardStats,
-} from "../types/OpsLevelData";
-import checksByLevelIncludingScorecards from "../helpers/checksByLevelIncludingScorecards";
+} from "../../../types/OpsLevelData";
+import checksByLevelIncludingScorecards from "../../../helpers/checksByLevelIncludingScorecards";
 
 type Props = {
   onExportEntity: (event: React.MouseEvent) => void;

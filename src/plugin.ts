@@ -32,7 +32,9 @@ export const OpslevelMaturityPage = opslevelMaturityPlugin.provide(
   createRoutableExtension({
     name: "OpslevelMaturityPage",
     component: () =>
-      import("./components/OverallMaturity").then((m) => m.OverallMaturity),
+      import("./components/OverallMaturity/OverallMaturity").then(
+        (m) => m.OverallMaturity,
+      ),
     mountPoint: rootRouteRef,
   }),
 );
@@ -41,9 +43,9 @@ export const EntityOpsLevelMaturityContent = opslevelMaturityPlugin.provide(
   createRoutableExtension({
     name: "EntityOpsLevelMaturityContent",
     component: () =>
-      import("./components/EntityOpsLevelMaturityContent").then(
-        (m) => m.EntityOpsLevelMaturityContent,
-      ),
+      import(
+        "./components/EntityOpsLevelMaturityContent/EntityOpsLevelMaturityContent"
+      ).then((m) => m.EntityOpsLevelMaturityContent),
     mountPoint: rootRouteRef,
   }),
 );

@@ -3,9 +3,9 @@ import { InfoCard } from "@backstage/core-components";
 import { useApi } from "@backstage/core-plugin-api";
 import { FlagOutlined } from "@ant-design/icons";
 import { makeStyles, Grid } from "@material-ui/core";
-import { opslevelApiRef } from "../api";
+import { opslevelApiRef } from "../../../../api";
 import CampaignSummary from "./CampaignSummary";
-import { ChecksByCampaign } from "../types/OpsLevelData";
+import { ChecksByCampaign } from "../../../../types/OpsLevelData";
 
 const useStyles = makeStyles((theme) => ({
   headerIcon: {

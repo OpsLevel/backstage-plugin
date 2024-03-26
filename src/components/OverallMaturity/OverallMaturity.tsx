@@ -10,12 +10,12 @@ import {
 import { useAsync, useAsyncFn } from "react-use";
 import { useApi } from "@backstage/core-plugin-api";
 import ExportEntitiesForm from "./ExportEntitiesForm";
-import { opslevelApiRef } from "../api";
-import { opslevelPluginApiRef } from "../backend_api";
-import { OpsLevelOverallData } from "../types/OpsLevelData";
+import { opslevelApiRef } from "../../api";
+import { opslevelPluginApiRef } from "../../backend_api";
+import { OpsLevelOverallData } from "../../types/OpsLevelData";
 import OverallMaturityOverview from "./OverallMaturityOverview";
 import OverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
-import opslevelLogo from "../images/opslevel-logo.svg";
+import opslevelLogo from "../../images/opslevel-logo.svg";
 import BackendExportEntitiesForm from "./BackendExportEntitiesForm";
 
 // eslint-disable-next-line import/prefer-default-export -- One of the top level exports

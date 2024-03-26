@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import Scorecard from "../components/Scorecard";
+import Scorecard from "./Scorecard";
 
 describe("Scorecard", () => {
   const title = "scorecard";
