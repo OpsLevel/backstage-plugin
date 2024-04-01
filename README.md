@@ -41,12 +41,13 @@ Add a proxy configuration for OpsLevel. Replace `<your_OpsLevel_API_token>` with
 
 ```yaml
 proxy:
-  '/opslevel':
-    target: 'https://app.opslevel.com'
-    headers:
-      X-Custom-Source: backstage
-      Authorization: Bearer <your_OpsLevel_API_token>
-    allowedHeaders: ['GraphQL-Visibility']
+  endpoints:
+    '/opslevel':
+      target: 'https://app.opslevel.com'
+      headers:
+        X-Custom-Source: backstage
+        Authorization: Bearer <your_OpsLevel_API_token>
+      allowedHeaders: ['GraphQL-Visibility']
 ```
 
 If you're running Self-Hosted OpsLevel, replace `target` with your URL.
