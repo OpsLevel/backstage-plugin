@@ -63,7 +63,7 @@ opslevel:
 
 If you're running Self-Hosted OpsLevel, replace `baseUrl` with your URL.
 
-## Add Route & Global nav
+### Add Route & Global nav
 
 Update `packages/app/src/App.tsx`
 
@@ -90,7 +90,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 ```
 
 
-## Add Tab for Maturity to Services
+### Add Tab for Maturity to Services
 
 In `packages/app/src/components/catalog/EntityPage.tsx` import the plugin and add it to `serviceEntityPage`
 
@@ -103,6 +103,31 @@ import { EntityOpsLevelMaturityContent } from '@opslevel/backstage-maturity';
     </EntityLayout.Route>
 ```
 
-## Next Steps
+### Next Steps
 
-Visit the Maturity tab in Backstage to get started.
+Visit the Maturity tab in Backstage to get started. Once you have synced data from Backstage to OpsLevel, you will likely want to set up auto-syncing of data using the [backend-plugin](https://github.com/OpsLevel/backstage-plugin-backend).
+
+
+## Troubleshooting
+
+### 403 API Requests
+
+Please validate that you do not have any middleware set up in Backstage that could be removing cookies or headers from the request by the Backstage proxy.
+
+### 404 API Requests
+
+If you are receiving 404s, it is possible that there is a network firewall preventing Backstage from accessing the OpsLevel instance.
+
+You can validate this by using [Postman](https://www.postman.com/downloads/) or another tool to simulate the request from the machine running Backstage.
+
+Sometimes it can be hard to set up a tool in environments running Backstage, in which was you can retrieve headers and cookies from a browser logged into OpsLevel and simulate the request with `curl`.
+
+You will need:
+
+1. `[[CSRF_token]]` - retrieved from `<meta name="csrf-token" content="[THIS VALUE]" />`
+1. `[[Session_token]]` - retrieved from browser cookies `_opslevel_com_session`
+
+
+```sh
+curl 'http://app.opslevel.com/graphql' -X POST -H 'content-type: application/json' -H 'graphql-visibility: internal' -H 'x-csrf-token: [[CSRF_token]]' -H 'Cookie: _opslevel_com_session=[[Session_token]]' --data-raw '{"operationName":"requestApplicationConfigs","variables":{},"query":"query requestApplicationConfigs {\n  elasticsearchEnabled\n  environment\n}"}'
+```
