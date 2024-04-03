@@ -112,7 +112,7 @@ Visit the Maturity tab in Backstage to get started. Once you have synced data fr
 
 ### 403 API Requests
 
-Please validate that you do not have any middleware set up in Backstage that could be removing cookies or headers from the request by the Backstage proxy.
+Please validate that you do not have any middleware set up in Backstage that could be removing headers from the request by the Backstage proxy.
 
 ### 404 API Requests
 
