@@ -130,3 +130,14 @@ You will need:
 ```sh
 curl 'https://app.opslevel.com/graphql' -X POST -H 'content-type: application/json' -H 'graphql-visibility: internal' -H "Authorization: Bearer [[api_token]]" --data-raw '{"operationName":"requestApplicationConfigs","variables":{},"query":"query requestApplicationConfigs {\n  elasticsearchEnabled\n  environment\n}"}'
 ```
+
+If this responds with a successful response, it means that the connection is available and that your token is valid. A successful response looks like:
+
+```
+{
+  "data": {
+    "elasticsearchEnabled":true,
+    "environment":"production"
+  }
+}
+```
