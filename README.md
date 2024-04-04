@@ -118,7 +118,7 @@ Please validate that you do not have any middleware set up in Backstage that cou
 
 If you are receiving 404s or any non-200 response codes, it is possible that there is a network firewall preventing Backstage from accessing the OpsLevel instance.
 
-You can validate this by using [Postman](https://www.postman.com/downloads/) or another tool to simulate the request from the machine running Backstage.
+You can rule this out by using [Postman](https://www.postman.com/downloads/) or another tool to simulate the request from the machine running Backstage.
 
 Sometimes it can be hard to set up a tool in environments running Backstage, in which was you can use `curl` to make the request with your API token.
 
