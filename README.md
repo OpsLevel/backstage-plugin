@@ -120,14 +120,13 @@ If you are receiving 404s or any non-200 response codes, it is possible that the
 
 You can validate this by using [Postman](https://www.postman.com/downloads/) or another tool to simulate the request from the machine running Backstage.
 
-Sometimes it can be hard to set up a tool in environments running Backstage, in which was you can retrieve headers and cookies from a browser logged into OpsLevel and simulate the request with `curl`.
+Sometimes it can be hard to set up a tool in environments running Backstage, in which was you can use `curl` to make the request with your API token.
 
 You will need:
 
-1. `[[CSRF_token]]` - retrieved from `<meta name="csrf-token" content="[THIS VALUE]" />`
-1. `[[Session_token]]` - retrieved from browser cookies `_opslevel_com_session`
+- `[[api_token]]` - created from the [api token page](https://app.opslevel.com/api_tokens). It should look like `JEgofP1igAiemSBZ6BJmFma0P8k4FCnIh9sm`.
 
 
 ```sh
-curl 'http://app.opslevel.com/graphql' -X POST -H 'content-type: application/json' -H 'graphql-visibility: internal' -H 'x-csrf-token: [[CSRF_token]]' -H 'Cookie: _opslevel_com_session=[[Session_token]]' --data-raw '{"operationName":"requestApplicationConfigs","variables":{},"query":"query requestApplicationConfigs {\n  elasticsearchEnabled\n  environment\n}"}'
+curl 'https://app.opslevel.com/graphql' -X POST -H 'content-type: application/json' -H 'graphql-visibility: internal' -H "Authorization: Bearer [[api_token]]" --data-raw '{"operationName":"requestApplicationConfigs","variables":{},"query":"query requestApplicationConfigs {\n  elasticsearchEnabled\n  environment\n}"}'
 ```
