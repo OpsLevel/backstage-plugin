@@ -63,7 +63,7 @@ opslevel:
 
 If you're running Self-Hosted OpsLevel, replace `baseUrl` with your URL.
 
-## Add Route & Global nav
+### Add Route & Global nav
 
 Update `packages/app/src/App.tsx`
 
@@ -90,7 +90,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 ```
 
 
-## Add Tab for Maturity to Services
+### Add Tab for Maturity to Services
 
 In `packages/app/src/components/catalog/EntityPage.tsx` import the plugin and add it to `serviceEntityPage`
 
@@ -103,6 +103,41 @@ import { EntityOpsLevelMaturityContent } from '@opslevel/backstage-maturity';
     </EntityLayout.Route>
 ```
 
-## Next Steps
+### Next Steps
 
-Visit the Maturity tab in Backstage to get started.
+Visit the Maturity tab in Backstage to get started. Once you have synced data from Backstage to OpsLevel, you will likely want to set up auto-syncing of data using the [backend-plugin](https://github.com/OpsLevel/backstage-plugin-backend).
+
+
+## Troubleshooting
+
+### 403 API Requests
+
+Please validate that you do not have any middleware set up in Backstage that could be removing headers from the request by the Backstage proxy.
+
+### 404 API Requests
+
+If you are receiving 404s or any non-200 response codes, it is possible that there is a network firewall preventing Backstage from accessing the OpsLevel instance.
+
+You can rule this out by using [Postman](https://www.postman.com/downloads/) or another tool to simulate the request from the machine running Backstage.
+
+Sometimes it can be hard to set up a tool in environments running Backstage, in which was you can use `curl` to make the request with your API token.
+
+You will need:
+
+- `[[api_token]]` - created from the [api token page](https://app.opslevel.com/api_tokens). It should look like `JEgofP1igAiemSBZ6BJmFma0P8k4FCnIh9sm`.
+
+
+```sh
+curl 'https://app.opslevel.com/graphql' -X POST -H 'content-type: application/json' -H 'graphql-visibility: internal' -H "Authorization: Bearer [[api_token]]" --data-raw '{"operationName":"requestApplicationConfigs","variables":{},"query":"query requestApplicationConfigs {\n  elasticsearchEnabled\n  environment\n}"}'
+```
+
+If this responds with a successful response, it means that the connection is available and that your token is valid. A successful response looks like:
+
+```
+{
+  "data": {
+    "elasticsearchEnabled":true,
+    "environment":"production"
+  }
+}
+```
