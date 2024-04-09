@@ -3399,17 +3399,6 @@
     webpack-hot-middleware "^2.25.1"
     webpack-virtual-modules "^0.5.0"
 
-"@storybook/channels@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-8.0.5.tgz#85744e03c18366b45a5e108c25cd9975d9828bf2"
-  integrity sha512-UWzjt4STzBgg28Q6FxqyJWwXLWYM6oSz9gGKMUJbn2vRAlEJaG3XwvpT39YFVDUIuiFSHguV5cisXY5Be4nOZw==
-  dependencies:
-    "@storybook/client-logger" "8.0.5"
-    "@storybook/core-events" "8.0.5"
-    "@storybook/global" "^5.0.0"
-    telejson "^7.2.0"
-    tiny-invariant "^1.3.1"
-
 "@storybook/channels@8.0.6":
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-8.0.6.tgz#bd87e5f14933e00b10c23098d7a85b83025aebb2"
@@ -3463,13 +3452,6 @@
     tiny-invariant "^1.3.1"
     ts-dedent "^2.0.0"
 
-"@storybook/client-logger@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-8.0.5.tgz#8cafa514e9a9af054f926bc179264bef2198c0ce"
-  integrity sha512-6D7zvPPnLuTVlBNpZSdzEbk5xfWKhEG0gejtPnhjG9R5YzC/dFckdUI0gtvwGWUVMWhL3H/0gjRjhKujUMRY1Q==
-  dependencies:
-    "@storybook/global" "^5.0.0"
-
 "@storybook/client-logger@8.0.6":
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-8.0.6.tgz#70a96ad63318dcf856edeca366a8d21576f8cc09"
@@ -3513,40 +3495,6 @@
     memoizerific "^1.11.3"
     util-deprecate "^1.0.2"
 
-"@storybook/core-common@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-8.0.5.tgz#694349c26cba7755db9a08f4b01b893ad4d2f6a5"
-  integrity sha512-WCu2ZPMq1FuO33tYuCPb9joWaZGtJgfKvXXVGLYYg6LufpbWOI+IB7OWmHahtEdKuaNoIr3CEf1p3zm12NNiYA==
-  dependencies:
-    "@storybook/core-events" "8.0.5"
-    "@storybook/csf-tools" "8.0.5"
-    "@storybook/node-logger" "8.0.5"
-    "@storybook/types" "8.0.5"
-    "@yarnpkg/fslib" "2.10.3"
-    "@yarnpkg/libzip" "2.3.0"
-    chalk "^4.1.0"
-    cross-spawn "^7.0.3"
-    esbuild "^0.18.0 || ^0.19.0 || ^0.20.0"
-    esbuild-register "^3.5.0"
-    execa "^5.0.0"
-    file-system-cache "2.3.0"
-    find-cache-dir "^3.0.0"
-    find-up "^5.0.0"
-    fs-extra "^11.1.0"
-    glob "^10.0.0"
-    handlebars "^4.7.7"
-    lazy-universal-dotenv "^4.0.0"
-    node-fetch "^2.0.0"
-    picomatch "^2.3.0"
-    pkg-dir "^5.0.0"
-    pretty-hrtime "^1.0.3"
-    resolve-from "^5.0.0"
-    semver "^7.3.7"
-    tempy "^1.0.1"
-    tiny-invariant "^1.3.1"
-    ts-dedent "^2.0.0"
-    util "^0.12.4"
-
 "@storybook/core-common@8.0.6":
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/@storybook/core-common/-/core-common-8.0.6.tgz#5fcd551a3498a052e198a80afb9fa18861e610c2"
@@ -3580,13 +3528,6 @@
     tiny-invariant "^1.3.1"
     ts-dedent "^2.0.0"
     util "^0.12.4"
-
-"@storybook/core-events@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-8.0.5.tgz#fa73281edd7d839439360259a0be48b04cd9a06a"
-  integrity sha512-26c0m7P7qt9zUKcD1noWLPJmZ+iS6MKXNngUgNBSxTtG20NFV3nxD0/tx9FzNfDVZDF6cHINkWj+FVBAaVuBVQ==
-  dependencies:
-    ts-dedent "^2.0.0"
 
 "@storybook/core-events@8.0.6":
   version "8.0.6"
@@ -3663,21 +3604,6 @@
     "@storybook/csf-tools" "8.0.6"
     unplugin "^1.3.1"
 
-"@storybook/csf-tools@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/csf-tools/-/csf-tools-8.0.5.tgz#395163f3240f45ce0298246d9393f68afd59b2b3"
-  integrity sha512-fW2hAO57ayq7eHjpS5jXy/AKm3oZxApngd9QU/bC800EyTWENwLPxFnHLAE86N57Dc3bcE4PTFCyqpxzE4Uc7g==
-  dependencies:
-    "@babel/generator" "^7.23.0"
-    "@babel/parser" "^7.23.0"
-    "@babel/traverse" "^7.23.2"
-    "@babel/types" "^7.23.0"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/types" "8.0.5"
-    fs-extra "^11.1.0"
-    recast "^0.23.5"
-    ts-dedent "^2.0.0"
-
 "@storybook/csf-tools@8.0.6":
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/@storybook/csf-tools/-/csf-tools-8.0.6.tgz#8630289cf04aea6fefd0368a786832240e236eb2"
@@ -3704,19 +3630,6 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@storybook/docs-mdx/-/docs-mdx-3.0.0.tgz#5c9b5ce35dcb00ad8aa5dddbabf52ad09fab3974"
   integrity sha512-NmiGXl2HU33zpwTv1XORe9XG9H+dRUC1Jl11u92L4xr062pZtrShLmD4VKIsOQujxhhOrbxpwhNOt+6TdhyIdQ==
-
-"@storybook/docs-tools@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/docs-tools/-/docs-tools-8.0.5.tgz#ae03d181e24f8c4c5fca594b42d204ef5f4f8de4"
-  integrity sha512-IzQMlsumiBgHAh5TTZTinNcedU98l0S0hczbTgjXQWgTp3//RHO36LYowAeFrB6V9SACYs/Q47iB15K4b2dqUg==
-  dependencies:
-    "@storybook/core-common" "8.0.5"
-    "@storybook/preview-api" "8.0.5"
-    "@storybook/types" "8.0.5"
-    "@types/doctrine" "^0.0.3"
-    assert "^2.1.0"
-    doctrine "^3.0.0"
-    lodash "^4.17.21"
 
 "@storybook/docs-tools@8.0.6":
   version "8.0.6"
@@ -3780,11 +3693,6 @@
   resolved "https://registry.yarnpkg.com/@storybook/manager/-/manager-8.0.6.tgz#c2ab7077c6f77eaf7928b7dcd3335127eacd2997"
   integrity sha512-wdL3lG72qrCOLkxEUW49+hmwA4fIFXFvAEU7wVgEt4KyRRGWhHa8Dr/5Tnq54CWJrA+BTrTPHaoo/Vu4BAjgow==
 
-"@storybook/node-logger@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/node-logger/-/node-logger-8.0.5.tgz#ed2fff319f36fe47f429752499b4c5acf3fb8c9d"
-  integrity sha512-ssT8YCcCqgc89ee+EeExCxcOpueOsU05iek2roR+NCZnoCL1DmzcUp8H9t0utLaK/ngPV8zatlzSDVgKTHSIJw==
-
 "@storybook/node-logger@8.0.6":
   version "8.0.6"
   resolved "https://registry.yarnpkg.com/@storybook/node-logger/-/node-logger-8.0.6.tgz#2d3b948d281eee25de49ba5469563c1347fc8baf"
@@ -3810,26 +3718,6 @@
     semver "^7.3.7"
     tsconfig-paths "^4.2.0"
     webpack "5"
-
-"@storybook/preview-api@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/preview-api/-/preview-api-8.0.5.tgz#789ee9791f04da44a22c1df58067da5914a402e3"
-  integrity sha512-BSDVTR9/X6DHVA4rIhN6d/SB6PiaRdns8ky/TKTzwFEyO3NOASHe8051O+uNtXzgCtMUj/8imNrTdMTYgUm1LA==
-  dependencies:
-    "@storybook/channels" "8.0.5"
-    "@storybook/client-logger" "8.0.5"
-    "@storybook/core-events" "8.0.5"
-    "@storybook/csf" "^0.1.2"
-    "@storybook/global" "^5.0.0"
-    "@storybook/types" "8.0.5"
-    "@types/qs" "^6.9.5"
-    dequal "^2.0.2"
-    lodash "^4.17.21"
-    memoizerific "^1.11.3"
-    qs "^6.10.0"
-    tiny-invariant "^1.3.1"
-    ts-dedent "^2.0.0"
-    util-deprecate "^1.0.2"
 
 "@storybook/preview-api@8.0.6":
   version "8.0.6"
@@ -3969,15 +3857,6 @@
     "@storybook/client-logger" "8.0.6"
     "@storybook/global" "^5.0.0"
     memoizerific "^1.11.3"
-
-"@storybook/types@8.0.5":
-  version "8.0.5"
-  resolved "https://registry.yarnpkg.com/@storybook/types/-/types-8.0.5.tgz#268566058ee2871b13ba42df21abf861e823abf2"
-  integrity sha512-lYXwYF9qooQhYJkg3HWr6PD/vnQK+iO8fSKS8jtntwgJUKJvTbGZKAhNnS8WzNEI9jIp5QXFsSA367NjIDPaeQ==
-  dependencies:
-    "@storybook/channels" "8.0.5"
-    "@types/express" "^4.7.0"
-    file-system-cache "2.3.0"
 
 "@storybook/types@8.0.6":
   version "8.0.6"
@@ -4212,6 +4091,20 @@
   integrity sha512-/JLo/l2JsT/LRd80C3HfbmVpxOAJ11FO2RCEslFrgzLltoP9j8XIbsyDcfCt2WWyX+CM96rBoNM+IToAkFOugg==
   dependencies:
     "@swc/counter" "^0.1.3"
+
+"@testing-library/dom@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-10.0.0.tgz#ae1ab88aad35a728a38264041163174cafd7e8dd"
+  integrity sha512-PmJPnogldqoVFf+EwbHvbBJ98MmqASV8kLrBYgsDNxQcFMeIS7JFL48sfyXvuMtgmWO/wMhh25odr+8VhDmn4g==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@babel/runtime" "^7.12.5"
+    "@types/aria-query" "^5.0.1"
+    aria-query "5.3.0"
+    chalk "^4.1.0"
+    dom-accessibility-api "^0.5.9"
+    lz-string "^1.5.0"
+    pretty-format "^27.0.2"
 
 "@testing-library/dom@^9.0.0", "@testing-library/dom@^9.3.4":
   version "9.3.4"
@@ -5546,7 +5439,7 @@ aria-query@5.1.3:
   dependencies:
     deep-equal "^2.0.5"
 
-aria-query@^5.0.0, aria-query@^5.3.0:
+aria-query@5.3.0, aria-query@^5.0.0, aria-query@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-5.3.0.tgz#650c569e41ad90b51b3d7df5e5eed1c7549c103e"
   integrity sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==
