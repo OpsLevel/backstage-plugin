@@ -3955,7 +3955,7 @@
     "@storybook/react" "8.0.5"
     "@types/node" "^18.0.0"
 
-"@storybook/react@8.0.5", "@storybook/react@^8.0.4":
+"@storybook/react@8.0.5":
   version "8.0.5"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.0.5.tgz#bc01882f10f7d3b1f2d07bd4bde0d960d4c6633a"
   integrity sha512-Vwq4xt8eSKE/PLPvunOFDlzBki6L3mP7LNVWCLkQba7vzuCOPjSZ0+95v/K8XQn3jVRXAMUnlPW1SKg21aKJdw==
@@ -3966,6 +3966,33 @@
     "@storybook/preview-api" "8.0.5"
     "@storybook/react-dom-shim" "8.0.5"
     "@storybook/types" "8.0.5"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    semver "^7.3.7"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^8.0.4":
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.0.6.tgz#22c5e8959e32bb5e324deca66be1a1880b0bd9e6"
+  integrity sha512-A1zivNti15nHkJ6EcVKpxKwlDkyMb5MlJMUb8chX/xBWxoR1f5R8eI484rhdPRYUzBY7JwvgZfy4y/murqg6hA==
+  dependencies:
+    "@storybook/client-logger" "8.0.6"
+    "@storybook/docs-tools" "8.0.6"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "8.0.6"
+    "@storybook/react-dom-shim" "8.0.6"
+    "@storybook/types" "8.0.6"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
