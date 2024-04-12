@@ -13,7 +13,7 @@ const mockConfig = new MockConfigApi({
   opslevel: { baseUrl: "https://example.com" },
 });
 
-const meta = {
+const meta: Meta<typeof CheckResultDetails> = {
   title: "CheckResultDetails",
   component: CheckResultDetails,
   decorators: [
@@ -24,7 +24,7 @@ const meta = {
         </TestApiProvider>,
       ),
   ],
-} satisfies Meta<typeof CheckResultDetails>;
+};
 
 export default meta;
 
