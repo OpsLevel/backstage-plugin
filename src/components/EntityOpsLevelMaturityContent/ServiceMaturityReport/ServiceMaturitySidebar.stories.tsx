@@ -2,10 +2,10 @@ import type { Meta } from "@storybook/react";
 import React, { useState } from "react";
 import ServiceMaturitySidebar, { Props } from "./ServiceMaturitySidebar";
 
-const meta = {
+const meta: Meta<typeof ServiceMaturitySidebar> = {
   title: "Service Maturity Sidebar",
   component: ServiceMaturitySidebar,
-} satisfies Meta<typeof ServiceMaturitySidebar>;
+};
 
 export default meta;
 
