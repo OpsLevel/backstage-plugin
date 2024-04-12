@@ -3,10 +3,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
 import { SnackAlert } from "./SnackAlert";
 
-const meta = {
+const meta: Meta<typeof SnackAlert> = {
   title: "SnackAlert",
   component: SnackAlert,
-} satisfies Meta<typeof SnackAlert>;
+};
 
 export default meta;
 
