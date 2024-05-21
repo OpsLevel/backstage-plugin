@@ -3570,9 +3570,9 @@
     tiny-invariant "^1.3.1"
 
 "@storybook/addon-onboarding@^8.0.4":
-  version "8.1.1"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-onboarding/-/addon-onboarding-8.1.1.tgz#fa95d7f6c6255ceb5c08a03c5c630948eda2cd67"
-  integrity sha512-OilZUOUFl5nn5jNp69FCsKyGPj8mk84x2eUwU9/XHGZAZ1Pt5xyAvuXFQsTvg2eBPUo9olX724zUd5cuuVFpPg==
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-onboarding/-/addon-onboarding-8.1.2.tgz#bf1703ecd9db56d673f1e73cc49c3785e47c7aed"
+  integrity sha512-z5jokyfCA4tJMv/kl7MeimxezHibcX+ICH2tausV3rRmtkDxVqp8LmbCktH5hPST7VX+qBVsQyqGDmpEXqWkog==
   dependencies:
     react-confetti "^6.1.0"
 
