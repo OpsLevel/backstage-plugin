@@ -3674,9 +3674,9 @@
     ts-dedent "^2.0.0"
 
 "@storybook/addon-themes@^8.0.4":
-  version "8.1.4"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-themes/-/addon-themes-8.1.4.tgz#34635c58ca61d356ee07ae16e1d0da970e1b602c"
-  integrity sha512-+rD3E+SA7pV8DHMeZ5/SJT4VcsCoYNnCsWcbo1vO0fRqRrIfd6swItFnLIyQk/fep/TDcjE8k1pbm/NRe5FUGQ==
+  version "8.1.5"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-themes/-/addon-themes-8.1.5.tgz#3d768a72ec95a5e2432f67babe20ed3b63a6aa77"
+  integrity sha512-B+qJW52ZATuH57SWHIAw4S8bxrLoWKKKTtMeEmhgtlsLYZL31/i+uYpsTTqpkkLx9JK6ofZAV/cjGKWDbsh3Eg==
   dependencies:
     ts-dedent "^2.0.0"
 
