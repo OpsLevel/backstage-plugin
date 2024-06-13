@@ -3734,7 +3734,7 @@
     "@babel/core" "^7.23.7"
     babel-loader "^9.1.3"
 
-"@storybook/blocks@8.1.7", "@storybook/blocks@^8.0.4":
+"@storybook/blocks@8.1.7":
   version "8.1.7"
   resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.1.7.tgz#e4bb93ffad72cafb3b87fd9ab2bd526343d21436"
   integrity sha512-ZeYgZHZ3qhVVsEi2yjTJ4Ej8lHnHAEY+vVrVeEOnEHRHeVST85yj9L5ZnDV6L01IcePbf64FpfK4su0b1z8M/A==
@@ -3751,6 +3751,36 @@
     "@storybook/preview-api" "8.1.7"
     "@storybook/theming" "8.1.7"
     "@storybook/types" "8.1.7"
+    "@types/lodash" "^4.14.167"
+    color-convert "^2.0.1"
+    dequal "^2.0.2"
+    lodash "^4.17.21"
+    markdown-to-jsx "7.3.2"
+    memoizerific "^1.11.3"
+    polished "^4.2.2"
+    react-colorful "^5.1.2"
+    telejson "^7.2.0"
+    tocbot "^4.20.1"
+    ts-dedent "^2.0.0"
+    util-deprecate "^1.0.2"
+
+"@storybook/blocks@^8.0.4":
+  version "8.1.9"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.1.9.tgz#51130bf7241399b91a6894f63c699ad021fe7c64"
+  integrity sha512-AB7icCijK2rft5kmzFF7bHuTdVIf6u5r26r4auqYxxVsHV87+k12kLvC8AyEssVIKMo+2vzImmdlhIScpCjrdQ==
+  dependencies:
+    "@storybook/channels" "8.1.9"
+    "@storybook/client-logger" "8.1.9"
+    "@storybook/components" "8.1.9"
+    "@storybook/core-events" "8.1.9"
+    "@storybook/csf" "^0.1.7"
+    "@storybook/docs-tools" "8.1.9"
+    "@storybook/global" "^5.0.0"
+    "@storybook/icons" "^1.2.5"
+    "@storybook/manager-api" "8.1.9"
+    "@storybook/preview-api" "8.1.9"
+    "@storybook/theming" "8.1.9"
+    "@storybook/types" "8.1.9"
     "@types/lodash" "^4.14.167"
     color-convert "^2.0.1"
     dequal "^2.0.2"
@@ -3936,6 +3966,22 @@
     "@storybook/icons" "^1.2.5"
     "@storybook/theming" "8.1.7"
     "@storybook/types" "8.1.7"
+    memoizerific "^1.11.3"
+    util-deprecate "^1.0.2"
+
+"@storybook/components@8.1.9":
+  version "8.1.9"
+  resolved "https://registry.yarnpkg.com/@storybook/components/-/components-8.1.9.tgz#dd71d7fa4ad19411533b9fdc1d01c1f50bb1fe00"
+  integrity sha512-YGDYTJfobtNDBJrvXNgmExX3LGnb9jGPGdroS4uHewLFaqEI3Fqu3RiFLaJf40TlZ27uWLprysdLRol8j+wYEw==
+  dependencies:
+    "@radix-ui/react-dialog" "^1.0.5"
+    "@radix-ui/react-slot" "^1.0.2"
+    "@storybook/client-logger" "8.1.9"
+    "@storybook/csf" "^0.1.7"
+    "@storybook/global" "^5.0.0"
+    "@storybook/icons" "^1.2.5"
+    "@storybook/theming" "8.1.9"
+    "@storybook/types" "8.1.9"
     memoizerific "^1.11.3"
     util-deprecate "^1.0.2"
 
@@ -4146,6 +4192,20 @@
     "@storybook/core-events" "8.1.7"
     "@storybook/preview-api" "8.1.7"
     "@storybook/types" "8.1.7"
+    "@types/doctrine" "^0.0.3"
+    assert "^2.1.0"
+    doctrine "^3.0.0"
+    lodash "^4.17.21"
+
+"@storybook/docs-tools@8.1.9":
+  version "8.1.9"
+  resolved "https://registry.yarnpkg.com/@storybook/docs-tools/-/docs-tools-8.1.9.tgz#a657c233d928bb58c5bf73f05627c627d4ae0512"
+  integrity sha512-ZGtlldQARXG+v8KtNq5dxtAfPLsaLFuV4gJQ4MHXcspQSKtQ6fq5k2IkxhKhDg4EEQ/lhSl8vUxws+W79xWbbg==
+  dependencies:
+    "@storybook/core-common" "8.1.9"
+    "@storybook/core-events" "8.1.9"
+    "@storybook/preview-api" "8.1.9"
+    "@storybook/types" "8.1.9"
     "@types/doctrine" "^0.0.3"
     assert "^2.1.0"
     doctrine "^3.0.0"
