@@ -1970,9 +1970,9 @@
     zen-observable "^0.10.0"
 
 "@backstage/theme@^0.5.1", "@backstage/theme@^0.5.4":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.5.4.tgz#6509672e47f07edd64d5cdf9e8ac4c5d9c0bc3c3"
-  integrity sha512-uUswMJvEYiRiJWShcxrxWZui2KFLGXeBrxbmoCxpIKF+WmN1B7u8Q9uraCDprXHvEyYo87DDE21AaE255ldsUA==
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.5.6.tgz#18645cbe42fb5667946e0a5dd38f2fb0bb056597"
+  integrity sha512-7/0sZYAS+2p/eEWC8eBINWHNv4jas6R20e0R5f0fc1YvLnVQ8HhnpZ6+d2vDMe7X2A2TBBcyJbSCybHdRAKpAA==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
