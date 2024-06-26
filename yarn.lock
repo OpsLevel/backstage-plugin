@@ -1516,12 +1516,12 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
-"@backstage/app-defaults@^1.5.6":
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/@backstage/app-defaults/-/app-defaults-1.5.6.tgz#688333db87b3ce7d296440f42bf8be874580700b"
-  integrity sha512-BhwHTURsKK5CXgKh6kgdaw1/PgqjcMCkqsKpDsHVs9xwifpMSNjw1hbZzat0kK4TJGL3m9prewhQ3/UohiiWMQ==
+"@backstage/app-defaults@^1.5.7":
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/@backstage/app-defaults/-/app-defaults-1.5.7.tgz#3444076ad9612d77a60319c58577ec863635d225"
+  integrity sha512-zr3Nd5pyXwa+8LUhtwSKKEPogSwbNarcWsyOVhtbhJsjwuoaNU0sYhXDunW8JeW1UO68mbxxs8qr3SNuDDN+sA==
   dependencies:
-    "@backstage/core-app-api" "^1.12.6"
+    "@backstage/core-app-api" "^1.13.0"
     "@backstage/core-components" "^0.14.8"
     "@backstage/core-plugin-api" "^1.9.3"
     "@backstage/plugin-permission-react" "^0.4.23"
@@ -1715,10 +1715,10 @@
     "@backstage/errors" "^1.2.4"
     "@backstage/types" "^1.1.1"
 
-"@backstage/core-app-api@^1.12.3", "@backstage/core-app-api@^1.12.6":
-  version "1.12.6"
-  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.12.6.tgz#42ec06430a4055b3ccae70e235797ce5860368d3"
-  integrity sha512-wgRb254HG+v6ELKb927Bmpvp66eN/ihV0uhPI2qRL5Hua+3xPX30fXxPGWA/ShgeGFozPY+yF/RnOwYeuiDYVg==
+"@backstage/core-app-api@^1.12.3", "@backstage/core-app-api@^1.12.6", "@backstage/core-app-api@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.13.0.tgz#5e5bac1f42cec686734a9b0ec002f48fd35070cd"
+  integrity sha512-ShoSSWu5US0sBe3UwRvMErwgoj0jDWQxEpFEaE9sfXUzwmFWfcKa/ZoKdvqBc+F9/7u4ioQo48rpiq4Da1jfkQ==
   dependencies:
     "@backstage/config" "^1.2.0"
     "@backstage/core-plugin-api" "^1.9.3"
@@ -1790,13 +1790,13 @@
     history "^5.0.0"
 
 "@backstage/dev-utils@^1.0.24":
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-1.0.33.tgz#c5417406408b870e6349958ef359004ada0bd3b9"
-  integrity sha512-Jv8JPyOKzmyDu77cgy/7On8Z1QA3o2N5uxM/kLEPoDoFu9C2bW/p10Kxpnl0EqjjzuXOlNxiMc3FpfKbfFr7Bg==
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/@backstage/dev-utils/-/dev-utils-1.0.34.tgz#d5cfdcf06b805c3359e04d00de576629382ba545"
+  integrity sha512-aABjxTQwZkH7BrWnGQl68OPMj+Uv1S6wTLBgIu2P0ulzrLoD74R6iets6O5UNvd8oB+iSb4X/bjSz4nTfR2gKQ==
   dependencies:
-    "@backstage/app-defaults" "^1.5.6"
+    "@backstage/app-defaults" "^1.5.7"
     "@backstage/catalog-model" "^1.5.0"
-    "@backstage/core-app-api" "^1.12.6"
+    "@backstage/core-app-api" "^1.13.0"
     "@backstage/core-components" "^0.14.8"
     "@backstage/core-plugin-api" "^1.9.3"
     "@backstage/integration-react" "^1.1.28"
