@@ -4367,6 +4367,11 @@
   resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.1.10.tgz#c4c8cb47827185e240972358f38081290cecb8b8"
   integrity sha512-+HS75Pq8jb3xkVq0hK33D84aGfbJCURRB+GN2vfTMmmjguQt7z2+MnGqRgrUCt6h2rxU3VdPg9OBnYi/UC0Zrg==
 
+"@storybook/react-dom-shim@8.1.11":
+  version "8.1.11"
+  resolved "https://registry.yarnpkg.com/@storybook/react-dom-shim/-/react-dom-shim-8.1.11.tgz#d4cc6222eb1f169d10c5403dbb580e4c3e29c142"
+  integrity sha512-KVDSuipqkFjpGfldoRM5xR/N1/RNmbr+sVXqMmelr0zV2jGnexEZnoa7wRHk7IuXuivLWe8BxMxzvQWqjIa4GA==
+
 "@storybook/react-webpack5@^8.0.4":
   version "8.1.10"
   resolved "https://registry.yarnpkg.com/@storybook/react-webpack5/-/react-webpack5-8.1.10.tgz#48e268608f44e3617c3d52b5f59cb0431881d948"
@@ -4378,7 +4383,7 @@
     "@storybook/types" "8.1.10"
     "@types/node" "^18.0.0"
 
-"@storybook/react@8.1.10", "@storybook/react@^8.0.4":
+"@storybook/react@8.1.10":
   version "8.1.10"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.10.tgz#7fd32dbcb2ed5553f63b28141e3a7b6ce38edd91"
   integrity sha512-y0ycq19tTLLk+4rB+nfCPCtoFBWC0QvmMaJY32dbAjWPk+UNFGhWdqjg0oP1NwXYL18WnhRzlyz1Rojw0aXk1w==
@@ -4389,6 +4394,33 @@
     "@storybook/preview-api" "8.1.10"
     "@storybook/react-dom-shim" "8.1.10"
     "@storybook/types" "8.1.10"
+    "@types/escodegen" "^0.0.6"
+    "@types/estree" "^0.0.51"
+    "@types/node" "^18.0.0"
+    acorn "^7.4.1"
+    acorn-jsx "^5.3.1"
+    acorn-walk "^7.2.0"
+    escodegen "^2.1.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.21"
+    prop-types "^15.7.2"
+    react-element-to-jsx-string "^15.0.0"
+    semver "^7.3.7"
+    ts-dedent "^2.0.0"
+    type-fest "~2.19"
+    util-deprecate "^1.0.2"
+
+"@storybook/react@^8.0.4":
+  version "8.1.11"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-8.1.11.tgz#89408fa34b1ce79a3df17c2f41745fd37ba9f492"
+  integrity sha512-t+EYXOkgwg3ropLGS9y8gGvX5/Okffu/6JYL3YWksrBGAZSqVV4NkxCnVJZepS717SyhR0tN741gv/SxxFPJMg==
+  dependencies:
+    "@storybook/client-logger" "8.1.11"
+    "@storybook/docs-tools" "8.1.11"
+    "@storybook/global" "^5.0.0"
+    "@storybook/preview-api" "8.1.11"
+    "@storybook/react-dom-shim" "8.1.11"
+    "@storybook/types" "8.1.11"
     "@types/escodegen" "^0.0.6"
     "@types/estree" "^0.0.51"
     "@types/node" "^18.0.0"
