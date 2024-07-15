@@ -127,7 +127,7 @@ function ScorecardCategory({
             title={
               isDisabled
                 ? disabledTooltipMessage
-                : levelCategory.level?.name ?? ""
+                : (levelCategory.level?.name ?? "")
             }
           >
             <Grid className={classes.levelWrapper} container aria-label="level">
