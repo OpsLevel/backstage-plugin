@@ -68,6 +68,7 @@ jobs:
           then
             npm publish
           else
+            npm publish --dry-run 2>&1                                                                                                                                                        
             echo "No assets generated to publish. Failing release."
             exit 1
           fi
