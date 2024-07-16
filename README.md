@@ -25,6 +25,7 @@ Paired with our [Rubric](https://www.opslevel.com/docs/getting-started-with-rubr
 
 With the plugin, you can view maturity progress in context with the rest of your service information in Backstage. If you want to dig deeper, you can toggle back to OpsLevel from Backstage to see more health metrics through our Rubric or Check Reports.
 
+**Note**: Due to the current configuration of API Tokens in OpsLevel, Backstage needs administrator permissions to retrieve all account data. We recommend strongly to only use this plugin if your Backstage instance is exposed only to internal users via VPN.
 
 
 ## Install Plugin
