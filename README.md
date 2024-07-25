@@ -45,6 +45,7 @@ proxy:
   endpoints:
     '/opslevel':
       target: 'https://app.opslevel.com'
+      credentials: 'dangerously-allow-unauthenticated'
       headers:
         X-Custom-Source: backstage
         Authorization: Bearer <your_OpsLevel_API_token>
