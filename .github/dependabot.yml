@@ -9,3 +9,6 @@ updates:
       storybook:
         patterns:
           - "*storybook*"
+      backstage:
+        patterns:
+          - '*@backstage*'
