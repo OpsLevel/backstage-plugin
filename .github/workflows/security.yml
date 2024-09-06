@@ -1,0 +1,13 @@
+name: Security
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 13 * * 1"  # 8am CT on Mondays
+
+jobs:
+  call-grype:
+    uses: opslevel/actions/.github/workflows/grype.yml@main
+    with:
+      alias: backstage_plugin
+    secrets: inherit
