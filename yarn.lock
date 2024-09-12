@@ -6412,9 +6412,9 @@ chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
     supports-color "^7.1.0"
 
 changie@^1.15.1:
-  version "1.20.1"
-  resolved "https://registry.yarnpkg.com/changie/-/changie-1.20.1.tgz#3774b935b6bc31ab685374c3bddc8c2057e80319"
-  integrity sha512-/Z+D//fbiFsh1LyKg/cQSJsbfB4/7m2hyKhqsQd6a0u3Igm+kg1JNMY44TuAXq3+3XXYHeojhUr+hmSfdr02HA==
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/changie/-/changie-1.21.0.tgz#a64074ba6ea316fcd1344c33ff5e5a994d5b071e"
+  integrity sha512-fLK0oRtjImao22BDjaaXLq9w/hMh7mGdzpRrJ5ADzT0SOSIghT0SrVOhSs9tUCoyPa2fjG05ueVZSLcSXGBeVg==
 
 char-regex@^1.0.2:
   version "1.0.2"
