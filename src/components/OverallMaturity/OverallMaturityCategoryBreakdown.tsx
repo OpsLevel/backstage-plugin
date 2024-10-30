@@ -180,7 +180,7 @@ class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
       <InfoCard title="Category Breakdown">
         <div style={{ height: "400px" }}>
           {this.props.loading && <Progress />}
-          {!this.props.loading && (
+          {!this.props.loading && this.state.data.length && (
             <Chart
               options={this.state.options}
               series={this.state.data}
