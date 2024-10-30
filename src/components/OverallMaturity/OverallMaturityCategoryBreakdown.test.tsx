@@ -66,8 +66,6 @@ describe("OverallMaturityCategoryBreakdown", () => {
       />,
     );
 
-
-
     // It renders the card's title
     expect(screen.getByText("Category Breakdown")).toBeVisible();
 
