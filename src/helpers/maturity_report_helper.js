@@ -32,10 +32,10 @@ export const servicesByLevel = (levels, servicesLevelCount) => {
   });
 };
 
-export const levelsByCategory = (levels, servicesLevelCountByCategory) => {
+export const levelsByCategory = (levels, categoryLevelCounts) => {
   const initialLevelArray = mountInitialLevelArray(levels);
 
-  return servicesLevelCountByCategory.reduce((acc, categoryLevel) => {
+  return categoryLevelCounts.reduce((acc, categoryLevel) => {
     const currentCategory = categoryLevel.category
       ? categoryLevel.category.name
       : "Uncategorized";

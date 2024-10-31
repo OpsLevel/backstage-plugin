@@ -20,7 +20,10 @@ type State = {
   options: any;
 };
 
-class OverallMaturityCategoryBreakdown extends React.Component<Props, State> {
+export class OverallMaturityCategoryBreakdown extends React.Component<
+  Props,
+  State
+> {
   constructor(props: Props) {
     super(props);
     let data: { [key: string]: Array<{ string: number }> } | {};
