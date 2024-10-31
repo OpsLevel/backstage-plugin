@@ -40,7 +40,7 @@ describe("OverallMaturityOverview", () => {
     expect(screen.getByText("Overview")).toBeInTheDocument();
 
     // It renders a chart canvas and legend
-    expect(document.querySelectorAll("svg")).toHaveLength(2);
+    expect(document.querySelectorAll("svg")).toHaveLength(7);
     expect(
       document.querySelectorAll("svg")[0].classList.contains("apexcharts-svg"),
     ).toBeTruthy();
