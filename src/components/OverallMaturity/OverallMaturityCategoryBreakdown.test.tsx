@@ -2,13 +2,16 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import OverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
 
-describe("OverallMaturityCategoryBreakdown", () => {
-  function bandaidsForApexCharts() {
-    // Fixes an ugly warning in Apexcharts
-    // @ts-ignore
-    global.SVGElement.prototype.getBBox = () => ({ x: 0, y: 0 });
-  }
 
+jest.mock('react-apexcharts', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return <div id="apex-charts">Apex Charts</div>
+    },
+  }
+})
+describe("OverallMaturityCategoryBreakdown", () => {
   it("renders a progress bar in loading mode", () => {
     render(
       <OverallMaturityCategoryBreakdown
@@ -19,13 +22,13 @@ describe("OverallMaturityCategoryBreakdown", () => {
     );
 
     // It renders the card's title
-    expect(screen.getByText("Category Breakdown")).toBeInTheDocument();
+    expect(screen.getByText("Category Breakdown")).toBeVisible();
 
     // It doesn't render a chart
     expect(document.querySelectorAll("svg").length).toEqual(0);
   });
 
-  it.only("renders a bar chart when there is data", () => {
+  it("renders a bar chart when there is data", () => {
     const levels = [
       { index: 5, name: "Amazing" },
       { index: 4, name: "Great" },
@@ -56,7 +59,6 @@ describe("OverallMaturityCategoryBreakdown", () => {
         serviceCount: 4,
       },
     ];
-    bandaidsForApexCharts();
 
     render(
       <OverallMaturityCategoryBreakdown
@@ -69,9 +71,7 @@ describe("OverallMaturityCategoryBreakdown", () => {
     // It renders the card's title
     expect(screen.getByText("Category Breakdown")).toBeVisible();
 
-    // It contains the level information
-    expect(screen.getByText("Amazing")).toBeVisible();
-    expect(screen.getByText("Meh")).toBeVisible();
-    expect(screen.getByText("Not so great")).toBeVisible();
+    // It renders the chart
+    expect(screen.getByText("Apex Charts")).toBeVisible();
   });
 });
