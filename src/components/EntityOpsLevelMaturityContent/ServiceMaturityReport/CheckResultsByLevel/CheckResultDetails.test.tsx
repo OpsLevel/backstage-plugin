@@ -176,7 +176,7 @@ describe("CheckResultDetails", () => {
       />,
     );
 
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#ff000033",
     });
   });
@@ -189,7 +189,7 @@ describe("CheckResultDetails", () => {
       />,
     );
 
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#ffff0033",
     });
   });
@@ -202,7 +202,7 @@ describe("CheckResultDetails", () => {
       />,
     );
 
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#00ff0033",
     });
   });
@@ -221,7 +221,7 @@ describe("CheckResultDetails", () => {
     expect(
       screen.getByText(", but it is currently failing."),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#00000033",
     });
   });
@@ -240,7 +240,7 @@ describe("CheckResultDetails", () => {
     expect(
       screen.getByText(", but it has not been evaluated yet."),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#00000033",
     });
   });
@@ -259,7 +259,7 @@ describe("CheckResultDetails", () => {
     expect(
       screen.getByText(", but it is currently passing."),
     ).toBeInTheDocument();
-    expect(screen.getByRole("button").parentNode).toHaveStyle({
+    expect(screen.getByRole("button").parentNode?.parentNode).toHaveStyle({
       backgroundColor: "#00000033",
     });
   });
