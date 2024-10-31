@@ -14,7 +14,7 @@ import { opslevelApiRef } from "../../api";
 import { opslevelPluginApiRef } from "../../backend_api";
 import { OpsLevelOverallData } from "../../types/OpsLevelData";
 import OverallMaturityOverview from "./OverallMaturityOverview";
-import OverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
+import ThemedOverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
 import opslevelLogo from "../../images/opslevel-logo.svg";
 import BackendExportEntitiesForm from "./BackendExportEntitiesForm";
 
@@ -70,7 +70,7 @@ export function OverallMaturity() {
             />
           </Grid>
           <Grid item xs={8}>
-            <OverallMaturityCategoryBreakdown
+            <ThemedOverallMaturityCategoryBreakdown
               loading={fetchState.loading}
               levels={data?.account?.rubric?.levels?.nodes || []}
               categoryLevelCounts={

@@ -1,20 +1,19 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import OverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
+import ThemedOverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBreakdown";
 
-
-jest.mock('react-apexcharts', () => {
+jest.mock("react-apexcharts", () => {
   return {
     __esModule: true,
     default: () => {
-      return <div id="apex-charts">Apex Charts</div>
+      return <div id="apex-charts">Apex Charts</div>;
     },
-  }
-})
+  };
+});
 describe("OverallMaturityCategoryBreakdown", () => {
   it("renders a progress bar in loading mode", () => {
     render(
-      <OverallMaturityCategoryBreakdown
+      <ThemedOverallMaturityCategoryBreakdown
         loading
         levels={[]}
         categoryLevelCounts={[]}
@@ -61,7 +60,7 @@ describe("OverallMaturityCategoryBreakdown", () => {
     ];
 
     render(
-      <OverallMaturityCategoryBreakdown
+      <ThemedOverallMaturityCategoryBreakdown
         loading={false}
         levels={levels}
         categoryLevelCounts={categoryLevelCounts}
