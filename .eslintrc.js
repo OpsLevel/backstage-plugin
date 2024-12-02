@@ -28,6 +28,7 @@ module.exports = {
     "curly": ["error", "all"],
     "no-unused-vars": "off", // Typescript has its own rule for unused vars
     "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-unused-expressions": "off", // There is a bug https://github.com/typescript-eslint/typescript-eslint/issues/10338
     "react/no-danger": ["error"], // This is only a warning by default and we should not allow it without a written exception
     "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
