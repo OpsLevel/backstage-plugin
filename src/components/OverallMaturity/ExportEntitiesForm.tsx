@@ -144,14 +144,16 @@ export default function ExportEntityForm() {
   return (
     <span>
       <Typography paragraph>
-        <b style={{ color: "orange" }}>New:</b> Check out our{" "}
-        <Link
-          href="https://github.com/OpsLevel/backstage-plugin-backend"
-          target="_blank"
-        >
-          backend plugin
-        </Link>
-        , which enables automatic syncing!
+        <Alert>
+          Check out our{" "}
+          <Link
+            href="https://github.com/OpsLevel/backstage-plugin-backend"
+            target="_blank"
+          >
+            backend plugin
+          </Link>
+          , which enables automatic syncing!
+        </Alert>
       </Typography>
       <Typography paragraph>
         The{" "}

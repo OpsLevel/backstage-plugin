@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => {
     accordion: {
       backgroundColor: `${theme.palette.background.default} !important`,
       color: `${theme.palette.text.primary} !important`,
+      paddingLeft: "8px",
     },
     accordionDetails: {
       paddingTop: "0px !important",
@@ -207,7 +208,7 @@ export default function BackendExportEntitiesForm() {
   const classes = useStyles();
 
   return (
-    <span>
+    <>
       <Accordion
         className={classes.accordion}
         expanded={configExpanded}
@@ -374,6 +375,6 @@ export default function BackendExportEntitiesForm() {
           configuration above.
         </Typography>
       )}
-    </span>
+    </>
   );
 }
