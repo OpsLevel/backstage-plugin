@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpsLevel/backstage-plugin",
+    "url": "git+https://github.com/OpsLevel/backstage-plugin.git",
     "directory": "."
   },
   "backstage": {
     "role": "frontend-plugin",
-    "pluginId": "@opslevel/backstage-maturity",
+    "pluginId": "backstage-maturity",
     "pluginPackages": [
       "@opslevel/backstage-maturity"
     ]
