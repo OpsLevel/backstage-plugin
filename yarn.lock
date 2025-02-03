@@ -3542,10 +3542,10 @@
   dependencies:
     "@react-hookz/deep-equal" "^1.0.4"
 
-"@remix-run/router@1.21.1":
-  version "1.21.1"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.21.1.tgz#bf15274d3856c395402719fa6b1dc8cc5245aaf7"
-  integrity sha512-KeBYSwohb8g4/wCcnksvKTYlg69O62sQeLynn2YE+5z7JWEj95if27kclW9QqbrlsQ2DINI8fjbV3zyuKfwjKg==
+"@remix-run/router@1.22.0":
+  version "1.22.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.22.0.tgz#dd8096cb055c475a4de6b35322b8d3b118c17b43"
+  integrity sha512-MBOl8MeOzpK0HQQQshKB7pABXbmyHizdTpqnrIseTbsv0nAepwC2ENZa1aaBExNQcpLoXmWthhak8SABLzvGPw==
 
 "@rollup/plugin-commonjs@^26.0.0":
   version "26.0.3"
@@ -4934,14 +4934,6 @@
     "@typescript-eslint/types" "6.21.0"
     "@typescript-eslint/visitor-keys" "6.21.0"
 
-"@typescript-eslint/scope-manager@8.21.0":
-  version "8.21.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.21.0.tgz#d08d94e2a34b4ccdcc975543c25bb62917437500"
-  integrity sha512-G3IBKz0/0IPfdeGRMbp+4rbjfSSdnGkXsM/pFZA8zM9t9klXDnB/YnKOBQ0GoPmoROa4bCq2NeHgJa5ydsQ4mA==
-  dependencies:
-    "@typescript-eslint/types" "8.21.0"
-    "@typescript-eslint/visitor-keys" "8.21.0"
-
 "@typescript-eslint/scope-manager@8.22.0":
   version "8.22.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.22.0.tgz#e85836ddeb8eae715f870628bcc32fe96aaf4d0e"
@@ -4975,11 +4967,6 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-6.21.0.tgz#205724c5123a8fef7ecd195075fa6e85bac3436d"
   integrity sha512-1kFmZ1rOm5epu9NZEZm1kckCDGj5UJEf7P1kliH4LKu/RkwpsfqqGmY2OOcUs18lSlQBKLDYBOGxRVtrMN5lpg==
 
-"@typescript-eslint/types@8.21.0":
-  version "8.21.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.21.0.tgz#58f30aec8db8212fd886835dc5969cdf47cb29f5"
-  integrity sha512-PAL6LUuQwotLW2a8VsySDBwYMm129vFm4tMVlylzdoTybTHaAi0oBp7Ac6LhSrHHOdLM3efH+nAR6hAWoMF89A==
-
 "@typescript-eslint/types@8.22.0":
   version "8.22.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.22.0.tgz#d9dec7116479ad03aeb6c8ac9c5223c4c79cf360"
@@ -4998,20 +4985,6 @@
     minimatch "9.0.3"
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
-
-"@typescript-eslint/typescript-estree@8.21.0":
-  version "8.21.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-8.21.0.tgz#5ce71acdbed3b97b959f6168afba5a03c88f69a9"
-  integrity sha512-x+aeKh/AjAArSauz0GiQZsjT8ciadNMHdkUSwBB9Z6PrKc/4knM4g3UfHml6oDJmKC88a6//cdxnO/+P2LkMcg==
-  dependencies:
-    "@typescript-eslint/types" "8.21.0"
-    "@typescript-eslint/visitor-keys" "8.21.0"
-    debug "^4.3.4"
-    fast-glob "^3.3.2"
-    is-glob "^4.0.3"
-    minimatch "^9.0.4"
-    semver "^7.6.0"
-    ts-api-utils "^2.0.0"
 
 "@typescript-eslint/typescript-estree@8.22.0":
   version "8.22.0"
@@ -5057,14 +5030,6 @@
   dependencies:
     "@typescript-eslint/types" "6.21.0"
     eslint-visitor-keys "^3.4.1"
-
-"@typescript-eslint/visitor-keys@8.21.0":
-  version "8.21.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.21.0.tgz#a89744c4cdc83b5c761eb5878befe6c33d1481b2"
-  integrity sha512-BkLMNpdV6prozk8LlyK/SOoWLmUFi+ZD+pcqti9ILCbVvHGk1ui1g4jJOc2WDLaeExz2qWwojxlPce5PljcT3w==
-  dependencies:
-    "@typescript-eslint/types" "8.21.0"
-    eslint-visitor-keys "^4.2.0"
 
 "@typescript-eslint/visitor-keys@8.22.0":
   version "8.22.0"
@@ -13857,19 +13822,19 @@ react-refresh@^0.14.0:
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
 react-router-dom@^6.23.1:
-  version "6.28.2"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.28.2.tgz#9bc4f58b0cfe91d39d1a6be4beb0ef051ca9b06e"
-  integrity sha512-O81EWqNJWqvlN/a7eTudAdQm0TbI7hw+WIi7OwwMcTn5JMyZ0ibTFNGz+t+Lju0df4LcqowCegcrK22lB1q9Kw==
+  version "6.29.0"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.29.0.tgz#2ffb56b03ef3d6d6daafcfad9f3922132d2ced94"
+  integrity sha512-pkEbJPATRJ2iotK+wUwHfy0xs2T59YPEN8BQxVCPeBZvK7kfPESRc/nyxzdcxR17hXgUPYx2whMwl+eo9cUdnQ==
   dependencies:
-    "@remix-run/router" "1.21.1"
-    react-router "6.28.2"
+    "@remix-run/router" "1.22.0"
+    react-router "6.29.0"
 
-react-router@6.28.2:
-  version "6.28.2"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.28.2.tgz#1ddea57c2de0d99e12d00af14d1499703f1378a9"
-  integrity sha512-BgFY7+wEGVjHCiqaj2XiUBQ1kkzfg6UoKYwEe0wv+FF+HNPCxtS/MVPvLAPH++EsuCMReZl9RYVGqcHLk5ms3A==
+react-router@6.29.0:
+  version "6.29.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.29.0.tgz#14a329ca838b4de048fc5cca82874b727ee546b7"
+  integrity sha512-DXZJoE0q+KyeVw75Ck6GkPxFak63C4fGqZGNijnWgzB/HzSP1ZfTlBj5COaGWwhrMQ/R8bXiq5Ooy4KG+ReyjQ==
   dependencies:
-    "@remix-run/router" "1.21.1"
+    "@remix-run/router" "1.22.0"
 
 react-router@^7:
   version "7.1.3"
