@@ -5206,14 +5206,6 @@
     "@typescript-eslint/types" "6.21.0"
     "@typescript-eslint/visitor-keys" "6.21.0"
 
-"@typescript-eslint/scope-manager@8.29.1":
-  version "8.29.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.29.1.tgz#cfdfd4144f20c38b9d3e430efd6480e297ef52f6"
-  integrity sha512-2nggXGX5F3YrsGN08pw4XpMLO1Rgtnn4AzTegC2MDesv6q3QaTU5yU7IbS1tf1IwCR0Hv/1EFygLn9ms6LIpDA==
-  dependencies:
-    "@typescript-eslint/types" "8.29.1"
-    "@typescript-eslint/visitor-keys" "8.29.1"
-
 "@typescript-eslint/scope-manager@8.30.1":
   version "8.30.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.30.1.tgz#f99c7efd53b5ff9fb57e55be71eb855603fd80b7"
@@ -5247,11 +5239,6 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-6.21.0.tgz#205724c5123a8fef7ecd195075fa6e85bac3436d"
   integrity sha512-1kFmZ1rOm5epu9NZEZm1kckCDGj5UJEf7P1kliH4LKu/RkwpsfqqGmY2OOcUs18lSlQBKLDYBOGxRVtrMN5lpg==
 
-"@typescript-eslint/types@8.29.1":
-  version "8.29.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.29.1.tgz#984ed1283fedbfb41d3993a9abdcb7b299971500"
-  integrity sha512-VT7T1PuJF1hpYC3AGm2rCgJBjHL3nc+A/bhOp9sGMKfi5v0WufsX/sHCFBfNTx2F+zA6qBc/PD0/kLRLjdt8mQ==
-
 "@typescript-eslint/types@8.30.1":
   version "8.30.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.30.1.tgz#20ff6d66ab3d8fe0533aeb7092a487393d53f925"
@@ -5270,20 +5257,6 @@
     minimatch "9.0.3"
     semver "^7.5.4"
     ts-api-utils "^1.0.1"
-
-"@typescript-eslint/typescript-estree@8.29.1":
-  version "8.29.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-8.29.1.tgz#4ac085665ed5390d11c0e3426427978570e3b747"
-  integrity sha512-l1enRoSaUkQxOQnbi0KPUtqeZkSiFlqrx9/3ns2rEDhGKfTa+88RmXqedC1zmVTOWrLc2e6DEJrTA51C9iLH5g==
-  dependencies:
-    "@typescript-eslint/types" "8.29.1"
-    "@typescript-eslint/visitor-keys" "8.29.1"
-    debug "^4.3.4"
-    fast-glob "^3.3.2"
-    is-glob "^4.0.3"
-    minimatch "^9.0.4"
-    semver "^7.6.0"
-    ts-api-utils "^2.0.1"
 
 "@typescript-eslint/typescript-estree@8.30.1":
   version "8.30.1"
@@ -5329,14 +5302,6 @@
   dependencies:
     "@typescript-eslint/types" "6.21.0"
     eslint-visitor-keys "^3.4.1"
-
-"@typescript-eslint/visitor-keys@8.29.1":
-  version "8.29.1"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.29.1.tgz#9b74e5098c71138d42bbf2178fbe4dfad45d6b9a"
-  integrity sha512-RGLh5CRaUEf02viP5c1Vh1cMGffQscyHe7HPAzGpfmfflFg1wUz2rYxd+OZqwpeypYvZ8UxSxuIpF++fmOzEcg==
-  dependencies:
-    "@typescript-eslint/types" "8.29.1"
-    eslint-visitor-keys "^4.2.0"
 
 "@typescript-eslint/visitor-keys@8.30.1":
   version "8.30.1"
@@ -5716,9 +5681,9 @@ ansi-styles@^6.1.0:
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
 antd@^5.0.0:
-  version "5.24.7"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-5.24.7.tgz#ce8d1a1fde3f26cfcfc6119dffd2bdc09ebf5093"
-  integrity sha512-xROWsw0yYFGiNFpVSUZ9/Gs43q0qIM9BkfjugeqgePlZBpLZzLjtOpf4UGM+5aijelHqMi8864KZCX5BbcZYfA==
+  version "5.24.9"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-5.24.9.tgz#c5862e02ed770bd95e312961f4f0b7b158a004d9"
+  integrity sha512-liB+Y/JwD5/KSKbK1Z1EVAbWcoWYvWJ1s97AbbT+mOdigpJQuWwH7kG8IXNEljI7onvj0DdD43TXhSRLUu9AMA==
   dependencies:
     "@ant-design/colors" "^7.2.0"
     "@ant-design/cssinjs" "^1.23.0"
@@ -5742,13 +5707,13 @@ antd@^5.0.0:
     rc-drawer "~7.2.0"
     rc-dropdown "~4.2.1"
     rc-field-form "~2.7.0"
-    rc-image "~7.11.1"
+    rc-image "~7.12.0"
     rc-input "~1.8.0"
     rc-input-number "~9.5.0"
     rc-mentions "~2.20.0"
     rc-menu "~9.16.1"
     rc-motion "^2.9.5"
-    rc-notification "~5.6.3"
+    rc-notification "~5.6.4"
     rc-pagination "~5.1.0"
     rc-picker "~4.11.3"
     rc-progress "~4.0.0"
@@ -5760,7 +5725,7 @@ antd@^5.0.0:
     rc-steps "~6.0.1"
     rc-switch "~4.1.0"
     rc-table "~7.50.4"
-    rc-tabs "~15.5.2"
+    rc-tabs "~15.6.1"
     rc-textarea "~1.10.0"
     rc-tooltip "~6.4.0"
     rc-tree "~5.13.1"
@@ -13748,10 +13713,10 @@ rc-field-form@~2.7.0:
     "@rc-component/async-validator" "^5.0.3"
     rc-util "^5.32.2"
 
-rc-image@~7.11.1:
-  version "7.11.1"
-  resolved "https://registry.yarnpkg.com/rc-image/-/rc-image-7.11.1.tgz#3ab290708dc053d3681de94186522e4e594f6772"
-  integrity sha512-XuoWx4KUXg7hNy5mRTy1i8c8p3K8boWg6UajbHpDXS5AlRVucNfTi5YxTtPBTBzegxAZpvuLfh3emXFt6ybUdA==
+rc-image@~7.12.0:
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/rc-image/-/rc-image-7.12.0.tgz#95e9314701e668217d113c1f29b4f01ac025cafe"
+  integrity sha512-cZ3HTyyckPnNnUb9/DRqduqzLfrQRyi+CdHjdqgsyDpI3Ln5UX1kXnAhPBSJj9pVRzwRFgqkN7p9b6HBDjmu/Q==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@rc-component/portal" "^1.0.2"
@@ -13814,10 +13779,10 @@ rc-motion@^2.0.0, rc-motion@^2.0.1, rc-motion@^2.3.0, rc-motion@^2.3.4, rc-motio
     classnames "^2.2.1"
     rc-util "^5.44.0"
 
-rc-notification@~5.6.3:
-  version "5.6.3"
-  resolved "https://registry.yarnpkg.com/rc-notification/-/rc-notification-5.6.3.tgz#5aca122b7e2fb73ae4ba77238a90e6e8c9c12b8d"
-  integrity sha512-42szwnn8VYQoT6GnjO00i1iwqV9D1TTMvxObWsuLwgl0TsOokzhkYiufdtQBsJMFjJravS1hfDKVMHLKLcPE4g==
+rc-notification@~5.6.4:
+  version "5.6.4"
+  resolved "https://registry.yarnpkg.com/rc-notification/-/rc-notification-5.6.4.tgz#ea89c39c13cd517fdfd97fe63f03376fabb78544"
+  integrity sha512-KcS4O6B4qzM3KH7lkwOB7ooLPZ4b6J+VMmQgT51VZCeEcmghdeR4IrMcFq0LG+RPdnbe/ArT086tGM8Snimgiw==
   dependencies:
     "@babel/runtime" "^7.10.1"
     classnames "2.x"
@@ -13954,10 +13919,10 @@ rc-table@~7.50.4:
     rc-util "^5.44.3"
     rc-virtual-list "^3.14.2"
 
-rc-tabs@~15.5.2:
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/rc-tabs/-/rc-tabs-15.5.2.tgz#bca1d2f2ee1e609fa4d7527b3c1639319f035b0c"
-  integrity sha512-Hbqf2IV6k/jPgfMjPtIDmPV0D0C9c/fN4B/fYcoh9qqaUzUZQoK0PYzsV3UaV+3UsmyoYt48p74m/HkLhGTw+w==
+rc-tabs@~15.6.1:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/rc-tabs/-/rc-tabs-15.6.1.tgz#f0b6c65384dfa09a64eb539e86a0667c7a650708"
+  integrity sha512-/HzDV1VqOsUWyuC0c6AkxVYFjvx9+rFPKZ32ejxX0Uc7QCzcEjTA9/xMgv4HemPKwzBNX8KhGVbbumDjnj92aA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     classnames "2.x"
