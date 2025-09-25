@@ -23,17 +23,17 @@ export default function checksByLevelIncludingScorecards(
       }
 
       entry.items.nodes.forEach((node) => {
-        // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
+        // eslint-disable-next-line no-param-reassign -- Reassigning parameters to maintain consistency with OpsLevel's implementation. This is necessary to ensure compatibility and correct functionality.
         node.check.isScorecardCheck = true;
       });
-      // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
+      // eslint-disable-next-line no-param-reassign -- Reassigning parameters to maintain consistency with OpsLevel's implementation. This is necessary to ensure compatibility and correct functionality.
       checkResults.items.nodes = [
         ...checkResults.items.nodes,
         ...entry.items.nodes,
       ];
     });
 
-    // eslint-disable-next-line no-param-reassign -- This is taken from OpsLevel and keeping them in sync should be prioritized
+    // eslint-disable-next-line no-param-reassign -- Reassigning parameters to maintain consistency with OpsLevel's implementation. This is necessary to ensure compatibility and correct functionality.
     checkResults.items.nodes = checkResults.items.nodes.filter(
       (i) =>
         !!i.check.category && selectedCategories.includes(i.check.category.id),

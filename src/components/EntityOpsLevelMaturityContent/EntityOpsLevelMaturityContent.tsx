@@ -16,8 +16,7 @@ import {
 } from "../../types/OpsLevelData";
 import { SnackAlert, SnackbarProps } from "./SnackAlert";
 
-// eslint-disable-next-line import/prefer-default-export -- One of the top level exports
-export function EntityOpsLevelMaturityContent() {
+export default function EntityOpsLevelMaturityContent() {
   const { entity } = useEntity();
   const opslevelApi = useApi(opslevelApiRef);
   const serviceAlias = stringifyEntityRef(entity);

@@ -18,8 +18,7 @@ import ThemedOverallMaturityCategoryBreakdown from "./OverallMaturityCategoryBre
 import opslevelLogo from "../../images/opslevel-logo.svg";
 import BackendExportEntitiesForm from "./BackendExportEntitiesForm";
 
-// eslint-disable-next-line import/prefer-default-export -- One of the top level exports
-export function OverallMaturity() {
+export default function OverallMaturity() {
   const [data, setData] = useState<OpsLevelOverallData>();
   const [backendPluginPresent, setBackendPluginPresent] = useState<
     boolean | null
