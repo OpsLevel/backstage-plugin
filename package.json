@@ -54,7 +54,7 @@
     "@types/dompurify": "^3.0.2",
     "@types/react": "^18",
     "@types/react-dom": "^19",
-    "antd": "^5.0.0",
+    "antd": "^6.0.0",
     "apexcharts": "^3.54.1",
     "clsx": "^2.0.0",
     "dompurify": "^3.0.3",
