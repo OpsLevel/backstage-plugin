@@ -12,3 +12,7 @@ updates:
       backstage:
         patterns:
           - '*@backstage*'
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
