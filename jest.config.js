@@ -3,7 +3,7 @@ const config = {
   rootDir: "../../../..",
   setupFiles: ["jest-canvas-mock"],
   setupFilesAfterEnv: [
-    "<rootDir>/test/textEncoder.js",
+    "<rootDir>/test/textEncoder.ts",
     "<rootDir>/test/jestImports.ts",
     "<rootDir>/test/resizeObservers.ts",
   ],

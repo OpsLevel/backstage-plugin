@@ -2,10 +2,19 @@ const cliConfig = require('@backstage/cli/config/eslint-factory')(__dirname);
 
 module.exports = {
   ...cliConfig,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "extends": [
       "airbnb",
       "airbnb/hooks",
       'eslint:recommended',
+      "plugin:@typescript-eslint/recommended",
       "plugin:eslint-comments/recommended",
       'plugin:import/recommended',
       "plugin:import/typescript",
@@ -20,7 +29,7 @@ module.exports = {
       'jsx-a11y',
       "react",
       "prettier",
-      '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint',
     ],
   rules: {
     ...cliConfig.rules,

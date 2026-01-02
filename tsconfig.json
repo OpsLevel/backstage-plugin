@@ -4,8 +4,9 @@
     "jsx": "react",
     "outDir": "dist-types",
     "rootDir": ".",
+    "allowJs": true,
     "checkJs": true,
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],
-  "include": ["src", "test/jestImports.ts"],
+  "include": ["src", "test"],
 }

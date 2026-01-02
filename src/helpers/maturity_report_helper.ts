@@ -1,18 +1,42 @@
-// @ts-nocheck
-
 import { escape } from "lodash";
+import { Level } from "../types/OpsLevelData";
 
-export const mountInitialLevelArray = (levels) => {
+interface LevelCounter {
+  [levelName: string]: number;
+}
+
+interface ServiceLevelCount {
+  level: {
+    name: string;
+  };
+  serviceCount: number;
+}
+
+interface CategoryLevelCount {
+  category: {
+    name: string;
+  } | null;
+  level: {
+    name: string;
+  };
+  serviceCount: number;
+}
+
+interface CategoryAggregate {
+  [categoryName: string]: LevelCounter[];
+}
+
+export const mountInitialLevelArray = (levels: Level[]): LevelCounter[] => {
   return levels.map((level) => {
-    return { [escape(level.name)]: 0 };
+    return { [escape(level.name || "")]: 0 };
   });
 };
 
 export const updateCategoryAggregateWithLevelCounter = (
-  aggregate,
-  level,
-  serviceCounter,
-) => {
+  aggregate: LevelCounter[],
+  level: string,
+  serviceCounter: number
+): LevelCounter[] => {
   return aggregate.map((obj) => {
     const currentKey = Object.keys(obj)[0];
     if (level === currentKey) {
@@ -22,17 +46,23 @@ export const updateCategoryAggregateWithLevelCounter = (
   });
 };
 
-export const servicesByLevel = (levels, servicesLevelCount) => {
+export const servicesByLevel = (
+  levels: Level[],
+  servicesLevelCount: ServiceLevelCount[]
+): LevelCounter[] => {
   return levels.map((level) => {
     const serviceLevelCount = servicesLevelCount.find(
-      (entry) => entry.level.name === level.name,
+      (entry) => entry.level.name === level.name
     );
     // serviceLevelCount is undefined when no services exist at that level
-    return { [escape(level.name)]: serviceLevelCount?.serviceCount || 0 };
+    return { [escape(level.name || "")]: serviceLevelCount?.serviceCount || 0 };
   });
 };
 
-export const levelsByCategory = (levels, categoryLevelCounts) => {
+export const levelsByCategory = (
+  levels: Level[],
+  categoryLevelCounts: CategoryLevelCount[]
+): CategoryAggregate => {
   const initialLevelArray = mountInitialLevelArray(levels);
 
   return categoryLevelCounts.reduce((acc, categoryLevel) => {
@@ -45,17 +75,17 @@ export const levelsByCategory = (levels, categoryLevelCounts) => {
     const newCategoryAggregate = updateCategoryAggregateWithLevelCounter(
       categoryAggregate,
       levelName,
-      categoryLevel.serviceCount,
+      categoryLevel.serviceCount
     );
 
     return {
       ...acc,
       [currentCategory]: newCategoryAggregate,
     };
-  }, {});
+  }, {} as CategoryAggregate);
 };
 
-export const fontFamily = [
+export const fontFamily: string = [
   "-apple-system",
   "BlinkMacSystemFont",
   "Segoe U",
